@@ -7,6 +7,7 @@ import { FiEye } from "react-icons/fi";
 import AppLayout from "../../layout/AppLayout";
 import AreaCharts from "../../components/Chart/AreaCharts";
 import hamza from "../../assets/images/hamza.jpeg";
+import CustomSelect from "../../components/CustomInput/Select";
 
 function Home() {
   const summary = [
@@ -20,10 +21,10 @@ function Home() {
     },
     {
       title: "Period (years)",
-      value: "1.5",
+      value: "3.5",
     },
     {
-      title: "Change",
+      title: "Rate",
       value: "-45%",
     },
   ];
@@ -111,6 +112,15 @@ function Home() {
     },
   ];
 
+  const filter = [
+    { label: "Filter by Period", value: null },
+    { label: "All Time", value: 0 },
+    { label: "Today", value: 1 },
+    { label: "This Week", value: 2 },
+    { label: "This Month", value: 3 },
+    { label: "This Year", value: 4 },
+  ];
+
   return (
     <AppLayout>
       <div className="px-7 mb-7 flex justify-between items-center">
@@ -127,12 +137,13 @@ function Home() {
         </div>
 
         <div className="flex gap-3">
-          <button className="text-sm font-medium bg-blue-400 text-white px-7 py-3 rounded">
+          {/* <button className="text-sm font-medium bg-blue-400 text-white px-7 py-3 rounded">
             Switch Account
           </button>
           <button className="text-sm font-medium border border-blue-400 text-bluebg-blue-400 px-7 py-3 rounded">
             View All Tranx.
-          </button>
+          </button> */}
+          <CustomSelect className={"min-w-[200px] px-4"} options={filter} />
         </div>
       </div>
 
