@@ -22,18 +22,6 @@ const data = [
   { name: "Dec", value: 40 },
 ];
 
-const gradientOffset = () => {
-  const dataMax = Math.max(...data.map((d) => d.value));
-  const dataMin = Math.min(...data.map((d) => d.value));
-  if (dataMax <= 0) {
-    return 0;
-  }
-  if (dataMin >= 0) {
-    return 1;
-  }
-  return dataMax / (dataMax - dataMin);
-};
-
 const AreaCharts = ({ height }) => {
   return (
     <ResponsiveContainer
@@ -48,7 +36,8 @@ const AreaCharts = ({ height }) => {
         <Tooltip />
         <defs>
           <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="rgba(97, 51, 51,.02)" />
+            <stop offset="0%" stopColor="hsl(351, 97%, 13%,.6)" />
+            {/* <stop offset="0%" stopColor="rgba(97, 51, 51,.02)" /> */}
             <stop offset="90%" stopColor="#fcf7fd" />
           </linearGradient>
         </defs>
