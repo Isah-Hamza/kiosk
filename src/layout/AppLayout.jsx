@@ -2,7 +2,7 @@ import React from "react";
 import person from "../assets/images/hamza.jpeg";
 import { FaBell } from "react-icons/fa";
 import { FiHome, FiUsers } from "react-icons/fi";
-import { BsCreditCard } from "react-icons/bs";
+import { BsCaretDown, BsCaretDownFill, BsCreditCard } from "react-icons/bs";
 import { RiDashboardLine } from "react-icons/ri";
 import { RiCarFill } from "react-icons/ri";
 
@@ -14,17 +14,12 @@ const AppLayout = ({ children }) => {
       icon: <FiHome />,
     },
     {
-      name: "Loan Application",
-      path: "/loan",
-      icon: <BsCreditCard />,
-    },
-    {
       name: "Logistics",
       path: "/customer",
       icon: <RiCarFill />,
     },
     {
-      name: "Customers",
+      name: "My Customers",
       path: "/staff",
       icon: <FiUsers />,
     },
@@ -32,6 +27,13 @@ const AppLayout = ({ children }) => {
       name: "Investories",
       path: "/customer",
       icon: <RiDashboardLine />,
+    },
+    {
+      name: "Reports",
+      path: "/loan",
+      icon: <BsCreditCard />,
+      hasSubMenu: true,
+      subMenu: [],
     },
   ];
 
@@ -49,10 +51,13 @@ const AppLayout = ({ children }) => {
             {sidebarElements.map((item, idx) => (
               <li
                 key={idx}
-                className="flex gap-3 items-center font-medium opacity-70 pl-10 py-2.5 hover:bg-[#f3f4f5] hover:opacity-100 cursor-pointer transition-all duration-300 ease-in-out"
+                className="flex items-center justify-between text-[15px]font-medium opacity-70 pl-8 pr-5 py-3.5 hover:bg-[#f3f4f5] hover:opacity-100 cursor-pointer transition-all duration-300 ease-in-out"
               >
-                <span>{item.icon}</span>
-                <span className="">{item.name}</span>
+                <div className=" flex gap-3 items-center font-medium">
+                  <span>{item.icon}</span>
+                  <span className="">{item.name}</span>
+                </div>
+                {item.hasSubMenu ? <BsCaretDownFill size={12} /> : null}
               </li>
             ))}
           </ul>

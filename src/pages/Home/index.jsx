@@ -230,7 +230,7 @@ function Home() {
         </div>
       </div>
       <div className="bg-white/90 rounded text p-5 m-5">
-        <p className="text-xl font-semibold ">Last 5 Activities on Kiosk</p>
+        <p className="text-xl font-semibold ">Last 5 Transactions</p>
         <div className="mt-2">
           <table className="w-full table-auto border-separate border-spacing-y-3 ">
             <thead className="bg-[#f3f4f5] shadow">
