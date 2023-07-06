@@ -33,7 +33,13 @@ const AppLayout = ({ children }) => {
       path: "/loan",
       icon: <BsCreditCard />,
       hasSubMenu: true,
-      subMenu: [],
+      subMenu: [
+        {
+          name: "Reports",
+          path: "/loan",
+          icon: <BsCreditCard />,
+        }
+      ],
     },
   ];
 

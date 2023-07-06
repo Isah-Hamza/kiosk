@@ -1,0 +1,114 @@
+:root {
+  --purple: #643332;
+}
+
+.login {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+  color: white;
+  /* background-color: #e9e9eb; */
+}
+
+.login .logo {
+  width: 150px;
+}
+
+.login .left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  max-width: 450px;
+  margin: 0 auto;
+  font-size: 14px;
+  background-color: transparent;
+}
+
+.login .left .form-container h2 {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.login .left form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 35px;
+}
+
+
+.login .left form input {
+  border: 1px solid gainsboro;
+  padding: 12px 10px;
+  border-radius: 4px;
+  outline: none;
+  background-color: white;
+  font-size: 14px;
+  height: 25px;
+}
+
+.forgot-password {
+  text-align: right;
+  font-weight: 500;
+  color: var(--purple);
+}
+
+.login .form-footer {
+  border-top: 1px solid gainsboro;
+  padding-top: 30px;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login .form-footer div {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.login .no-account {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.login .no-account span {
+  color: var(--purple);
+  font-weight: 500;
+}
+
+.login .right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--purple);
+  padding: 30px 50px;
+  text-align: center;
+}
+
+.login .right h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.login-footer p {
+  font-size: 12px;
+}
+
+.login .right .login-img {
+  width: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
