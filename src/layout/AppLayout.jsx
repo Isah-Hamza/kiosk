@@ -2,7 +2,7 @@ import React from "react";
 import person from "../assets/images/hamza.jpeg";
 import { FaBell } from "react-icons/fa";
 import { FiHome, FiUsers } from "react-icons/fi";
-import { BsCaretDown, BsCaretDownFill, BsCreditCard } from "react-icons/bs";
+import {  BsCaretDownFill, BsCreditCard } from "react-icons/bs";
 import { RiDashboardLine } from "react-icons/ri";
 import { RiCarFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
