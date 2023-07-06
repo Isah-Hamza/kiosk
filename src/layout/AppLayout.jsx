@@ -43,7 +43,7 @@ const AppLayout = ({ children }) => {
     <div className="flex bg-[#f4f5f9] h-screen">
       <aside className="flex flex-col w-[280px] h-full bg-white/90 py-5">
         <div className="flex items-center gap-2 px-7">
-          <div className="rounded-full w-10 h-10 bg-slate-400"></div>
+          <div className="rounded-full w-10 h-10 bg-[#41010b]"></div>
           <p className="text-2xl font-semibold">KIOSK</p>
         </div>
         <div className="mt-10 px-2">

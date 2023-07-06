@@ -143,7 +143,7 @@ function Home() {
 
       {/* main */}
       <div className="bg-white/90 rounded text  p-5 pt-7 mx-5 my-5">
-        <p className="text-xl font-semibold mb-3">Balances Overview</p>
+        <p className="text-xl font-semibold mb-4">Balances Overview</p>
         <div className="grid grid-cols-3 gap-5">
           {analysis.map((item, idx) => (
             <div
