@@ -5,8 +5,11 @@ import { FiHome, FiUsers } from "react-icons/fi";
 import { BsCaretDown, BsCaretDownFill, BsCreditCard } from "react-icons/bs";
 import { RiDashboardLine } from "react-icons/ri";
 import { RiCarFill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const AppLayout = ({ children }) => {
+  const navigate = useNavigate();
+
   const sidebarElements = [
     {
       name: "Dashboard",
@@ -38,7 +41,7 @@ const AppLayout = ({ children }) => {
           name: "Reports",
           path: "/loan",
           icon: <BsCreditCard />,
-        }
+        },
       ],
     },
   ];
@@ -80,7 +83,7 @@ const AppLayout = ({ children }) => {
               </li>
             ))}
             <button
-              onClick={() => dispatch(logout())}
+              onClick={() => navigate("/login")}
               className="w-full"
               to={"/login"}
             >

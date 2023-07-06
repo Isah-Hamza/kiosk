@@ -9,10 +9,11 @@ import SimpleSlider from "../../components/Slider";
 import { SlLock } from "react-icons/sl";
 import { MdOutlineMarkEmailUnread } from "react-icons/md";
 import CustomButton from "../../components/Buttons/CustomButton";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  const dummyArr = [1, 2, 3];
+  const navigate = useNavigate();
 
   // const formik = useFormik({
   //   initialValues: {
@@ -104,6 +105,7 @@ const Login = () => {
                 type={"submit"}
                 className={"bg-[#41010b] !w-full !py-4"}
                 disabled={loading}
+              clickHandler={() => navigate("/home")}
               >
                 {loading ? "Please wait..." : " Login"}
               </CustomButton>
