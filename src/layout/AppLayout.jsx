@@ -38,7 +38,22 @@ const AppLayout = ({ children }) => {
       hasSubMenu: true,
       subMenu: [
         {
-          name: "Reports",
+          name: "All Expenses",
+          path: "/loan",
+          icon: <BsCreditCard />,
+        },
+        {
+          name: "All Inventories",
+          path: "/loan",
+          icon: <BsCreditCard />,
+        },
+        {
+          name: "All Sales",
+          path: "/loan",
+          icon: <BsCreditCard />,
+        },
+        {
+          name: "All Transactions",
           path: "/loan",
           icon: <BsCreditCard />,
         },
