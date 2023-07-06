@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BiCaretDown } from "react-icons/bi";
 
 const CustomSelect = ({ options, allowFirstOption, className }) => {
@@ -27,5 +27,7 @@ const CustomSelect = ({ options, allowFirstOption, className }) => {
     </div>
   );
 };
+
+
 
 export default CustomSelect;

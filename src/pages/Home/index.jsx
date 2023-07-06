@@ -137,12 +137,6 @@ function Home() {
         </div>
 
         <div className="flex gap-3">
-          {/* <button className="text-sm font-medium bg-blue-400 text-white px-7 py-3 rounded">
-            Switch Account
-          </button>
-          <button className="text-sm font-medium border border-blue-400 text-bluebg-blue-400 px-7 py-3 rounded">
-            View All Tranx.
-          </button> */}
           <CustomSelect className={"min-w-[200px] px-4"} options={filter} />
         </div>
       </div>
@@ -284,7 +278,7 @@ function Home() {
                   <td className="text-sm py-2">
                     <div
                       //   onClick={() => history.push("/loan/details")}
-                      className="bg-blue-400/80 text-white flex items-center gap-1.5
+                      className="bg-blue-400 text-white flex items-center gap-1.5
                      rounded cursor-pointer px-4 py-1 w-fit"
                     >
                       {" "}

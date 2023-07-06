@@ -85,8 +85,9 @@ const AppLayout = ({ children }) => {
       <main className="h-full  flex-1">
         <header className="w-full h-[70px] bg-white/90 flex justify-end px-7">
           <div className="flex gap-3 items-center">
-            <button className="p-2 rounded bg-gray-200">
+            <button className="relative p-2 rounded bg-gray-200">
               <FaBell size={16} color="darkblue" className="" />
+              {/* <span className="absolute -top-0 right-1 text-xs font-bold text-[blue]">2</span> */}
             </button>
             <div className="flex items-center gap-2">
               <img className="w-12 rounded-full" src={person} alt="person" />
@@ -97,7 +98,9 @@ const AppLayout = ({ children }) => {
             </div>
           </div>
         </header>
-        <section className="pt-6 h-[calc(100vh-70px)] overflow-auto">{children}</section>
+        <section className="pt-6 h-[calc(100vh-70px)] overflow-auto">
+          {children}
+        </section>
       </main>
     </div>
   );
