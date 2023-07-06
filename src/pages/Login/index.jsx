@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import "../../index.css";
 import "../../styles/login.css";
 
-import loginImg from "../../assets/images/undraw_transfer_money_re_6o1h (1).svg";
-// import logo from "../../img/Ripples-Finance-Logo.png";
+import loginImg from "../../assets/images/undraw_Successful_purchase_re_mpig.svg";
 import { ImGoogle } from "react-icons/im";
 import CustomInput from "../../components/CustomInput";
 import SimpleSlider from "../../components/Slider";
@@ -30,38 +29,39 @@ const Login = () => {
 
   return (
     <main className="login">
-      <section className=" bg-[#41010b]">
-      <SimpleSlider>
-        {dummyArr.map((item, idx) => (
-          <section key={idx} className="right h-full !flex">
-            <div className="login-img">
-              <img src={loginImg} alt="img" />
-            </div>
-            <div className="flex justify-center gap-1 items-center mb-3">
-              <div className="bg-black w-1.5 h-1.5 rounded-full"></div>
-              <div className="bg-white w-1.5 h-1.5 rounded-full"></div>
-              <div className="bg-black w-1.5 h-1.5 rounded-full"></div>
-            </div>
-            <div className="login-footer mt-auto">
-              <h3 className="font-semibold !leading-5">
-                Ripples Finance <br /> and Loan
-              </h3>
-              <p className="max-w-[350px]">
-                Don't let financial hurdles hold you back. Ripples Finance and
-                Loan provides a hassle-free way to get the funds you need.
-              </p>
-            </div>
-          </section>
-        ))}
-      </SimpleSlider>
-
+      {/* <section className=" bg-[#41010b]"> */}
+      {/* <SimpleSlider>
+        {dummyArr.map((item, idx) => ( */}
+      <section className="right h-full !flex">
+        <div className="login-img">
+          <img src={loginImg} alt="img" />
+        </div>
+        <div className="flex justify-center gap-1 items-center mb-3">
+          <div className="bg-black w-1.5 h-1.5 rounded-full"></div>
+          <div className="bg-white w-1.5 h-1.5 rounded-full"></div>
+          <div className="bg-black w-1.5 h-1.5 rounded-full"></div>
+        </div>
+        <div className="login-footer mt-auto">
+          <h3 className="font-semibold !leading-5">Kiosk</h3>
+          <p className="max-w-[350px]">
+            Unleash the power of convenience, speed, and reliability. Shop
+            smarter, ship faster with our all-in-one online shopping and
+            logistics platform.
+          </p>
+        </div>
       </section>
+      {/*    ))}
+      </SimpleSlider> */}
+
+      {/* </section> */}
       <section className="relative left !bg-white/90 h-full flex justify-center items-center">
         <div className="form-container max-w-[350px]">
-          <span>KIOSK</span>
+          <p className="text-center font-bold text-xl text-[#41010b] mb-5">
+            KIOSK
+          </p>
           <h2 className="text-center">Hello, Again!</h2>
           <p className="text-center text-[13px] opacity-80">
-            Welcome to Ripples. Please put your login credentials here to start
+            Welcome to KIOSK. Please put your login credentials here to start
             using the app.
           </p>
           <form>
@@ -102,7 +102,7 @@ const Login = () => {
             <div className="form-footer">
               <CustomButton
                 type={"submit"}
-                className={"!w-full"}
+                className={"bg-[#41010b] !w-full !py-4"}
                 disabled={loading}
               >
                 {loading ? "Please wait..." : " Login"}
@@ -110,7 +110,7 @@ const Login = () => {
 
               <button
                 type="button"
-                className="shadow flex gap-2 w-full bg-white text-primaryColor-900 py-3 mt-3 justify-center items-center rounded"
+                className="shadow flex gap-2 w-full bg-white py-4 mt-3 justify-center items-center rounded"
               >
                 <ImGoogle />
                 Sign in With Google
