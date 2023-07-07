@@ -170,38 +170,7 @@ function Home() {
               </div>
             </div>
           ))}
-          {/* <div className="flex flex-col justify-between shadow-sm rounded-md min-h-[180px] bg-[#faf8f9] p-5">
-            <div>
-              <p className="font-medium"> Total Loan Disbursement </p>
-            </div>
-            <div className=" mt-auto">
-              <p className="text-xs">Total loan disbursed.</p>
-              <div className="flex justify-between items-center">
-                <p className="font-semibold text-2xl"> ₦500,000 </p>
-                <MdArrowRightAlt
-                  color="rgb(97, 51, 51)"
-                  className="cursor-pointer"
-                  size={25}
-                />
-              </div>
-            </div>
-          </div>{" "}
-          <div className="flex flex-col justify-between shadow-sm rounded-md min-h-[180px] bg-[#fcf7fd] p-5">
-            <div>
-              <p className="font-medium"> Total Expenditure </p>
-            </div>
-            <div className=" mt-auto">
-              <p className="text-xs">Expenses incured this month.</p>
-              <div className="flex justify-between items-center">
-                <p className="font-semibold text-2xl"> ₦56,000 </p>
-                <MdArrowRightAlt
-                  color="rgb(97, 51, 51)"
-                  className="cursor-pointer"
-                  size={25}
-                />
-              </div>
-            </div>
-          </div> */}
+       
         </div>
       </div>
       <div className="">
@@ -274,10 +243,8 @@ function Home() {
                   </td>
                   <td className="text-sm py-2 ">₦{item.score}</td>
                   <td className="text-sm py-2">{item.joinDate}</td>
-                  {/* <td className="text-sm py-2">₦{item.indebted}</td> */}
                   <td className="text-sm py-2">
                     <div
-                      //   onClick={() => history.push("/loan/details")}
                       className="bg-blue-400 text-white flex items-center gap-1.5
                      rounded cursor-pointer px-4 py-1 w-fit"
                     >
