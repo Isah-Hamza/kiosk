@@ -76,7 +76,6 @@ const Login = () => {
                     className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
                   />
                 }
-                // {...formik.getFieldProps("email")}
               />
             </div>
             <div className="email mt-1">
@@ -90,7 +89,6 @@ const Login = () => {
                     className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
                   />
                 }
-                // {...formik.getFieldProps("password")}
               />
             </div>
             <div className="flex items-center justify-between flex-row-reverse">
