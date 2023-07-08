@@ -8,18 +8,18 @@ import {
 } from "recharts";
 
 const data = [
-  { name: "Jan", value: 20 },
-  { name: "Feb", value: 35 },
-  { name: "Mar", value: 40 },
-  { name: "Apr", value: 40 },
-  { name: "May", value: 40 },
-  { name: "Jun", value: 45 },
-  { name: "Jul", value: 40 },
-  { name: "Aug", value: 55 },
-  { name: "Sep", value: 40 },
-  { name: "Oct", value: 50 },
+  { name: "Jan", value: 30 },
+  { name: "Feb", value: 35},
+  { name: "Mar", value: 20 },
+  { name: "Apr", value:25 },
+  { name: "May", value:  15},
+  { name: "Jun", value: 20 },
+  { name: "Jul", value: 25 },
+  { name: "Aug", value: 30 },
+  { name: "Sep", value: 35 },
+  { name: "Oct", value: 40 },
   { name: "Nov", value: 45 },
-  { name: "Dec", value: 40 },
+  { name: "Dec", value: 50 },
 ];
 
 const AreaCharts = ({ height }) => {
@@ -27,7 +27,7 @@ const AreaCharts = ({ height }) => {
     <ResponsiveContainer
       className={"-ml-7"}
       width="102%"
-      height={height || 160}
+      height={height || 220}
     >
       <AreaChart data={data}>
         {/* <CartesianGrid  display={'none'} /> */}

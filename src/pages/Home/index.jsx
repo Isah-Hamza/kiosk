@@ -20,6 +20,14 @@ function Home() {
       value: "252",
     },
     {
+      title: "Total Partners",
+      value: "109",
+    },
+    {
+      title: "Total Sales",
+      value: "N30,000,000",
+    },
+    {
       title: "Period (years)",
       value: "3.5",
     },
@@ -187,7 +195,7 @@ function Home() {
                   <p className="text-sm font-medium">{item.title}</p>
                   <p
                     className={`text-lg font-semibold ${
-                      idx === 3 && "text-[coral]"
+                      idx === 5 && "text-[coral]"
                     }`}
                   >
                     {item.value}
