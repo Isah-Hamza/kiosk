@@ -12,7 +12,7 @@ const CustomButton = ({
       disabled={disabled }
       type={type ?? "button"}
       onClick={clickHandler}
-      className={`py-4 text-sm px-12 rounded bg-primaryColor-900 disabled:bg-primaryColor-900/80 text-white font-medium ${className}`}
+      className={`py-4 text-sm px-12 rounded bg-primary disabled:bg-primary/80 text-white font-medium ${className}`}
     >
       {children}
     </button>

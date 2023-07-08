@@ -8,7 +8,7 @@ import SimpleSlider from "../../components/Slider";
 import { SlLock } from "react-icons/sl";
 import { MdOutlineMarkEmailUnread } from "react-icons/md";
 import CustomButton from "../../components/Buttons/CustomButton";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthPagesLayout from "../../layout/AuthPagesLayout";
 
 const Login = () => {
@@ -82,9 +82,9 @@ const Login = () => {
           Don't have an account ?{" "}
           <span>
             {" "}
-            <a href="#" className="font-medium">
+            <Link to={"/register"} className="font-medium">
               Sign Up
-            </a>{" "}
+            </Link>{" "}
           </span>
         </p>
       </div>
