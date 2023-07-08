@@ -15,7 +15,7 @@ const Register = () => {
   return (
     <div>
       <AuthPagesLayout>
-        <div className="mt-16 flex flex-col self-start">
+        <div className="w-full mt-16 flex flex-col self-start">
           <div>
             <p className="font-semibold text-3xl">Sign up</p>
             <p className="text-sm text-secondary-brown">
@@ -48,7 +48,7 @@ const Register = () => {
           </div>
 
           {currStep === 1 ? (
-            <div className="mt-14">
+            <div className="w-full mt-14">
               <div className="grid grid-cols-2 gap-5 gap-y-7">
                 <CustomInput
                   type={"text"}
@@ -91,7 +91,7 @@ const Register = () => {
           ) : null}
 
           {currStep === 2 ? (
-            <div className="mt-14 otp">
+            <div className="w-full mt-14 otp">
               <p className="mb-4">
                 Enter The OTP sent to your registered email/phone number <br />{" "}
                 to move to the next step.
@@ -108,7 +108,7 @@ const Register = () => {
           ) : null}
 
           {currStep === 3 ? (
-            <div className=" mt-14">
+            <div className="w-full mt-14">
               <div className="grid grid-cols-2 gap-5 gap-y-7">
                 <CustomInput
                   type={"text"}
