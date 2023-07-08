@@ -26,7 +26,7 @@ const Register = () => {
             </p>
           </div>
 
-          <div className="mt-12 grid grid-cols-3 border border-primary rounded-md overflow-hidden">
+          {/* <div className="mt-12 grid grid-cols-3 border border-primary rounded-md overflow-hidden">
             {steps.map((step, idx) => (
               <button
                 key={idx}
@@ -37,6 +37,29 @@ const Register = () => {
               >
                 <p
                   className={`w-6 h-6 rounded-full grid place-content-center border text-sm ${
+                    currStep === idx + 1 && "border-2 border-primary"
+                  }`}
+                >
+                  {idx + 1}
+                </p>
+                <p>{step}</p>
+              </button>
+            ))}
+          </div> */}
+          <div className="mt-12 grid grid-cols-3 justify-between border-primary rounded-md overflow-hidden">
+            {steps.map((step, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrStep(idx + 1)}
+                className={`relative py-3 text-sm flex flex-col items-center gap-2
+              ${idx != 0 && "border-lt border-primary"}
+              ${currStep === idx + 1 && "font-semibold  text-primary"}`}
+              >
+                {idx == 2 ? null : (
+                  <div className="left-1/2 absolute top-[22px] w-full h-1 bg-primary"></div>
+                )}
+                <p
+                  className={`relative z-10 bg-white w-6 h-6 rounded-full grid place-content-center border text-sm ${
                     currStep === idx + 1 && "border-2 border-primary"
                   }`}
                 >
