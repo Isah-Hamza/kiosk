@@ -5,7 +5,7 @@
 /* Change the white to any color */
 .login input[type="text"],
 .login input[type="password"] {
-  background: #f8f9f0;
+  background: #f8f9f0  !important;
   height: 50px !important;
   padding: 16px 12px;
   width: 100%;

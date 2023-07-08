@@ -50,22 +50,34 @@ const Register = () => {
           {currStep === 1 ? (
             <div className="mt-14">
               <div className="grid grid-cols-2 gap-5 gap-y-7">
-                <CustomInput placeholder={"First Name"} id={"first_name"} />
-                <CustomInput placeholder="Last Name" id={"last_name"} />{" "}
+                <CustomInput
+                  type={"text"}
+                  placeholder={"First Name"}
+                  id={"first_name"}
+                />
+                <CustomInput
+                  type={"text"}
+                  placeholder="Last Name"
+                  id={"last_name"}
+                />{" "}
                 <div className="col-span-2">
-                  <CustomInput placeholder={"Email"} id={"email"} />{" "}
+                  <CustomInput
+                    type={"text"}
+                    placeholder={"Email"}
+                    id={"email"}
+                  />{" "}
                 </div>
                 <CustomInput
                   placeholder={"Password"}
                   id={"password"}
                   type={"password"}
-                  className='transparent-bg'
+                  className="transparent-bg"
                 />{" "}
                 <CustomInput
                   placeholder={"Confirm Password"}
                   id={"confirm_password"}
                   type={"password"}
-                  className='transparent-bg'
+                  className="transparent-bg"
                 />{" "}
               </div>
               <div className=" mt-10 flex justify-end">
@@ -99,18 +111,14 @@ const Register = () => {
             <div className=" mt-14">
               <div className="grid grid-cols-2 gap-5 gap-y-7">
                 <CustomInput
-                  // label={"Company Name"}
+                  type={"text"}
                   placeholder={"Company Name"}
                   id={"company_name"}
                 />
-                <CustomInput
-                  // label={"CAC"}
-                  placeholder="CAC"
-                  id={"cac"}
-                />{" "}
+                <CustomInput type={"text"} placeholder="CAC" id={"cac"} />{" "}
                 <div className="col-span-2">
                   <CustomInput
-                    // label={"Company Address"}
+                    type={"text"}
                     placeholder={"Company Address"}
                     id={"company_address"}
                   />{" "}
