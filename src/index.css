@@ -6,7 +6,7 @@
 .login input[type="text"],
 .login input[type="password"] {
   background: #f8f9f0  !important;
-  height: 50px !important;
+  height: 50px ;
   padding: 16px 12px;
   width: 100%;
 }

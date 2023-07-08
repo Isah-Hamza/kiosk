@@ -17,19 +17,19 @@ const Login = () => {
 
   return (
     <AuthPagesLayout>
-      <div className="form-container max-w-[350px]">
+      <div className="form-container max-w-[400px]">
         <p className="text-center font-bold text-xl text-[#41010b] mb-5">
           KIOSK
         </p>
         <h2 className="text-center">Hello, Again!</h2>
         <p className="text-center text-[13px] opacity-80">
-          Welcome to KIOSK. Please put your login credentials here to start
+          Welcome to ShopHub. Please provide your login credentials here to start
           using the app.
         </p>
         <form>
           <div className="email">
             <CustomInput
-              className={"!bg-[#e9e9eb]"}
+              className={"!bg-[#e9e9eb] !h-[50px]"}
               placeholder={"Enter Email"}
               Icon={
                 <MdOutlineMarkEmailUnread
@@ -42,7 +42,7 @@ const Login = () => {
           <div className="email mt-1">
             <CustomInput
               placeholder={"Enter Password"}
-              className={"!bg-[#e9e9eb]"}
+              className={"!bg-[#e9e9eb] !h-[50px]"}
               type={"password"}
               Icon={
                 <SlLock

@@ -14,14 +14,15 @@ export default function OTPInput() {
         numInputs={5}
         renderSeparator={<div className="w-6"></div>}
         inputStyle={{
-          width: "4em",
-          height: "4em",
+          width: "3.1em",
+          height: "3.1em",
           display: "grid",
           placeContent: "center",
           border: "1px solid gainsboro",
           outline: "1px solid #540A18",
           borderRadius: 4,
           color: "#540A18",
+          fontSize:'22px'
         }}
         renderInput={(props) => (
           <input

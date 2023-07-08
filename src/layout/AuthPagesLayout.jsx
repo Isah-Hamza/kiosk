@@ -19,7 +19,7 @@ const AuthPagesLayout = ({ children }) => {
           <div className="bg-black w-1.5 h-1.5 rounded-full"></div>
         </div>
         <div className="login-footer mt-auto">
-          <h3 className="font-semibold !leading-5">Kiosk</h3>
+          <h3 className="font-semibold !leading-5">ShopHub</h3>
           <p className="max-w-[350px]">
             Unleash the power of convenience, speed, and reliability. Shop
             smarter, ship faster with our all-in-one online shopping and

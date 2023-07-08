@@ -7,16 +7,31 @@ import OTPInput from "../../components/CustomInput/OTPInput";
 import CustomSelect from "../../components/CustomInput/Select";
 import { Link, useNavigate } from "react-router-dom";
 
+import { IoMdCheckmark } from "react-icons/io";
+
 const Register = () => {
   const navigate = useNavigate();
-  const steps = ["Personal Information", "Enter OTP", "Business Information"];
+  const steps = [
+    {
+      name: "Personal Information",
+      id: 0,
+    },
+    {
+      name: "Enter OTP",
+      id: 1,
+    },
+    {
+      name: "Business Information",
+      id: 2,
+    },
+  ];
   const [currStep, setCurrStep] = useState(1);
 
   return (
     <div>
       <AuthPagesLayout>
         <div className="w-full mt-16 flex flex-col self-start">
-          <div>
+          <div className="text-center">
             <p className="font-semibold text-3xl">Sign up</p>
             <p className="text-sm text-secondary-brown">
               Already have an account?{" "}
@@ -51,21 +66,25 @@ const Register = () => {
               <button
                 key={idx}
                 onClick={() => setCurrStep(idx + 1)}
-                className={`relative py-3 text-sm flex flex-col items-center gap-2
+                className={`relative py-3 text-sm flex flex-col items-center gap-2 text-gray-500
               ${idx != 0 && "border-lt border-primary"}
-              ${currStep === idx + 1 && "font-semibold  text-primary"}`}
+              ${currStep - 1 >= step.id && "font-bold  !text-primary"}`}
               >
                 {idx == 2 ? null : (
-                  <div className="left-1/2 absolute top-[22px] w-full h-1 bg-primary"></div>
+                  <div className={`left-1/2 absolute top-[26px] w-full h-0.5 ${currStep - 1 > step.id ?'bg-primary' : 'bg-[gainsboro]'}`}></div>
                 )}
                 <p
-                  className={`relative z-10 bg-white w-6 h-6 rounded-full grid place-content-center border text-sm ${
+                  className={`relative z-10 bg-white w-8 h-8 rounded-full grid place-content-center border ${
                     currStep === idx + 1 && "border-2 border-primary"
-                  }`}
+                  } ${currStep - 1 > step.id && "!bg-primary"}`}
                 >
-                  {idx + 1}
+                  {currStep - 1 > step.id ? (
+                    <IoMdCheckmark size={19} color="white" />
+                  ) : (
+                    idx
+                  )}
                 </p>
-                <p>{step}</p>
+                <p>{step.name}</p>
               </button>
             ))}
           </div>
@@ -114,13 +133,13 @@ const Register = () => {
           ) : null}
 
           {currStep === 2 ? (
-            <div className="w-full mt-14 otp">
-              <p className="mb-4">
-                Enter The OTP sent to your registered email/phone number <br />{" "}
+            <div className="flex flex-col items-center w-full mt-14 otp">
+              <p className="mb-8 text-center">
+                Please enter The OTP sent to your registered email/phone number <br />{" "}
                 to move to the next step.
               </p>
               <OTPInput />{" "}
-              <div className=" mt-10 flex">
+              <div className=" mt-12 flex">
                 <CustomButton
                   clickHandler={() => setCurrStep(3)}
                   className={"w-fit"}
