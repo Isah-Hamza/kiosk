@@ -81,7 +81,7 @@ const Register = () => {
                   {currStep - 1 > step.id ? (
                     <IoMdCheckmark size={19} color="white" />
                   ) : (
-                    idx
+                    idx + 1
                   )}
                 </p>
                 <p>{step.name}</p>
