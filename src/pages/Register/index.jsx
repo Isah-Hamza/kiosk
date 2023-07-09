@@ -40,27 +40,7 @@ const Register = () => {
               </Link>
             </p>
           </div>
-
-          {/* <div className="mt-12 grid grid-cols-3 border border-primary rounded-md overflow-hidden">
-            {steps.map((step, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrStep(idx + 1)}
-                className={`p-3 text-sm flex items-center gap-2
-              ${idx != 0 && "border-l border-primary"}
-              ${currStep === idx + 1 && "font-semibold  text-primary"}`}
-              >
-                <p
-                  className={`w-6 h-6 rounded-full grid place-content-center border text-sm ${
-                    currStep === idx + 1 && "border-2 border-primary"
-                  }`}
-                >
-                  {idx + 1}
-                </p>
-                <p>{step}</p>
-              </button>
-            ))}
-          </div> */}
+          
           <div className="mt-12 grid grid-cols-3 justify-between border-primary rounded-md overflow-hidden">
             {steps.map((step, idx) => (
               <button
