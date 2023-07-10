@@ -19,7 +19,7 @@ const Login = () => {
     <AuthPagesLayout>
       <div className="form-container max-w-[400px]">
         <p className="text-center font-bold text-xl text-[#41010b] mb-5">
-          KIOSK
+          ShopHub
         </p>
         <h2 className="text-center">Hello, Again!</h2>
         <p className="text-center text-[13px] opacity-80">
