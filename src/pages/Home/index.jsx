@@ -8,32 +8,29 @@ import AppLayout from "../../layout/AppLayout";
 import AreaCharts from "../../components/Chart/AreaCharts";
 import hamza from "../../assets/images/hamza.jpeg";
 import CustomSelect from "../../components/CustomInput/Select";
+import AppLayoutNew from "../../layout/AppLayoutNew";
 
 function Home() {
   const summary = [
     {
-      title: "Total Users",
-      value: "2,143",
+      title: "Total Balance",
+      value: "26,143,000",
+      color: "#f3f3f0",
     },
     {
-      title: "Total Debtors",
-      value: "252",
+      title: "Total Savings",
+      value: "252,000",
+      color: "#fcf7fd",
     },
     {
-      title: "Total Partners",
-      value: "109",
+      title: "Total Debts",
+      value: "1,090,000",
+      color: "#f7f7f9",
     },
     {
-      title: "Total Sales",
-      value: "N30,000,000",
-    },
-    {
-      title: "Period (years)",
-      value: "3.5",
-    },
-    {
-      title: "Rate",
-      value: "-45%",
+      title: "Total Loans",
+      value: "30,000,000",
+      color: "#faf8f9",
     },
   ];
 
@@ -84,40 +81,44 @@ function Home() {
     {
       title: "Net Balance",
       desc: "Final balance after expenditure.",
-      amount: "6,300,000",
-      color: "#f3f3f0",
+      amount: "6.3M",
+
+      rate: "+40%",
     },
     {
       title: "Total Sales",
       desc: "Total sales made this month.",
-      amount: "15,902,000",
-      color: "#fcf7fd",
+      amount: "15.9M",
+
+      rate: "-25%",
     },
     {
       title: "Total Inventory Items",
       desc: "Total items in inventory.",
-      amount: "2,508",
-      color: "#f7f7f9",
+      amount: "2.5K",
+
+      rate: "-13%",
       notCurrency: true,
     },
     {
       title: "Total Income Revenue",
       desc: "Total amount generated this month.",
-      amount: "312,000",
-      color: "#faf8f9",
+      amount: "312K",
+
+      rate: "-53%",
     },
-    {
-      title: "Total Loan Disbursement",
-      desc: "Total loan disbursed.",
-      amount: "550,000",
-      color: "#f1f1f1",
-    },
-    {
-      title: "Total Expenditure",
-      desc: "Expenses incured this month.",
-      amount: "59,000",
-      color: "#fcf7fd",
-    },
+    // {
+    //   title: "Total Loan Disbursement",
+    //   desc: "Total loan disbursed.",
+    //   amount: "550,000",
+    //   color: "#f1f1f1",
+    // },
+    // {
+    //   title: "Total Expenditure",
+    //   desc: "Expenses incured this month.",
+    //   amount: "59,000",
+    //   color: "#fcf7fd",
+    // },
   ];
 
   const filter = [
@@ -130,8 +131,8 @@ function Home() {
   ];
 
   return (
-    <AppLayout>
-      <div className="px-7 mb-7 flex justify-between items-center">
+    <AppLayoutNew>
+      {/* <div className="px-7 mb-7 flex justify-between items-center">
         <div className="">
           <p className="flex items-center gap-1 font-bold text-2xl">
             <span className="font-normal">Hello, </span>
@@ -147,20 +148,25 @@ function Home() {
         <div className="flex gap-3">
           <CustomSelect className={"min-w-[200px] px-4"} options={filter} />
         </div>
-      </div>
+      </div> */}
 
       {/* main */}
-      <div className="bg-white/90 rounded text  p-5 pt-7 mx-5 my-5">
-        <p className="text-xl font-semibold mb-4">Balances Overview</p>
-        <div className="grid grid-cols-3 gap-5">
+      <div className="rounded text  px-7 pt-0 mb-5">
+        <p className="text-2xl font-semibold mb-4">Overview</p>
+        <div className="grid grid-cols-4 gap-3">
           {analysis.map((item, idx) => (
             <div
               key={idx}
-              style={{ backgroundColor: item.color }}
-              className="flex flex-col justify-between shadow-sm rounded-md min-h-[180px] p-5"
+              style={{ backgroundColor: "white" }}
+              className="flex flex-col justify-between rounded-md min-h-[180px] p-5"
             >
-              <div>
+              <div className="flex items-center justify-between">
                 <p className="font-medium">{item.title} </p>
+                <MdArrowRightAlt
+                  color="rgb(97, 51, 51)"
+                  className="cursor-pointer"
+                  size={25}
+                />
               </div>
               <div className=" mt-auto">
                 <p className="text-xs">{item.desc}</p>
@@ -169,36 +175,37 @@ function Home() {
                     {!item.notCurrency ? "₦" : ""}
                     {item.amount}{" "}
                   </p>
-                  <MdArrowRightAlt
-                    color="rgb(97, 51, 51)"
-                    className="cursor-pointer"
-                    size={25}
-                  />
+                  <div className="px-2 py-1.5 text-xs rounded-md text-primary font-semibold bg-secondary/70">
+                    {item.rate}
+                  </div>
                 </div>
               </div>
             </div>
           ))}
-       
         </div>
       </div>
       <div className="">
-        <div className=" px-5 grid grid-cols-3 gap-5">
+        <div className=" px-7 grid grid-cols-3 gap-5">
           <div className="flex flex-col col-span-2 bg-[#fff]/90 rounded p-4 pt-5">
             <p className="text-xl font-semibold mb-5">Monthly Disbursement</p>
             <AreaCharts />
           </div>
-          <div className="bg-white/90 rounded p-5">
-            <p className="text-xl font-semibold mb-6">Quick Analytics</p>
-            <div className="grid grid-cols-2 gap-10">
+          <div className="bg-white/90 p-5 flex flex-col">
+            <p className="text-xl font-semibold mb-6">ShopHub Finance</p>
+            <div className="grid grid-cols-2 gap-4 flex-1">
               {summary.map((item, idx) => (
-                <div key={idx} className="">
-                  <p className="text-sm font-medium">{item.title}</p>
+                <div
+                  key={idx}
+                  style={{ background: item.color }}
+                  className="p-5 bg-white rounded"
+                >
+                  <p className="font-medium text-sm">{item.title}</p>
                   <p
                     className={`text-lg font-semibold ${
                       idx === 5 && "text-[coral]"
                     }`}
                   >
-                    {item.value}
+                    ₦{item.value}
                   </p>
                 </div>
               ))}
@@ -271,7 +278,7 @@ function Home() {
           </button>
         </div>
       </div>
-    </AppLayout>
+    </AppLayoutNew>
   );
 }
 

@@ -8,18 +8,18 @@ import {
 } from "recharts";
 
 const data = [
-  { name: "Jan", value: 30 },
-  { name: "Feb", value: 35},
-  { name: "Mar", value: 20 },
-  { name: "Apr", value:25 },
-  { name: "May", value:  15},
-  { name: "Jun", value: 20 },
-  { name: "Jul", value: 25 },
-  { name: "Aug", value: 30 },
-  { name: "Sep", value: 35 },
-  { name: "Oct", value: 40 },
-  { name: "Nov", value: 45 },
-  { name: "Dec", value: 50 },
+  { name: "Jan", sales: 30, expenses: 50},
+  { name: "Feb", sales: 35, expenses:55},
+  { name: "Mar", sales: 20, expenses: 40},
+  { name: "Apr", sales:25 , expenses:45},
+  { name: "May", sales:  15, expenses:35},
+  { name: "Jun", sales: 20, expenses: 40},
+  { name: "Jul", sales: 25, expenses: 45},
+  { name: "Aug", sales: 30, expenses: 50},
+  { name: "Sep", sales: 35, expenses: 55},
+  { name: "Oct", sales: 40, expenses: 60},
+  { name: "Nov", sales: 45, expenses: 65},
+  { name: "Dec", sales: 50, expenses: 70},
 ];
 
 const AreaCharts = ({ height }) => {
@@ -41,12 +41,8 @@ const AreaCharts = ({ height }) => {
             <stop offset="90%" stopColor="#fcf7fd" />
           </linearGradient>
         </defs>
-        <Area
-          type="monotone"
-          dataKey="value"
-          stroke="rgba(97, 51, 51,.2)"
-          fill="url(#gradient)"
-        />
+        <Area type="monotone" dataKey="sales" stroke="rgba(97, 51, 51,.2)" fill="url(#gradient)" />
+        <Area type="monotone" dataKey="expenses" stroke="rgba(97, 51, 51,.2)" fill="url(#gradient)" />
       </AreaChart>
     </ResponsiveContainer>
   );

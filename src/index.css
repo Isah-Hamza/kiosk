@@ -5,8 +5,8 @@
 /* Change the white to any color */
 .login input[type="text"],
 .login input[type="password"] {
-  background: #f8f9f0  !important;
-  height: 50px ;
+  background: #f8f9f0 !important;
+  height: 50px;
   padding: 16px 12px;
   width: 100%;
 }
@@ -20,4 +20,15 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px #f8f9f0 inset !important;
+}
+
+.active-link {
+  @apply bg-primary/20 rounded-md;
+}
+
+.active-link:hover {
+  @apply !bg-primary/20;
+}
+.active-link span {
+  @apply !text-primary font-bold;
 }
