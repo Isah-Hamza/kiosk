@@ -302,7 +302,7 @@ function Home() {
               <div
                 key={idx}
                 className={`border-b py-2 flex justify-between items-center ${
-                  idx == topPerformingProducts.length - 1 && "border-b-0 pb-0"
+                  idx == topPerformingProducts.length - 1 && "border-b-0 "
                 } `}
               >
                 <div className="flex gap-2 items-center">
@@ -332,7 +332,7 @@ function Home() {
                 key={idx}
                 // className="mb-3 flex justify-between items-center"
                 className={`border-b py-2 flex justify-between items-center ${
-                  idx == topPerformingProducts.length - 1 && "border-b-0 pb-0"
+                  idx == topPerformingProducts.length - 1 && "border-b-0 "
                 } `}
               >
                 <div className="flex gap-2 items-center">
@@ -359,7 +359,7 @@ function Home() {
               <div
                 key={idx}
                 className={`border-b py-2 flex justify-between items-center ${
-                  idx == topPerformingProducts.length - 1 && "border-b-0 pb-0"
+                  idx == topPerformingProducts.length - 1 && "border-b-0 "
                 } `}
               >
                 <div className="flex gap-2 items-center">
