@@ -25,12 +25,12 @@ function Home() {
     {
       title: "Total Debts",
       value: "1,090,000",
-      color: "#f7f7f9",
+      color: "#fcf5f5",
     },
     {
       title: "Total Loans",
       value: "30,000,000",
-      color: "#faf8f9",
+      color: "#f4f5f5",
     },
   ];
 
@@ -130,6 +130,27 @@ function Home() {
     { label: "This Year", value: 4 },
   ];
 
+  const topPerformingProducts = [
+    {
+      name: "Radiated Radio",
+      status: "available",
+      total_sold: "3,046",
+      total_remaining: "1,404",
+    },
+    {
+      name: "Blended Blender",
+      status: "finished",
+      total_sold: "2,250",
+      total_remaining: "04",
+    },
+    {
+      name: "Spectacular Spec",
+      status: "finished",
+      total_sold: "2,250",
+      total_remaining: "00",
+    },
+  ];
+
   return (
     <AppLayoutNew>
       {/* <div className="px-7 mb-7 flex justify-between items-center">
@@ -213,6 +234,28 @@ function Home() {
           </div>
         </div>
       </div>
+      <div className="mt-5 px-7 grid grid-cols-3 gap-5">
+        <div className="bg-white/90 p-5">
+          <p className="text-lg font-semibold">Top Perfoming Products</p>
+          <div className="mt-5">
+            {topPerformingProducts.map((product, idx) => (
+              <div key={idx} className="mb-3 flex justify-between items-center">
+                <div className="flex gap-2 items-center">
+                  <div className="w-10 h-10 rounded-lg bg-primary/50"></div>
+                  <div className="flex flex-col ">
+                    <span className="font-medium">{product.name}</span>
+                    <span className="-mt-1.5">{product.status}</span>
+                  </div>
+                </div>
+                <div className="flex flex-col text-right">
+                  <span>{product.total_sold} Sold</span>
+                  <span className="-mt-1">{product.total_remaining} in stock</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
       <div className="bg-white/90 rounded text p-5 m-5">
         <p className="text-xl font-semibold ">Last 5 Transactions</p>
         <div className="mt-2">
@@ -260,7 +303,7 @@ function Home() {
                   <td className="text-sm py-2">{item.joinDate}</td>
                   <td className="text-sm py-2">
                     <div
-                      className="bg-blue-400 text-white flex items-center gap-1.5
+                      className="bg-secondary/70 text-white flex items-center gap-1.5
                      rounded cursor-pointer px-4 py-1 w-fit"
                     >
                       {" "}
