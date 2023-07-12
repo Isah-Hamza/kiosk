@@ -95,7 +95,7 @@ const AppLayoutNew = ({ children }) => {
   return (
     <div className="flex h-screen">
       <aside className="flex flex-col w-[300px] h-full bg-white/90 py-5">
-        <div className="flex items-center gap-2 px-7">
+        <div className="flex items-center gap-2 px-10">
           <div className="rounded-full w-10 h-10 bg-[#41010b]"></div>
           <p className="text-xl font-bold">ShopHub</p>
         </div>

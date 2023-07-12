@@ -14,7 +14,7 @@ function Home() {
   const summary = [
     {
       title: "Total Balance",
-      value: "26,143,000",
+      value: "6,143,000",
       color: "#f3f3f0",
     },
     {
@@ -29,7 +29,7 @@ function Home() {
     },
     {
       title: "Total Loans",
-      value: "30,000,000",
+      value: "3,300,000",
       color: "#f4f5f5",
     },
   ];
@@ -102,23 +102,10 @@ function Home() {
     },
     {
       title: "Total Income Revenue",
-      desc: "Total amount generated this month.",
+      desc: "Total amount made this month.",
       amount: "312K",
-
-      rate: "-53%",
+      rate: "+53%",
     },
-    // {
-    //   title: "Total Loan Disbursement",
-    //   desc: "Total loan disbursed.",
-    //   amount: "550,000",
-    //   color: "#f1f1f1",
-    // },
-    // {
-    //   title: "Total Expenditure",
-    //   desc: "Expenses incured this month.",
-    //   amount: "59,000",
-    //   color: "#fcf7fd",
-    // },
   ];
 
   const filter = [
@@ -135,7 +122,7 @@ function Home() {
       name: "Radiated Radio",
       status: "available",
       total_sold: "3,046",
-      total_remaining: "1,404",
+      total_remaining: "109",
     },
     {
       name: "Blended Blender",
@@ -147,7 +134,80 @@ function Home() {
       name: "Spectacular Spec",
       status: "finished",
       total_sold: "2,250",
-      total_remaining: "00",
+      total_remaining: "0",
+    },
+    {
+      name: "Extended Extenstions",
+      status: "available",
+      total_sold: "3,046",
+      total_remaining: "404",
+    },
+    {
+      name: "Fanatical Fans",
+      status: "finished",
+      total_sold: "4,900",
+      total_remaining: "0",
+    },
+  ];
+
+  const topPerformingCustomers = [
+    {
+      name: "Paulo Coelho",
+      status: "active",
+      worth: "650,000",
+    },
+    {
+      name: "John Ebenizer",
+      status: "inactive",
+      worth: "500,900",
+    },
+    {
+      name: "Elegant Person",
+      status: "active",
+      worth: "370,460",
+    },
+    {
+      name: "Promice Grace",
+      status: "inactive",
+      worth: "770,460",
+    },
+    {
+      name: "Isaih Jenefer",
+      status: "active",
+      worth: "1,070,460",
+    },
+  ];
+
+  const lastFiveCredits = [
+    {
+      name: "Fortune 500",
+      status: "failed",
+      worth: "950,300",
+      color: "red",
+    },
+    {
+      name: "Jay & Sons",
+      status: "confirmed",
+      worth: "730,600",
+      color: "green",
+    },
+    {
+      name: "Pelemo Limited",
+      status: "pending",
+      worth: "650,000",
+      color: "#ff9700",
+    },
+    {
+      name: "Hamza and Co.",
+      status: "confirmed",
+      worth: "770,900",
+      color: "green",
+    },
+    {
+      name: "Saint Electronics",
+      status: "failed",
+      worth: "770,900",
+      color: "red",
     },
   ];
 
@@ -192,11 +252,11 @@ function Home() {
               <div className=" mt-auto">
                 <p className="text-xs">{item.desc}</p>
                 <div className="flex justify-between items-center">
-                  <p className="font-semibold text-2xl">
+                  <p className="font-medium opacity-70 text-2xl">
                     {!item.notCurrency ? "₦" : ""}
                     {item.amount}{" "}
                   </p>
-                  <div className="px-2 py-1.5 text-xs rounded-md text-primary font-semibold bg-secondary/70">
+                  <div className="px-2 py-1.5 text-xs rounded-md text-primary font-medium bg-secondary/70">
                     {item.rate}
                   </div>
                 </div>
@@ -211,7 +271,7 @@ function Home() {
             <p className="text-xl font-semibold mb-5">Monthly Disbursement</p>
             <AreaCharts />
           </div>
-          <div className="bg-white/90 p-5 flex flex-col">
+          <div className="bg-white/90 rounded p-5 flex flex-col">
             <p className="text-xl font-semibold mb-6">ShopHub Finance</p>
             <div className="grid grid-cols-2 gap-4 flex-1">
               {summary.map((item, idx) => (
@@ -222,7 +282,7 @@ function Home() {
                 >
                   <p className="font-medium text-sm">{item.title}</p>
                   <p
-                    className={`text-lg font-semibold ${
+                    className={`text-lg font-medium opacity-80 ${
                       idx === 5 && "text-[coral]"
                     }`}
                   >
@@ -235,90 +295,158 @@ function Home() {
         </div>
       </div>
       <div className="mt-5 px-7 grid grid-cols-3 gap-5">
-        <div className="bg-white/90 p-5">
-          <p className="text-lg font-semibold">Top Perfoming Products</p>
+        <div className="bg-white/90 rounded p-5">
+          <p className="text-lg font-medium">Top Perfoming Products</p>
           <div className="mt-5">
             {topPerformingProducts.map((product, idx) => (
-              <div key={idx} className="mb-3 flex justify-between items-center">
+              <div
+                key={idx}
+                className={`border-b py-2 flex justify-between items-center ${
+                  idx == topPerformingProducts.length - 1 && "border-b-0 pb-0"
+                } `}
+              >
                 <div className="flex gap-2 items-center">
                   <div className="w-10 h-10 rounded-lg bg-primary/50"></div>
                   <div className="flex flex-col ">
-                    <span className="font-medium">{product.name}</span>
-                    <span className="-mt-1.5">{product.status}</span>
+                    <span className="font-medium opacity-70">
+                      {product.name}
+                    </span>
+                    <span className="-mt-1">{product.status}</span>
                   </div>
                 </div>
                 <div className="flex flex-col text-right">
                   <span>{product.total_sold} Sold</span>
-                  <span className="-mt-1">{product.total_remaining} in stock</span>
+                  <span className="-mt-1 text-xs">
+                    {product.total_remaining} in stock
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="bg-white/90 rounded p-5">
+          <p className="text-lg font-medium">Top Performing Customers</p>
+          <div className="mt-5">
+            {topPerformingCustomers.map((customer, idx) => (
+              <div
+                key={idx}
+                // className="mb-3 flex justify-between items-center"
+                className={`border-b py-2 flex justify-between items-center ${
+                  idx == topPerformingProducts.length - 1 && "border-b-0 pb-0"
+                } `}
+              >
+                <div className="flex gap-2 items-center">
+                  <div className="w-10 h-10 rounded-lg bg-primary/50"></div>
+                  <div className="flex flex-col ">
+                    <span className="font-medium opacity-70">
+                      {customer.name}
+                    </span>
+                    <span className="-mt-1">{customer.status}</span>
+                  </div>
+                </div>
+                <div className="flex flex-col text-right">
+                  <span>₦{customer.worth}</span>
+                  <span className="-mt-1 text-xs">Wallet balance</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="bg-white/90 rounded p-5">
+          <p className="text-lg font-medium">Last 5 Credits</p>
+          <div className="mt-5">
+            {lastFiveCredits.map((trnx, idx) => (
+              <div
+                key={idx}
+                className={`border-b py-2 flex justify-between items-center ${
+                  idx == topPerformingProducts.length - 1 && "border-b-0 pb-0"
+                } `}
+              >
+                <div className="flex gap-2 items-center">
+                  <div className="w-10 h-10 rounded-lg bg-primary/50"></div>
+                  <div className="flex flex-col ">
+                    <span className="font-medium opacity-70">{trnx.name}</span>
+                    <span style={{ color: trnx.color }} className="-mt-1">
+                      {trnx.status}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex flex-col text-right">
+                  <span>₦{trnx.worth}</span>
+                  <span className="-mt-1 text-xs">Trnx. amount</span>
                 </div>
               </div>
             ))}
           </div>
         </div>
       </div>
-      <div className="bg-white/90 rounded text p-5 m-5">
-        <p className="text-xl font-semibold ">Last 5 Transactions</p>
-        <div className="mt-2">
-          <table className="w-full table-auto border-separate border-spacing-y-3 ">
-            <thead className="bg-[#f3f4f5] shadow">
-              <tr className="!text-left !opacity-70 !font-semibold">
-                <th className="py-2 !font-semibold pl-3">Person</th>
-                <th className="py-2 !font-semibold">Email</th>
-                <th className="py-2 !font-semibold">Trnx. Type</th>
-                <th className="py-2 !font-semibold">Trnx. Amount</th>
-                <th className="py-2 !font-semibold">Date / Time</th>
-                {/* <th className="py-2 !font-semibold">Debt</th> */}
-                <th className="py-2 !font-semibold">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {records.map((item, idx) => (
-                <tr
-                  className="pt-3 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-2"
-                  key={idx}
-                >
-                  <td className="text-sm py-2 pl-4 flex items-center gap-1">
-                    <img
-                      className="w-8 rounded-full"
-                      src={item.image}
-                      alt="user image"
-                    />
-                    <span> {item.name}</span>
-                  </td>
-                  <td className="text-sm py-2 ">{item.email}</td>
-                  <td className="text-sm py-2">
-                    {item.activated ? (
-                      <p className="flex gap-1 items-center">
-                        <GiCheckMark color="green" />
-                        Income
-                      </p>
-                    ) : (
-                      <p className="flex gap-1 items-center">
-                        <CgClose color="coral" size={18} />
-                        <span> Expenditure</span>
-                      </p>
-                    )}
-                  </td>
-                  <td className="text-sm py-2 ">₦{item.score}</td>
-                  <td className="text-sm py-2">{item.joinDate}</td>
-                  <td className="text-sm py-2">
-                    <div
-                      className="bg-secondary/70 text-white flex items-center gap-1.5
-                     rounded cursor-pointer px-4 py-1 w-fit"
-                    >
-                      {" "}
-                      <FiEye color="white" />
-                      <span>view</span>
-                    </div>
-                  </td>
+      <div className="mx-7 flex gap-5 m-5 mb-10 ">
+        <div className="bg-white/90 rounded text p-5 w-full">
+          <p className="text-xl font-semibold ">Last 5 Transactions</p>
+          <div className="mt-2">
+            <table className="w-full table-auto border-separate border-spacing-y-3 ">
+              <thead className="bg-[#f3f4f5] shadow">
+                <tr className="!text-left !opacity-70 !font-semibold">
+                  <th className="py-2 !font-semibold pl-3">Person</th>
+                  <th className="py-2 !font-semibold">Email</th>
+                  <th className="py-2 !font-semibold">Trnx. Type</th>
+                  <th className="py-2 !font-semibold">Trnx. Amount</th>
+                  <th className="py-2 !font-semibold">Date / Time</th>
+                  {/* <th className="py-2 !font-semibold">Debt</th> */}
+                  <th className="py-2 !font-semibold">Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <button className="text-bluebg-blue-400 w-full mt-2 flex justify-center items-center gap-1">
-            <span className="text-xs font-semibold">View all transactions</span>
-            <MdArrowRightAlt className="text-current" />
-          </button>
+              </thead>
+              <tbody>
+                {records.map((item, idx) => (
+                  <tr
+                    className="pt-3 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-2"
+                    key={idx}
+                  >
+                    <td className="text-sm py-2 pl-4 flex items-center gap-1">
+                      <img
+                        className="w-8 rounded-full"
+                        src={item.image}
+                        alt="user image"
+                      />
+                      <span> {item.name}</span>
+                    </td>
+                    <td className="text-sm py-2 ">{item.email}</td>
+                    <td className="text-sm py-2">
+                      {item.activated ? (
+                        <p className="flex gap-1 items-center">
+                          <GiCheckMark color="green" />
+                          Income
+                        </p>
+                      ) : (
+                        <p className="flex gap-1 items-center">
+                          <CgClose color="coral" size={18} />
+                          <span> Expenditure</span>
+                        </p>
+                      )}
+                    </td>
+                    <td className="text-sm py-2 ">₦{item.score}</td>
+                    <td className="text-sm py-2">{item.joinDate}</td>
+                    <td className="text-sm py-2">
+                      <div
+                        className="bg-secondary/70 text-white flex items-center gap-1.5
+                     rounded cursor-pointer px-4 py-1 w-fit"
+                      >
+                        {" "}
+                        <FiEye color="white" />
+                        <span>view</span>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <button className="text-bluebg-blue-400 w-full mt-2 flex justify-center items-center gap-1">
+              <span className="text-xs font-semibold">
+                View all transactions
+              </span>
+              <MdArrowRightAlt className="text-current" />
+            </button>
+          </div>
         </div>
       </div>
     </AppLayoutNew>
