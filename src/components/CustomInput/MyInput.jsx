@@ -30,7 +30,7 @@ export const MyInput = ({
           autoComplete="off"
           placeholder={placeholder ?? ""}
           type={type == "password" ? inputType : type}
-          className={`mt-1 block w-full rounded p-3 py-[14px] text-sm border outline-none focus:border-primarytext-primaryColor-900 ${className}`}
+          className={`mt-1 block w-full rounded p-3 py-4 text-sm border outline-none focus:border-primarytext-primaryColor-900 ${className}`}
           id={id}
           {...rest}
         />

@@ -30,7 +30,7 @@ const Register = () => {
   return (
     <div>
       <AuthPagesLayout>
-        <div className="w-full mt-16 flex flex-col self-start">
+        <div className="w-full my-10 flex flex-col self-start max-w-[320px]">
           <div className="text-center">
             <p className="font-semibold text-3xl">Sign up</p>
             <p className="text-sm text-secondary-brown">
@@ -64,14 +64,14 @@ const Register = () => {
                     idx + 1
                   )}
                 </p>
-                <p>{step.name}</p>
+                <p className="text-sm">{step.name}</p>
               </button>
             ))}
           </div>
 
           {currStep === 1 ? (
             <div className="w-full mt-14">
-              <div className="grid grid-cols-2 gap-5 gap-y-7">
+              <div className="grid gap-4">
                 <CustomInput
                   type={"text"}
                   placeholder={"First Name"}
@@ -82,7 +82,7 @@ const Register = () => {
                   placeholder="Last Name"
                   id={"last_name"}
                 />{" "}
-                <div className="col-span-2">
+                <div className="">
                   <CustomInput
                     type={"text"}
                     placeholder={"Email"}
@@ -102,10 +102,10 @@ const Register = () => {
                   className="transparent-bg"
                 />{" "}
               </div>
-              <div className=" mt-10 flex justify-end">
+              <div className=" mt-10">
                 <CustomButton
                   clickHandler={() => setCurrStep(2)}
-                  className={"w-fit"}
+                  className={"w-full"}
                   children={"Save and Next"}
                 />
               </div>
@@ -113,9 +113,9 @@ const Register = () => {
           ) : null}
 
           {currStep === 2 ? (
-            <div className="flex flex-col items-center w-full mt-14 otp">
+            <div className="flex flex-col items-center w-full mt-16 otp">
               <p className="mb-8 text-center">
-                Please enter The OTP sent to your registered email/phone number <br />{" "}
+                Please enter The OTP sent to your registered email or phone number 
                 to move to the next step.
               </p>
               <OTPInput />{" "}
@@ -131,14 +131,14 @@ const Register = () => {
 
           {currStep === 3 ? (
             <div className="w-full mt-14">
-              <div className="grid grid-cols-2 gap-5 gap-y-7">
+              <div className="grid gap-4">
                 <CustomInput
                   type={"text"}
                   placeholder={"Company Name"}
                   id={"company_name"}
                 />
                 <CustomInput type={"text"} placeholder="CAC" id={"cac"} />{" "}
-                <div className="col-span-2">
+                <div className="">
                   <CustomInput
                     type={"text"}
                     placeholder={"Company Address"}
@@ -169,9 +169,9 @@ const Register = () => {
                   ]}
                 />{" "}
               </div>
-              <div className=" mt-7 flex justify-end">
+              <div className=" mt-10 flex justify-end">
                 <CustomButton
-                  className={"w-fit"}
+                  className={"w-full"}
                   clickHandler={() => navigate("/login")}
                   children={"Create Account"}
                 />

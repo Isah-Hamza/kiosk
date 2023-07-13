@@ -17,14 +17,17 @@ const Login = () => {
 
   return (
     <AuthPagesLayout>
-      <div className="form-container max-w-[400px]">
-        <p className="text-center font-bold text-xl text-[#41010b] mb-5">
-          ShopHub
+      <div className="form-container max-w-[330px]">
+        <div className="flex justify-between items-center mb-10">
+          <span className="text-lg font-bold text-primary">ShopHub</span>
+          <button className="underline text-current text-sm font-medium">Upgrade Account</button>
+        </div>
+        <p className="text-center font-bold text-xl text-[#41010b] mb-3">
+          Hi, Welcome Back!
         </p>
-        <h2 className="text-center">Hello, Again!</h2>
         <p className="text-center text-[13px] opacity-80">
-          Welcome to ShopHub. Please provide your login credentials here to start
-          using the app.
+          Welcome to ShopHub. Please provide your login credentials here to
+          start using the app.
         </p>
         <form>
           <div className="email">
@@ -55,7 +58,7 @@ const Login = () => {
           <div className="flex items-center justify-between flex-row-reverse">
             <p className="forgot-password">Forgot Password?</p>
             <div className="flex items-center gap-1">
-              <input name="remember" id="remember" type={"checkbox"} />
+              <input name="remember" id="remember" type={"checkbox"} className="accent-primary" />
               <label htmlFor="remember">Remember Me</label>
             </div>
           </div>

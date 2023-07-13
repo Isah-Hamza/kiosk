@@ -22,6 +22,30 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px #f8f9f0 inset !important;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  /* @apply bg-primary */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-secondary/70;
+  border-radius: 5px;
+  transition: all 0.5s ease-in-out;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  transition: all 0.5s ease-in-out;
+  @apply bg-secondary;
+}
+
 .active-link {
   @apply bg-primary/20 rounded-md;
 }
