@@ -24,7 +24,7 @@ input:-webkit-autofill:active {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 5px;
 }
 
 /* Track */
@@ -35,7 +35,7 @@ input:-webkit-autofill:active {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  @apply bg-secondary/70;
+  @apply bg-primary/50;
   border-radius: 5px;
   transition: all 0.5s ease-in-out;
 }
@@ -43,7 +43,7 @@ input:-webkit-autofill:active {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   transition: all 0.5s ease-in-out;
-  @apply bg-secondary;
+  @apply bg-primary/80;
 }
 
 .active-link {
@@ -53,6 +53,7 @@ input:-webkit-autofill:active {
 .active-link:hover {
   @apply !bg-primary/20;
 }
+
 .active-link span {
   @apply !text-primary font-bold;
 }

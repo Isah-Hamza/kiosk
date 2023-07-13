@@ -30,7 +30,7 @@ const Register = () => {
   return (
     <div>
       <AuthPagesLayout>
-        <div className="w-full my-10 flex flex-col self-start max-w-[320px]">
+        <div className="w-full mt-16 my-10 flex flex-col self-start max-w-[320px]">
           <div className="text-center">
             <p className="font-semibold text-3xl">Sign up</p>
             <p className="text-sm text-secondary-brown">

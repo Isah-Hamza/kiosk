@@ -1,7 +1,6 @@
 import React from "react";
 // import "../../index.css";
 // import "../../styles/login.css";
-import loginImg from "../assets/images/undraw_Successful_purchase_re_mpig.svg";
 import appScreenshot from "../assets/images/app-screenshot.png";
 
 import "../styles/login.css";
@@ -28,7 +27,7 @@ const AuthPagesLayout = ({ children }) => {
           <div className="bg-white w-1.5 h-1.5 rounded-full"></div>
         </div>
         <div className="login-img">
-          <img src={appScreenshot} className="rounded-xl h-[90%]" alt="img" />
+          <img src={appScreenshot} className="rounded-xl h-[80%]" alt="img" />
         </div>
       </section>
       <section className="max-w-[400px] relative left !bg-white/90 h-full flex justify-center items-center h-screen overflow-auto">
