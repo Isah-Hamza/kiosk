@@ -7,14 +7,14 @@ export default function SimpleSlider({ children }) {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 900,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true, 
-    autoplaySpeed: 3000,
+    autoplaySpeed: 1500,
   };
   return (
-    <div className="max-w-screen-sm w-full overflow-hidden">
+    <div className="flex-1 overflow-hidden">
       <Slider {...settings}>{children}</Slider>
     </div>
   );

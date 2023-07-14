@@ -2,3 +2,13 @@
   box-sizing: border-box;
   /* color: hsl(10, 81%, 79%); */
 }
+
+.login .right {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.slick-next,
+.slick-prev {
+  display: none !important;
+}
