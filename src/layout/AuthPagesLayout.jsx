@@ -30,7 +30,7 @@ const AuthPagesLayout = ({ children }) => {
           <img src={appScreenshot} className="rounded-xl h-[80%]" alt="img" />
         </div>
       </section>
-      <section className="max-w-[400px] relative left !bg-white/90 h-full flex justify-center items-center h-screen overflow-auto">
+      <section className="max-w-[400px] relative left !bg-white/90 flex justify-center items-center h-screen overflow-auto">
         {children}
       </section>
     </main>
