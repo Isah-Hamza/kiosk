@@ -27,33 +27,46 @@ const AreaCharts = ({ height }) => {
     <ResponsiveContainer
       className={"-ml-7"}
       width="102%"
-      height={height || 240}
+      height={height || 300}
     >
       <AreaChart data={data}>
-        <XAxis dataKey="name" fontSize={"10px"} />
-        <YAxis label={null} interval={1} fontSize={"10px"} />
+        <XAxis
+          dataKey="name"
+          fontSize={"10px"}
+          axisLine={{ display: "none" }}
+        />
+        <YAxis
+          label={null}
+          interval={1}
+          fontSize={"10px"}
+          axisLine={{ display: "none" }}
+          // display={"none"}
+        />
         <Tooltip />
         <defs>
-          <linearGradient  id="gradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="rgba(220, 10, 13)" />
-            <stop offset="100%" stopColor="#fff" />
+          <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="20%" stopColor="rgba(67, 1, 12,.09)" />
+            <stop offset="20%" stopColor="#f7f7f7" />
           </linearGradient>
           <linearGradient id="gradient2" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="-100%" stopColor="rgb(225,225,100)" />
-            <stop offset="40%" stopColor="#fff" />
+            {/* <stop offset="10%" stopColor="rgba(245, 118, 0,.01)" /> */}
+            <stop offset="10%" stopColor="rgb(237, 218, 199)" />
+            <stop offset="30%" stopColor="#fff" />
           </linearGradient>
         </defs>
         <Area
           type="monotone"
           dataKey="sales"
-          stroke="rgba(97, 51, 51,.2)"
+          stroke="rgb(67, 1, 12)"
           fill="url(#gradient)"
+          strokeWidth={"1px"}
           fillOpacity={".3"}
         />
         <Area
           type="monotone"
           dataKey="expenses"
-          stroke="rgba(97, 51, 51,.2)"
+          stroke="rgb(245, 118, 0)"
+          strokeWidth={"1px"}
           fill="url(#gradient2)"
           stopColor="white"
           fillOpacity={".4"}

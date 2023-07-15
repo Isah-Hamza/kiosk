@@ -14,7 +14,7 @@ export default function SimpleSlider({ children }) {
     autoplaySpeed: 1500,
   };
   return (
-    <div className="flex-1 overflow-hidden">
+    <div className="overflow-hidden">
       <Slider {...settings}>{children}</Slider>
     </div>
   );

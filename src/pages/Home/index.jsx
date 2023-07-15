@@ -268,7 +268,7 @@ function Home() {
       <div className="">
         <div className=" px-7 grid grid-cols-3 gap-5">
           <div className="flex flex-col col-span-2 bg-[#fff]/90 rounded p-4 pt-5">
-            <p className="text-xl font-semibold mb-5">Monthly Disbursement</p>
+            <p className="text-xl font-semibold mb-5">Performance</p>
             <AreaCharts />
           </div>
           <div className="bg-white/90 rounded p-5 flex flex-col">
@@ -316,7 +316,7 @@ function Home() {
                 </div>
                 <div className="flex flex-col text-right">
                   <span>{product.total_sold} Sold</span>
-                  <span className="-mt-1 text-xs">
+                  <span className="text-xs">
                     {product.total_remaining} in stock
                   </span>
                 </div>
@@ -346,7 +346,7 @@ function Home() {
                 </div>
                 <div className="flex flex-col text-right">
                   <span>₦{customer.worth}</span>
-                  <span className="-mt-1 text-xs">Wallet balance</span>
+                  <span className="text-xs">Wallet balance</span>
                 </div>
               </div>
             ))}
@@ -373,7 +373,7 @@ function Home() {
                 </div>
                 <div className="flex flex-col text-right">
                   <span>₦{trnx.worth}</span>
-                  <span className="-mt-1 text-xs">Trnx. amount</span>
+                  <span className="text-xs">Trnx. amount</span>
                 </div>
               </div>
             ))}
