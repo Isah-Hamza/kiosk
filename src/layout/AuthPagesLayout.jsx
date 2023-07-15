@@ -1,8 +1,8 @@
 import React from "react";
 // import "../../index.css";
 // import "../../styles/login.css";
-import appScreenshot from "../assets/images/app-screenshot.png";
-import loginImg from '../assets/images/undraw_transfer_money_re_6o1h (1).svg'
+// import appScreenshot from "../assets/images/app-screenshot.png";
+import loginImg from "../assets/images/undraw_edited-removebg-preview.png";
 
 import "../styles/login.css";
 import "../index.css";
@@ -10,10 +10,17 @@ import SimpleSlider from "../components/Slider";
 
 const AuthPagesLayout = ({ children }) => {
   return (
-    <main className="authPages login flex">
-      {/* <SimpleSlider> */}
-      {/* <section className="right custom-bg h-full !flex w-1/2">
-        <div className="login-footer mt-auto mb-2">
+    <main className="authPages login grid grid-cols-2">
+      <section className="right bg-primaryColor-900 h-full !flex">
+        <div className="login-img">
+          <img src={loginImg} alt="img" />
+        </div>
+        <div className="flex justify-center gap-1 items-center mb-3">
+          <div className="bg-white w-1.5 h-1.5 rounded-full"></div>
+          <div className="bg-secondary w-1.5 h-1.5 rounded-full"></div>
+          <div className="bg-white w-1.5 h-1.5 rounded-full"></div>
+        </div>
+        <div className="login-footer mt-auto ">
           <h3 className="font-semibold !leading-5">
             {" "}
             <span className="text-secondary font-semibold">Grow</span> your
@@ -24,38 +31,8 @@ const AuthPagesLayout = ({ children }) => {
             business savings, loans and joining a coperative society
           </p>
         </div>
-        <div className="flex justify-center gap-1 items-center mb-3">
-          <div className="bg-white w-1.5 h-1.5 rounded-full"></div>
-          <div className="bg-secondary w-1.5 h-1.5 rounded-full"></div>
-          <div className="bg-white w-1.5 h-1.5 rounded-full"></div>
-        </div>
-        <div className="login-img">
-          <img src={appScreenshot} className="rounded-xl h-[70%]" alt="img" />
-        </div>
-      </section> */}
-
-      <section  className="right bg-primaryColor-900 h-full !flex">
-        <div className="login-img">
-          <img src={loginImg} alt="img" />
-        </div>
-        <div className="flex justify-center gap-1 items-center mb-3">
-          <div className="bg-white w-1.5 h-1.5 rounded-full"></div>
-          <div className="bg-secondary w-1.5 h-1.5 rounded-full"></div>
-          <div className="bg-white w-1.5 h-1.5 rounded-full"></div>
-        </div>
-        <div className="login-footer mt-auto">
-          <h3 className="font-semibold !leading-5">
-            Ripples Finance <br /> and Loan
-          </h3>
-          <p className="max-w-[350px]">
-            Don't let financial hurdles hold you back. Ripples Finance and Loan
-            provides a hassle-free way to get the funds you need.
-          </p>
-        </div>
       </section>
-
-      {/* </SimpleSlider> */}
-      <section className="w-1/2 relative left !bg-white/90 flex justify-center items-center h-screen overflow-auto">
+      <section className="relative left !bg-white/90 flex justify-center items-center h-screen overflow-auto">
         {children}
       </section>
     </main>

@@ -294,14 +294,17 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="mt-5 px-7 grid grid-cols-3 gap-5">
+      <div className="mt-5 px-7 grid grid-cols-2 gap-5">
         <div className="bg-white/90 rounded p-5">
           <p className="text-lg font-medium">Top Perfoming Products</p>
           <div className="mt-5">
             {topPerformingProducts.map((product, idx) => (
               <div
+                style={{
+                  backgroundColor: (idx + 1) % 2 == 1 ? "#f9f4f5" : "white", 
+                }}
                 key={idx}
-                className={`border-b py-2 flex justify-between items-center ${
+                className={`border-b py-2 px-5 rounded flex justify-between items-center bg-opacity-10 ${
                   idx == topPerformingProducts.length - 1 && "border-b-0 "
                 } `}
               >
@@ -352,7 +355,7 @@ function Home() {
             ))}
           </div>
         </div>
-        <div className="bg-white/90 rounded p-5">
+        {/* <div className="bg-white/90 rounded p-5">
           <p className="text-lg font-medium">Last 5 Credits</p>
           <div className="mt-5">
             {lastFiveCredits.map((trnx, idx) => (
@@ -378,10 +381,10 @@ function Home() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
-      <div className="mx-7 flex gap-5 m-5 mb-10 ">
-        <div className="bg-white/90 rounded text p-5 w-full">
+      <div className="mx-7 grid grid-cols-3 gap-5 m-5 mb-10 ">
+        <div className="bg-white/90 col-span-2 rounded text p-5 w-full">
           <p className="text-xl font-semibold ">Last 5 Transactions</p>
           <div className="mt-2">
             <table className="w-full table-auto border-separate border-spacing-y-3 ">
@@ -446,6 +449,33 @@ function Home() {
               </span>
               <MdArrowRightAlt className="text-current" />
             </button>
+          </div>
+        </div>
+        <div className="bg-white/90 rounded p-5">
+          <p className="text-lg font-medium">Last 5 Credits</p>
+          <div className="mt-5">
+            {lastFiveCredits.map((trnx, idx) => (
+              <div
+                key={idx}
+                className={`border-b py-2 flex justify-between items-center ${
+                  idx == topPerformingProducts.length - 1 && "border-b-0 "
+                } `}
+              >
+                <div className="flex gap-2 items-center">
+                  <div className="w-10 h-10 rounded-lg bg-primary/50"></div>
+                  <div className="flex flex-col ">
+                    <span className="font-medium opacity-70">{trnx.name}</span>
+                    <span style={{ color: trnx.color }} className="-mt-1">
+                      {trnx.status}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex flex-col text-right">
+                  <span>₦{trnx.worth}</span>
+                  <span className="text-xs">Trnx. amount</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

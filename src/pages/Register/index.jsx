@@ -30,7 +30,7 @@ const Register = () => {
   return (
     <div>
       <AuthPagesLayout>
-        <div className="w-full mt-16 my-10 flex flex-col self-start max-w-[320px]">
+        <div className="w-full mt-16 my-10 flex flex-col self-start ">
           <div className="text-center">
             <p className="font-semibold text-3xl">Sign up</p>
             <p className="text-sm text-secondary-brown">
@@ -71,7 +71,7 @@ const Register = () => {
 
           {currStep === 1 ? (
             <div className="w-full mt-14">
-              <div className="grid gap-4">
+              <div className="grid grid-cols-2 gap-4">
                 <CustomInput
                   type={"text"}
                   placeholder={"First Name"}
@@ -82,7 +82,7 @@ const Register = () => {
                   placeholder="Last Name"
                   id={"last_name"}
                 />{" "}
-                <div className="">
+                <div className="col-span-2">
                   <CustomInput
                     type={"text"}
                     placeholder={"Email"}
@@ -102,7 +102,7 @@ const Register = () => {
                   className="transparent-bg"
                 />{" "}
               </div>
-              <div className=" mt-10">
+              <div className="ml-auto w-fit mt-10">
                 <CustomButton
                   clickHandler={() => setCurrStep(2)}
                   className={"w-full"}
@@ -131,14 +131,14 @@ const Register = () => {
 
           {currStep === 3 ? (
             <div className="w-full mt-14">
-              <div className="grid gap-4">
+              <div className="grid grid-cols-2 gap-4">
                 <CustomInput
                   type={"text"}
                   placeholder={"Company Name"}
                   id={"company_name"}
                 />
                 <CustomInput type={"text"} placeholder="CAC" id={"cac"} />{" "}
-                <div className="">
+                <div className="col-span-2">
                   <CustomInput
                     type={"text"}
                     placeholder={"Company Address"}
@@ -171,7 +171,7 @@ const Register = () => {
               </div>
               <div className=" mt-10 flex justify-end">
                 <CustomButton
-                  className={"w-full"}
+                  className={"w-fit "}
                   clickHandler={() => navigate("/login")}
                   children={"Create Account"}
                 />

@@ -36,7 +36,8 @@
   margin-top: 35px;
 }
 
-.login .left form input {
+.login .left form input,
+.register input {
   border: 1px solid gainsboro;
   padding: 12px 10px;
   border-radius: 4px;
@@ -44,6 +45,11 @@
   background-color: white;
   font-size: 14px;
   height: 25px;
+}
+
+.login .left form input:hover,
+.register input:hover {
+  border: 1px solid var(--purple);
 }
 
 .forgot-password {
