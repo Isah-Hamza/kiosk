@@ -114,7 +114,7 @@ const Register = () => {
 
           {currStep === 2 ? (
             <div className="flex flex-col items-center w-full mt-16 otp">
-              <p className="mb-8 text-center">
+              <p className="mb-8 mx-auto max-w-sm text-center">
                 Please enter The OTP sent to your registered email or phone number 
                 to move to the next step.
               </p>

@@ -10,28 +10,27 @@ import hamza from "../../assets/images/hamza.jpeg";
 import CustomSelect from "../../components/CustomInput/Select";
 import AppLayoutNew from "../../layout/AppLayoutNew";
 import { BsArrowDownLeft, BsArrowUpRight } from "react-icons/bs";
+import CustomButton from "../../components/Buttons/CustomButton";
 
 function Home() {
-  const summary = [
+  const todaySummary = [
     {
-      title: "Total Balance",
-      value: "6,143,000",
-      color: "#f3f3f0",
+      title: "Today's Sales",
+      value: "3,000",
     },
     {
-      title: "Total Savings",
-      value: "252,000",
-      color: "#fcf7fd",
+      title: "Customers",
+      value: "19",
+      notCurrency: true,
     },
     {
-      title: "Total Debts",
-      value: "1,090,000",
-      color: "#fcf5f5",
+      title: "Products",
+      value: "30",
+      notCurrency: true,
     },
     {
-      title: "Total Loans",
-      value: "3,300,000",
-      color: "#f4f5f5",
+      title: "Today's Expenses",
+      value: "22,000",
     },
   ];
 
@@ -83,21 +82,21 @@ function Home() {
       title: "Net Balance",
       desc: "Final balance after expenditure.",
       amount: "6.3M",
-
+      rise: true,
       rate: "+40%",
     },
     {
       title: "Total Sales",
       desc: "Total sales made this month.",
       amount: "15.9M",
-
+      rise: false,
       rate: "-25%",
     },
     {
       title: "Total Inventory Items",
       desc: "Total items in inventory.",
       amount: "2.5K",
-
+      rise: false,
       rate: "-13%",
       notCurrency: true,
     },
@@ -106,6 +105,7 @@ function Home() {
       desc: "Total amount made this month.",
       amount: "312K",
       rate: "+53%",
+      rise: true,
     },
   ];
 
@@ -226,7 +226,7 @@ function Home() {
     <AppLayoutNew>
       {/* main */}
       <div className="pb-10">
-        <div className="rounded text  px-7 pt-0">
+        <div className="rounded text px-7 pt-0">
           <p className="text-2xl font-semibold mb-4">Overview</p>
           <div className="grid grid-cols-4 gap-5">
             {analysis.map((item, idx) => (
@@ -237,11 +237,13 @@ function Home() {
               >
                 <div className="flex items-center justify-between">
                   <p className="font-medium">{item.title} </p>
-                  <MdArrowRightAlt
-                    color="rgb(97, 51, 51)"
-                    className="cursor-pointer"
-                    size={25}
-                  />
+                  <button>
+                    <MdArrowRightAlt
+                      color="rgb(97, 51, 51)"
+                      className={item.rise ? "" : ""}
+                      size={25}
+                    />
+                  </button>
                 </div>
                 <div className=" mt-auto">
                   <p className="text-xs">{item.desc}</p>
@@ -250,13 +252,62 @@ function Home() {
                       {!item.notCurrency ? "₦" : ""}
                       {item.amount}{" "}
                     </p>
-                    <div className="px-2 py-1.5 text-xs rounded-md text-primary font-medium bg-secondary/70">
+                    {/* <div
+                      className={`font-bold opacity-80 px-2 py-1.5 text-xs rounded-md text-primary bg-secondary/70 ${
+                        item.rise && "bg-green-200 "
+                      }`}
+                    >
                       {item.rate}
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+        <div className="rounded min-h-[200px] bg-dimmed_white mx-7 mt-5 p-5 !pb-7 ">
+          <p className="text-lg font-medium mb-5"> Today's Business Insight</p>
+          <div className="flex justify-between">
+            {todaySummary.map((item, idx) => (
+              <div
+                key={idx}
+                className={` text-center
+                ${idx == 0 && "!text-left"}
+                ${idx == todaySummary.length - 1 && "text-right"}
+                
+                `}
+              >
+                <p className="font-medium opacity-70 mb-1.5">{item.title}</p>
+                <p className="font-semibold text-xl">
+                  {!item.notCurrency ? "₦" : ""}
+                  {item.value}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className="border-y px-2 p-3.5 flex justify-between  mt-10">
+            <CustomButton
+              className={
+                " bg-[rgba(0,158,170,.3)] text-[rgba(0,158,170)] px-20 !py-2.5 rounded-lg"
+              }
+            >
+              Record Sales
+            </CustomButton>
+            <CustomButton
+              className={" px-20  bg-transparent text-[rgba(0,158,170)]  border border-current !py-2.5 rounded-lg"}
+            >
+              Add Customers
+            </CustomButton>
+            {/* <CustomButton
+              className={
+                "bg-primary/25 !text-primary font-semibold !py-2.5 rounded-lg"
+              }
+            >
+              New Product
+            </CustomButton> */}
+            <CustomButton className={" px-20 bg-[rgba(235,87,87,.3)] !text-[rgba(235,87,87,.7)] font-bold !py-2.5 rounded-lg"}>
+              Record Expenses
+            </CustomButton>
           </div>
         </div>
         <div className="mt-5">
@@ -294,22 +345,22 @@ function Home() {
                           <BsArrowUpRight />
                         )}
                       </div>
-                      <div className="flex flex-col gap-1.5 ">
-                        <span className="font-medium opacity-70">
+                      <div className="flex flex-col gap-[7px] ">
+                        <span className="text-sm font-medium opacity-70">
                           {trnx.name}
                         </span>
-                        <span className="-mt-1 text-sm">{trnx.time}</span>
+                        <span className="-mt text-xs">{trnx.time}</span>
                       </div>
                     </div>
-                    <div className="flex flex-col gap-[1px] text-right">
-                      <span className="font-medium opacity-80">
+                    <div className="flex flex-col gap-[7px] text-right">
+                      <span className="font-medium opacity-80 text-sm ">
                         {trnx.transaction_type == "incoming" ? "+" : "-"} ₦
                         {trnx.amount}
                       </span>
                       <span
-                        className={`text-sm capitalize ${
-                          trnx.transaction_type == "incoming"
-                            ? "text-[#85fae3]"
+                        className={`text-xs capitalize font-medium ${
+                          trnx.status == "successful"
+                            ? "text-[#1c5c4f]"
                             : "text-[#cc746c]"
                         }`}
                       >
