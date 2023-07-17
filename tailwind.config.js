@@ -4,8 +4,10 @@ export default {
   theme: {
     extend: {
       colors: {
+        bg: "#f3f4f6",
         primary: "#43010c",
         secondary: "#f57600",
+        dimmed_white: "rgba(255,255,255,.9)",
       },
     },
   },

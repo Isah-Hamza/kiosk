@@ -9,6 +9,7 @@ import AreaCharts from "../../components/Chart/AreaCharts";
 import hamza from "../../assets/images/hamza.jpeg";
 import CustomSelect from "../../components/CustomInput/Select";
 import AppLayoutNew from "../../layout/AppLayoutNew";
+import { BsArrowDownLeft, BsArrowUpRight } from "react-icons/bs";
 
 function Home() {
   const summary = [
@@ -180,128 +181,156 @@ function Home() {
 
   const lastFiveCredits = [
     {
-      name: "Fortune 500",
+      name: "Cash Payment",
       status: "failed",
-      worth: "950,300",
-      color: "red",
+      amount: "95,300",
+      time: "Wed, 03 Sept, 2023 10:25 PM",
+      payment_type: "transfer",
+      transaction_type: "outgoing",
     },
     {
-      name: "Jay & Sons",
-      status: "confirmed",
-      worth: "730,600",
-      color: "green",
+      name: "Bank Transfer",
+      status: "successful",
+      amount: "30,600",
+      time: "Mon, 23 Sept, 2021 10:25 PM",
+      payment_type: "transfer",
+      transaction_type: "incoming",
     },
     {
-      name: "Pelemo Limited",
-      status: "pending",
-      worth: "650,000",
-      color: "#ff9700",
+      name: "Laon Repayment",
+      status: "successful",
+      amount: "65,000",
+      time: "Fri, 11 Aug, 2029 04:55 PM",
+      payment_type: "cash",
+      transaction_type: "outgoing",
     },
     {
-      name: "Hamza and Co.",
-      status: "confirmed",
-      worth: "770,900",
-      color: "green",
-    },
-    {
-      name: "Saint Electronics",
+      name: "Wallet Deposit",
       status: "failed",
-      worth: "770,900",
-      color: "red",
+      amount: "77,900",
+      time: "Wed, 04 Apr, 2023 09:42 AM",
+      payment_type: "cash",
+      transaction_type: "incoming",
+    },
+    {
+      name: "Maintenance Fee",
+      status: "successful",
+      amount: "45,000",
+      time: "Wed, 03 Sept, 2023 10:25 PM",
+      payment_type: "automatic",
+      transaction_type: "outgoing",
     },
   ];
 
   return (
     <AppLayoutNew>
-      {/* <div className="px-7 mb-7 flex justify-between items-center">
-        <div className="">
-          <p className="flex items-center gap-1 font-bold text-2xl">
-            <span className="font-normal">Hello, </span>
-            <span className="capitalize">Isah Hamza</span>
-            <span className="block">
-              {" "}
-              <PiHandWaving color="#f8a300" />{" "}
-            </span>
-          </p>
-          <p className="text-sm">This is how kiosk is performing.</p>
-        </div>
-
-        <div className="flex gap-3">
-          <CustomSelect className={"min-w-[200px] px-4"} options={filter} />
-        </div>
-      </div> */}
-
       {/* main */}
-      <div className="rounded text  px-7 pt-0 mb-5">
-        <p className="text-2xl font-semibold mb-4">Overview</p>
-        <div className="grid grid-cols-4 gap-3">
-          {analysis.map((item, idx) => (
-            <div
-              key={idx}
-              style={{ backgroundColor: "white" }}
-              className="flex flex-col justify-between rounded-md min-h-[180px] p-5"
-            >
-              <div className="flex items-center justify-between">
-                <p className="font-medium">{item.title} </p>
-                <MdArrowRightAlt
-                  color="rgb(97, 51, 51)"
-                  className="cursor-pointer"
-                  size={25}
-                />
-              </div>
-              <div className=" mt-auto">
-                <p className="text-xs">{item.desc}</p>
-                <div className="flex justify-between items-center">
-                  <p className="font-medium opacity-70 text-2xl">
-                    {!item.notCurrency ? "₦" : ""}
-                    {item.amount}{" "}
-                  </p>
-                  <div className="px-2 py-1.5 text-xs rounded-md text-primary font-medium bg-secondary/70">
-                    {item.rate}
+      <div className="pb-10">
+        <div className="rounded text  px-7 pt-0">
+          <p className="text-2xl font-semibold mb-4">Overview</p>
+          <div className="grid grid-cols-4 gap-5">
+            {analysis.map((item, idx) => (
+              <div
+                key={idx}
+                style={{ backgroundColor: "rgba(255,255,255,.9)" }}
+                className="flex flex-col justify-between rounded min-h-[180px] p-5"
+              >
+                <div className="flex items-center justify-between">
+                  <p className="font-medium">{item.title} </p>
+                  <MdArrowRightAlt
+                    color="rgb(97, 51, 51)"
+                    className="cursor-pointer"
+                    size={25}
+                  />
+                </div>
+                <div className=" mt-auto">
+                  <p className="text-xs">{item.desc}</p>
+                  <div className="flex justify-between items-center">
+                    <p className="font-medium opacity-70 text-2xl">
+                      {!item.notCurrency ? "₦" : ""}
+                      {item.amount}{" "}
+                    </p>
+                    <div className="px-2 py-1.5 text-xs rounded-md text-primary font-medium bg-secondary/70">
+                      {item.rate}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="">
-        <div className=" px-7 grid grid-cols-3 gap-5">
-          <div className="flex flex-col col-span-2 bg-[#fff]/90 rounded p-4 pt-5">
-            <p className="text-xl font-semibold mb-5">Performance</p>
-            <AreaCharts />
+            ))}
           </div>
-          <div className="bg-white/90 rounded p-5 flex flex-col">
-            <p className="text-xl font-semibold mb-6">ShopHub Finance</p>
-            <div className="grid grid-cols-2 gap-4 flex-1">
-              {summary.map((item, idx) => (
-                <div
-                  key={idx}
-                  style={{ background: item.color }}
-                  className="p-5 bg-white rounded"
-                >
-                  <p className="font-medium text-sm">{item.title}</p>
-                  <p
-                    className={`text-lg font-medium opacity-80 ${
-                      idx === 5 && "text-[coral]"
-                    }`}
+        </div>
+        <div className="mt-5">
+          <div className=" px-7 grid grid-cols-3 gap-5">
+            <div className="flex flex-col col-span-2 bg-[#fff]/90 rounded p-4 pt-5">
+              <p className="text-xl font-semibold mb-5">Performance</p>
+              <AreaCharts />
+            </div>
+            <div className="bg-white/90 rounded p-5">
+              <div className="flex justify-between items-center">
+                <p className="text-lg font-medium">Last 5 Transactions</p>
+                <button className="text-primary text-sm font-medium opacity-80">
+                  VIEW ALL
+                </button>
+              </div>
+              <div className="mt-5">
+                {lastFiveCredits.map((trnx, idx) => (
+                  <div
+                    key={idx}
+                    className={`border-b py-2 flex justify-between items-center ${
+                      idx == topPerformingProducts.length - 1 && "border-b-0 "
+                    } `}
                   >
-                    ₦{item.value}
-                  </p>
-                </div>
-              ))}
+                    <div className="flex gap-2 items-center">
+                      <div
+                        className={`grid place-content-center w-9 h-9 rounded-full ${
+                          trnx.transaction_type == "incoming"
+                            ? "bg-[#bafbee]"
+                            : "bg-[#fcd0cc]"
+                        }`}
+                      >
+                        {trnx.transaction_type == "incoming" ? (
+                          <BsArrowDownLeft />
+                        ) : (
+                          <BsArrowUpRight />
+                        )}
+                      </div>
+                      <div className="flex flex-col gap-1.5 ">
+                        <span className="font-medium opacity-70">
+                          {trnx.name}
+                        </span>
+                        <span className="-mt-1 text-sm">{trnx.time}</span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-[1px] text-right">
+                      <span className="font-medium opacity-80">
+                        {trnx.transaction_type == "incoming" ? "+" : "-"} ₦
+                        {trnx.amount}
+                      </span>
+                      <span
+                        className={`text-sm capitalize ${
+                          trnx.transaction_type == "incoming"
+                            ? "text-[#85fae3]"
+                            : "text-[#cc746c]"
+                        }`}
+                      >
+                        {trnx.status}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="mt-5 px-7 grid grid-cols-2 gap-5">
+      {/* <div className="mt-5 px-7 grid grid-cols-2 gap-5">
         <div className="bg-white/90 rounded p-5">
           <p className="text-lg font-medium">Top Perfoming Products</p>
           <div className="mt-5">
             {topPerformingProducts.map((product, idx) => (
               <div
                 style={{
-                  backgroundColor: (idx + 1) % 2 == 1 ? "#f9f4f5" : "white", 
+                  backgroundColor: (idx + 1) % 2 == 1 ? "#f9f4f5" : "white",
                 }}
                 key={idx}
                 className={`border-b py-2 px-5 rounded flex justify-between items-center bg-opacity-10 ${
@@ -355,35 +384,8 @@ function Home() {
             ))}
           </div>
         </div>
-        {/* <div className="bg-white/90 rounded p-5">
-          <p className="text-lg font-medium">Last 5 Credits</p>
-          <div className="mt-5">
-            {lastFiveCredits.map((trnx, idx) => (
-              <div
-                key={idx}
-                className={`border-b py-2 flex justify-between items-center ${
-                  idx == topPerformingProducts.length - 1 && "border-b-0 "
-                } `}
-              >
-                <div className="flex gap-2 items-center">
-                  <div className="w-10 h-10 rounded-lg bg-primary/50"></div>
-                  <div className="flex flex-col ">
-                    <span className="font-medium opacity-70">{trnx.name}</span>
-                    <span style={{ color: trnx.color }} className="-mt-1">
-                      {trnx.status}
-                    </span>
-                  </div>
-                </div>
-                <div className="flex flex-col text-right">
-                  <span>₦{trnx.worth}</span>
-                  <span className="text-xs">Trnx. amount</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div> */}
-      </div>
-      <div className="mx-7 grid grid-cols-3 gap-5 m-5 mb-10 ">
+      </div> */}
+      {/* <div className="mx-7 grid grid-cols-3 gap-5 m-5 mb-10 ">
         <div className="bg-white/90 col-span-2 rounded text p-5 w-full">
           <p className="text-xl font-semibold ">Last 5 Transactions</p>
           <div className="mt-2">
@@ -395,7 +397,6 @@ function Home() {
                   <th className="py-2 !font-semibold">Trnx. Type</th>
                   <th className="py-2 !font-semibold">Trnx. Amount</th>
                   <th className="py-2 !font-semibold">Date / Time</th>
-                  {/* <th className="py-2 !font-semibold">Debt</th> */}
                   <th className="py-2 !font-semibold">Action</th>
                 </tr>
               </thead>
@@ -478,7 +479,7 @@ function Home() {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
     </AppLayoutNew>
   );
 }

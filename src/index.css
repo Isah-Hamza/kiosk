@@ -47,11 +47,11 @@ input:-webkit-autofill:active {
 }
 
 .active-link {
-  @apply bg-primary/20 rounded-md;
+  /* @apply bg-primary/20 rounded-md; */
 }
 
 .active-link:hover {
-  @apply !bg-primary/20;
+  /* @apply !bg-primary/20; */
 }
 
 .active-link span {

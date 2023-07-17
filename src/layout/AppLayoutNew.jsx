@@ -104,7 +104,7 @@ const AppLayoutNew = ({ children }) => {
             {sidebarElements.map((item, idx) => (
               <li
                 key={idx}
-                className={` flex items-center justify-between text-[15px]font-medium opacity-70 pl-8 pr-5 py-3.5 hover:bg-[#f3f4f5] hover:opacity-100 cursor-pointer transition-all duration-300 ease-in-out ${
+                className={` flex items-center justify-between text-[15px] font-medium opacity-70 pl-8 pr-5 py-3 hover:opacity-100 hover:text-primary cursor-pointer transition-all duration-300 ease-in-out ${
                   idx == 0 && "active-link"
                 }`}
               >
@@ -142,7 +142,7 @@ const AppLayoutNew = ({ children }) => {
           </ul>
         </div>
       </aside>
-      <main className="flex-1 h-screen overflow-auto bg-[#f3f4f9]/60">
+      <main className="flex-1 h-screen overflow-auto bg-bg">
         <header className="w-full h-[120px] flex items-center justify-between px-7">
           <button className="border border-primary/30 rounded px-3 py-3 flex items-center gap-2 text-primary">
             <RiServiceFill size={18} className="text-current" />
