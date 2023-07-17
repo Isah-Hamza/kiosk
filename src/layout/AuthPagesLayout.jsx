@@ -13,7 +13,7 @@ const AuthPagesLayout = ({ children }) => {
     <main className="authPages login grid grid-cols-2">
       <section className="right bg-primaryColor-900 h-full !flex">
         <div className="login-img">
-          <img src={loginImg} alt="img" />
+          {/* <img src={loginImg} alt="img" /> */}
         </div>
         <div className="flex justify-center gap-1 items-center mb-3">
           <div className="bg-white w-1.5 h-1.5 rounded-full"></div>
