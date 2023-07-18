@@ -288,7 +288,7 @@ function Home() {
           <div className="border-y px-2 p-3.5 flex justify-between  mt-10">
             <CustomButton
               className={
-                " bg-[rgba(0,158,170,0.3)] font-semibold text-[rgba(0,158,170,1)] px-20 !py-2.5 rounded-lg"
+                " bg-[rgba(0,158,170,0.3)] font-semibold text-[rgba(0,158,170,1)] border border-[rgba(0,158,170,1)] px-20 !py-2.5 rounded-lg"
               }
             >
               Record Sales
@@ -298,7 +298,7 @@ function Home() {
             >
               Add Customers
             </CustomButton>
-            <CustomButton className={"font-semibold px-20 bg-[#eb57571a] !text-[#eb5757] font-bold !py-2.5 rounded-lg"}>
+            <CustomButton className={"px-20 bg-[#eb57571a] !text-[#eb5757] border border-[#eb5757] font-bold !py-2.5 rounded-lg"}>
               Record Expenses
             </CustomButton>
           </div>
