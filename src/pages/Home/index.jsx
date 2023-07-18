@@ -298,7 +298,7 @@ function Home() {
             >
               Add Customers
             </CustomButton>
-            <CustomButton className={" px-20 bg-[#eb57571a] !text-[#eb5757] font-bold !py-2.5 rounded-lg"}>
+            <CustomButton className={"font-semibold px-20 bg-[#eb57571a] !text-[#eb5757] font-bold !py-2.5 rounded-lg"}>
               Record Expenses
             </CustomButton>
           </div>
