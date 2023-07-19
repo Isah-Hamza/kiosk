@@ -5,6 +5,11 @@ import Layout from "../../layout/AppLayoutNew";
 import { FaEdit } from "react-icons/fa";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { RiDeleteBin3Line } from "react-icons/ri";
+import CustomInput from "../../components/CustomInput";
+import { SlLock } from "react-icons/sl";
+import { MdOutlineMarkEmailUnread } from "react-icons/md";
+import CustomSelect from "../../components/CustomInput/Select";
+import CustomButton from "../../components/Buttons/CustomButton";
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -238,6 +243,97 @@ const Profile = () => {
                     </p>
                   </div>
                 ))}
+              </div>
+            </div>
+          ) : null}
+
+          {/* Security */}
+          {activeTab === 3 ? (
+            <div className="mb-10 bg-dimmed_white/80 rounded-md p-7">
+              <div className="flex justify-between items-center">
+                <p className="text-xl font-semibold opacity-80 mb-">
+                  Security Information
+                </p>
+              </div>
+              <div className=" grid grid-cols-3 gap-5 mt-7">
+                <div className="password mt-1">
+                  <CustomInput
+                    label={"Old Password"}
+                    placeholder={"Enter Password"}
+                    className={
+                      "!h-[50px] w-full px-5 outline-none border rounded"
+                    }
+                    type={"password"}
+                    Icon={
+                      <SlLock
+                        size={17}
+                        className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
+                      />
+                    }
+                  />
+                </div>
+                <div className="password mt-1">
+                  <CustomInput
+                    label={"New Password"}
+                    placeholder={"Enter Password"}
+                    className={
+                      " !h-[50px] w-full px-5 outline-none border  rounded"
+                    }
+                    type={"password"}
+                    Icon={
+                      <SlLock
+                        size={17}
+                        className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
+                      />
+                    }
+                  />
+                </div>
+                <div className="password mt-1">
+                  <CustomInput
+                    label={"Confirm Password"}
+                    placeholder={"Enter Password"}
+                    className={
+                      " !h-[50px] w-full px-5 outline-none border  rounded"
+                    }
+                    type={"password"}
+                    Icon={
+                      <SlLock
+                        size={17}
+                        className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
+                      />
+                    }
+                  />
+                </div>
+                <div className="col-span-3 mt-1">
+                  <CustomButton className={'rounded-md !py-3 !bg-primary/90'}>Reset Password</CustomButton>
+                </div>
+              </div>
+              <div className="mt-10">
+                <p className="text-xl font-semibold opacity-80 mb-5">
+                  Account Settings
+                </p>
+                <div className="grid grid-cols-3 gap-5">
+                  <CustomSelect
+                    allowFirstOption
+                    className={"country"}
+                    label={"Change Status"}
+                    options={[
+                      { label: "Active", value: 1 },
+                      { label: "Inactive", value: 2 },
+                    ]}
+                  />{" "}
+                  <CustomSelect
+                    allowFirstOption
+                    label={"Enable 2 Factor Auth"}
+                    options={[
+                      { label: "No", value: 1 },
+                      { label: "Yes", value: 2 },
+                    ]}
+                  />{" "}
+                  <div className="col-span-3 mt-1">
+                    <CustomButton className={'rounded-md !py-3 !bg-primary/90'}>Save Changes</CustomButton>
+                  </div>
+                </div>
               </div>
             </div>
           ) : null}

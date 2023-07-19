@@ -57,16 +57,16 @@ export default function CustomInput({
   return (
     <div className="">
       {label ? (
-        <label htmlFor={id} className="block text-sm font-medium text-primary">
+        <label htmlFor={id} className="block text-sm mb-0.5 text-primary">
           {label}
         </label>
       ) : null}
-      <div className="relative">
+      <div className="relative w-full">
         <input
           autoComplete="off"
           placeholder={placeholder ?? ""}
           type={type == "password" ? inputType : type}
-          className="bg-white mt-1 block w-full rounded p-3 py-[14px] text-sm border outline-none focus:border-primary"
+          className="bg-white mt-1 block !w-full rounded p-3 py-[14px] text-sm border outline-none focus:border-primary"
           id={id}
           {...rest}
         />
