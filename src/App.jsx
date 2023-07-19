@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import { routes } from "./utils/routes";
 
 import 'react-circular-progressbar/dist/styles.css';
+import Profile from "./pages/Profile";
 
 
 function App() {
@@ -13,7 +14,9 @@ function App() {
     <BrowserRouter>
       <Routes>
         {routes.map((route, idx) => (
-          <Route key={idx} path={route.path} Component={route.component} exact={true} />
+          // <Route key={idx} path={route.path} Component={route.component} exact={true} />
+          <Route key={idx} path={route.path} Component={Profile} exact={true} />
+          
         ))}
       </Routes>
     </BrowserRouter>

@@ -1,6 +1,6 @@
 import React from "react";
 import person from "../assets/images/hamza.jpeg";
-import { FaBell } from "react-icons/fa";
+import { FaBell, FaUserCog } from "react-icons/fa";
 import { FiHome, FiUsers } from "react-icons/fi";
 import { BsCaretDownFill, BsCreditCard } from "react-icons/bs";
 import { RiDashboardLine, RiServiceFill } from "react-icons/ri";
@@ -59,6 +59,11 @@ const AppLayoutNew = ({ children }) => {
       name: "Products",
       path: "/customer",
       icon: <RiDashboardLine />,
+    },
+    {
+      name: "My Profile",
+      path: "/profile",
+      icon: <FaUserCog />,
     },
     {
       name: "Reports",
@@ -143,7 +148,7 @@ const AppLayoutNew = ({ children }) => {
         </div>
       </aside>
       <main className="flex-1 h-screen overflow-auto bg-bg">
-        <header className="w-full h-[120px] flex items-center justify-between px-7">
+        <header className="w-full h-[120px] flex items-center justify-between px-7 pt-5">
           <button className="border border-primary/30 rounded px-3 py-3 flex items-center gap-2 text-primary">
             <RiServiceFill size={18} className="text-current" />
             <span className="font-medium">Pelemo Stores</span>

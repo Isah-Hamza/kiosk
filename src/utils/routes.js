@@ -1,5 +1,6 @@
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import Profile from "../pages/Profile";
 import Register from "../pages/Register";
 
   export const routes = [
@@ -22,5 +23,10 @@ import Register from "../pages/Register";
       title: "Home",
       path: "/home",
       component: Home,
+    },
+    {
+      title: "Profile",
+      path: "/prfile",
+      component: Profile,
     },
   ];
