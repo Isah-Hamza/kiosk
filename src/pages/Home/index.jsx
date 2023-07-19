@@ -3,16 +3,24 @@ import { MdArrowRightAlt } from "react-icons/md";
 import { PiHandWaving } from "react-icons/pi";
 import { GiCheckMark } from "react-icons/gi";
 import { CgClose } from "react-icons/cg";
-import { FiEye } from "react-icons/fi";
+import { FiEye, FiShield, FiShieldOff } from "react-icons/fi";
 import AppLayout from "../../layout/AppLayout";
 import AreaCharts from "../../components/Chart/AreaCharts";
 import hamza from "../../assets/images/hamza.jpeg";
 import CustomSelect from "../../components/CustomInput/Select";
 import AppLayoutNew from "../../layout/AppLayoutNew";
-import { BsArrowDownLeft, BsArrowUpRight } from "react-icons/bs";
+import {
+  BsArrowDownLeft,
+  BsArrowUpRight,
+  BsFillShieldLockFill,
+} from "react-icons/bs";
 import CustomButton from "../../components/Buttons/CustomButton";
 
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+
 function Home() {
+  const percentage = 66;
+
   const todaySummary = [
     {
       title: "Today's Sales",
@@ -230,77 +238,169 @@ function Home() {
           <p className="text-2xl font-semibold mb-4">Overview</p>
           <div className="grid grid-cols-4 gap-5">
             {analysis.map((item, idx) => (
-              <div
-                key={idx}
-                style={{ backgroundColor: "rgba(255,255,255,.9)" }}
-                className="flex flex-col justify-between rounded min-h-[180px] p-5"
-              >
-                <div className="flex items-center justify-between">
-                  <p className="font-medium">{item.title} </p>
-                  <button>
-                    <MdArrowRightAlt
-                      color="rgb(97, 51, 51)"
-                      className={item.rise ? "" : ""}
-                      size={25}
-                    />
-                  </button>
-                </div>
-                <div className=" mt-auto">
-                  <p className="text-xs">{item.desc}</p>
-                  <div className="flex justify-between items-center">
-                    <p className="font-medium opacity-70 text-2xl">
-                      {!item.notCurrency ? "₦" : ""}
-                      {item.amount}{" "}
-                    </p>
-                    {/* <div
-                      className={`font-bold opacity-80 px-2 py-1.5 text-xs rounded-md text-primary bg-secondary/70 ${
-                        item.rise && "bg-green-200 "
-                      }`}
-                    >
-                      {item.rate}
-                    </div> */}
+              <>
+                {idx == 0 ? (
+                  <div className="bg-[#f1eeee] shadow-md rounded h-full flex flex-col p-5">
+                    <div>
+                      <p className="font-medium">Account Balance</p>
+                      <p className="text-2xl font-medium opacity-70">₦12,000</p>
+                    </div>
+                    <div className="mt-auto flex justify-between items-center">
+                      <div>
+                        <p className="font-medium opacity-80">Wema Bank</p>
+                        <p className="text-lg">0814348473</p>
+                      </div>
+                      <BsFillShieldLockFill
+                        className="text-primary/70"
+                        size={35}
+                      />
+                    </div>
                   </div>
-                </div>
-              </div>
+                ) : (
+                  <div
+                    key={idx}
+                    style={{ backgroundColor: "rgba(255,255,255,.9)" }}
+                    className="flex flex-col justify-between rounded min-h-[180px] p-5"
+                  >
+                    <div className="flex items-center justify-between">
+                      <p className="font-medium">{item.title} </p>
+                      <button>
+                        <MdArrowRightAlt
+                          color="rgb(97, 51, 51)"
+                          className={item.rise ? "" : ""}
+                          size={25}
+                        />
+                      </button>
+                    </div>
+                    <div className=" mt-auto">
+                      <p className="text-xs">{item.desc}</p>
+                      <div className="flex justify-between items-center">
+                        <p className="font-medium opacity-70 text-2xl">
+                          {!item.notCurrency ? "₦" : ""}
+                          {item.amount}{" "}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
             ))}
           </div>
         </div>
-        <div className="rounded min-h-[200px] bg-dimmed_white mx-7 mt-5 p-5 !pb-7 ">
-          <p className="text-lg font-medium mb-5"> Today's Business Insight</p>
-          <div className="flex justify-between">
-            {todaySummary.map((item, idx) => (
-              <div
-                key={idx}
-                className={` text-center
+        {/* <div className="mt-5 h-[220px] bg-white mx-7 rounded"></div> */}
+        <div className="grid grid-cols-3 gap-5 mx-7 mt-5">
+          {/* <div className="bg-white rounded"></div> */}
+          <div className=" col-span-3 rounded min-h-[200px] bg-dimmed_white  p-5 !pb-7 ">
+            <p className="text-lg font-medium mb-5">
+              {" "}
+              Today's Business Insight
+            </p>
+            <div className="flex justify-between">
+              {todaySummary.map((item, idx) => (
+                <div
+                  key={idx}
+                  className={` text-center
                 ${idx == 0 && "!text-left"}
                 ${idx == todaySummary.length - 1 && "text-right"}
                 
                 `}
+                >
+                  <p className="font-medium opacity-70 mb-1.5">{item.title}</p>
+                  <p className="font-semibold text-xl">
+                    {!item.notCurrency ? "₦" : ""}
+                    {item.value}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className="border-y px-2 p-3.5 flex justify-between  mt-10">
+              <CustomButton
+                className={
+                  " !bg-[rgba(0,158,170,0.3)] font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-2.5 rounded-lg"
+                }
               >
-                <p className="font-medium opacity-70 mb-1.5">{item.title}</p>
-                <p className="font-semibold text-xl">
-                  {!item.notCurrency ? "₦" : ""}
-                  {item.value}
+                Record Sales
+              </CustomButton>
+              <CustomButton
+                className={
+                  "!bg-transparent border !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg"
+                }
+              >
+                Add Customers
+              </CustomButton>
+              <CustomButton
+                className={
+                  "!bg-[#eb57571a] !text-[#eb5757] border !border-[#eb5757] font-bold !py-2.5 rounded-lg"
+                }
+              >
+                Record Expenses
+              </CustomButton>
+            </div>
+            <div className="flex justify-between pt-10">
+              <div>
+                <p className="font-medium opacity-70 mb-1.5">Business Points</p>
+                <p className="font-semibold text-xl">5 points</p>
+                <p className="text-sm">
+                  Earn up to 1000 points to qualify <br /> for business points.
                 </p>
               </div>
-            ))}
-          </div>
-          <div className="border-y px-2 p-3.5 flex justify-between  mt-10">
-            <CustomButton
-              className={
-                " !bg-[rgba(0,158,170,0.3)] font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)] px-20 !py-2.5 rounded-lg"
-              }
-            >
-              Record Sales
-            </CustomButton>
-            <CustomButton
-              className={" px-20  !bg-transparent border !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg"}
-            >
-              Add Customers
-            </CustomButton>
-            <CustomButton className={"px-20 !bg-[#eb57571a] !text-[#eb5757] border !border-[#eb5757] font-bold !py-2.5 rounded-lg"}>
-              Record Expenses
-            </CustomButton>
+              <div className="w-32">
+                <CircularProgressbar
+                  value={percentage}
+                  text={`${percentage}%`}
+                  styles={buildStyles({
+                    // Rotation of path and trail, in number of turns (0-1)
+                    rotation: 0.25,
+
+                    // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+                    strokeLinecap: "round",
+
+                    // Text size
+                    textSize: "16px",
+                    fontWeight:'600',
+
+                    // How long animation takes to go from one percentage to another, in seconds
+                    pathTransitionDuration: 0.5,
+
+                    // Can specify path transition in more detail, or remove it entirely
+                    // pathTransition: 'none',
+
+                    // Colors
+                    pathColor: `rgb(65, 1, 11s,${percentage / 100})`,
+                    textColor: "rgb(65, 1, 11s)",
+                    trailColor: "#d6d6d6",
+                    backgroundColor: "#3e98c7",
+                  })}
+                />
+              </div>
+              <div>
+                <p className="font-medium opacity-70 mb-1.5">Loans</p>
+                <p className="font-semibold text-xl">₦0.00</p>
+                <p className="text-sm">of ₦5,000 available credit</p>
+                {/* <CustomButton
+                  className={
+                    "!py-2 mt-3 !bg-[rgba(0,158,170,0.3)] !rounded-lg font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]"
+                  }
+                >
+                  Apply
+                </CustomButton> */}
+              </div>
+
+              <div>
+                <p className="font-medium opacity-70 mb-1.5">Savings</p>
+                <p className="font-semibold text-xl">₦0.00</p>
+                <p className="text-sm">
+                  Click the button below to start saving.
+                </p>
+                <CustomButton
+                  className={
+                    "!py-2 mt-3 !bg-opacity-70  !border-primary !text-white font-bold !rounded-lg"
+                  }
+                >
+                  Save
+                </CustomButton>
+              </div>
+            </div>
           </div>
         </div>
         <div className="mt-5">

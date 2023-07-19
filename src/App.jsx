@@ -4,6 +4,9 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import { routes } from "./utils/routes";
 
+import 'react-circular-progressbar/dist/styles.css';
+
+
 function App() {
 
   return (
