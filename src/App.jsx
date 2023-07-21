@@ -8,6 +8,7 @@ import "react-circular-progressbar/dist/styles.css";
 import Profile from "./pages/Profile";
 import Products from "./pages/Products";
 import CreateProduct from "./pages/Products/CreateProduct";
+import NewSales from "./pages/Sales/AddNewSales";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
           <Route
             key={idx}
             path={route.path}
-            Component={CreateProduct}
+            Component={NewSales}
             exact={true}
           />
         ))}
