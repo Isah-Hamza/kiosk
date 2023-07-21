@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import Products from "./pages/Products";
 import CreateProduct from "./pages/Products/CreateProduct";
 import NewSales from "./pages/Sales/AddNewSales";
+import RecordExpenses from "./pages/Expenses/RecordExpeses";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
           <Route
             key={idx}
             path={route.path}
-            Component={NewSales}
+            Component={RecordExpenses}
             exact={true}
           />
         ))}

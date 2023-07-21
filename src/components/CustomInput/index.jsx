@@ -46,6 +46,8 @@ export default function CustomInput({
   label,
   type = "text",
   id,
+  hasIcon,
+  Icon,
   ...rest
 }) {
   const [inputType, setInputType] = useState("password");
@@ -86,6 +88,10 @@ export default function CustomInput({
 
         {type == "data" && (
           <SlCalender className="absolute right-3 top-1/2 -translate-y-1/2" />
+        )}
+
+        {hasIcon && (
+          <Icon className="absolute right-3 top-1/2 -translate-y-1/2" />
         )}
       </div>
     </div>

@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import AppLayoutNew from "../../layout/AppLayoutNew";
 import { BsCloudArrowUp, BsPatchCheckFill, BsTrash3Fill } from "react-icons/bs";
 import CustomInput from "../../components/CustomInput";
-import { FaCartPlus, FaLuggageCart, FaPlus, FaUser, FaUsers } from "react-icons/fa";
+import { FaUser, FaUsers } from "react-icons/fa";
 import { PiCurrencyNgnLight, PiPlusLight } from "react-icons/pi";
-import { GrCloudComputer } from "react-icons/gr";
 import CustomButton from "../../components/Buttons/CustomButton";
 import CustomSelect from "../../components/CustomInput/Select";
 import shoppingBag from "../../assets/images/image-shopping-bag-dd0f7627.svg";
@@ -40,13 +39,13 @@ const RecordExpenses = () => {
     { label: "Unpaid", value: "3" },
   ];
 
-  const sales_medium = [
-    { label: "Select One", value: "0" },
-    { label: "Social Media", value: "1" },
-    { label: "Physical Store", value: "2" },
-    { label: "Affiliate Marketing", value: "3" },
-    { label: "Partnership", value: "4" },
-    { label: "Others", value: "5" },
+  const category = [
+    { label: "Services / Maintenance", value: "1" },
+    { label: "Salary", value: "2" },
+    { label: "Workmanship", value: "3" },
+    { label: "Food", value: "4" },
+    { label: "Transport", value: "5" },
+    { label: "Others", value: "6" },
   ];
 
   return (
@@ -61,39 +60,9 @@ const RecordExpenses = () => {
             </div>
             <div className="grid grid-cols-1 gap-5">
               <div className="mt-7 grid gap-5">
-                <CustomSelect
-                  className={"!bg-bg"}
-                  options={products}
-                  label={"Select Product(s) sold"}
-                />
-                <CustomSelect
-                  className={"!bg-bg"}
-                  options={customers}
-                  label={"Find / Select Customer"}
-                />
-                <div className="grid grid-cols-2 gap-5 border-b pb-7">
-                  <CustomSelect
-                    className={"!bg-bg"}
-                    options={payment_type}
-                    label={"Select Payment Type"}
-                  />
-                  <CustomInput
-                    className={"!bg-bg"}
-                    label={"Sales Date"}
-                    id={"product_name"}
-                    type="date"
-                  />
-                </div>
-                <div className=" border-b pb-6">
-                  <CustomSelect
-                    className={"!bg-bg"}
-                    options={payment_status}
-                    label={"Payment Status"}
-                  />
-                </div>
-                <div className=" border-b pb-6 -mt-1">
+                <div className=" border-b pb-7 -mt-1">
                   <label htmlFor="" className="text-sm">
-                    Discounted Price (if applicable)
+                    Total Amount Spent
                   </label>
                   <div className="flex-1 relative">
                     <div className="span absolute left-3 top-4 text-lg">
@@ -105,17 +74,50 @@ const RecordExpenses = () => {
                     />
                   </div>
                 </div>
-                <div className=" border-b pb-6">
+
+                <CustomInput
+                  className={"!bg-bg"}
+                  label={"Who Did You Paid To"}
+                  placeholder={'Select Beneficiary'}
+                  hasIcon
+                  Icon={FaUser}
+                />
+                <div className="grid grid-cols-2 gap-5 border-b pb-7">
                   <CustomSelect
                     className={"!bg-bg"}
-                    options={sales_medium}
-                    label={"Sales Medium / Channel"}
+                    options={payment_type}
+                    label={"Select Payment Type"}
                   />
+                  <CustomInput
+                    className={"!bg-bg"}
+                    label={"Sales Date"}
+                    id={"sales_date"}
+                    type="date"
+                  />
+                </div>
+                <CustomSelect
+                  allowFirstOption
+                  className={"!bg-bg"}
+                  options={category}
+                  label={"Select Expense Category"}
+                />
+                <div className="">
+                  <label htmlFor="" className="text-sm">
+                    What was the payment for (optional)
+                  </label>
+                  <textarea
+                    className="w-full border rounded h-28 text-sm placeholder:text-sm p-2 outline-none resize-none !bg-bg"
+                    placeholder="e.g purchase of new items..."
+                    name=""
+                    id=""
+                    cols="30"
+                    rows="10"
+                  ></textarea>
                 </div>
 
                 <div>
                   <CustomButton className=" ml-auto mt-2 text-white text-sm flex items-center justify-end gap-2 !px-10 !py-3 rounded-md">
-                    <BsCloudArrowUp size={20} /> Record Sale
+                    <BsCloudArrowUp size={20} /> Submit Expense{" "}
                   </CustomButton>
                 </div>
               </div>
