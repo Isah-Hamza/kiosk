@@ -8,7 +8,7 @@ import { RiCarFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { BiCaretDown } from "react-icons/bi";
 
-const AppLayoutNew = ({ children }) => {
+const AppLayoutNew = ({ children, noHeader }) => {
   const navigate = useNavigate();
 
   const sidebarElements = [
@@ -148,25 +148,27 @@ const AppLayoutNew = ({ children }) => {
         </div>
       </aside>
       <main className="flex-1 h-screen overflow-auto bg-bg">
-        <header className="w-full h-[120px] flex items-center justify-between px-7 pt-5">
-          <button className="border border-primary/30 rounded px-3 py-3 flex items-center gap-2 text-primary">
-            <RiServiceFill size={18} className="text-current" />
-            <span className="font-medium">Pelemo Stores</span>
-            <BiCaretDown className="text-current ml-5" />
-          </button>
-          <div className="flex gap-3 items-center">
-            <button className="relative p-1.5 rounded bg-primary/30">
-              <FaBell size={14} className="text-primary" />
+        {noHeader ? null : (
+          <header className="w-full h-[120px] flex items-center justify-between px-7 pt-5">
+            <button className="border border-primary/30 rounded px-3 py-3 flex items-center gap-2 text-primary">
+              <RiServiceFill size={18} className="text-current" />
+              <span className="font-medium">Pelemo Stores</span>
+              <BiCaretDown className="text-current ml-5" />
             </button>
-            <div className="flex items-center gap-2">
-              <img className="w-11 rounded-full" src={person} alt="person" />
-              {/* <div className="text-sm">
+            <div className="flex gap-3 items-center">
+              <button className="relative p-1.5 rounded bg-primary/30">
+                <FaBell size={14} className="text-primary" />
+              </button>
+              <div className="flex items-center gap-2">
+                <img className="w-11 rounded-full" src={person} alt="person" />
+                {/* <div className="text-sm">
                 <p className="font-semibold leading-4 text-base">Isah Hamza</p>
                 <p>Admin</p>
               </div> */}
+              </div>
             </div>
-          </div>
-        </header>
+          </header>
+        )}
         <section className="">{children}</section>
       </main>
     </div>

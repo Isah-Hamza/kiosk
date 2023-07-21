@@ -41,6 +41,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import { SlCalender } from "react-icons/sl";
 
 export default function CustomInput({
+  className,
   placeholder,
   label,
   type = "text",
@@ -66,7 +67,7 @@ export default function CustomInput({
           autoComplete="off"
           placeholder={placeholder ?? ""}
           type={type == "password" ? inputType : type}
-          className="bg-white mt-1 block !w-full rounded p-3 py-[14px] text-sm border outline-none focus:border-primary"
+          className={` bg-white mt-1 block !w-full rounded p-3 py-[14px] text-sm border outline-none focus:border-primary ${className}`}
           id={id}
           {...rest}
         />

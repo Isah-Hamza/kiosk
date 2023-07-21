@@ -42,6 +42,8 @@ function Home() {
     },
   ];
 
+
+
   const records = [
     {
       image: hamza,
