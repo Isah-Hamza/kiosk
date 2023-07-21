@@ -91,7 +91,7 @@ export default function CustomInput({
         )}
 
         {hasIcon && (
-          <Icon className="absolute right-3 top-1/2 -translate-y-1/2" />
+          <Icon size={18} className="opacity-50 absolute right-3 top-1/2 -translate-y-1/2" />
         )}
       </div>
     </div>

@@ -124,26 +124,9 @@ const RecordExpenses = () => {
             </div>
           </div>
           <div className="w-full ">
-            <div className="p-5 pt-3 bg-dimmed_white rounded-xl min-h-[200px] mb-12">
-              <p className="mb-4">Selected Products</p>
-              <div className=" grid grid-cols-4 gap-5">
-                <>
-                  {[1, 2].map((item, idx) => (
-                    <div>
-                      <img src={shoppingBag} className="rounded-md" />
-                    </div>
-                  ))}
-                </>
-                <div className="w-full min-h-[40px] border rounded-lg border-dashed grid place-content-center">
-                  {" "}
-                  <PiPlusLight />{" "}
-                  {/* <span className="text-xs text-center">Add Another</span> */}
-                </div>
-              </div>
-            </div>
-
+           
             <p className="font-medium opacity-75">
-              Did you made bulk sales? You can save stress by uploading a .xlxs
+              Did you know that if you had performed a bulk expenses, you can save stress by uploading a .xlxs
               or .csv file in a specific format.
             </p>
             <p className="text-sm opacity-70 mt-7">
@@ -151,7 +134,7 @@ const RecordExpenses = () => {
               file and unlocking a world of possibilities for seamless content
               management and organization. You may click on the button below to
               download a sample csv file on how to prepare your own .csv file
-              for your sales for upload.
+              for your expenses for upload.
             </p>
             <div className="grid grid-cols-2 gap-4 mt-8">
               <CustomButton
