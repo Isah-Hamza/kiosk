@@ -24,10 +24,24 @@ const CreateProduct = () => {
             </div>
             <div className="mt-7 grid gap-4">
               <CustomInput
-                className={"!bg-[rgb(249,249,255)]"}
+                className={"!bg-bg"}
                 label={"Product Name"}
                 id={"product_name"}
               />
+              <div>
+                <label htmlFor="" className="text-sm">
+                  Cost Price
+                </label>
+                <div className="flex-1 relative">
+                  <div className="span absolute left-3 top-4 text-lg">
+                    <PiCurrencyNgnLight />{" "}
+                  </div>
+                  <input
+                    type="text"
+                    className="!bg-bg w-full rounded border outline-none h-full px-5 pl-9 py-[14px] text-sm placeholder:text-sm"
+                  />
+                </div>
+              </div>
               <div>
                 <label htmlFor="" className="text-sm">
                   Selling Price
@@ -38,7 +52,7 @@ const CreateProduct = () => {
                   </div>
                   <input
                     type="text"
-                    className="!bg-[rgb(249,249,255)] w-full rounded border outline-none h-full px-5 pl-9 py-[14px] text-sm placeholder:text-sm"
+                    className="!bg-bg w-full rounded border outline-none h-full px-5 pl-9 py-[14px] text-sm placeholder:text-sm"
                   />
                 </div>
               </div>
@@ -53,7 +67,7 @@ const CreateProduct = () => {
                     }}
                     className={`${
                       type === 0 && " !border-primary"
-                    } cursor-pointer flex flex-col items-center gap-4 py-5 pt-7 !bg-[rgb(249,249,255)] rounded border relative`}
+                    } cursor-pointer flex flex-col items-center gap-4 py-5 pt-7 !bg-bg rounded border relative`}
                   >
                     {type === 0 ? (
                       <BsPatchCheckFill className="absolute top-3 left-3 text-primary" />
@@ -69,7 +83,7 @@ const CreateProduct = () => {
                     }}
                     className={`${
                       type === 1 && " !border-primary"
-                    } cursor-pointer flex flex-col items-center py-5 gap-3 border !bg-[rgb(249,249,255)] rounded relative`}
+                    } cursor-pointer flex flex-col items-center py-5 gap-3 border !bg-bg rounded relative`}
                   >
                     {type === 1 ? (
                       <BsPatchCheckFill className="absolute top-3 left-3 text-primary" />
@@ -85,7 +99,7 @@ const CreateProduct = () => {
                   Product Description (optional)
                 </label>
                 <textarea
-                  className="w-full border rounded h-28 text-sm placeholder:text-sm p-2 outline-none resize-none !bg-[rgb(249,249,255)]"
+                  className="w-full border rounded h-28 text-sm placeholder:text-sm p-2 outline-none resize-none !bg-bg"
                   placeholder="Short Description"
                   name=""
                   id=""
