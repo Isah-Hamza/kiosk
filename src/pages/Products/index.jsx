@@ -1,39 +1,20 @@
-import React, { useState } from "react";
-import { FiEye, FiPlus } from "react-icons/fi";
+import React from "react";
 import { BiPlus } from "react-icons/bi";
 import CustomButton from "../../components/Buttons/CustomButton";
-import CustomSelect from "../../components/CustomInput/Select";
 import AppLayoutNew from "../../layout/AppLayoutNew";
-import { ImDownload3 } from "react-icons/im";
-import { GiCheckMark } from "react-icons/gi";
-import { CgClose, CgSearch } from "react-icons/cg";
+import { CgSearch } from "react-icons/cg";
 import hamza from "../../assets/images/hamza.jpeg";
 import shoppingBag from "../../assets/images/image-shopping-bag-dd0f7627.svg";
-import { BsCloudArrowUp, BsTrash3Fill } from "react-icons/bs";
-import CustomInput from "../../components/CustomInput";
-import { FaUser, FaUsers } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
-  const [addNew, setAddNew] = useState(false);
-  const [type, setType] = useState(0);
-
+  const navigate = useNavigate();
   const products_summary = [
     { title: "Items", value: 6 },
     { title: "Total Units", value: 42 },
     { title: "Total Value", value: "₦12,000" },
   ];
-  const filter = [
-    { label: "No Filter", value: 1 },
-    { label: "Active", value: 2 },
-    { label: "Inactive", value: 3 },
-    { label: "Suspended", value: 4 },
-  ];
-  const staff_type = [
-    { label: "Select Role", value: null },
-    { label: "Adhoc", value: 1 },
-    { label: "Sub Admin", value: 2 },
-    { label: "Admin", value: 3 },
-  ];
+
   const records = [
     {
       image: hamza,
@@ -61,7 +42,7 @@ const Products = () => {
           <div className="flex justify-between items-center ">
             <div className="w-full flex gap-4">
               <CustomButton
-                clickHandler={() => setAddNew(true)}
+                clickHandler={() => navigate("/add-product")}
                 className={
                   " !bg-[rgba(0,158,170,0.3)] font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)] !px-7 !py-1 rounded-lg"
                 }
@@ -83,7 +64,6 @@ const Products = () => {
                 />
               </div>
               <CustomButton
-                clickHandler={() => setAddNew(true)}
                 className={
                   "!py-2 !rounded-lg !px-7 bg-transparent border !border-[rgba(0,158,170,1)] !text-[rgba(0,158,170,1)]"
                 }

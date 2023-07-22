@@ -2,6 +2,8 @@ import AddCustomer from "../pages/Customers/AddCustomer";
 import RecordExpenses from "../pages/Expenses/RecordExpeses";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import Products from "../pages/Products";
+import CreateProduct from "../pages/Products/CreateProduct";
 import Profile from "../pages/Profile";
 import Register from "../pages/Register";
 import NewSales from "../pages/Sales/AddNewSales";
@@ -29,8 +31,18 @@ export const routes = [
   },
   {
     title: "Profile",
-    path: "/prfile",
+    path: "/profile",
     component: Profile,
+  },
+  {
+    title: "Products",
+    path: "/products",
+    component: Products,
+  },
+  {
+    title: "Create Products",
+    path: "/add-product",
+    component: CreateProduct,
   },
   {
     title: "Record Sales",

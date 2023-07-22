@@ -57,12 +57,12 @@ const AppLayoutNew = ({ children, noHeader }) => {
     },
     {
       name: "Products",
-      path: null,
+      path: '/products',
       icon: <RiDashboardLine />,
     },
     {
       name: "My Profile",
-      path: null,
+      path: '/profile',
       icon: <FaUserCog />,
     },
     {
