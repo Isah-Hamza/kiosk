@@ -29,6 +29,6 @@ jobs:
         with:
           host: ${{ secrets.DROPLET_SSH_HOST }}
           username: ${{ secrets.DROPLET_SSH_USER }}
-          key: ${{ secrets.DROPLET_SSH_PRIVATE_KEY }}
+          password: ${{ secrets.DROPLET_SSH_PRIVATE_KEY }}
           source: "dist/"  # Change this path if your build output directory is different
           target: "/var/www/html"  # Change this to your web server's root directory
