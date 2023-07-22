@@ -110,7 +110,8 @@ const Products = () => {
                 <>
                   {records.map((item, idx) => (
                     <tr
-                      className="pt-3 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-2"
+                      onClick={() => navigate("/product/details")}
+                      className="cursor-pointer pt-3 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-2"
                       key={idx}
                     >
                       <td className="text-sm py-2 pl-4 flex items-center gap-1">

@@ -1,17 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import AppLayoutNew from "../../layout/AppLayoutNew";
-import { BsCloudArrowUp, BsPatchCheckFill, BsTrash3Fill } from "react-icons/bs";
+import { BsCloudArrowUp } from "react-icons/bs";
 import CustomInput from "../../components/CustomInput";
-import { FaCartPlus, FaLuggageCart, FaPlus, FaUser, FaUsers } from "react-icons/fa";
 import { PiCurrencyNgnLight, PiPlusLight } from "react-icons/pi";
-import { GrCloudComputer } from "react-icons/gr";
 import CustomButton from "../../components/Buttons/CustomButton";
 import CustomSelect from "../../components/CustomInput/Select";
 import shoppingBag from "../../assets/images/image-shopping-bag-dd0f7627.svg";
 
 const NewSales = () => {
-  const [type, setType] = useState(-1);
-
   const products = [
     { label: "Choose One / Multiple", value: "1" },
     { label: "Ridiculous Product", value: "1" },
