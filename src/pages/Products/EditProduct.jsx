@@ -84,10 +84,17 @@ const EditProduct = ({ setEditProduct }) => {
                   placeholder="Short Description"
                 ></textarea>
               </div>
-              <div className="border border-dashed rounded-md min-h-[100px]"></div>
+              <div className="">
+                <p className="text-sm">Images of Product</p>
+                <div className="border border-dashed rounded-md min-h-[100px] grid place-content-center">
+                  <p>
+                    Drag and Drop Images or <span>select from file</span>
+                  </p>
+                </div>
+              </div>
               <div>
-                <CustomButton className=" ml-auto mt-2 text-white text-sm flex items-center justify-end gap-2 !px-10 !py-3 rounded-md">
-                  <BsCloudArrowUp size={20} /> Save Product
+                <CustomButton className=" ml-auto mt-3 text-white text-sm flex items-center justify-end gap-2 !px-10 !py-3 rounded-md">
+                  <BsCloudArrowUp size={20} /> Save Changes
                 </CustomButton>
               </div>
             </div>
