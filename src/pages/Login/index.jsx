@@ -4,7 +4,6 @@ import "../../styles/login.css";
 
 import { ImGoogle } from "react-icons/im";
 import CustomInput from "../../components/CustomInput";
-import SimpleSlider from "../../components/Slider";
 import { SlLock } from "react-icons/sl";
 import { MdOutlineMarkEmailUnread } from "react-icons/md";
 import CustomButton from "../../components/Buttons/CustomButton";
@@ -20,7 +19,9 @@ const Login = () => {
       <div className="form-container max-w-[330px]">
         <div className="flex justify-between items-center mb-10">
           <span className="text-lg font-bold text-primary">ShopHub</span>
-          <button className="underline text-current text-sm font-medium">Upgrade Account</button>
+          <button className="underline text-current text-sm font-medium">
+            Upgrade Account
+          </button>
         </div>
         <p className="text-center font-bold text-xl text-[#41010b] mb-3">
           Hi, Welcome Back!
@@ -58,7 +59,12 @@ const Login = () => {
           <div className="flex items-center justify-between flex-row-reverse">
             <p className="forgot-password">Forgot Password?</p>
             <div className="flex items-center gap-1">
-              <input name="remember" id="remember" type={"checkbox"} className="accent-primary" />
+              <input
+                name="remember"
+                id="remember"
+                type={"checkbox"}
+                className="accent-primary"
+              />
               <label htmlFor="remember">Remember Me</label>
             </div>
           </div>

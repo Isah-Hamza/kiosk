@@ -236,6 +236,7 @@ function Home() {
                 Record Sales
               </CustomButton>
               <CustomButton
+                clickHandler={() => navigate("/add-customer")}
                 className={
                   "!bg-transparent border !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg"
                 }

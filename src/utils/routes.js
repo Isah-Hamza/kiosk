@@ -1,3 +1,4 @@
+import AddCustomer from "../pages/Customers/AddCustomer";
 import RecordExpenses from "../pages/Expenses/RecordExpeses";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
@@ -40,5 +41,10 @@ export const routes = [
     title: "Record Expenses",
     path: "/record-expense",
     component: RecordExpenses,
+  },
+  {
+    title: "Add Customer",
+    path: "/add-customer",
+    component: AddCustomer,
   },
 ];
