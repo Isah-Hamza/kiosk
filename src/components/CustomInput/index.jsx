@@ -1,40 +1,4 @@
-// import React from "react";
-// import { Input, InputLabel, TextField } from "@material-ui/core";
 
-// const CustomInput = ({
-//   onChange,
-//   value,
-//   label,
-//   type,
-//   Icon,
-//   className,
-//   name,
-//   onBlur,
-// }) => {
-//   return (
-//     <div className="!text-sm relative">
-//       <TextField
-//         label={label}
-//         variant="outlined"
-//         style={{ width: 350 }}
-//         name={name}
-//         onChange={onChange}
-//         value={value}
-//         onBlur={onBlur}
-//       >
-//         <InputLabel>{label}</InputLabel>
-//         <Input />
-//       </TextField>
-//       {Icon ?? (
-//         <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
-//           {Icon}
-//         </span>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default CustomInput;
 
 import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";

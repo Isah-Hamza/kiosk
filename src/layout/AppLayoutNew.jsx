@@ -19,7 +19,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
     },
     {
       name: "Logistics",
-      path: "/customer",
+      path: null,
       icon: <RiCarFill />,
     },
     {
@@ -52,22 +52,22 @@ const AppLayoutNew = ({ children, noHeader }) => {
     },
     {
       name: "My Customers",
-      path: "/staff",
+      path: null,
       icon: <FiUsers />,
     },
     {
       name: "Products",
-      path: "/customer",
+      path: null,
       icon: <RiDashboardLine />,
     },
     {
       name: "My Profile",
-      path: "/profile",
+      path: null,
       icon: <FaUserCog />,
     },
     {
       name: "Reports",
-      path: "/loan",
+      path: null,
       icon: <BsCreditCard />,
       hasSubMenu: true,
       subMenu: [
@@ -108,6 +108,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
           <ul>
             {sidebarElements.map((item, idx) => (
               <li
+                onClick={() => navigate(item.path)}
                 key={idx}
                 className={` flex items-center justify-between text-[15px] font-medium opacity-70 pl-8 pr-5 py-3 hover:opacity-100 hover:text-primary cursor-pointer transition-all duration-300 ease-in-out ${
                   idx == 0 && "active-link"

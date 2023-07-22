@@ -1,13 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { MdArrowRightAlt } from "react-icons/md";
-import { PiHandWaving } from "react-icons/pi";
-import { GiCheckMark } from "react-icons/gi";
-import { CgClose } from "react-icons/cg";
-import { FiEye, FiShield, FiShieldOff } from "react-icons/fi";
-import AppLayout from "../../layout/AppLayout";
 import AreaCharts from "../../components/Chart/AreaCharts";
-import hamza from "../../assets/images/hamza.jpeg";
-import CustomSelect from "../../components/CustomInput/Select";
 import AppLayoutNew from "../../layout/AppLayoutNew";
 import {
   BsArrowDownLeft,
@@ -17,8 +10,10 @@ import {
 import CustomButton from "../../components/Buttons/CustomButton";
 
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
   const percentage = 66;
 
   const todaySummary = [
@@ -39,51 +34,6 @@ function Home() {
     {
       title: "Today's Expenses",
       value: "22,000",
-    },
-  ];
-
-
-
-  const records = [
-    {
-      image: hamza,
-      name: "Ridiculous Guy",
-      email: "ridiculousguy@gmail.com",
-      score: "100,000",
-      joinDate: "02/23/2023",
-      activated: false,
-      numberOfReqs: 23,
-      indebted: "89,000",
-    },
-    {
-      image: hamza,
-      name: "Isah Hamza",
-      email: "itshamzy@gmail.com",
-      score: "30,000",
-      joinDate: "02/23/2023",
-      activated: true,
-      numberOfReqs: 19,
-      indebted: "23,000",
-    },
-    {
-      image: hamza,
-      name: "Obajemu Samuel",
-      email: "objsamuel@gmail.com",
-      score: "150,000",
-      joinDate: "12/30/2020",
-      activated: true,
-      numberOfReqs: 32,
-      indebted: "90,000",
-    },
-    {
-      image: hamza,
-      name: "Hyper-realistic User",
-      email: "unrealuser@gmail.com",
-      score: "90,000",
-      joinDate: "08/02/2021",
-      activated: false,
-      numberOfReqs: 11,
-      indebted: "54,000",
     },
   ];
 
@@ -119,15 +69,6 @@ function Home() {
     },
   ];
 
-  const filter = [
-    { label: "Filter by Period", value: null },
-    { label: "All Time", value: 0 },
-    { label: "Today", value: 1 },
-    { label: "This Week", value: 2 },
-    { label: "This Month", value: 3 },
-    { label: "This Year", value: 4 },
-  ];
-
   const topPerformingProducts = [
     {
       name: "Radiated Radio",
@@ -158,34 +99,6 @@ function Home() {
       status: "finished",
       total_sold: "4,900",
       total_remaining: "0",
-    },
-  ];
-
-  const topPerformingCustomers = [
-    {
-      name: "Paulo Coelho",
-      status: "active",
-      worth: "650,000",
-    },
-    {
-      name: "John Ebenizer",
-      status: "inactive",
-      worth: "500,900",
-    },
-    {
-      name: "Elegant Person",
-      status: "active",
-      worth: "370,460",
-    },
-    {
-      name: "Promice Grace",
-      status: "inactive",
-      worth: "770,460",
-    },
-    {
-      name: "Isaih Jenefer",
-      status: "active",
-      worth: "1,070,460",
     },
   ];
 
@@ -237,12 +150,12 @@ function Home() {
       {/* main */}
       <div className="pb-10">
         <div className="rounded text px-7 pt-0">
-          <p className="text-2xl font-semibold mb-4">Overview</p>
-          <div className="grid grid-cols-4 gap-5">
+          {/* <p className="text-2xl font-semibold mb-4">Overview</p> */}
+          <div className="grid grid-cols-4 gap-5 mt-10">
             {analysis.map((item, idx) => (
               <>
                 {idx == 0 ? (
-                  <div className="bg-[#f1eeee] shadow-md rounded h-full flex flex-col p-5">
+                  <div className="bg-dimmed_white rounded h-full flex flex-col p-5">
                     <div>
                       <p className="font-medium">Account Balance</p>
                       <p className="text-2xl font-medium opacity-70">₦12,000</p>
@@ -289,9 +202,7 @@ function Home() {
             ))}
           </div>
         </div>
-        {/* <div className="mt-5 h-[220px] bg-white mx-7 rounded"></div> */}
         <div className="grid grid-cols-3 gap-5 mx-7 mt-5">
-          {/* <div className="bg-white rounded"></div> */}
           <div className=" col-span-3 rounded min-h-[200px] bg-dimmed_white  p-5 !pb-7 ">
             <p className="text-lg font-medium mb-5">
               {" "}
@@ -317,6 +228,7 @@ function Home() {
             </div>
             <div className="border-y px-2 p-3.5 flex justify-between  mt-10">
               <CustomButton
+                clickHandler={() => navigate("/record-sale")}
                 className={
                   " !bg-[rgba(0,158,170,0.3)] font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-2.5 rounded-lg"
                 }
@@ -331,6 +243,7 @@ function Home() {
                 Add Customers
               </CustomButton>
               <CustomButton
+                clickHandler={() => navigate("/record-expense")}
                 className={
                   "!bg-[#eb57571a] !text-[#eb5757] border !border-[#eb5757] font-bold !py-2.5 rounded-lg"
                 }
@@ -359,7 +272,7 @@ function Home() {
 
                     // Text size
                     textSize: "16px",
-                    fontWeight:'600',
+                    fontWeight: "600",
 
                     // How long animation takes to go from one percentage to another, in seconds
                     pathTransitionDuration: 0.5,
@@ -469,68 +382,6 @@ function Home() {
           </div>
         </div>
       </div>
-      {/* <div className="mt-5 px-7 grid grid-cols-2 gap-5">
-        <div className="bg-white/90 rounded p-5">
-          <p className="text-lg font-medium">Top Perfoming Products</p>
-          <div className="mt-5">
-            {topPerformingProducts.map((product, idx) => (
-              <div
-                style={{
-                  backgroundColor: (idx + 1) % 2 == 1 ? "#f9f4f5" : "white",
-                }}
-                key={idx}
-                className={`border-b py-2 px-5 rounded flex justify-between items-center bg-opacity-10 ${
-                  idx == topPerformingProducts.length - 1 && "border-b-0 "
-                } `}
-              >
-                <div className="flex gap-2 items-center">
-                  <div className="w-10 h-10 rounded-lg bg-primary/50"></div>
-                  <div className="flex flex-col ">
-                    <span className="font-medium opacity-70">
-                      {product.name}
-                    </span>
-                    <span className="-mt-1">{product.status}</span>
-                  </div>
-                </div>
-                <div className="flex flex-col text-right">
-                  <span>{product.total_sold} Sold</span>
-                  <span className="text-xs">
-                    {product.total_remaining} in stock
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="bg-white/90 rounded p-5">
-          <p className="text-lg font-medium">Top Performing Customers</p>
-          <div className="mt-5">
-            {topPerformingCustomers.map((customer, idx) => (
-              <div
-                key={idx}
-                // className="mb-3 flex justify-between items-center"
-                className={`border-b py-2 flex justify-between items-center ${
-                  idx == topPerformingProducts.length - 1 && "border-b-0 "
-                } `}
-              >
-                <div className="flex gap-2 items-center">
-                  <div className="w-10 h-10 rounded-lg bg-primary/50"></div>
-                  <div className="flex flex-col ">
-                    <span className="font-medium opacity-70">
-                      {customer.name}
-                    </span>
-                    <span className="-mt-1">{customer.status}</span>
-                  </div>
-                </div>
-                <div className="flex flex-col text-right">
-                  <span>₦{customer.worth}</span>
-                  <span className="text-xs">Wallet balance</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div> */}
       {/* <div className="mx-7 grid grid-cols-3 gap-5 m-5 mb-10 ">
         <div className="bg-white/90 col-span-2 rounded text p-5 w-full">
           <p className="text-xl font-semibold ">Last 5 Transactions</p>

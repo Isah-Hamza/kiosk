@@ -1,42 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import AppLayoutNew from "../../layout/AppLayoutNew";
-import { BsCloudArrowUp, BsPatchCheckFill, BsTrash3Fill } from "react-icons/bs";
+import { BsCloudArrowUp } from "react-icons/bs";
 import CustomInput from "../../components/CustomInput";
-import { FaUser, FaUsers } from "react-icons/fa";
-import { PiCurrencyNgnLight, PiPlusLight } from "react-icons/pi";
+import { FaUser } from "react-icons/fa";
+import { PiCurrencyNgnLight } from "react-icons/pi";
 import CustomButton from "../../components/Buttons/CustomButton";
 import CustomSelect from "../../components/CustomInput/Select";
-import shoppingBag from "../../assets/images/image-shopping-bag-dd0f7627.svg";
 
 const RecordExpenses = () => {
-  const [type, setType] = useState(-1);
-
-  const products = [
-    { label: "Choose One / Multiple", value: "1" },
-    { label: "Ridiculous Product", value: "1" },
-    { label: "Testing Product", value: "2" },
-    { label: "Digital Product", value: "3" },
-  ];
-
-  const customers = [
-    { label: "John Smith 2345", value: "1" },
-    { label: "Ridiculous Customer", value: "1" },
-    { label: "Testing Customer", value: "2" },
-    { label: "Digital Customer", value: "3" },
-  ];
 
   const payment_type = [
     { label: "Select One", value: "0" },
     { label: "Cash", value: "1" },
     { label: "Transfer", value: "2" },
     { label: "Debit Card", value: "3" },
-  ];
-
-  const payment_status = [
-    { label: "Select One", value: "0" },
-    { label: "Fully Paid", value: "1" },
-    { label: "Partially Paid", value: "2" },
-    { label: "Unpaid", value: "3" },
   ];
 
   const category = [
@@ -78,7 +55,7 @@ const RecordExpenses = () => {
                 <CustomInput
                   className={"!bg-bg"}
                   label={"Who Did You Paid To"}
-                  placeholder={'Select Beneficiary'}
+                  placeholder={"Select Beneficiary"}
                   hasIcon
                   Icon={FaUser}
                 />
@@ -124,10 +101,10 @@ const RecordExpenses = () => {
             </div>
           </div>
           <div className="w-full ">
-           
             <p className="font-medium opacity-75">
-              Did you know that if you had performed a bulk expenses, you can save stress by uploading a .xlxs
-              or .csv file in a specific format.
+              Did you know that if you had performed a bulk expenses, you can
+              save stress by uploading a .xlxs or .csv file in a specific
+              format.
             </p>
             <p className="text-sm opacity-70 mt-7">
               Streamline data integration by effortlessly importing your CSV
@@ -142,7 +119,7 @@ const RecordExpenses = () => {
                   " !bg-[rgba(0,158,170,0.3)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-2.5 rounded-lg"
                 }
               >
-                Import Sales
+                Import Expenses
               </CustomButton>
               <CustomButton
                 className={

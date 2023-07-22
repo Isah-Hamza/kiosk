@@ -2,7 +2,7 @@ import React from "react";
 import person from "../assets/images/hamza.jpeg";
 import { FaBell } from "react-icons/fa";
 import { FiHome, FiUsers } from "react-icons/fi";
-import {  BsCaretDownFill, BsCreditCard } from "react-icons/bs";
+import { BsCaretDownFill, BsCreditCard } from "react-icons/bs";
 import { RiDashboardLine } from "react-icons/ri";
 import { RiCarFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
@@ -18,22 +18,22 @@ const AppLayout = ({ children }) => {
     },
     {
       name: "Logistics",
-      path: "/customer",
+      path: null,
       icon: <RiCarFill />,
     },
     {
       name: "My Customers",
-      path: "/staff",
+      path: null,
       icon: <FiUsers />,
     },
     {
       name: "Investories",
-      path: "/customer",
+      path: null,
       icon: <RiDashboardLine />,
     },
     {
       name: "Reports",
-      path: "/loan",
+      path: null,
       icon: <BsCreditCard />,
       hasSubMenu: true,
       subMenu: [
@@ -74,6 +74,7 @@ const AppLayout = ({ children }) => {
           <ul>
             {sidebarElements.map((item, idx) => (
               <li
+                onClick={() => navigate(item.path)}
                 key={idx}
                 className="flex items-center justify-between text-[15px]font-medium opacity-70 pl-8 pr-5 py-3.5 hover:bg-[#f3f4f5] hover:opacity-100 cursor-pointer transition-all duration-300 ease-in-out"
               >
