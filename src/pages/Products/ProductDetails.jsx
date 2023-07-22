@@ -29,24 +29,24 @@ const ProductDetails = () => {
                   Ridiculous Product
                 </p>
                 <p className="font-medium text-lg">₦100.00</p>
-                <p className="mt-3">Total Value: ₦0.00</p>
-                <p>22 total units</p>
-                <p>10 units sold</p>
+                <p className="mt-3 mb-1">Total Value: ₦0.00</p>
+                <p className="mb-1">22 total units</p>
+                <p className="mb-1">10 units sold</p>
               </div>
-              <div>
-                <p className="mb-3">
+              <div className="mt-7">
+                <p className="mb-2.5">
                   <span className="font-medium opacity-70">Cost Price: </span>
                   ₦100.00
                 </p>
-                <p className="mb-3">
+                <p className="mb-2.5">
                   <span className="font-medium opacity-70">Type: </span>
                   Digital Product
                 </p>
-                <p className="mb-3">
+                <p className="mb-2.5">
                   <span className="font-medium opacity-70">Tags: </span>
                   School, Students, Classroom
                 </p>
-                <p className="mb-3">
+                <p className="mb-2.5">
                   <span className="font-medium opacity-70">SKU: </span>
                   No Sku
                 </p>

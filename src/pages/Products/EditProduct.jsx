@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BsCloudArrowUp, BsPatchCheckFill } from "react-icons/bs";
 import CustomInput from "../../components/CustomInput";
-import { FaLuggageCart } from "react-icons/fa";
+import { FaFileImage, FaImages, FaLuggageCart } from "react-icons/fa";
 import { PiCurrencyNgnLight } from "react-icons/pi";
 import { GrCloudComputer } from "react-icons/gr";
 import CustomButton from "../../components/Buttons/CustomButton";
@@ -24,10 +24,10 @@ const EditProduct = ({ setEditProduct }) => {
     <div className="overflow-auto fixed inset-0 bg-black/60 grid place-content-center z-[10001]">
       <div className="div w-full h-full ">
         <div className="mx-7 my-10 ">
-          <div className="p-6 bg-white rounded-xl mt-48">
+          <div className="p-6 bg-white rounded-xl mt-52 2xl:mt-0">
             <div className="border-b pb-7">
               <div className="flex items-center justify-between">
-                <p className="font-semibold">Edit Product Information</p>
+                <p className="font-semibold">Edit Product </p>
                 <button onClick={() => setEditProduct(false)}>
                   <FiPlus className="rotate-45" size={22} />
                 </button>
@@ -86,15 +86,19 @@ const EditProduct = ({ setEditProduct }) => {
               </div>
               <div className="">
                 <p className="text-sm">Images of Product</p>
-                <div className="border border-dashed rounded-md min-h-[100px] grid place-content-center">
-                  <p>
-                    Drag and Drop Images or <span>select from file</span>
+                <div className="border border-dashed rounded-md min-h-[150px] flex items-center gap-2 justify-center flex-col">
+                  <span className="text-center">
+                    <FaFileImage size={30} />
+                  </span>
+                  <p className="text-sm">
+                    Drag and drop images or{" "}
+                    <span className="text-primary font-semibold cursor-pointer">select from file</span>
                   </p>
                 </div>
               </div>
               <div>
-                <CustomButton className=" ml-auto mt-3 text-white text-sm flex items-center justify-end gap-2 !px-10 !py-3 rounded-md">
-                  <BsCloudArrowUp size={20} /> Save Changes
+                <CustomButton className="w-full mt-3 text-white text-sm !px-10 !py-3 rounded-md">
+                  Save Changes
                 </CustomButton>
               </div>
             </div>

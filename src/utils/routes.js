@@ -1,3 +1,4 @@
+import Customers from "../pages/Customers";
 import AddCustomer from "../pages/Customers/AddCustomer";
 import RecordExpenses from "../pages/Expenses/RecordExpeses";
 import Home from "../pages/Home";
@@ -59,6 +60,11 @@ export const routes = [
     title: "Record Expenses",
     path: "/record-expense",
     component: RecordExpenses,
+  },
+  {
+    title: "Customers",
+    path: "/customers",
+    component: Customers,
   },
   {
     title: "Add Customer",

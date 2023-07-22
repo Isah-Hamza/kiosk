@@ -52,7 +52,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
     },
     {
       name: "My Customers",
-      path: null,
+      path: '/customers',
       icon: <FiUsers />,
     },
     {
