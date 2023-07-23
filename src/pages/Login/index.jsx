@@ -10,6 +10,8 @@ import CustomButton from "../../components/Buttons/CustomButton";
 import { Link, useNavigate } from "react-router-dom";
 import AuthPagesLayout from "../../layout/AuthPagesLayout";
 
+import logo from '../../assets/images/GB-Black@2x.png'
+
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -17,11 +19,10 @@ const Login = () => {
   return (
     <AuthPagesLayout>
       <div className="form-container max-w-[330px]">
-        <div className="flex justify-between items-center mb-10">
-          <span className="text-lg font-bold text-primary">ShopHub</span>
-          <button className="underline text-current text-sm font-medium">
-            Upgrade Account
-          </button>
+        <div className="flex justify-center items-center mb-7">
+          <span className="text-lg font-bold text-primary">
+            <img src={logo} alt="logo" className="w-40" />
+          </span>
         </div>
         <p className="text-center font-bold text-xl text-[#41010b] mb-3">
           Hi, Welcome Back!

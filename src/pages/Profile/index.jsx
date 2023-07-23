@@ -123,8 +123,8 @@ const Profile = () => {
   };
 
   return (
-    <Layout>
-      <div className="mt-12 mx-7 flex gap-7">
+    <Layout noHeader>
+      <div className="mt-16 mx-7 flex gap-7">
         <div className="w-80 flex flex-col">
           <p className="text-xl font-semibold opacity-80 mb-5 pl-7">
             Information

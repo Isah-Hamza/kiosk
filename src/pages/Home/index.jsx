@@ -166,7 +166,7 @@ function Home() {
                         <p className="text-lg">0814348473</p>
                       </div>
                       <BsFillShieldLockFill
-                        className="text-primary/70"
+                        className="text-primary"
                         size={35}
                       />
                     </div>
@@ -265,25 +265,13 @@ function Home() {
                   value={percentage}
                   text={`${percentage}%`}
                   styles={buildStyles({
-                    // Rotation of path and trail, in number of turns (0-1)
                     rotation: 0.25,
-
-                    // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
                     strokeLinecap: "round",
-
-                    // Text size
                     textSize: "16px",
                     fontWeight: "600",
-
-                    // How long animation takes to go from one percentage to another, in seconds
                     pathTransitionDuration: 0.5,
-
-                    // Can specify path transition in more detail, or remove it entirely
-                    // pathTransition: 'none',
-
-                    // Colors
-                    pathColor: `rgb(65, 1, 11s,${percentage / 100})`,
-                    textColor: "rgb(65, 1, 11s)",
+                    pathColor: `#43010c`,
+                    textColor: "#43010c",
                     trailColor: "#d6d6d6",
                     backgroundColor: "#3e98c7",
                   })}
@@ -293,13 +281,6 @@ function Home() {
                 <p className="font-medium opacity-70 mb-1.5">Loans</p>
                 <p className="font-semibold text-xl">₦0.00</p>
                 <p className="text-sm">of ₦5,000 available credit</p>
-                {/* <CustomButton
-                  className={
-                    "!py-2 mt-3 !bg-[rgba(0,158,170,0.3)] !rounded-lg font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]"
-                  }
-                >
-                  Apply
-                </CustomButton> */}
               </div>
 
               <div>
@@ -310,7 +291,7 @@ function Home() {
                 </p>
                 <CustomButton
                   className={
-                    "!py-2 mt-3 !bg-opacity-70  !border-primary !text-white font-bold !rounded-lg"
+                    "!py-2 mt-3 !border-primary !text-white font-bold !rounded-lg"
                   }
                 >
                   Save
