@@ -1,6 +1,6 @@
 import React from "react";
 import AppLayoutNew from "../../layout/AppLayoutNew";
-import { BsCloudArrowUp } from "react-icons/bs";
+import { BsCloudArrowUp, BsTrash2Fill } from "react-icons/bs";
 import CustomInput from "../../components/CustomInput";
 import { PiCurrencyNgnLight, PiPlusLight } from "react-icons/pi";
 import CustomButton from "../../components/Buttons/CustomButton";
@@ -43,6 +43,11 @@ const NewSales = () => {
     { label: "Affiliate Marketing", value: "3" },
     { label: "Partnership", value: "4" },
     { label: "Others", value: "5" },
+  ];
+
+  const records = [
+    { name: "Tomatoes", qty: 2, amount: "200.00" },
+    { name: "Onions", qty: 5, amount: "50.00" },
   ];
 
   return (
@@ -119,20 +124,62 @@ const NewSales = () => {
           </div>
           <div className="w-full ">
             <div className="p-5 pt-3 bg-dimmed_white rounded-xl min-h-[200px] mb-12">
-              <p className="mb-4">Selected Products</p>
-              <div className=" grid grid-cols-4 gap-5">
-                <>
-                  {[1, 2].map((item, idx) => (
-                    <div>
-                      <img src={shoppingBag} className="rounded-md" />
-                    </div>
+              <p className="">Selected Products</p>
+              <table className="text-sm w-full table-auto border-separate border-spacing-y-3 ">
+                <thead className="bg-[#f3f4f5] shadow">
+                  <tr className="!text-left !opacity-70 !font-semibold bg-[#f3f4f5]">
+                    <th className="text-xs w-[25%] py-2 !font-semibold pl-3">
+                      Name
+                    </th>
+                    <th className="text-xs w-[25%] py-2 !font-semibold">
+                      Quantity
+                    </th>
+                    <th className="text-xs w-[25%] py-2 !font-semibold">
+                      Amount
+                    </th>
+                    <th className="text-xs w-[25%] py-2 !font-semibold"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {records.map((item, idx) => (
+                    <tr
+                      className="pt-1 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-1"
+                      key={idx}
+                    >
+                      <td className="py-2 text-xs pl-2 ">{item.name}</td>
+                      <td className="py-2 text-xs pl-5">{item.qty}</td>
+                      <td className="py-2 text-xs ">₦{item.amount}</td>
+
+                      <td className="py-2 text-xs">
+                        <div
+                          // onClick={() => history.push("/customer/details")}
+                          className="bg-primaryColor-900/80 text-red-500 flex items-center gap-1.5
+                     rounded cursor-pointer px-4 py-1 w-fit"
+                        >
+                          {" "}
+                          <BsTrash2Fill color="" />
+                          <span>Remove</span>
+                        </div>
+                      </td>
+                    </tr>
                   ))}
-                </>
-                <div className="w-full min-h-[40px] border rounded-lg border-dashed grid place-content-center">
-                  {" "}
-                  <PiPlusLight />{" "}
-                  {/* <span className="text-xs text-center">Add Another</span> */}
-                </div>
+                </tbody>
+              </table>
+              <div className="grid grid-cols-2 gap-4 mt-8">
+                <CustomButton
+                  className={
+                    " !bg-[rgba(0,158,170,0.3)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-1.5 rounded-lg"
+                  }
+                >
+                  Add More
+                </CustomButton>
+                <CustomButton
+                  className={
+                    "!bg-transparent border !px-3 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-1.5 rounded-lg"
+                  }
+                >
+                  Select From Stock
+                </CustomButton>
               </div>
             </div>
 
