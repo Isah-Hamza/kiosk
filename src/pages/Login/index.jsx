@@ -10,7 +10,7 @@ import CustomButton from "../../components/Buttons/CustomButton";
 import { Link, useNavigate } from "react-router-dom";
 import AuthPagesLayout from "../../layout/AuthPagesLayout";
 
-import logo from '../../assets/images/GB-Black@2x.png'
+import logo from '../../assets/images/logo.png'
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
