@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AppLayoutNew from "../../layout/AppLayoutNew";
 import { BsCloudArrowUp, BsTrash2Fill } from "react-icons/bs";
 import CustomInput from "../../components/CustomInput";
@@ -6,8 +6,12 @@ import { PiCurrencyNgnLight, PiPlusLight } from "react-icons/pi";
 import CustomButton from "../../components/Buttons/CustomButton";
 import CustomSelect from "../../components/CustomInput/Select";
 import shoppingBag from "../../assets/images/image-shopping-bag-dd0f7627.svg";
+import { FiPlus } from "react-icons/fi";
 
 const NewSales = () => {
+  const [addMore, setAddMore] = useState(false);
+  const [setselectFromStore, setSetselectFromStore] = useState(false);
+
   const products = [
     { label: "Choose One / Multiple", value: "1" },
     { label: "Ridiculous Product", value: "1" },
@@ -47,7 +51,7 @@ const NewSales = () => {
 
   const records = [
     { name: "Tomatoes", qty: 2, amount: "200.00" },
-    { name: "Onions", qty: 5, amount: "50.00" },
+    // { name: "Onions", qty: 5, amount: "50.00" },
   ];
 
   return (
@@ -163,10 +167,37 @@ const NewSales = () => {
                       </td>
                     </tr>
                   ))}
+                  {
+                    <>
+                      {addMore ? (
+                        <tr>
+                          <td>
+                            <input className="w-[90%] border outline-none text-xs px-2 py-1" />
+                          </td>
+                          <td>
+                            <input className="w-[90%] border outline-none text-xs px-2 py-1 " />
+                          </td>
+                          <td>
+                            <input className="w-[90%] border outline-none text-xs px-2 py-1 " />
+                          </td>
+                          <td className="flex justify-end">
+                            <CustomButton
+                              clickHandler={() => setAddMore(false)}
+                              children={"Add"}
+                              className={
+                                "flex !py-1 w-[40px] !px-10 ml-2 text-center justify-center"
+                              }
+                            />
+                          </td>
+                        </tr>
+                      ) : null}
+                    </>
+                  }
                 </tbody>
               </table>
               <div className="grid grid-cols-2 gap-4 mt-8">
                 <CustomButton
+                  clickHandler={() => setAddMore(true)}
                   className={
                     " !bg-[rgba(0,158,170,0.3)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-1.5 rounded-lg"
                   }
@@ -174,6 +205,7 @@ const NewSales = () => {
                   Add More
                 </CustomButton>
                 <CustomButton
+                  clickHandler={() => setSetselectFromStore(true)}
                   className={
                     "!bg-transparent border !px-3 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-1.5 rounded-lg"
                   }
@@ -213,6 +245,31 @@ const NewSales = () => {
           </div>
         </div>
       </div>
+      {setselectFromStore ? (
+        <div className="fixed inset-0 bg-black/60 overflow-hidden grid place-content-center z-[10001]">
+          <div className="p-5 min-h-[300px] bg-white rounded-xl w-[400px]">
+            <div className="flex justify-between items-center mb-2">
+              <p className="font-semibold text-primary capitalize ">
+                From Your Shop
+              </p>
+              <button onClick={() => setSetselectFromStore(false)}>
+                <FiPlus className="rotate-45" size={22} />
+              </button>
+            </div>
+            <div className="grid grid-cols-4 gap-5 py-5">
+              {[1, 2, 3, 4, 5, 6].map((item, idx) => (
+                <div
+                  key={idx}
+                  className="flex flex-col justify-center items-center text-center cursor-pointer"
+                >
+                  <img src={shoppingBag} className="w-52" alt="bag" />
+                  <span className="text-xs">Test {item}</span>
+                </div>
+              ))}{" "}
+            </div>
+          </div>
+        </div>
+      ) : null}
     </AppLayoutNew>
   );
 };
