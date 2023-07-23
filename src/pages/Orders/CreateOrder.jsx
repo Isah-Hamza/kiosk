@@ -57,7 +57,7 @@ const AddCustomer = () => {
                     placeholder={"itshamzy@gmail.com"}
                     hasIcon
                     Icon={MdEmail}
-                  />
+                    />
                   <CustomInput
                     className={"!bg-bg"}
                     label={"Customer Phone *"}
@@ -106,6 +106,7 @@ const AddCustomer = () => {
 
                 <div>
                   <CustomButton className=" ml-auto mt-2 text-white text-sm flex items-center justify-end gap-3 !px-10 !py-3 rounded-md">
+                    <FaUser />
                     Create Customer{" "}
                   </CustomButton>
                 </div>

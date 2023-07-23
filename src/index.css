@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+*,
+body,
+html {
+  /* color: rgb(0, 0, 0); */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
 /* Change the white to any color */
 .login input[type="text"],
 .login input[type="password"] {
@@ -54,6 +61,6 @@ input:-webkit-autofill:active {
   /* @apply !bg-primary/20; */
 }
 
-.active-link span {
+.active-link > div span {
   @apply !text-primary font-bold;
 }

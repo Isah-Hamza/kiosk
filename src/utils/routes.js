@@ -3,6 +3,7 @@ import AddCustomer from "../pages/Customers/AddCustomer";
 import RecordExpenses from "../pages/Expenses/RecordExpeses";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import Orders from "../pages/Orders";
 import Products from "../pages/Products";
 import CreateProduct from "../pages/Products/CreateProduct";
 import ProductDetails from "../pages/Products/ProductDetails";
@@ -70,5 +71,10 @@ export const routes = [
     title: "Add Customer",
     path: "/add-customer",
     component: AddCustomer,
+  },
+  {
+    title: "Orders",
+    path: "/orders",
+    component: Orders,
   },
 ];

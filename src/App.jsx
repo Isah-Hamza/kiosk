@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+// import 'rsuite/dist/rsuite.min.css';
 import "./App.css";
 import { routes } from "./utils/routes";
 

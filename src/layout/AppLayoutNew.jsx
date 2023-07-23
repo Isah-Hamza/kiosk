@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import person from "../assets/images/hamza.jpeg";
-import { FaBell, FaUserCog } from "react-icons/fa";
+import { FaBell, FaRedo, FaUserCog } from "react-icons/fa";
 import { FiHome, FiUsers } from "react-icons/fi";
-import { BsCaretDownFill, BsCreditCard } from "react-icons/bs";
+import { BsCreditCard, BsEye, BsPlus } from "react-icons/bs";
 import { RiDashboardLine, RiServiceFill } from "react-icons/ri";
-import { RiCarFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import { BiCaretDown } from "react-icons/bi";
+import { BiCaretDown, BiCaretUp, BiShoppingBag } from "react-icons/bi";
+import CustomDropdown from "../components/Dropdown";
 
 const AppLayoutNew = ({ children, noHeader }) => {
   const navigate = useNavigate();
+  const [openSubMenu, setOpenSubMenu] = useState(null);
+
+  const toggleSubMenu = (index) => {
+    setOpenSubMenu(openSubMenu === index ? null : index);
+  };
 
   const sidebarElements = [
     {
@@ -17,52 +22,48 @@ const AppLayoutNew = ({ children, noHeader }) => {
       path: "/home",
       icon: <FiHome />,
     },
-    {
-      name: "Logistics",
-      path: null,
-      icon: <RiCarFill />,
-    },
+
     {
       name: "My Books",
-      path: "#",
+      path: null,
       icon: <BsCreditCard />,
       hasSubMenu: true,
       subMenu: [
         {
           name: "All Expenses",
-          path: "#",
+          path: null,
           icon: <BsCreditCard />,
         },
         {
           name: "All Inventories",
-          path: "#",
+          path: null,
           icon: <BsCreditCard />,
         },
         {
           name: "All Sales",
-          path: "#",
-          icon: <BsCreditCard />,
-        },
-        {
-          name: "All Transactions",
-          path: "#",
+          path: null,
           icon: <BsCreditCard />,
         },
       ],
     },
     {
       name: "My Customers",
-      path: '/customers',
+      path: "/customers",
       icon: <FiUsers />,
     },
     {
       name: "Products",
-      path: '/products',
+      path: "/products",
       icon: <RiDashboardLine />,
     },
     {
+      name: "Orders",
+      path: "/orders",
+      icon: <BiShoppingBag size={17} />,
+    },
+    {
       name: "My Profile",
-      path: '/profile',
+      path: "/profile",
       icon: <FaUserCog />,
     },
     {
@@ -73,22 +74,17 @@ const AppLayoutNew = ({ children, noHeader }) => {
       subMenu: [
         {
           name: "All Expenses",
-          path: "/loan",
+          path: null,
           icon: <BsCreditCard />,
         },
         {
           name: "All Inventories",
-          path: "/loan",
+          path: null,
           icon: <BsCreditCard />,
         },
         {
           name: "All Sales",
-          path: "/loan",
-          icon: <BsCreditCard />,
-        },
-        {
-          name: "All Transactions",
-          path: "/loan",
+          path: null,
           icon: <BsCreditCard />,
         },
       ],
@@ -108,17 +104,46 @@ const AppLayoutNew = ({ children, noHeader }) => {
           <ul>
             {sidebarElements.map((item, idx) => (
               <li
-                onClick={() => navigate(item.path)}
                 key={idx}
-                className={` flex items-center justify-between text-[15px] font-medium opacity-70 pl-8 pr-5 py-3 hover:opacity-100 hover:text-primary cursor-pointer transition-all duration-300 ease-in-out ${
-                  idx == 0 && "active-link"
-                }`}
+                className={`items-center text-sm font-medium opacity-70 pl-8 pr-5 py-3 hover:opacity-100 hover:text-primary cursor-pointer transition-all duration-300 ease-in-out
+                ${item.hasSubMenu ? "grid" : "flex"}
+                ${item.hasSubMenu && openSubMenu === idx ? "active-link" : ""}`}
               >
-                <div className=" flex gap-3 items-center font-medium">
-                  <span>{item.icon}</span>
-                  <span className="">{item.name}</span>
+                <div
+                  className="flex justify-between items-center"
+                  onClick={() =>
+                    item.hasSubMenu ? toggleSubMenu(idx) : navigate(item.path)
+                  }
+                >
+                  <div className="flex gap-3 items-center font-medium">
+                    <span>{item.icon}</span>
+                    <span className="whitespace-nowrap">{item.name}</span>
+                  </div>
+                  {item.hasSubMenu ? (
+                    <BiCaretUp
+                      size={12}
+                      className={` ml-auto block transform ${
+                        openSubMenu === idx ? "rotate-0" : "rotate-180"
+                      } transition-transform duration-300 origin-center`}
+                    />
+                  ) : null}
                 </div>
-                {item.hasSubMenu ? <BsCaretDownFill size={12} /> : null}
+                {item.hasSubMenu && openSubMenu === idx ? (
+                  <ul className="pl-6 mt-2">
+                    {item.subMenu.map((subItem, subIdx) => (
+                      <li
+                        key={subIdx}
+                        onClick={() => navigate(subItem.path)}
+                        className="text-sm py-2 hover:opacity-100 !text-black opacity-80 hover:text-primary cursor-pointer transition-all duration-300 ease-in-out"
+                      >
+                        <div className="flex gap-3 items-center font-medium">
+                          <span>{subItem.icon}</span>
+                          <span>{subItem.name}</span>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
               </li>
             ))}
           </ul>
@@ -127,7 +152,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
           <ul className="px-5">
             {secondarySideBarItems.map((item, idx) => (
               <li
-                to={"#"}
+                to={null}
                 key={idx}
                 className={`text-black/80 text-sm mb-1 px-7 py-1.5 flex gap-2.5 items-center hover:font-semibold hover:bg-slate-200 ${"hover:text-primary"} cursor-pointer`}
               >
@@ -151,11 +176,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
       <main className="flex-1 h-screen overflow-auto bg-bg">
         {noHeader ? null : (
           <header className="w-full h-[120px] flex items-center justify-between px-7 pt-5">
-            <button className="border border-primary/30 rounded px-3 py-3 flex items-center gap-2 text-primary">
-              <RiServiceFill size={18} className="text-current" />
-              <span className="font-medium">Pelemo Stores</span>
-              <BiCaretDown className="text-current ml-5" />
-            </button>
+            <CustomDropdown />
             <div className="flex gap-3 items-center">
               <button className="relative p-1.5 rounded bg-primary/30">
                 <FaBell size={14} className="text-primary" />

@@ -12,3 +12,6 @@
 .slick-prev {
   display: none !important;
 }
+.rs-dropdown-menu{
+  margin-left: 15px;
+}

@@ -27,7 +27,7 @@ const EditProduct = ({ setEditProduct }) => {
           <div className="p-6 bg-white rounded-xl mt-52 2xl:mt-0">
             <div className="border-b pb-7">
               <div className="flex items-center justify-between">
-                <p className="font-semibold">Edit Product </p>
+                <p className="text-lg font-semibold">Edit Product </p>
                 <button onClick={() => setEditProduct(false)}>
                   <FiPlus className="rotate-45" size={22} />
                 </button>

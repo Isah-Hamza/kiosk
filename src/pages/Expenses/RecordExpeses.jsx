@@ -8,7 +8,6 @@ import CustomButton from "../../components/Buttons/CustomButton";
 import CustomSelect from "../../components/CustomInput/Select";
 
 const RecordExpenses = () => {
-
   const payment_type = [
     { label: "Select One", value: "0" },
     { label: "Cash", value: "1" },
@@ -94,7 +93,7 @@ const RecordExpenses = () => {
 
                 <div>
                   <CustomButton className=" ml-auto mt-2 text-white text-sm flex items-center justify-end gap-2 !px-10 !py-3 rounded-md">
-                    <BsCloudArrowUp size={20} /> Submit Expense{" "}
+                    Submit Expense{" "}
                   </CustomButton>
                 </div>
               </div>

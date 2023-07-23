@@ -111,7 +111,7 @@ const NewSales = () => {
 
                 <div>
                   <CustomButton className=" ml-auto mt-2 text-white text-sm flex items-center justify-end gap-2 !px-10 !py-3 rounded-md">
-                    <BsCloudArrowUp size={20} /> Record Sale
+                    Record Sale
                   </CustomButton>
                 </div>
               </div>
