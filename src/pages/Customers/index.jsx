@@ -3,8 +3,10 @@ import AppLayoutNew from "../../layout/AppLayoutNew";
 import { CgSearch } from "react-icons/cg";
 import CustomButton from "../../components/Buttons/CustomButton";
 import { BiPlus } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 const Customers = () => {
+  const navigate = useNavigate();
   const records = [
     {
       name: "Ridiculous Customer 123",
@@ -31,7 +33,7 @@ const Customers = () => {
         <div className="bg-dimmed_white p-5 rounded-xl mt-5">
           <div className="w-full flex gap-4 pt-3">
             <CustomButton
-              clickHandler={() => navigate("/add-product")}
+              clickHandler={() => navigate("/add-customer")}
               className={
                 " !bg-[rgba(0,158,170,0.1)] font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)] !px-7 !py-1 rounded-lg"
               }
@@ -75,7 +77,7 @@ const Customers = () => {
                   </th>
                   <th className="text-sm py-3 border-y !font-semibold">
                     {" "}
-                    Phone 
+                    Phone
                   </th>
                   <th className="text-sm py-3 border-y !font-semibold">
                     {" "}
@@ -98,27 +100,27 @@ const Customers = () => {
                       className="cursor-pointer pt-3 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-2"
                       key={idx}
                     >
-                      <td className="text-sm py-2.5 pb-4 pl-3">
-                        {item.name}
+                      <td className="text-sm py-2.5 pb-4 pl-3">{item.name}</td>
+                      <td className="text-sm py-2.5 pb-4">{item.email}</td>
+                      <td className="text-sm py-2.5 pb-4">{item.phone}</td>
+                      <td className="text-sm  py-2.5 pb-4">
+                        ₦{item.total_spent}
                       </td>
-                      <td className="text-sm py-2.5 pb-4">
-                        {item.email}
-                      </td>
-                      <td className="text-sm py-2.5 pb-4">
-                        {item.phone}
-                      </td>
-                      <td className="text-sm  py-2.5 pb-4">₦{item.total_spent}</td>
                       <td className="text-sm pl-8 py-2.5 pb-4">
                         {item.total_orders}
-                      </td> 
-                      <td className="text-sm  py-2.5 pb-4">{item.date_added}</td>
+                      </td>
+                      <td className="text-sm  py-2.5 pb-4">
+                        {item.date_added}
+                      </td>
                     </tr>
                   ))}
                 </>
               </tbody>
             </table>
             <div className="flex justify-center mt-2">
-                <div className="w-8 h-8 grid place-content-center rounded bg-blue-100"><span className="font-semibold text-primary">1</span></div>
+              <div className="w-8 h-8 grid place-content-center rounded-md bg-bg">
+                <span className="font-semibold text-primary">1</span>
+              </div>
             </div>
           </div>
         </div>
