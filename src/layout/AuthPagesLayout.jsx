@@ -8,7 +8,7 @@ import "../styles/login.css";
 import "../index.css";
 import SimpleSlider from "../components/Slider";
 
-import heroImg from "../assets/images/hero-img.png";
+import heroImg from "../assets/images/Holding-Phone-200kb.png";
 
 const AuthPagesLayout = ({ children }) => {
   return (
@@ -21,10 +21,10 @@ const AuthPagesLayout = ({ children }) => {
           <h3 className="font-semibold !text-2xl my-5 mt-7 !leading-5">
             {" "}
             <span className=" text-secondary font-semibold">Grow</span> your
-            business with ShopHub.
+            business with GlowBiz.
           </h3>
           <p className="!text-[15px] max-w-[450px] mt-3">
-            With ShopHub you now have access to finance that helps grow your
+            With Glowbiz you now have access to finance that helps grow your
             business savings, loans and joining a coperative society
           </p>
         </div>
