@@ -5,12 +5,14 @@ import { FiHome, FiUsers } from "react-icons/fi";
 import { BsCreditCard, BsEye, BsPlus } from "react-icons/bs";
 import { RiDashboardLine, RiServiceFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import { BiCaretDown, BiCaretUp, BiShoppingBag } from "react-icons/bi";
+import { BiCaretDown, BiCaretUp, BiMenu, BiShoppingBag } from "react-icons/bi";
 import CustomDropdown from "../components/Dropdown";
+import { GrClose } from "react-icons/gr";
 
 const AppLayoutNew = ({ children, noHeader }) => {
   const navigate = useNavigate();
   const [openSubMenu, setOpenSubMenu] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSubMenu = (index) => {
     setOpenSubMenu(openSubMenu === index ? null : index);
@@ -94,7 +96,11 @@ const AppLayoutNew = ({ children, noHeader }) => {
 
   return (
     <div className="flex h-screen">
-      <aside className="flex flex-col w-0 xl:w-[300px] h-full bg-white/90 py-5 overflow-hidden transition-all ease-in-out duration-300">
+      <aside
+        className={`flex flex-col h-full bg-white/90 py-5 overflow-hidden transition-all ease-in-out duration-300 ${
+          !sidebarOpen ? "w-0 xl:w-[300px]" : "w-[300px]"
+        }`}
+      >
         <div className="flex items-center gap-2 px-10">
           <div className="rounded-full w-10 h-10 bg-[#41010b]"></div>
           <p className="text-xl font-bold">ShopHub</p>
@@ -172,10 +178,21 @@ const AppLayoutNew = ({ children, noHeader }) => {
           </ul>
         </div>
       </aside>
-      <main className="flex-1 h-screen overflow-auto bg-bg">
+      <main className="flex-1 h-screen overflow-auto overflow-x-hidden bg-bg">
         {noHeader ? null : (
-          <header className="w-full h-[120px] flex items-center justify-between px-7 pt-5">
-            <CustomDropdown />
+          <header className="w-full min-w-[300px] h-[60px] lg:h-[120px] flex items-center justify-between px-7 pt-5">
+            <div>
+              <div className="hidden lg:block">
+                <CustomDropdown />
+              </div>
+              <span className="block lg:hidden">
+                {!sidebarOpen ? (
+                  <BiMenu onClick={() => setSidebarOpen(true)} size={40} />
+                ) : (
+                  <GrClose onClick={() => setSidebarOpen(false)} size={30} />
+                )}
+              </span>
+            </div>
             <div className="flex gap-3 items-center">
               <button className="relative p-1.5 rounded bg-primary/30">
                 <FaBell size={14} className="text-primary" />
@@ -186,7 +203,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
             </div>
           </header>
         )}
-        <section className="">{children}</section>
+        <section className="min-w-[300px]">{children}</section>
       </main>
     </div>
   );

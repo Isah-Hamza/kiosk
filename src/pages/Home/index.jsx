@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdArrowRightAlt } from "react-icons/md";
 import AreaCharts from "../../components/Chart/AreaCharts";
 import AppLayoutNew from "../../layout/AppLayoutNew";
 import {
   BsArrowDownLeft,
   BsArrowUpRight,
+  BsEyeFill,
+  BsEyeSlashFill,
   BsFillShieldLockFill,
 } from "react-icons/bs";
 import CustomButton from "../../components/Buttons/CustomButton";
@@ -13,8 +15,11 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const [showBal, setShowBal] = useState(false);
   const navigate = useNavigate();
   const percentage = 66;
+
+  const toggleShowBal = () => setShowBal(!showBal);
 
   const todaySummary = [
     {
@@ -155,10 +160,31 @@ function Home() {
               <>
                 {idx == 0 ? (
                   <div className="min-h-[180px] bg-dimmed_white rounded h-full flex flex-col p-5">
-                    <div>
-                      <p className="font-medium">Account Balance</p>
-                      <p className="text-2xl font-medium opacity-70">₦12,000</p>
+                    <div className="flex items-center justify-between">
+                      <p className="font-medium mb-0.5">Account Balance</p>
+                      <button>
+                        {showBal ? (
+                          <BsEyeFill
+                            onClick={toggleShowBal}
+                            color="rgb(97, 51, 51)"
+                            size={20}
+                          />
+                        ) : (
+                          <BsEyeSlashFill
+                            onClick={toggleShowBal}
+                            color="rgb(97, 51, 51)"
+                            size={20}
+                          />
+                        )}
+                      </button>
                     </div>
+                    <p className="text-2xl font-medium opacity-70">
+                      {
+                        showBal ? ' ₦12,000' : '****'
+                      }
+                     
+                      
+                      </p>
                     <div className="mt-auto flex justify-between items-center">
                       <div>
                         <p className="font-medium opacity-80">Wema Bank</p>
