@@ -28,7 +28,7 @@ const Login = () => {
           Hi, Welcome Back!
         </p>
         <p className="text-center text-[13px] opacity-80">
-          Welcome to ShopHub. Please provide your login credentials here to
+          Welcome to GlowBiz. Please provide your login credentials here to
           start using the app.
         </p>
         <form>

@@ -103,7 +103,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
       >
         <div className="flex items-center gap-2 px-10">
           <div className="rounded-full w-10 h-10 bg-[#41010b]"></div>
-          <p className="text-xl font-bold">ShopHub</p>
+          <p className="text-xl font-bold">GlowBiz</p>
         </div>
         <div className="mt-10 px-5">
           <ul>
