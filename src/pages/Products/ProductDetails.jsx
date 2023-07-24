@@ -7,6 +7,7 @@ import { FaEdit } from "react-icons/fa";
 import { BiShare } from "react-icons/bi";
 import UpdateStock from "./UpdateStock";
 import EditProduct from "./EditProduct";
+import PageHeader from "../../shared/PageHeader";
 
 const ProductDetails = () => {
   const [updateStock, setUpdateStock] = useState(false);
@@ -14,16 +15,18 @@ const ProductDetails = () => {
 
   return (
     <AppLayoutNew noHeader={true}>
-      <div className="mx-7 my-10">
-        <p className="text-2xl font-semibold opacity-75 mb-7">
-          Product Details
-        </p>
+      <div className="mx-4 sm:mx-7 my-10">
+        <PageHeader title={"Product Details"} />
         <div className="bg-dimmed_white p-5 rounded-xl mt-5 min-h-[200px]">
-          <div className="flex items-center gap-7">
+          <div className=" text-center md:text-left flex flex-col md:flex-row sm:items-center gap-7">
             <div>
-              <img src={shoppingBag} alt="shoppingbag" className="w-48" />
+              <img
+                src={shoppingBag}
+                alt="shoppingbag"
+                className="w-48 m-auto md:m-[unset]"
+              />
             </div>
-            <div className="grid grid-cols-2 gap-10 flex-1 max-w-[600px]">
+            <div className="grid sm:grid-cols-2 sm:gap-10 flex-1 max-w-[600px]">
               <div>
                 <p className="text-lg font-medium text-gray-700">
                   Ridiculous Product
@@ -56,18 +59,18 @@ const ProductDetails = () => {
           <div className="border-y py-3 mt-5 flex justify-between">
             <CustomButton
               className={
-                "flex items-center gap-2 !bg-transparent border !px-7 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg"
+                "hidden sm:flex items-center gap-2 !bg-transparent border !px-7 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg"
               }
             >
               {" "}
               <BiShare />
               Share Product
             </CustomButton>
-            <div className=" flex gap-3">
+            <div className="w-full sm:w-[unset] flex flex-col sm:flex-row gap-3">
               <CustomButton
                 clickHandler={() => setUpdateStock(true)}
                 className={
-                  "!bg-transparent border !px-7 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg"
+                  "w-full sm:w-[unset] !bg-transparent border !px-7 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg"
                 }
               >
                 {" "}
@@ -76,7 +79,7 @@ const ProductDetails = () => {
               <CustomButton
                 clickHandler={() => setEditProduct(true)}
                 className={
-                  "flex gap-1 items-center !bg-[rgba(0,158,170,0.3)] !px-7 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-2.5 rounded-lg"
+                  "flex gap-1 justify-center items-center !bg-[rgba(0,158,170,0.3)] !px-7 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-2.5 rounded-lg"
                 }
               >
                 <FaEdit />
@@ -88,7 +91,7 @@ const ProductDetails = () => {
             <div>
               <p className="font-medium">Product url link</p>
               <p className="text-blue-500">
-                https://www.glowbiz.ridiculousguy.com/product/123
+                www.glowbiz.ridiculousguy.com/product/123
               </p>
             </div>
             <div className="mt-5">

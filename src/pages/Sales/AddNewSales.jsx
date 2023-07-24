@@ -9,6 +9,7 @@ import shoppingBag from "../../assets/images/image-shopping-bag-dd0f7627.svg";
 import { FiPlus } from "react-icons/fi";
 import { CgClose } from "react-icons/cg";
 import { BiCheck } from "react-icons/bi";
+import PageHeader from "../../shared/PageHeader";
 
 const NewSales = () => {
   const [addMore, setAddMore] = useState(false);
@@ -51,14 +52,12 @@ const NewSales = () => {
     { label: "Others", value: "5" },
   ];
 
-  const records = [
-    { name: "Tomatoes", qty: 2, amount: "200.00" },
-  ];
+  const records = [{ name: "Tomatoes", qty: 2, amount: "200.00" }];
 
   return (
     <AppLayoutNew noHeader={true}>
       <div className="mx-7 my-10 ">
-        <p className="text-xl font-semibold opacity-80 mb-7">Record New Sale</p>
+        <PageHeader title={"Record New Sales"} />
         <div className="grid grid-cols-[3.5fr,2fr] gap-8">
           <div className="p-6 bg-dimmed_white rounded-xl">
             <div className="border-b pb-5">

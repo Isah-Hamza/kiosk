@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import person from "../assets/images/hamza.jpeg";
 import { FaBell, FaRedo, FaUserCog } from "react-icons/fa";
 import { FiHome, FiUsers } from "react-icons/fi";
@@ -9,11 +9,13 @@ import { BiCaretDown, BiCaretUp, BiMenu, BiShoppingBag } from "react-icons/bi";
 import CustomDropdown from "../components/Dropdown";
 import { GrClose } from "react-icons/gr";
 import logo from "../assets/images/logo.png";
+import { ToggleSidebarContext } from "../App";
 
 const AppLayoutNew = ({ children, noHeader }) => {
   const navigate = useNavigate();
   const [openSubMenu, setOpenSubMenu] = useState(null);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  // const [] = useState(false);
+  const { sidebarOpen, setSidebarOpen } = useContext(ToggleSidebarContext);
 
   const toggleSubMenu = (index) => {
     setOpenSubMenu(openSubMenu === index ? null : index);
@@ -116,9 +118,14 @@ const AppLayoutNew = ({ children, noHeader }) => {
               >
                 <div
                   className="flex justify-between items-center"
-                  onClick={() =>
-                    item.hasSubMenu ? toggleSubMenu(idx) : navigate(item.path)
-                  }
+                  onClick={() => {
+                    setSidebarOpen(false);
+                    setTimeout(() => {
+                      item.hasSubMenu
+                        ? toggleSubMenu(idx)
+                        : navigate(item.path);
+                    }, 1);
+                  }}
                 >
                   <div className="flex gap-3 items-center font-medium">
                     <span>{item.icon}</span>
@@ -180,7 +187,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
       </aside>
       <main className="flex-1 h-screen overflow-auto overflow-x-hidden bg-bg">
         {noHeader ? null : (
-          <header className="w-full min-w-[300px] h-[60px] lg:h-[120px] flex items-center justify-between px-7 pt-5">
+          <header className="w-full min-w-[300px] h-[60px] lg:h-[120px] flex items-center justify-between px-5 sm:px-7 pt-5">
             <div>
               <div className="hidden lg:block">
                 <CustomDropdown />
