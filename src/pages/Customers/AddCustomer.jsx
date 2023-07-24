@@ -7,6 +7,7 @@ import { PiCurrencyNgnLight } from "react-icons/pi";
 import CustomButton from "../../components/Buttons/CustomButton";
 import CustomSelect from "../../components/CustomInput/Select";
 import { MdCall, MdEmail } from "react-icons/md";
+import PageHeader from "../../shared/PageHeader";
 
 const AddCustomer = () => {
   const gender = [
@@ -15,20 +16,27 @@ const AddCustomer = () => {
     { label: "Female", value: "2" },
   ];
 
-  const category = [
-    { label: "Services / Maintenance", value: "1" },
-    { label: "Salary", value: "2" },
-    { label: "Workmanship", value: "3" },
-    { label: "Food", value: "4" },
-    { label: "Transport", value: "5" },
-    { label: "Others", value: "6" },
-  ];
-
   return (
     <AppLayoutNew noHeader={true}>
-      <div className="mx-7 my-10 ">
-        <p className="text-xl font-semibold opacity-80 mb-7">Add Customer</p>
-        <div className="grid grid-cols-[3.5fr,2fr] gap-8">
+      <div className="mx-4 sm:mx-7 my-10 min-w-[300px]">
+        <PageHeader title={"Add Customer"} />
+        <div className="grid grid-cols-[1fr,1.4fr] sm:grid-cols-2 lg:hidden max-w-md mb-5  gap-4 mt-8">
+          <CustomButton
+            className={
+              " !bg-[rgba(0,158,170,0.3)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-2.5 rounded-lg"
+            }
+          >
+            Import Custs.
+          </CustomButton>
+          <CustomButton
+            className={
+              "!bg-transparent border !px-3 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg"
+            }
+          >
+            Download Sample
+          </CustomButton>
+        </div>
+        <div className="grid lg:grid-cols-[3.5fr,2fr] gap-8">
           <div className="p-6 bg-dimmed_white rounded-xl">
             <div className="grid grid-cols-1 gap-5">
               <div className=" grid gap-6">
@@ -50,7 +58,7 @@ const AddCustomer = () => {
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-5 border-b pb-8">
+                <div className="grid sm:grid-cols-2 gap-5 border-b pb-8">
                   <CustomInput
                     className={"!bg-bg"}
                     label={"Customer Email *"}
@@ -70,7 +78,7 @@ const AddCustomer = () => {
                   <p className="opacity-80 font-semibold mb-2">
                     Additional Information (optional)
                   </p>
-                  <div className="grid grid-cols-2 gap-5 ">
+                  <div className="grid sm:grid-cols-2 gap-5 ">
                     <CustomSelect
                       className={"!bg-bg"}
                       options={gender}
@@ -112,7 +120,7 @@ const AddCustomer = () => {
               </div>
             </div>
           </div>
-          <div className="w-full ">
+          <div className="hidden lg:block w-full ">
             <p className="font-medium opacity-75">
               Got lots of customers to add? You can simply upload a .csv or
               .xlsx file that follows a specific format described on our sample.
