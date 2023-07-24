@@ -1,11 +1,11 @@
 import React from "react";
 import AppLayoutNew from "../../layout/AppLayoutNew";
-import { BsCloudArrowUp } from "react-icons/bs";
 import CustomInput from "../../components/CustomInput";
 import { FaUser } from "react-icons/fa";
 import { PiCurrencyNgnLight } from "react-icons/pi";
 import CustomButton from "../../components/Buttons/CustomButton";
 import CustomSelect from "../../components/CustomInput/Select";
+import PageHeader from "../../shared/PageHeader";
 
 const RecordExpenses = () => {
   const payment_type = [
@@ -26,10 +26,26 @@ const RecordExpenses = () => {
 
   return (
     <AppLayoutNew noHeader={true}>
-      <div className="mx-7 my-10 ">
-        <p className="text-xl font-semibold opacity-80 mb-7">Record Expenses</p>
-        <div className="grid grid-cols-[3.5fr,2fr] gap-8">
-          <div className="p-6 bg-dimmed_white rounded-xl">
+      <div className="mx-4 sm:mx-7 my-10 ">
+        <PageHeader title={"Record Expenses"} />
+        <div className="grid grid-cols-2 lg:hidden max-w-md mb-5  gap-4 mt-8">
+          <CustomButton
+            className={
+              "  whitespace-nowrap !bg-[rgba(0,158,170,0.3)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-2.5 rounded-lg"
+            }
+          >
+            Import Expenses
+          </CustomButton>
+          <CustomButton
+            className={
+              " whitespace-nowrap !bg-transparent border !px-3 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg"
+            }
+          >
+            Download Sample
+          </CustomButton>
+        </div>
+        <div className="grid lg:grid-cols-[3.5fr,2fr] gap-8">
+          <div className="px-4 py-6 !sm:p-6 bg-dimmed_white rounded-xl">
             <div className="border-b pb-5">
               <p className="text-sm font-medium opacity-70">Total Sum</p>
               <p className="font-bold text-2xl text-primary">₦0.00</p>
@@ -58,7 +74,7 @@ const RecordExpenses = () => {
                   hasIcon
                   Icon={FaUser}
                 />
-                <div className="grid grid-cols-2 gap-5 border-b pb-7">
+                <div className="grid sm:grid-cols-2 gap-5 border-b pb-7">
                   <CustomSelect
                     className={"!bg-bg"}
                     options={payment_type}
@@ -99,7 +115,7 @@ const RecordExpenses = () => {
               </div>
             </div>
           </div>
-          <div className="w-full ">
+          <div className="hidden lg:block w-full ">
             <p className="font-medium opacity-75">
               Did you know that if you had performed a bulk expenses, you can
               save stress by uploading a .xlxs or .csv file in a specific

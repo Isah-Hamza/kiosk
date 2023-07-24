@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import AppLayoutNew from "../../layout/AppLayoutNew";
-import { BsCloudArrowUp, BsTrash2Fill } from "react-icons/bs";
+import { BsTrash2Fill } from "react-icons/bs";
 import CustomInput from "../../components/CustomInput";
-import { PiCurrencyNgnLight, PiPlusLight } from "react-icons/pi";
+import { PiCurrencyNgnLight } from "react-icons/pi";
 import CustomButton from "../../components/Buttons/CustomButton";
 import CustomSelect from "../../components/CustomInput/Select";
 import shoppingBag from "../../assets/images/image-shopping-bag-dd0f7627.svg";
@@ -14,13 +14,6 @@ import PageHeader from "../../shared/PageHeader";
 const NewSales = () => {
   const [addMore, setAddMore] = useState(false);
   const [setselectFromStore, setSetselectFromStore] = useState(false);
-
-  const products = [
-    { label: "Choose One / Multiple", value: "1" },
-    { label: "Ridiculous Product", value: "1" },
-    { label: "Testing Product", value: "2" },
-    { label: "Digital Product", value: "3" },
-  ];
 
   const customers = [
     { label: "John Smith 2345", value: "1" },

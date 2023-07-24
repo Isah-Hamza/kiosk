@@ -119,7 +119,9 @@ const AppLayoutNew = ({ children, noHeader }) => {
                 <div
                   className="flex justify-between items-center"
                   onClick={() => {
-                    setSidebarOpen(false);
+                    if (!item.hasSubMenu) {
+                      setSidebarOpen(false);
+                    }
                     setTimeout(() => {
                       item.hasSubMenu
                         ? toggleSubMenu(idx)
