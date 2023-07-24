@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { BiCaretDown, BiCaretUp, BiMenu, BiShoppingBag } from "react-icons/bi";
 import CustomDropdown from "../components/Dropdown";
 import { GrClose } from "react-icons/gr";
-import logo from '../assets/images/logo.png'
+import logo from "../assets/images/logo.png";
 
 const AppLayoutNew = ({ children, noHeader }) => {
   const navigate = useNavigate();
@@ -104,7 +104,6 @@ const AppLayoutNew = ({ children, noHeader }) => {
       >
         <div className="flex items-center gap-2 px-10">
           <img src={logo} alt="logo" className="w-44" />
-          
         </div>
         <div className="mt-10 px-5">
           <ul>
