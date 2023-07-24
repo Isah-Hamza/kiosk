@@ -7,6 +7,8 @@ import CustomButton from "../../components/Buttons/CustomButton";
 import CustomSelect from "../../components/CustomInput/Select";
 import shoppingBag from "../../assets/images/image-shopping-bag-dd0f7627.svg";
 import { FiPlus } from "react-icons/fi";
+import { CgClose } from "react-icons/cg";
+import { BiCheck } from "react-icons/bi";
 
 const NewSales = () => {
   const [addMore, setAddMore] = useState(false);
@@ -51,7 +53,6 @@ const NewSales = () => {
 
   const records = [
     { name: "Tomatoes", qty: 2, amount: "200.00" },
-    // { name: "Onions", qty: 5, amount: "50.00" },
   ];
 
   return (
@@ -156,7 +157,6 @@ const NewSales = () => {
 
                       <td className="py-2 text-xs">
                         <div
-                          // onClick={() => history.push("/customer/details")}
                           className="bg-primaryColor-900/80 text-red-500 flex items-center gap-1.5
                      rounded cursor-pointer px-4 py-1 w-fit"
                         >
@@ -180,13 +180,18 @@ const NewSales = () => {
                           <td>
                             <input className="w-[90%] border outline-none text-xs px-2 py-1 " />
                           </td>
-                          <td className="flex justify-end">
-                            <CustomButton
-                              clickHandler={() => setAddMore(false)}
-                              children={"Add"}
-                              className={
-                                "flex !py-1 w-[40px] !px-10 ml-2 text-center justify-center"
-                              }
+                          <td className="flex justify-center items-center gap-3">
+                            <CgClose
+                              className="cursor-pointer"
+                              onClick={() => setAddMore(false)}
+                              color="red"
+                              size={20}
+                            />
+                            <BiCheck
+                              className="cursor-pointer"
+                              onClick={() => setAddMore(false)}
+                              color="green"
+                              size={30}
                             />
                           </td>
                         </tr>
@@ -197,7 +202,7 @@ const NewSales = () => {
               </table>
               <div className="grid grid-cols-2 gap-4 mt-8">
                 <CustomButton
-                  clickHandler={() => setAddMore(true)}
+                  clickHandler={() => setAddMore(!addMore)}
                   className={
                     " !bg-[rgba(0,158,170,0.3)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-1.5 rounded-lg"
                   }

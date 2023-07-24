@@ -27,10 +27,19 @@ const Register = () => {
   ];
   const [currStep, setCurrStep] = useState(1);
 
+  const countries = [
+    { label: "Nigeria", value: 1 },
+    { label: "Ghana", value: 2 },
+  ];
+  const region = [
+    { label: "Lagos", value: 1 },
+    { label: "Abuja", value: 2 },
+  ];
+
   return (
     <div>
       <AuthPagesLayout>
-        <div className="w-full mt-16 my-10 flex flex-col self-start ">
+        <div className="w-full mt-16 my-16 sm:my-10  flex flex-col self-start px-5">
           <div className="text-center">
             <p className="font-semibold text-3xl">Sign up</p>
             <p className="text-sm text-secondary-brown">
@@ -40,7 +49,7 @@ const Register = () => {
               </Link>
             </p>
           </div>
-          
+
           <div className="mt-12 grid grid-cols-3 justify-between border-primary rounded-md overflow-hidden">
             {steps.map((step, idx) => (
               <button
@@ -51,7 +60,11 @@ const Register = () => {
               ${currStep - 1 >= step.id && "font-bold  !text-primary"}`}
               >
                 {idx == 2 ? null : (
-                  <div className={`left-1/2 absolute top-[26px] w-full h-0.5 ${currStep - 1 > step.id ?'bg-primary' : 'bg-[gainsboro]'}`}></div>
+                  <div
+                    className={`left-1/2 absolute top-[26px] w-full h-0.5 ${
+                      currStep - 1 > step.id ? "bg-primary" : "bg-[gainsboro]"
+                    }`}
+                  ></div>
                 )}
                 <p
                   className={`relative z-10 bg-white w-8 h-8 rounded-full grid place-content-center border ${
@@ -71,7 +84,7 @@ const Register = () => {
 
           {currStep === 1 ? (
             <div className="w-full mt-14">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid sm:grid-cols-2 gap-4">
                 <CustomInput
                   type={"text"}
                   placeholder={"First Name"}
@@ -82,7 +95,7 @@ const Register = () => {
                   placeholder="Last Name"
                   id={"last_name"}
                 />{" "}
-                <div className="col-span-2">
+                <div className="sm:col-span-2">
                   <CustomInput
                     type={"text"}
                     placeholder={"Email"}
@@ -102,7 +115,7 @@ const Register = () => {
                   className="transparent-bg"
                 />{" "}
               </div>
-              <div className="ml-auto w-fit mt-10">
+              <div className="ml-auto w-full sm:w-fit mt-10">
                 <CustomButton
                   clickHandler={() => setCurrStep(2)}
                   className={"w-full"}
@@ -115,8 +128,8 @@ const Register = () => {
           {currStep === 2 ? (
             <div className="flex flex-col items-center w-full mt-16 otp">
               <p className="mb-8 mx-auto max-w-sm text-center">
-                Please enter The OTP sent to your registered email or phone number 
-                to move to the next step.
+                Please enter The OTP sent to your registered email or phone
+                number to move to the next step.
               </p>
               <OTPInput />{" "}
               <div className=" mt-12 flex">
@@ -131,47 +144,26 @@ const Register = () => {
 
           {currStep === 3 ? (
             <div className="w-full mt-14">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid sm:grid-cols-2 gap-4">
                 <CustomInput
                   type={"text"}
                   placeholder={"Company Name"}
                   id={"company_name"}
                 />
                 <CustomInput type={"text"} placeholder="CAC" id={"cac"} />{" "}
-                <div className="col-span-2">
+                <div className="sm:col-span-2">
                   <CustomInput
                     type={"text"}
                     placeholder={"Company Address"}
                     id={"company_address"}
                   />{" "}
                 </div>
-                <CustomSelect
-                  className={"country"}
-                  // label={"Select Country"}
-                  options={[
-                    { label: "Select Country", value: "" },
-                    { label: "Nigeria", value: "nigeria" },
-                    { label: "USA", value: "USA" },
-                    { label: "Canada", value: "Canada" },
-                    { label: "Ukraine", value: "Ukraine" },
-                    { label: "Germany", value: "Germany" },
-                  ]}
-                />{" "}
-                <CustomSelect
-                  // label={"Select State"}
-                  options={[
-                    { label: "Select State", value: "" },
-                    { label: "Abuja", value: "Abuja" },
-                    { label: "Lagos", value: "Lagos" },
-                    { label: "Ibadan", value: "Ibadan" },
-                    { label: "Akwa-Ibon", value: "Akwa-Ibon" },
-                    { label: "kaduna", value: "kaduna" },
-                  ]}
-                />{" "}
+                <CustomSelect options={countries} allowFirstOption />
+                <CustomSelect options={region} allowFirstOption />
               </div>
               <div className=" mt-10 flex justify-end">
                 <CustomButton
-                  className={"w-fit "}
+                  className={"w-full sm:w-fit "}
                   clickHandler={() => navigate("/login")}
                   children={"Create Account"}
                 />

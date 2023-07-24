@@ -149,13 +149,12 @@ function Home() {
     <AppLayoutNew>
       {/* main */}
       <div className="pb-10">
-        <div className="rounded text px-7 pt-0">
-          {/* <p className="text-2xl font-semibold mb-4">Overview</p> */}
-          <div className="grid grid-cols-4 gap-5 mt-10">
+        <div className="rounded text px-4 sm:px-7 pt-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 mt-10">
             {analysis.map((item, idx) => (
               <>
                 {idx == 0 ? (
-                  <div className="bg-dimmed_white rounded h-full flex flex-col p-5">
+                  <div className="min-h-[180px] bg-dimmed_white rounded h-full flex flex-col p-5">
                     <div>
                       <p className="font-medium">Account Balance</p>
                       <p className="text-2xl font-medium opacity-70">₦12,000</p>
@@ -202,19 +201,19 @@ function Home() {
             ))}
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-5 mx-7 mt-5">
+        <div className="grid grid-cols-3 gap-5 mx-4 sm:mx-7 mt-5">
           <div className=" col-span-3 rounded min-h-[200px] bg-dimmed_white  p-5 !pb-7 ">
             <p className="text-lg font-medium mb-5">
               {" "}
               Today's Business Insight
             </p>
-            <div className="flex justify-between">
+            <div className="grid gap-5 grid-cols-2 md:flex justify-between">
               {todaySummary.map((item, idx) => (
                 <div
                   key={idx}
-                  className={` text-center
+                  className={` md:text-center
                 ${idx == 0 && "!text-left"}
-                ${idx == todaySummary.length - 1 && "text-right"}
+                ${idx == todaySummary.length - 1 && "md:text-right"}
                 
                 `}
                 >
@@ -226,7 +225,7 @@ function Home() {
                 </div>
               ))}
             </div>
-            <div className="border-y px-2 p-3.5 flex justify-between  mt-10">
+            <div className="border-y px-2 p-3.5  flex justify-between  sm:flex-row flex-col gap-5 mt-10">
               <CustomButton
                 clickHandler={() => navigate("/record-sale")}
                 className={
@@ -238,7 +237,7 @@ function Home() {
               <CustomButton
                 clickHandler={() => navigate("/add-customer")}
                 className={
-                  "!bg-transparent border !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg"
+                  "!bg-transparent border !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg hidden md:block"
                 }
               >
                 Add Customers
@@ -252,10 +251,10 @@ function Home() {
                 Record Expenses
               </CustomButton>
             </div>
-            <div className="flex justify-between pt-10">
+            <div className="md:flex grid grid-cols-2 gap-5 justify-between pt-10">
               <div>
                 <p className="font-medium opacity-70 mb-1.5">Business Points</p>
-                <p className="font-semibold text-xl">5 points</p>
+                <p className="font-semibold text-xl">66 points</p>
                 <p className="text-sm">
                   Earn up to 1000 points to qualify <br /> for business points.
                 </p>
@@ -301,12 +300,12 @@ function Home() {
           </div>
         </div>
         <div className="mt-5">
-          <div className=" px-7 grid grid-cols-3 gap-5">
-            <div className="flex flex-col col-span-2 bg-[#fff]/90 rounded p-4 pt-5">
+          <div className="px-4 sm:px-7 grid lg:grid-cols-3 gap-5">
+            <div className="flex flex-col col-span-3 lg:col-span-2 bg-[#fff]/90 rounded p-4 pt-5">
               <p className="text-xl font-semibold mb-5">Performance</p>
               <AreaCharts />
             </div>
-            <div className="bg-white/90 rounded p-5">
+            <div className="bg-white/90 rounded p-5 col-span-3 lg:col-span-1">
               <div className="flex justify-between items-center">
                 <p className="text-lg font-medium">Last 5 Transactions</p>
                 <button className="text-primary text-sm font-medium opacity-80">
@@ -364,101 +363,6 @@ function Home() {
           </div>
         </div>
       </div>
-      {/* <div className="mx-7 grid grid-cols-3 gap-5 m-5 mb-10 ">
-        <div className="bg-white/90 col-span-2 rounded text p-5 w-full">
-          <p className="text-xl font-semibold ">Last 5 Transactions</p>
-          <div className="mt-2">
-            <table className="w-full table-auto border-separate border-spacing-y-3 ">
-              <thead className="bg-[#f3f4f5] shadow">
-                <tr className="!text-left !opacity-70 !font-semibold">
-                  <th className="py-2 !font-semibold pl-3">Person</th>
-                  <th className="py-2 !font-semibold">Email</th>
-                  <th className="py-2 !font-semibold">Trnx. Type</th>
-                  <th className="py-2 !font-semibold">Trnx. Amount</th>
-                  <th className="py-2 !font-semibold">Date / Time</th>
-                  <th className="py-2 !font-semibold">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {records.map((item, idx) => (
-                  <tr
-                    className="pt-3 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-2"
-                    key={idx}
-                  >
-                    <td className="text-sm py-2 pl-4 flex items-center gap-1">
-                      <img
-                        className="w-8 rounded-full"
-                        src={item.image}
-                        alt="user image"
-                      />
-                      <span> {item.name}</span>
-                    </td>
-                    <td className="text-sm py-2 ">{item.email}</td>
-                    <td className="text-sm py-2">
-                      {item.activated ? (
-                        <p className="flex gap-1 items-center">
-                          <GiCheckMark color="green" />
-                          Income
-                        </p>
-                      ) : (
-                        <p className="flex gap-1 items-center">
-                          <CgClose color="coral" size={18} />
-                          <span> Expenditure</span>
-                        </p>
-                      )}
-                    </td>
-                    <td className="text-sm py-2 ">₦{item.score}</td>
-                    <td className="text-sm py-2">{item.joinDate}</td>
-                    <td className="text-sm py-2">
-                      <div
-                        className="bg-secondary/70 text-white flex items-center gap-1.5
-                     rounded cursor-pointer px-4 py-1 w-fit"
-                      >
-                        {" "}
-                        <FiEye color="white" />
-                        <span>view</span>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <button className="text-bluebg-blue-400 w-full mt-2 flex justify-center items-center gap-1">
-              <span className="text-xs font-semibold">
-                View all transactions
-              </span>
-              <MdArrowRightAlt className="text-current" />
-            </button>
-          </div>
-        </div>
-        <div className="bg-white/90 rounded p-5">
-          <p className="text-lg font-medium">Last 5 Credits</p>
-          <div className="mt-5">
-            {lastFiveCredits.map((trnx, idx) => (
-              <div
-                key={idx}
-                className={`border-b py-2 flex justify-between items-center ${
-                  idx == topPerformingProducts.length - 1 && "border-b-0 "
-                } `}
-              >
-                <div className="flex gap-2 items-center">
-                  <div className="w-10 h-10 rounded-lg bg-primary/50"></div>
-                  <div className="flex flex-col ">
-                    <span className="font-medium opacity-70">{trnx.name}</span>
-                    <span style={{ color: trnx.color }} className="-mt-1">
-                      {trnx.status}
-                    </span>
-                  </div>
-                </div>
-                <div className="flex flex-col text-right">
-                  <span>₦{trnx.worth}</span>
-                  <span className="text-xs">Trnx. amount</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div> */}
     </AppLayoutNew>
   );
 }

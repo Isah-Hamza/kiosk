@@ -22,7 +22,6 @@ const AppLayoutNew = ({ children, noHeader }) => {
       path: "/home",
       icon: <FiHome />,
     },
-
     {
       name: "My Books",
       path: null,
@@ -95,7 +94,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
 
   return (
     <div className="flex h-screen">
-      <aside className="flex flex-col w-[300px] h-full bg-white/90 py-5">
+      <aside className="flex flex-col w-0 xl:w-[300px] h-full bg-white/90 py-5 overflow-hidden transition-all ease-in-out duration-300">
         <div className="flex items-center gap-2 px-10">
           <div className="rounded-full w-10 h-10 bg-[#41010b]"></div>
           <p className="text-xl font-bold">ShopHub</p>
@@ -183,10 +182,6 @@ const AppLayoutNew = ({ children, noHeader }) => {
               </button>
               <div className="flex items-center gap-2">
                 <img className="w-11 rounded-full" src={person} alt="person" />
-                {/* <div className="text-sm">
-                <p className="font-semibold leading-4 text-base">Isah Hamza</p>
-                <p>Admin</p>
-              </div> */}
               </div>
             </div>
           </header>

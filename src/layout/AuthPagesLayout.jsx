@@ -12,8 +12,8 @@ import heroImg from "../assets/images/hero-img.png";
 
 const AuthPagesLayout = ({ children }) => {
   return (
-    <main className="authPages login grid grid-cols-2">
-      <section className="right bg-primaryColor-900 h-full !flex">
+    <main className="authPages login grid lg:grid-cols-2">
+      <section className="right bg-primaryColor-900 h-full !hidden lg:!flex ">
         <div className="login-img">
           <img src={heroImg} alt="img" />
         </div>
