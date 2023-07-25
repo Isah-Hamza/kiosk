@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppLayoutNew from "../../layout/AppLayoutNew";
 import { BsTrash2Fill } from "react-icons/bs";
 import CustomInput from "../../components/CustomInput";
@@ -14,6 +14,8 @@ import PageHeader from "../../shared/PageHeader";
 const NewSales = () => {
   const [addMore, setAddMore] = useState(false);
   const [setselectFromStore, setSetselectFromStore] = useState(false);
+
+  let total_sum = 0;
 
   const customers = [
     { label: "John Smith 2345", value: "1" },
@@ -45,7 +47,25 @@ const NewSales = () => {
     { label: "Others", value: "5" },
   ];
 
-  const records = [{ name: "Tomatoes", qty: 2, amount: "200.00" }];
+  const [records, setRecords] = useState([
+    { name: "Tomatoes", qty: 2, amount: "200.00", total_amount: "400.00" },
+  ]);
+  const [newRecord, setNewRecord] = useState({});
+
+  records.map((item) => {
+    total_sum += Number(item.total_amount);
+  });
+
+  const handleDelete = (id) => {
+    setRecords(records.filter((_, idx) => idx !== id));
+  };
+
+  useEffect(() => {
+    records.map((item) => {
+      total_sum += Number(item.total_amount);
+    });
+    console.log(total_sum);
+  }, [records]);
 
   return (
     <AppLayoutNew noHeader={true}>
@@ -71,81 +91,148 @@ const NewSales = () => {
           <div className=" px-4 py-6 !sm:p-6 bg-dimmed_white rounded-xl">
             <div className="border-b pb-5">
               <p className="text-sm font-medium opacity-70">Total Sum</p>
-              <p className="font-bold text-2xl text-primary">₦0.00</p>
+              <p className="font-bold text-2xl text-primary">
+                ₦{total_sum.toFixed(2)}
+              </p>
             </div>
             <div className="grid grid-cols-1 gap-5">
               <div className=" pt-3 bg-dimmed_white rounded-xl min-h-[200px]">
                 <p className="">Sold Products</p>
-                <table className="text-sm w-full table-auto border-separate border-spacing-y-3 ">
-                  <thead className="bg-[#f3f4f5] shadow">
-                    <tr className="!text-left !opacity-70 !font-semibold bg-[#f3f4f5]">
-                      <th className="text-xs w-[25%] py-2 !font-semibold pl-3">
-                        Name
-                      </th>
-                      <th className="text-xs w-[25%] py-2 !font-semibold">
-                        Quantity
-                      </th>
-                      <th className="text-xs w-[25%] py-2 !font-semibold">
-                        Amount
-                      </th>
-                      <th className="text-xs w-[25%] py-2 !font-semibold"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {records.map((item, idx) => (
-                      <tr
-                        className="pt-1 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-1"
-                        key={idx}
-                      >
-                        <td className="py-2 text-xs pl-2 ">{item.name}</td>
-                        <td className="py-2 text-xs pl-5">{item.qty}</td>
-                        <td className="py-2 text-xs ">₦{item.amount}</td>
-
-                        <td className="py-2 text-xs">
-                          <div
-                            className="bg-primaryColor-900/80 text-red-500 flex items-center gap-1.5
-                     rounded cursor-pointer px-4 py-1 w-fit"
-                          >
-                            {" "}
-                            <BsTrash2Fill color="" />
-                            <span>Remove</span>
-                          </div>
-                        </td>
+                <div className="overflow-x-hidden">
+                  <table className="text-sm w-full table-auto border-separate border-spacing-y-3 ">
+                    <thead className="bg-[#f3f4f5] shadow">
+                      <tr className="!text-left !opacity-70 !font-semibold bg-[#f3f4f5]">
+                        <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
+                          Name
+                        </th>
+                        <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
+                          Quantity
+                        </th>
+                        <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
+                          Amount{" "}
+                          <span className=" sm:inline hidden">/ Item</span>
+                        </th>
+                        <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
+                          Total{" "}
+                          <span className=" sm:inline hidden "> Cost</span>
+                        </th>
+                        <th className="text-xs pl-3 w-[25%] py-2 !font-semibold"></th>
                       </tr>
-                    ))}
-                    {
-                      <>
-                        {addMore ? (
-                          <tr>
-                            <td>
-                              <input className="w-[90%] border outline-none text-xs px-2 py-1" />
-                            </td>
-                            <td>
-                              <input className="w-[90%] border outline-none text-xs px-2 py-1 " />
-                            </td>
-                            <td>
-                              <input className="w-[90%] border outline-none text-xs px-2 py-1 " />
-                            </td>
-                            <td className="flex justify-center items-center gap-3">
-                              <CgClose
-                                className="cursor-pointer"
-                                onClick={() => setAddMore(false)}
-                                color="red"
-                                size={20}
-                              />
-                              <BiCheck
-                                className="cursor-pointer"
-                                onClick={() => setAddMore(false)}
-                                color="green"
-                                size={30}
-                              />
-                            </td>
-                          </tr>
-                        ) : null}
-                      </>
-                    }
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {records.map((item, idx) => (
+                        <tr
+                          className="pt-1 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-1"
+                          key={idx}
+                        >
+                          <td className="py-2 text-xs pl-3">{item.name}</td>
+                          <td className="py-2 text-xs pl-7">{item.qty}</td>
+                          <td className="py-2 text-xs pl-3">
+                            ₦{Number(item.amount).toFixed(2)}
+                          </td>
+                          <td className="py-2 text-xs pl-3">
+                            ₦{Number(item.total_amount).toFixed(2)}
+                          </td>
+
+                          <td className="py-2 text-xs">
+                            <div
+                              onClick={() => handleDelete(idx)}
+                              className="bg-primaryColor-900/80 text-red-500 flex items-center gap-1.5
+                     rounded cursor-pointer px-4 py-1 w-fit"
+                            >
+                              {" "}
+                              <BsTrash2Fill color="" />
+                              <span className="hidden sm:block">Remove</span>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                      {
+                        <>
+                          {addMore ? (
+                            <tr>
+                              <td>
+                                <input
+                                  onChange={(e) =>
+                                    setNewRecord((prev) => ({
+                                      ...prev,
+                                      name: e.target.value,
+                                    }))
+                                  }
+                                  className="w-[90%] border outline-none text-xs px-2 py-1"
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  onChange={(e) =>
+                                    setNewRecord((prev) => ({
+                                      ...prev,
+                                      qty: e.target.value,
+                                      total_amount: prev.amount
+                                        ? Number(e.target.value) *
+                                          Number(prev.amount)
+                                        : prev.total_amount,
+                                    }))
+                                  }
+                                  className="w-[90%] border outline-none text-xs px-2 py-1 "
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  disabled={!newRecord.qty}
+                                  onChange={(e) =>
+                                    setNewRecord((prev) => ({
+                                      ...prev,
+                                      amount: e.target.value,
+                                      total_amount:
+                                        Number(e.target.value) *
+                                        Number(prev.qty),
+                                    }))
+                                  }
+                                  className="w-[90%] border outline-none text-xs px-2 py-1 "
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  value={newRecord.total_amount}
+                                  disabled
+                                  className="w-[90%] border outline-none text-xs px-2 py-1 "
+                                />
+                              </td>
+                              <td className="flex justify-center items-center gap-2 sm:gap-3">
+                                <CgClose
+                                  className="cursor-pointer"
+                                  onClick={() => {
+                                    setNewRecord({ total_amount: "" });
+                                    setAddMore(false);
+                                  }}
+                                  color="red"
+                                  size={20}
+                                />
+                                <BiCheck
+                                  className="cursor-pointer"
+                                  onClick={() => {
+                                    setRecords((prev) => [...prev, newRecord]);
+                                    setNewRecord({ total_amount: "" });
+                                    setAddMore(false);
+                                  }}
+                                  color="green"
+                                  size={30}
+                                />
+                              </td>
+                            </tr>
+                          ) : null}
+                        </>
+                      }
+                    </tbody>
+                  </table>
+                  {records.length <= 0 && !addMore ? (
+                    <div className="pl-3 opacity-80 text-sm font-medium">
+                      {" "}
+                      No product(s) selected yet.
+                    </div>
+                  ) : null}
+                </div>
                 <div className="grid grid-cols-[1fr,1.4fr] sm:grid-cols-2 gap-4 mt-8">
                   <CustomButton
                     clickHandler={() => setAddMore(!addMore)}

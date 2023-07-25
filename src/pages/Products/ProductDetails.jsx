@@ -106,6 +106,7 @@ const ProductDetails = () => {
       </div>
       {updateStock ? <UpdateStock {...{ setUpdateStock }} /> : null}
       {editProduct ? <EditProduct {...{ setEditProduct }} /> : null}
+      {}
     </AppLayoutNew>
   );
 };
