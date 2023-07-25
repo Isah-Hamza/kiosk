@@ -8,11 +8,12 @@ import { BiShare } from "react-icons/bi";
 import UpdateStock from "./UpdateStock";
 import EditProduct from "./EditProduct";
 import PageHeader from "../../shared/PageHeader";
+import ShareProduct from "./ShareProduct";
 
 const ProductDetails = () => {
   const [updateStock, setUpdateStock] = useState(false);
   const [editProduct, setEditProduct] = useState(false);
-
+  const [shareProduct, setShareProduct] = useState(false);
   return (
     <AppLayoutNew noHeader={true}>
       <div className="mx-4 sm:mx-7 my-10">
@@ -58,6 +59,7 @@ const ProductDetails = () => {
           </div>
           <div className="border-y py-3 mt-5 flex justify-between">
             <CustomButton
+              clickHandler={() => setShareProduct(true)}
               className={
                 "hidden sm:flex items-center gap-2 !bg-transparent border !px-7 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg"
               }
@@ -106,7 +108,7 @@ const ProductDetails = () => {
       </div>
       {updateStock ? <UpdateStock {...{ setUpdateStock }} /> : null}
       {editProduct ? <EditProduct {...{ setEditProduct }} /> : null}
-      {}
+      {shareProduct ? <ShareProduct {...{ setShareProduct }} /> : null}
     </AppLayoutNew>
   );
 };
