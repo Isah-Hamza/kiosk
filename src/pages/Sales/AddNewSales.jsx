@@ -146,12 +146,16 @@ const NewSales = () => {
 
     setShop(
       shop.map((item) => {
-        if (item.name === newItem.name) {
-          return {
+        if (item.name == newItem.name) {
+          const obj = {
             ...item,
             stock_available: item.stock_available - newItem.qty,
-          };
-        } else return item;
+          }
+          console.log('obj',obj);
+          return obj;
+        } else {
+          console.log('else')
+          return item};
       })
     );
   };
@@ -170,7 +174,7 @@ const NewSales = () => {
       );
       setSearchedProducts(searchRes);
     }
-  }, [searchTerm]);
+  }, [searchTerm, shop]);
 
   return (
     <AppLayoutNew noHeader={true}>
