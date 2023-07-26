@@ -11,7 +11,7 @@ import { CgClose } from "react-icons/cg";
 import { BiCheck } from "react-icons/bi";
 import PageHeader from "../../shared/PageHeader";
 
-const Row = ({ item }) => {
+const Row = ({ item, id, handleAdd }) => {
   const [qtyToBuy, setQtyToBuy] = useState(1);
 
   return (
@@ -41,7 +41,7 @@ const Row = ({ item }) => {
           disabled={
             item.stock_available <= 0 || qtyToBuy > item.stock_available
           }
-          onClick={() => handleAdd(item, idxs)}
+          onClick={() => handleAdd(item, id, qtyToBuy)}
           className="bg-primary text-white flex items-center gap-1.5
  rounded cursor-pointer px-4 py-1 w-fit disabled:bg-opacity-60 disabled:cursor-not-allowed"
         >
@@ -57,28 +57,23 @@ const NewSales = () => {
   const [addMore, setAddMore] = useState(false);
   const [setselectFromStore, setSetselectFromStore] = useState(false);
 
-  const [qtyToBuy, setQtyToBuy] = useState(1);
-
-  const shop = [
+  const [shop, setShop] = useState([
     {
       name: "Tomatoes",
       stock_available: 2,
       price: "200",
-      qtyToBuy: 1,
     },
     {
       name: "Candle",
       stock_available: 0,
       price: "500",
-      qtyToBuy: 1,
     },
     {
       name: "Onions",
       stock_available: 12,
       price: "100",
-      qtyToBuy: 1,
     },
-  ];
+  ]);
 
   let total_sum = 0;
 
@@ -121,19 +116,47 @@ const NewSales = () => {
     total_sum += Number(item.total_amount);
   });
 
-  const handleDelete = (id) => {
+  const handleDelete = (id, deletedItem) => {
     setRecords(records.filter((_, idx) => idx !== id));
+
+    setShop(
+      shop.map((item) => {
+        if (item.name === deletedItem.name) {
+          return {
+            ...item,
+            stock_available: item.stock_available + deletedItem.qty,
+          };
+        } else return item;
+      })
+    );
   };
 
-  const handleAdd = (item, idx) => {
-    console.log("id ", id);
+  const handleAdd = (item, idx, qtyToBuy) => {
+    const newItem = {
+      name: item.name,
+      amount: item.price,
+      qty: qtyToBuy,
+      total_amount: Number(item.price) * Number(qtyToBuy),
+    };
+
+    setRecords((prev) => [...prev, newItem]);
+
+    setShop(
+      shop.map((item) => {
+        if (item.name === newItem.name) {
+          return {
+            ...item,
+            stock_available: item.stock_available - newItem.qty,
+          };
+        } else return item;
+      })
+    );
   };
 
   useEffect(() => {
     records.map((item) => {
       total_sum += Number(item.total_amount);
     });
-    console.log(total_sum);
   }, [records]);
 
   return (
@@ -205,7 +228,7 @@ const NewSales = () => {
 
                           <td className="py-2 text-xs">
                             <div
-                              onClick={() => handleDelete(idx)}
+                              onClick={() => handleDelete(idx, item)}
                               className="bg-primaryColor-900/80 text-red-500 flex items-center gap-1.5
                      rounded cursor-pointer px-4 py-1 w-fit"
                             >
@@ -408,7 +431,7 @@ const NewSales = () => {
           </div>
         </div>
       </div>
-      {!setselectFromStore ? (
+      {setselectFromStore ? (
         <div className=" fixed inset-0 bg-black/60 overflow-hidden grid place-content-center z-[10001]">
           <div className="p-5 min-h-[200px] bg-white rounded-xl max-w-[90vw] w-[500px]">
             <div className="flex justify-between items-center mb-2">
@@ -449,7 +472,7 @@ const NewSales = () => {
                 </thead>
                 <tbody>
                   {shop.map((item, idx) => (
-                    <Row key={idx} item={item} />
+                    <Row key={idx} id={idx} item={item} handleAdd={handleAdd} />
                   ))}
                 </tbody>
               </table>
