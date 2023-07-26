@@ -56,6 +56,7 @@ const Row = ({ item, id, handleAdd }) => {
 const NewSales = () => {
   const [addMore, setAddMore] = useState(false);
   const [setselectFromStore, setSetselectFromStore] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [shop, setShop] = useState([
     {
@@ -74,6 +75,7 @@ const NewSales = () => {
       price: "100",
     },
   ]);
+  const [searchedProducts, setSearchedProducts] = useState([]);
 
   let total_sum = 0;
 
@@ -110,6 +112,7 @@ const NewSales = () => {
   const [records, setRecords] = useState([
     { name: "Tomatoes", qty: 2, amount: "200.00", total_amount: "400.00" },
   ]);
+
   const [newRecord, setNewRecord] = useState({});
 
   records.map((item) => {
@@ -158,6 +161,16 @@ const NewSales = () => {
       total_sum += Number(item.total_amount);
     });
   }, [records]);
+
+  useEffect(() => {
+    if (searchTerm == "") setSearchedProducts(shop);
+    else {
+      const searchRes = shop.filter((item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setSearchedProducts(searchRes);
+    }
+  }, [searchTerm]);
 
   return (
     <AppLayoutNew noHeader={true}>
@@ -449,6 +462,8 @@ const NewSales = () => {
                 id="search"
                 className="w-full rounded-md border outline-none px-3 py-2 text-sm mt-3"
                 placeholder="Search product by name"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
             ) : null}
             <div className="overflow-x-hidden">
@@ -471,7 +486,7 @@ const NewSales = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {shop.map((item, idx) => (
+                  {searchedProducts.map((item, idx) => (
                     <Row key={idx} id={idx} item={item} handleAdd={handleAdd} />
                   ))}
                 </tbody>

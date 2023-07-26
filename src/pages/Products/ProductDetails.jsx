@@ -93,7 +93,7 @@ const ProductDetails = () => {
             <div>
               <p className="font-medium">Product url link</p>
               <p className="text-blue-500">
-                www.glowbiz.ridiculousguy.com/product/123
+                www.ridiculousguy.glowbiz.com/products/123
               </p>
             </div>
             <div className="mt-5">
