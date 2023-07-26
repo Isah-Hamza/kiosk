@@ -1,17 +1,8 @@
 import React, { useState } from "react";
-import {
-  BsCloudArrowUp,
-  BsFacebook,
-  BsPatchCheckFill,
-  BsTwitter,
-} from "react-icons/bs";
-import CustomInput from "../../components/CustomInput";
+import { BsFacebook } from "react-icons/bs";
 import { FaCopy, FaFileImage, FaImages, FaLuggageCart } from "react-icons/fa";
-import { PiCurrencyNgnLight } from "react-icons/pi";
-import { GrCloudComputer } from "react-icons/gr";
 import CustomButton from "../../components/Buttons/CustomButton";
 import { FiPlus } from "react-icons/fi";
-import CustomSelect from "../../components/CustomInput/Select";
 import { SlSocialFacebook } from "react-icons/sl";
 import { AiFillTwitterCircle } from "react-icons/ai";
 import { MdWhatsapp } from "react-icons/md";

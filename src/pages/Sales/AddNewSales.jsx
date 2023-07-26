@@ -11,9 +11,74 @@ import { CgClose } from "react-icons/cg";
 import { BiCheck } from "react-icons/bi";
 import PageHeader from "../../shared/PageHeader";
 
+const Row = ({ item }) => {
+  const [qtyToBuy, setQtyToBuy] = useState(1);
+
+  return (
+    <tr
+      className="pt-1 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-1"
+      // key={idx}
+    >
+      <td className="py-1 text-xs">
+        <div className="flex flex-col sm:flex-row items-center gap-1">
+          <img className="w-10" src={shoppingBag} alt="" />
+          {item.name}
+        </div>
+      </td>
+      <td className="py-1 text-xs pl-7">{item.stock_available}</td>
+      <td className="py-1 text-xs pl-3">₦{Number(item.price).toFixed(2)}</td>
+      <td className="py-1 text-xs pl-3">
+        <input
+          value={item.stock_available ? qtyToBuy : ""}
+          onChange={(e) => setQtyToBuy(e.target.value)}
+          type="text"
+          className="w-11 sm:w-12 rounded-sm p-1 border outline-none"
+        />
+      </td>
+
+      <td className="py-1 text-xs sm:pl-3">
+        <button
+          disabled={
+            item.stock_available <= 0 || qtyToBuy > item.stock_available
+          }
+          onClick={() => handleAdd(item, idxs)}
+          className="bg-primary text-white flex items-center gap-1.5
+ rounded cursor-pointer px-4 py-1 w-fit disabled:bg-opacity-60 disabled:cursor-not-allowed"
+        >
+          {" "}
+          <span className="block">Add</span>
+        </button>
+      </td>
+    </tr>
+  );
+};
+
 const NewSales = () => {
   const [addMore, setAddMore] = useState(false);
   const [setselectFromStore, setSetselectFromStore] = useState(false);
+
+  const [qtyToBuy, setQtyToBuy] = useState(1);
+
+  const shop = [
+    {
+      name: "Tomatoes",
+      stock_available: 2,
+      price: "200",
+      qtyToBuy: 1,
+    },
+    {
+      name: "Candle",
+      stock_available: 0,
+      price: "500",
+      qtyToBuy: 1,
+    },
+    {
+      name: "Onions",
+      stock_available: 12,
+      price: "100",
+      qtyToBuy: 1,
+    },
+  ];
 
   let total_sum = 0;
 
@@ -58,6 +123,10 @@ const NewSales = () => {
 
   const handleDelete = (id) => {
     setRecords(records.filter((_, idx) => idx !== id));
+  };
+
+  const handleAdd = (item, idx) => {
+    console.log("id ", id);
   };
 
   useEffect(() => {
@@ -339,9 +408,9 @@ const NewSales = () => {
           </div>
         </div>
       </div>
-      {setselectFromStore ? (
+      {!setselectFromStore ? (
         <div className=" fixed inset-0 bg-black/60 overflow-hidden grid place-content-center z-[10001]">
-          <div className="p-5 min-h-[300px] bg-white rounded-xl max-w-[90vw] w-[400px]">
+          <div className="p-5 min-h-[200px] bg-white rounded-xl max-w-[90vw] w-[500px]">
             <div className="flex justify-between items-center mb-2">
               <p className="font-semibold text-primary capitalize ">
                 From Your Shop
@@ -350,16 +419,46 @@ const NewSales = () => {
                 <FiPlus className="rotate-45" size={22} />
               </button>
             </div>
-            <div className="grid grid-cols-3 sm:grid-cols-4 gap-5 py-5">
-              {[1, 2, 3, 4, 5, 6].map((item, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col justify-center items-center text-center cursor-pointer"
-                >
-                  <img src={shoppingBag} className="w-52" alt="bag" />
-                  <span className="text-xs">Test {item}</span>
+            {shop.length ? (
+              <input
+                type="text"
+                name="search"
+                id="search"
+                className="w-full rounded-md border outline-none px-3 py-2 text-sm mt-3"
+                placeholder="Search product by name"
+              />
+            ) : null}
+            <div className="overflow-x-hidden">
+              <table className="text-sm w-full table-auto border-separate border-spacing-y-3 ">
+                <thead className="bg-[#f3f4f5] shadow">
+                  <tr className="!text-left !opacity-70 !font-semibold bg-[#f3f4f5]">
+                    <th className="text-xs pl-3 w-[35%] py-2 !font-semibold">
+                      Name
+                    </th>
+                    <th className="text-xs pl-3 w-[25%] py-2 !font-semibold whitespace-nowrap">
+                      Stock Rem.
+                    </th>
+                    <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
+                      Price <span className=" sm:inline hidden"></span>
+                    </th>
+                    <th className="text-xs pl-3 w-[25%] py-2 !font-semibold whitespace-nowrap">
+                      Qty Sold
+                    </th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {shop.map((item, idx) => (
+                    <Row key={idx} item={item} />
+                  ))}
+                </tbody>
+              </table>
+              {shop.length <= 0 && !addMore ? (
+                <div className="pl-3 opacity-80 text-sm font-medium">
+                  {" "}
+                  Sorry. You don't have product in your shop.
                 </div>
-              ))}{" "}
+              ) : null}
             </div>
           </div>
         </div>
