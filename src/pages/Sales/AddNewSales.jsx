@@ -150,12 +150,13 @@ const NewSales = () => {
           const obj = {
             ...item,
             stock_available: item.stock_available - newItem.qty,
-          }
-          console.log('obj',obj);
+          };
+          console.log("obj", obj);
           return obj;
         } else {
-          console.log('else')
-          return item};
+          console.log("else");
+          return item;
+        }
       })
     );
   };
@@ -455,7 +456,12 @@ const NewSales = () => {
               <p className="font-semibold text-primary capitalize ">
                 From Your Shop
               </p>
-              <button onClick={() => setSetselectFromStore(false)}>
+              <button
+                onClick={() => {
+                  setSearchTerm("");
+                  setSetselectFromStore(false);
+                }}
+              >
                 <FiPlus className="rotate-45" size={22} />
               </button>
             </div>

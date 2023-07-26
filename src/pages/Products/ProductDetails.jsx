@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import AppLayoutNew from "../../layout/AppLayoutNew";
-import hamza from "../../assets/images/hamza.jpeg";
 import shoppingBag from "../../assets/images/image-shopping-bag-dd0f7627.svg";
 import CustomButton from "../../components/Buttons/CustomButton";
 import { FaEdit } from "react-icons/fa";
