@@ -3,6 +3,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import loginSlice from "./slices/user/loginSlice";
 import signupSlice from "./slices/user/signupSlice";
 import confirmAccountSlice from "./slices/user/confirmAccountSlice";
+import allStateSlice from "./slices/appData/allStateSlice";
+import partnerGroupSlice from "./slices/appData/partnerGroupSlice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +12,8 @@ const store = configureStore({
     authenticate: loginSlice,
     signup: signupSlice,
     confirm_account: confirmAccountSlice,
+    all_states: allStateSlice,
+    partner_group: partnerGroupSlice,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware();

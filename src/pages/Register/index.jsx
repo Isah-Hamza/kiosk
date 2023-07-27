@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AuthPagesLayout from "../../layout/AuthPagesLayout";
 
 import { MyInput as CustomInput } from "../../components/CustomInput/MyInput";
@@ -13,12 +13,21 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { signupAction } from "../../store/slices/user/signupSlice";
 import { confirmAccountAction } from "../../store/slices/user/confirmAccountSlice";
+import { allStateAction } from "../../store/slices/appData/allStateSlice";
+import { partnerGroupAction } from "../../store/slices/appData/partnerGroupSlice";
 
 const Register = () => {
+  // dispatches
+  const dispatch = useDispatch();
+
   const [otp, setOtp] = useState("");
   const { loading, data } = useSelector((state) => state.signup);
   const { loading: otpLoading } = useSelector((state) => state.confirm_account);
-  const dispatch = useDispatch();
+  const { data: all_states } = useSelector((state) => state.all_states);
+  const { data: partner_group } = useSelector((state) => state.partner_group);
+
+  console.log("partner groups", partner_group);
+
   const navigate = useNavigate();
   const steps = [
     {
@@ -36,15 +45,8 @@ const Register = () => {
   ];
   const [currStep, setCurrStep] = useState(1);
 
-  const countries = [
-    { label: "Nigeria", value: 1 },
-    { label: "Ghana", value: 2 },
-  ];
-  const region = [
-    { label: "Select State", value: 0 },
-    { label: "Lagos", value: 1 },
-    { label: "Abuja", value: 2 },
-  ];
+  const [state, setState] = useState([{ label: "Select State", value: 0 }]);
+  const [partnerId, setPartnerId] = useState();
 
   const [category, setCategory] = useState([
     {
@@ -93,6 +95,26 @@ const Register = () => {
   };
 
   const { errors, touched, handleSubmit, getFieldProps } = formik;
+
+  useEffect(() => {
+    // Get All states
+    dispatch(allStateAction());
+    const formatted = all_states.map((state) => ({
+      value: state.id,
+      label: state.name,
+    }));
+    setState((prev) => [...prev, ...formatted]);
+  }, []);
+
+  useEffect(() => {
+    // Get all partner groups
+    dispatch(partnerGroupAction());
+    const formattedPartner = partner_group.map((group) => ({
+      value: group.id,
+      label: group.name,
+    }));
+    setCategory((prev) => [...prev, ...formattedPartner]);
+  }, []);
 
   return (
     <div>
@@ -240,9 +262,6 @@ const Register = () => {
 
           {currStep === 3 ? (
             <div className="w-full mt-14">
-              {/* <div className="col-span-2 mb-7">
-              </div>
-              */}
               <div className="grid sm:grid-cols-2 gap-4 gap-y-5 sm:gap-y-7">
                 <CustomSelect options={category} />
                 <CustomSelect options={subCategory} />
@@ -273,7 +292,7 @@ const Register = () => {
                   />{" "}
                 </div>
                 <div className="sm:col-span-2">
-                  <CustomSelect options={region} />
+                  <CustomSelect options={state} />
                 </div>
                 <div className="sm:col-span-2">
                   <CustomInput
