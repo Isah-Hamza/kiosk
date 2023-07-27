@@ -31,10 +31,10 @@ const signupSlice = createSlice({
 
 export const signupAction = createAsyncThunk(
   "signupAction",
-  async ({ data, navigate }, thunkApi) => {
+  async ({ data, setStep }, thunkApi) => {
     return Signup(data)
       .then((res) => {
-        navigate("/login");
+        setStep(2);
         customToast(res.message ?? "Account Created Successful");
         return res;
       })

@@ -12,9 +12,12 @@ import { IoMdCheckmark } from "react-icons/io";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { signupAction } from "../../store/slices/user/signupSlice";
+import { confirmAccountAction } from "../../store/slices/user/confirmAccountSlice";
 
 const Register = () => {
+  const [otp, setOtp] = useState("");
   const { loading, data } = useSelector((state) => state.signup);
+  const { loading: otpLoading } = useSelector((state) => state.confirm_account);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const steps = [
@@ -38,9 +41,24 @@ const Register = () => {
     { label: "Ghana", value: 2 },
   ];
   const region = [
+    { label: "Select State", value: 0 },
     { label: "Lagos", value: 1 },
     { label: "Abuja", value: 2 },
   ];
+
+  const [category, setCategory] = useState([
+    {
+      value: 0,
+      label: "Select Category",
+    },
+  ]);
+
+  const [subCategory, setSubCategory] = useState([
+    {
+      value: 0,
+      label: "Select Sub Category",
+    },
+  ]);
 
   const formik = useFormik({
     initialValues: {
@@ -61,9 +79,18 @@ const Register = () => {
     }),
     onSubmit(values) {
       values.deviceToken = "test_token";
-      dispatch(signupAction({ data: values, navigate }));
+      dispatch(signupAction({ data: values, setStep: setCurrStep }));
     },
   });
+
+  const verifyOTP = () => {
+    const data = {
+      phone: formik.values.phone,
+      code: otp,
+    };
+
+    dispatch(confirmAccountAction({ data, setStep: setCurrStep }));
+  };
 
   const { errors, touched, handleSubmit, getFieldProps } = formik;
 
@@ -198,12 +225,14 @@ const Register = () => {
                 Please enter The OTP sent to your registered email or phone
                 number to move to the next step.
               </p>
-              <OTPInput />{" "}
+              <OTPInput {...{ otp, setOtp }} />{" "}
               <div className=" mt-12 flex">
                 <CustomButton
-                  clickHandler={() => setCurrStep(3)}
+                  clickHandler={verifyOTP}
                   className={"w-fit"}
                   children={"Confirm and Next"}
+                  disabled={otpLoading}
+                  loading={otpLoading}
                 />
               </div>
             </div>
@@ -211,13 +240,31 @@ const Register = () => {
 
           {currStep === 3 ? (
             <div className="w-full mt-14">
-              <div className="grid sm:grid-cols-2 gap-4">
+              {/* <div className="col-span-2 mb-7">
+              </div>
+              */}
+              <div className="grid sm:grid-cols-2 gap-4 gap-y-5 sm:gap-y-7">
+                <CustomSelect options={category} />
+                <CustomSelect options={subCategory} />
+                <div className="sm:col-span-2 ">
+                  <CustomInput
+                    type={"text"}
+                    placeholder={"Company Name"}
+                    id={"company_name"}
+                  />
+                </div>
                 <CustomInput
-                  type={"text"}
-                  placeholder={"Company Name"}
-                  id={"company_name"}
-                />
-                <CustomInput type={"text"} placeholder="CAC" id={"cac"} />{" "}
+                  className={"!h-[50px]"}
+                  type={"email"}
+                  placeholder="Business Email"
+                  id={"partner_email"}
+                />{" "}
+                <CustomInput
+                  className={"!h-[50px]"}
+                  type={"busisness_phone"}
+                  placeholder="Business Phone Number"
+                  id={"partner_phone"}
+                />{" "}
                 <div className="sm:col-span-2">
                   <CustomInput
                     type={"text"}
@@ -225,8 +272,16 @@ const Register = () => {
                     id={"company_address"}
                   />{" "}
                 </div>
-                <CustomSelect options={countries} allowFirstOption />
-                <CustomSelect options={region} allowFirstOption />
+                <div className="sm:col-span-2">
+                  <CustomSelect options={region} />
+                </div>
+                <div className="sm:col-span-2">
+                  <CustomInput
+                    type={"text"}
+                    placeholder={"Business Description"}
+                    id={"business_description"}
+                  />{" "}
+                </div>
               </div>
               <div className=" mt-10 flex justify-end">
                 <CustomButton

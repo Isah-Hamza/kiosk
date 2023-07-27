@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import OtpInput from "react-otp-input";
 
-export default function OTPInput() {
-  const [otp, setOtp] = useState("");
-
-  const style = {};
-
+export default function OTPInput({ otp, setOtp }) {
   return (
     <div className="otp">
       <OtpInput
         value={otp}
         onChange={(val) => setOtp(val)}
-        numInputs={5}
+        numInputs={6}
         renderSeparator={<div className="w-6"></div>}
         inputStyle={{
           width: "2.2em",
@@ -22,7 +18,7 @@ export default function OTPInput() {
           outline: "1px solid #540A18",
           borderRadius: 4,
           color: "#540A18",
-          fontSize:'20px'
+          fontSize: "20px",
         }}
         renderInput={(props) => (
           <input

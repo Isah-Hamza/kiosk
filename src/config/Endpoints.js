@@ -6,6 +6,7 @@ const ApiEndPoints = {
   // USER
   authenticate: "User/authenticate",
   signup: "User/signup",
+  confirm_account: "User/confirmAccount",
 };
 
 export { ApiEndPoints, BASE_URL };

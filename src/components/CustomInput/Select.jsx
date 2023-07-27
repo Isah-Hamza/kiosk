@@ -1,7 +1,13 @@
 import React from "react";
 import { BiCaretDown } from "react-icons/bi";
 
-const CustomSelect = ({ options, allowFirstOption, className, label }) => {
+const CustomSelect = ({
+  disabled,
+  options,
+  allowFirstOption,
+  className,
+  label,
+}) => {
   return (
     <div className="relative w-full">
       {label ? (
@@ -11,6 +17,7 @@ const CustomSelect = ({ options, allowFirstOption, className, label }) => {
       ) : null}
       <div className="relative">
         <select
+          disabled={disabled}
           required
           className={` text-gray-600 w-full h-[50px] appearance-none px-2 py-3 rounded border focus-within:border-primary hover:border-primary outline-none mt-1 text-sm ${className}`}
         >
