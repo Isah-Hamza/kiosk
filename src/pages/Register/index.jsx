@@ -6,11 +6,16 @@ import CustomButton from "../../components/Buttons/CustomButton";
 import OTPInput from "../../components/CustomInput/OTPInput";
 import CustomSelect from "../../components/CustomInput/Select";
 import { Link, useNavigate } from "react-router-dom";
-
+import ValidationError from "../../components/Error/ValidationError";
+import { useSelector, useDispatch } from "react-redux";
 import { IoMdCheckmark } from "react-icons/io";
 import { useFormik } from "formik";
+import * as Yup from "yup";
+import { signupAction } from "../../store/slices/user/signupSlice";
 
 const Register = () => {
+  const { loading, data } = useSelector((state) => state.signup);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const steps = [
     {
@@ -45,12 +50,27 @@ const Register = () => {
       phone: "",
       password: "",
     },
+    validationSchema: Yup.object().shape({
+      firstName: Yup.string().required("First Name is required"),
+      lastName: Yup.string().required("Last Name is required"),
+      phone: Yup.string().required("Phone Number is required"),
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Email is required"),
+      password: Yup.string().required("Password is required"),
+    }),
+    onSubmit(values) {
+      values.deviceToken = "test_token";
+      dispatch(signupAction({ data: values, navigate }));
+    },
   });
+
+  const { errors, touched, handleSubmit, getFieldProps } = formik;
 
   return (
     <div>
       <AuthPagesLayout>
-        <div className="w-full mt-16 my-16 sm:my-10  flex flex-col self-start px-5">
+        <div className="max-w-[500px] w-full mt-16 my-16 sm:my-10  flex flex-col self-start px-5">
           <div className="text-center">
             <p className="font-semibold text-3xl">Sign up</p>
             <p className="text-sm text-secondary-brown">
@@ -95,44 +115,80 @@ const Register = () => {
 
           {currStep === 1 ? (
             <div className="w-full mt-14">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <CustomInput
-                  type={"text"}
-                  placeholder={"First Name"}
-                  id={"first_name"}
-                />
-                <CustomInput
-                  type={"text"}
-                  placeholder="Last Name"
-                  id={"last_name"}
-                />{" "}
-                <div className="sm:col-span-2">
-                  <CustomInput
-                    type={"text"}
-                    placeholder={"Email"}
-                    id={"email"}
-                  />{" "}
+              <form onSubmit={handleSubmit}>
+                <div className="grid sm:grid-cols-2 gap-5 gap-y-6 !text-black">
+                  <div>
+                    <CustomInput
+                      className="!h-[50px]"
+                      type={"text"}
+                      placeholder={"First Name"}
+                      id={"first_name"}
+                      {...getFieldProps("firstName")}
+                    />
+                    {touched.firstName && errors.firstName && (
+                      <ValidationError msg={errors.firstName} />
+                    )}
+                  </div>
+                  <div>
+                    <CustomInput
+                      className="!h-[50px]"
+                      type={"text"}
+                      placeholder="Last Name"
+                      id={"last_name"}
+                      {...getFieldProps("lastName")}
+                    />{" "}
+                    {touched.lastName && errors.lastName && (
+                      <ValidationError msg={errors.lastName} />
+                    )}
+                  </div>
+                  <div className="sm:col-span-2">
+                    <CustomInput
+                      className="!h-[50px]"
+                      type={"text"}
+                      placeholder={"Email"}
+                      id={"email"}
+                      {...getFieldProps("email")}
+                    />{" "}
+                    {touched.email && errors.email && (
+                      <ValidationError msg={errors.email} />
+                    )}
+                  </div>
+                  <div>
+                    <CustomInput
+                      placeholder={"Phone Number"}
+                      id={"phone"}
+                      type={"text"}
+                      className="transparent-bg !h-[50px]"
+                      {...getFieldProps("phone")}
+                    />{" "}
+                    {touched.phone && errors.phone && (
+                      <ValidationError msg={errors.phone} />
+                    )}
+                  </div>
+                  <div>
+                    <CustomInput
+                      placeholder={"Password"}
+                      id={"password"}
+                      type={"password"}
+                      className="transparent-bg !h-[50px]"
+                      {...getFieldProps("password")}
+                    />{" "}
+                    {touched.password && errors.password && (
+                      <ValidationError msg={errors.password} />
+                    )}
+                  </div>
                 </div>
-                <CustomInput
-                  placeholder={"Password"}
-                  id={"password"}
-                  type={"password"}
-                  className="transparent-bg"
-                />{" "}
-                <CustomInput
-                  placeholder={"Confirm Password"}
-                  id={"confirm_password"}
-                  type={"password"}
-                  className="transparent-bg"
-                />{" "}
-              </div>
-              <div className="ml-auto w-full sm:w-fit mt-10">
-                <CustomButton
-                  clickHandler={() => setCurrStep(2)}
-                  className={"w-full"}
-                  children={"Save and Next"}
-                />
-              </div>
+                <div className="ml-auto w-full sm:w-fit mt-10">
+                  <CustomButton
+                    // clickHandler={() => setCurrStep(2)}
+                    className={"w-full"}
+                    children={"Save and Next"}
+                    type={"submit"}
+                    loading={loading}
+                    disabled={loading}
+                  />
+                </div>
+              </form>
             </div>
           ) : null}
 
