@@ -10,11 +10,35 @@ import CustomButton from "../../components/Buttons/CustomButton";
 import { Link, useNavigate } from "react-router-dom";
 import AuthPagesLayout from "../../layout/AuthPagesLayout";
 
-import logo from '../../assets/images/logo.png'
+import logo from "../../assets/images/logo.png";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import ValidationError from "../../components/Error/ValidationError";
+import { useDispatch, useSelector } from "react-redux";
+import { loginAction } from "../../store/slices/user/loginSlice";
 
 const Login = () => {
-  const [loading, setLoading] = useState(false);
+  const { loading, token } = useSelector((state) => state.authenticate);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    validationSchema: Yup.object().shape({
+      username: Yup.string()
+        .email("Invalid email address")
+        .required("Email is required"),
+      password: Yup.string().required("Password is required"),
+    }),
+    onSubmit(values) {
+      dispatch(loginAction({ data: values, navigate }));
+    },
+  });
+
+  const { handleSubmit, getFieldProps, errors, touched, isSubmitting } = formik;
 
   return (
     <AuthPagesLayout>
@@ -31,7 +55,7 @@ const Login = () => {
           Welcome to GlowBiz. Please provide your login credentials here to
           start using the app.
         </p>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="email">
             <CustomInput
               className={"!bg-[#e9e9eb] !h-[50px]"}
@@ -42,7 +66,11 @@ const Login = () => {
                   className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
                 />
               }
+              {...getFieldProps("username")}
             />
+            {touched.username && touched.username && (
+              <ValidationError msg={errors.username} />
+            )}
           </div>
           <div className="email mt-1">
             <CustomInput
@@ -55,7 +83,11 @@ const Login = () => {
                   className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
                 />
               }
+              {...getFieldProps("password")}
             />
+            {touched.password && touched.password && (
+              <ValidationError msg={errors.password} />
+            )}
           </div>
           <div className="flex items-center justify-between flex-row-reverse">
             <p className="forgot-password">Forgot Password?</p>
@@ -74,7 +106,8 @@ const Login = () => {
               type={"submit"}
               className={"bg-[#41010b] !w-full !py-4"}
               disabled={loading}
-              clickHandler={() => navigate("/home")}
+              loading={loading}
+              // clickHandler={() => navigate("/home")}
             >
               {loading ? "Please wait..." : " Login"}
             </CustomButton>

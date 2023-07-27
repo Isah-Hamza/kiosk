@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 // import TestingSlice from "./slice/TestingSlice";
-// import LoginSlice from "./slice/user/loginSlice";
+import loginSlice from "./slices/user/loginSlice";
 
 const store = configureStore({
   reducer: {
     // testingSlice: TestingSlice,
-    // authenticate: LoginSlice,
+    authenticate: loginSlice,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware();

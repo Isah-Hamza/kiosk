@@ -5,7 +5,7 @@ import {
   REMOVE_STORAGE_ITEM,
   SET_STORAGE_ITEM,
 } from "../../../config/storage";
-import customToast from "../../../component/Toast/toastify";
+import customToast from "../../../components/Toast/toastify";
 import { dApis } from "../../../config/api";
 
 const initialState = {
@@ -15,7 +15,7 @@ const initialState = {
 };
 
 const loginSlice = createSlice({
-  name: "login",
+  name: "loginSlice",
   initialState,
 
   reducers: {
@@ -26,7 +26,7 @@ const loginSlice = createSlice({
       window.location.href = "/login";
     },
   },
-  
+
   extraReducers: (builder) => {
     builder.addCase(loginAction.pending, (state) => {
       state.loading = true;
@@ -43,13 +43,13 @@ const loginSlice = createSlice({
 });
 
 export const loginAction = createAsyncThunk(
-  "login",
-  async ({ data, history }, thunkApi) => {
+  "loginAction",
+  async ({ data, navigate }, thunkApi) => {
     // thunkApi.dispatch(changeProgress(60));
     return AuthenticateUser(data)
       .then((res) => {
         console.log("from login page", res);
-        history.replace("/home");
+        navigate("/home");
         customToast("Login successful");
         SET_STORAGE_ITEM("token", res.token);
         SET_STORAGE_ITEM("refresh_token", res.refreshToken);

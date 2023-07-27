@@ -8,6 +8,7 @@ import CustomSelect from "../../components/CustomInput/Select";
 import { Link, useNavigate } from "react-router-dom";
 
 import { IoMdCheckmark } from "react-icons/io";
+import { useFormik } from "formik";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -35,6 +36,16 @@ const Register = () => {
     { label: "Lagos", value: 1 },
     { label: "Abuja", value: 2 },
   ];
+
+  const formik = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      password: "",
+    },
+  });
 
   return (
     <div>

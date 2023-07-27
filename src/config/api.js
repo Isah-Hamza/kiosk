@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { BASE_URL } from "./Endpoints";
-import customToast from "../component/Toast/toastify";
+import customToast from "../components/Toast/toastify";
 import { GET_STORAGE_ITEM, SET_STORAGE_ITEM } from "./storage";
 
 const MAX_RETRY_COUNT = 3; // Maximum number of retries
