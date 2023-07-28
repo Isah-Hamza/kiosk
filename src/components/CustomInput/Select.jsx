@@ -7,6 +7,7 @@ const CustomSelect = ({
   allowFirstOption,
   className,
   label,
+  onChange
 }) => {
   return (
     <div className="relative w-full">
@@ -17,6 +18,7 @@ const CustomSelect = ({
       ) : null}
       <div className="relative">
         <select
+          onChange={e => onChange(e.target.value)}
           disabled={disabled}
           required
           className={` text-gray-600 w-full h-[50px] appearance-none px-2 py-3 rounded border focus-within:border-primary hover:border-primary outline-none mt-1 text-sm ${className}`}
@@ -25,7 +27,6 @@ const CustomSelect = ({
             <option
               selected={idx === 0}
               disabled={!allowFirstOption && idx === 0}
-              // className={idx === 0 && ""}
               key={idx}
               value={option.value}
             >
