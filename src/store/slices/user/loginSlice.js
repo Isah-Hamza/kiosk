@@ -48,7 +48,6 @@ export const loginAction = createAsyncThunk(
     // thunkApi.dispatch(changeProgress(60));
     return AuthenticateUser(data)
       .then((res) => {
-        console.log("from login page", res);
         navigate("/home");
         customToast("Login successful");
         SET_STORAGE_ITEM("token", res.token);

@@ -16,6 +16,8 @@ import { confirmAccountAction } from "../../store/slices/user/confirmAccountSlic
 import { allStateAction } from "../../store/slices/appData/allStateSlice";
 import { partnerGroupAction } from "../../store/slices/appData/partnerGroupSlice";
 import { partnerSubGroupAction } from "../../store/slices/appData/partnerSubGroupSlice";
+import { createPartnerAction } from "../../store/slices/partner/createPartnerSlice";
+import { GET_STORAGE_ITEM } from "../../config/storage";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -90,7 +92,7 @@ const Register = () => {
 
   const verifyOTP = () => {
     const data = {
-      phone: formik.values.phone,
+      phone: formik.values.phone || GET_STORAGE_ITEM("user").phone,
       code: otp,
     };
 
@@ -117,14 +119,17 @@ const Register = () => {
       name: Yup.string().required("Name is required"),
       address: Yup.string().required("Address is required"),
       description: Yup.string().required("Description is required"),
-      email: Yup.string().required("Email is required"),
+      email: Yup.string()
+        .email("Please supply a valid email")
+        .required("Email is required"),
       phoneNumber: Yup.string().required("Phone Number is required"),
       partnerSubGroupId: Yup.string().required("Select subcategory"),
       stateId: Yup.string().required("Please select a state"),
     }),
     onSubmit(values) {
       delete values.category;
-      console.log(values);
+      values.deviceToken='test_token';
+      dispatch(createPartnerAction({ data: values, navigate }));
     },
   });
   const {

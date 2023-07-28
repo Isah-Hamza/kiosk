@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ConfirmAccount } from "../../../Services/UserServices";
 import customToast from "../../../components/Toast/toastify";
 import { SET_STORAGE_ITEM } from "../../../config/storage";
+import { dApis, setAuthorizationHeader } from "../../../config/api";
 
 const initialState = {
   loading: false,
@@ -36,6 +37,10 @@ export const confirmAccountAction = createAsyncThunk(
     return ConfirmAccount(data)
       .then((res) => {
         customToast(res.message ?? "Account Confirmed Successful");
+        setAuthorizationHeader(res.token);
+        window.token = res.token;
+        console.log("token ", res.token);
+
         SET_STORAGE_ITEM("token", res.token);
         SET_STORAGE_ITEM("refresh_token", res.refreshToken);
         SET_STORAGE_ITEM("user", res.user);
