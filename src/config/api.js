@@ -20,7 +20,7 @@ export const getToken = () => {
 export const dApis = axios.create({
   baseURL: BASE_URL,
   headers: {
-    Accept: "application/json",
+    Accept: "*/*",
     "content-type": "application/json",
     Authorization: getToken() ? `Bearer ${getToken()}` : "",
   },

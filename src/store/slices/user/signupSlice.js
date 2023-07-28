@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Signup } from "../../../Services/UserServices";
 import customToast from "../../../components/Toast/toastify";
+import { SET_STORAGE_ITEM } from "../../../config/storage";
 
 const initialState = {
   loading: false,
@@ -31,10 +32,10 @@ const signupSlice = createSlice({
 
 export const signupAction = createAsyncThunk(
   "signupAction",
-  async ({ data, setStep }, thunkApi) => {
+  async ({ data, navigate }, thunkApi) => {
     return Signup(data)
       .then((res) => {
-        setStep(2);
+        navigate('/verify-account');
         customToast(res.message ?? "Account Created Successful");
         return res;
       })

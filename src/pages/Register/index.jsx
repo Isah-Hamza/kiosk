@@ -17,14 +17,12 @@ import { allStateAction } from "../../store/slices/appData/allStateSlice";
 import { partnerGroupAction } from "../../store/slices/appData/partnerGroupSlice";
 import { partnerSubGroupAction } from "../../store/slices/appData/partnerSubGroupSlice";
 import { createPartnerAction } from "../../store/slices/partner/createPartnerSlice";
-import { GET_STORAGE_ITEM } from "../../config/storage";
+import { GET_STORAGE_ITEM, SET_STORAGE_ITEM } from "../../config/storage";
 
 const Register = () => {
   const dispatch = useDispatch();
 
-  const [otp, setOtp] = useState("");
   const { loading } = useSelector((state) => state.signup);
-  const { loading: otpLoading } = useSelector((state) => state.confirm_account);
   const { data: all_states } = useSelector((state) => state.all_states);
   const { data: partner_group } = useSelector((state) => state.partner_group);
   const { data: partner_subgroup } = useSelector(
@@ -85,19 +83,11 @@ const Register = () => {
       password: Yup.string().required("Password is required"),
     }),
     onSubmit(values) {
+      SET_STORAGE_ITEM('phone', formik.values.phone);
       values.deviceToken = "test_token";
-      dispatch(signupAction({ data: values, setStep: setCurrStep }));
+      dispatch(signupAction({ data: values, navigate }));
     },
   });
-
-  const verifyOTP = () => {
-    const data = {
-      phone: formik.values.phone || GET_STORAGE_ITEM("user").phone,
-      code: otp,
-    };
-
-    dispatch(confirmAccountAction({ data, setStep: setCurrStep }));
-  };
 
   const { errors, touched, handleSubmit, getFieldProps } = formik;
 
@@ -128,10 +118,11 @@ const Register = () => {
     }),
     onSubmit(values) {
       delete values.category;
-      values.deviceToken='test_token';
+      values.deviceToken = "test_token";
       dispatch(createPartnerAction({ data: values, navigate }));
     },
   });
+
   const {
     errors: biz_errors,
     touched: biz_touched,
@@ -193,49 +184,22 @@ const Register = () => {
                 Login
               </Link>
             </p>
-          </div>
-
-          <div className="mt-12 grid grid-cols-3 justify-between border-primary rounded-md overflow-hidden">
-            {steps.map((step, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrStep(idx + 1)}
-                className={`relative py-3 text-sm flex flex-col items-center gap-2 text-gray-500
-              ${idx != 0 && "border-lt border-primary"}
-              ${currStep - 1 >= step.id && "font-bold  !text-primary"}`}
-              >
-                {idx == 2 ? null : (
-                  <div
-                    className={`left-1/2 absolute top-[26px] w-full h-0.5 ${
-                      currStep - 1 > step.id ? "bg-primary" : "bg-[gainsboro]"
-                    }`}
-                  ></div>
-                )}
-                <p
-                  className={`relative z-10 bg-white w-8 h-8 rounded-full grid place-content-center border ${
-                    currStep === idx + 1 && "border-2 border-primary"
-                  } ${currStep - 1 > step.id && "!bg-primary"}`}
-                >
-                  {currStep - 1 > step.id ? (
-                    <IoMdCheckmark size={19} color="white" />
-                  ) : (
-                    idx + 1
-                  )}
-                </p>
-                <p className="text-sm">{step.name}</p>
-              </button>
-            ))}
+            <p className="text-sm mt-14">
+              Join our vibrant community! Sign up now to unlock exclusive
+              features and explore endless possibilities with us.
+            </p>
           </div>
 
           {currStep === 1 ? (
-            <div className="w-full mt-14">
+            <div className="w-full">
               <form onSubmit={handleSubmit}>
                 <div className="grid sm:grid-cols-2 gap-5 gap-y-6 !text-black">
                   <div>
                     <CustomInput
+                      label={"First Name"}
                       className="!h-[50px]"
                       type={"text"}
-                      placeholder={"First Name"}
+                      placeholder={"John"}
                       id={"first_name"}
                       {...getFieldProps("firstName")}
                     />
@@ -245,9 +209,10 @@ const Register = () => {
                   </div>
                   <div>
                     <CustomInput
+                      label={"Last Name"}
                       className="!h-[50px]"
                       type={"text"}
-                      placeholder="Last Name"
+                      placeholder="Doe"
                       id={"last_name"}
                       {...getFieldProps("lastName")}
                     />{" "}
@@ -257,6 +222,7 @@ const Register = () => {
                   </div>
                   <div className="sm:col-span-2">
                     <CustomInput
+                      label={"Email"}
                       className="!h-[50px]"
                       type={"text"}
                       placeholder={"Email"}
@@ -270,6 +236,7 @@ const Register = () => {
                   <div>
                     <CustomInput
                       placeholder={"Phone Number"}
+                      label={"Phone Number"}
                       id={"phone"}
                       type={"text"}
                       className="transparent-bg !h-[50px]"
@@ -281,6 +248,7 @@ const Register = () => {
                   </div>
                   <div>
                     <CustomInput
+                      label={"Password"}
                       placeholder={"Password"}
                       id={"password"}
                       type={"password"}
@@ -303,25 +271,6 @@ const Register = () => {
                   />
                 </div>
               </form>
-            </div>
-          ) : null}
-
-          {currStep === 2 ? (
-            <div className="flex flex-col items-center w-full mt-16 otp">
-              <p className="mb-8 mx-auto max-w-sm text-center">
-                Please enter The OTP sent to your registered email or phone
-                number to move to the next step.
-              </p>
-              <OTPInput {...{ otp, setOtp }} />{" "}
-              <div className=" mt-12 flex">
-                <CustomButton
-                  clickHandler={verifyOTP}
-                  className={"w-fit"}
-                  children={"Confirm and Next"}
-                  disabled={otpLoading}
-                  loading={otpLoading}
-                />
-              </div>
             </div>
           ) : null}
 

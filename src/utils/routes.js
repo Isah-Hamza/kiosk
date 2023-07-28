@@ -9,6 +9,8 @@ import CreateProduct from "../pages/Products/CreateProduct";
 import ProductDetails from "../pages/Products/ProductDetails";
 import Profile from "../pages/Profile";
 import Register from "../pages/Register";
+import CreateBusiness from "../pages/Register/CreateBusiness";
+import VerifyAccount from "../pages/Register/VerifyAccount";
 import NewSales from "../pages/Sales/AddNewSales";
 
 export const routes = [
@@ -26,6 +28,16 @@ export const routes = [
     title: "Register",
     path: "/register",
     component: Register,
+  },
+  {
+    title: "Verify OTP",
+    path: "/verify-account",
+    component: VerifyAccount,
+  },
+  {
+    title: "Create Business",
+    path: "/create-business",
+    component: CreateBusiness,
   },
   {
     title: "Home",
