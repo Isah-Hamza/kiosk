@@ -9,15 +9,16 @@ import { partnerGroupAction } from "../../store/slices/appData/partnerGroupSlice
 import ValidationError from "../../components/Error/ValidationError";
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/Buttons/CustomButton";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { createPartnerAction } from "../../store/slices/partner/createPartnerSlice";
+import { MdOutlineDescription } from "react-icons/md";
 
 const CreateBusiness = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [state, setState] = useState([{ label: "Select State", value: 0 }]);
+  const [state, setState] = useState([{ label: "Select State", value: null }]);
   const [partnerId, setPartnerId] = useState();
 
   const { loading } = useSelector((state) => state.create_partner);
@@ -29,7 +30,7 @@ const CreateBusiness = () => {
 
   const [category, setCategory] = useState([
     {
-      value: 0,
+      value: null,
       label: "Select Category",
     },
   ]);
@@ -38,7 +39,7 @@ const CreateBusiness = () => {
 
   const [subCategory, setSubCategory] = useState([
     {
-      value: 0,
+      value: null,
       label: "Select Sub Category",
     },
   ]);
@@ -125,8 +126,8 @@ const CreateBusiness = () => {
   }, [partner_subgroup]);
 
   return (
-    <div className="w-full py-20">
-      <div className="w-[500px] m-auto min-h-[500px]">
+    <div className="w-full py-10 sm:py-20">
+      <div className="w-[95%] sm:w-[550px] m-auto min-h-[500px]">
         <div className="text-center">
           <p className="text-lg font-semibold opacity-80">
             Create a New Business
@@ -150,13 +151,14 @@ const CreateBusiness = () => {
               <span>Browse File</span>
             </button>
           </div>
-          <div className="p-7">
+          <div className="p-5 sm:p-7">
             <form onSubmit={biz_handleSubmit} className="w-full mt-7">
-              <div className="grid sm:grid-cols-2 gap-4 gap-y-5 sm:gap-y-7">
+              <div className="grid sm:grid-cols-2 gap-5 gap-y-5 sm:gap-y-7">
                 <div>
                   <CustomSelect
                     onChange={handleChangeCategory}
                     options={category}
+                    allowFirstOption
                   />
                   {biz_touched.category && biz_errors.category && (
                     <ValidationError msg={biz_errors.category} />
@@ -164,6 +166,7 @@ const CreateBusiness = () => {
                 </div>
                 <div>
                   <CustomSelect
+                    allowFirstOption
                     options={subCategory}
                     onChange={handleChangeSubCategory}
                   />
@@ -225,7 +228,11 @@ const CreateBusiness = () => {
                   )}
                 </div>
                 <div className="sm:col-span-2">
-                  <CustomSelect options={state} onChange={handleChangeState} />
+                  <CustomSelect
+                    allowFirstOption
+                    options={state}
+                    onChange={handleChangeState}
+                  />
                   {biz_touched.stateId && biz_errors.stateId && (
                     <ValidationError msg={biz_errors.stateId} />
                   )}
@@ -236,6 +243,8 @@ const CreateBusiness = () => {
                     type={"text"}
                     placeholder={"Business Description"}
                     id={"business_description"}
+                    hasIcon={true}
+                    Icon={MdOutlineDescription}
                     {...biz_getFieldProps("description")}
                   />{" "}
                   {biz_touched.description && biz_errors.description && (
@@ -243,9 +252,8 @@ const CreateBusiness = () => {
                   )}
                 </div>
               </div>
-              <div className="mt-14 my-10 flex justify-end">
+              <div className="mt-14 my-7 flex justify-end">
                 <CustomButton
-                
                   loading={loading}
                   disabled={loading}
                   type={"submit"}
@@ -257,6 +265,12 @@ const CreateBusiness = () => {
           </div>
         </div>
       </div>
+      <p className=" text-sm text-center mt-3 ">
+        Don't know what's happening here?{" "}
+        <Link className="text-primary font-medium" to={"/login"}>
+          Login
+        </Link>
+      </p>
     </div>
   );
 };

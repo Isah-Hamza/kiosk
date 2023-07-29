@@ -48,15 +48,22 @@ export const loginAction = createAsyncThunk(
     // thunkApi.dispatch(changeProgress(60));
     return AuthenticateUser(data)
       .then((res) => {
-        navigate("/home");
-        customToast("Login successful");
-        SET_STORAGE_ITEM("token", res.token);
-        SET_STORAGE_ITEM("refresh_token", res.refreshToken);
-        SET_STORAGE_ITEM("user", res.user);
+        if (!res.user.isPhoneConfirmed) {
+          customToast("Verify your account to continue");
+          navigate("/verify-account");
+        } else if (res.account == null) {
+          customToast("You need to first create a business account");
+          navigate("/create-business");
+        } else {
+          navigate("/home");
+          customToast("Login successful");
+          SET_STORAGE_ITEM("token", res.token);
+          SET_STORAGE_ITEM("refresh_token", res.refreshToken);
+          SET_STORAGE_ITEM("user", res.user);
 
-        dApis.defaults.headers.Authorization = `Bearer ${res.token}`;
-        // thunkApi.dispatch(changeProgress(100));
-        return res;
+          dApis.defaults.headers.Authorization = `Bearer ${res.token}`;
+          return res;
+        }
       })
       .catch((e) => {
         // thunkApi.dispatch(changeProgress(100));

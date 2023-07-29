@@ -27,7 +27,7 @@ const VerifyAccount = () => {
     <AuthPagesLayout>
       <div className="max-w-[500px] w-full mt-28 my-16 flex flex-col self-start px-5">
         <div className="text-center">
-          <p className="font-semibold text-3xl">Veriy OTP</p>
+          <p className="font-semibold text-3xl">Verify OTP</p>
           <p className="text-sm text-secondary-brown">
             Already have an account?{" "}
             <Link to={"/login"} className="text-primary font-medium">

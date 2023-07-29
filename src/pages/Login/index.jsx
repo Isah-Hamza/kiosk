@@ -34,6 +34,7 @@ const Login = () => {
       password: Yup.string().required("Password is required"),
     }),
     onSubmit(values) {
+      values.deviceId = 'test_id';
       dispatch(loginAction({ data: values, navigate }));
     },
   });
@@ -121,7 +122,7 @@ const Login = () => {
             </button>
           </div>
         </form>
-        <p className="no-account whitespace-nowrap">
+        <p className="no-account whitespace-nowrap mb-1">
           Don't have an account ?{" "}
           <span>
             {" "}
