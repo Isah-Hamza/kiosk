@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import person from "../assets/images/hamza.jpeg";
-import { FaBell, FaRedo, FaUserCog } from "react-icons/fa";
+import { FaBell, FaRedo, FaUserCog, FaUsers } from "react-icons/fa";
 import { FiHome, FiUsers } from "react-icons/fi";
 import { BsCreditCard, BsEye, BsPlus } from "react-icons/bs";
 import { RiDashboardLine, RiServiceFill } from "react-icons/ri";
@@ -10,6 +10,7 @@ import CustomDropdown from "../components/Dropdown";
 import { GrClose } from "react-icons/gr";
 import logo from "../assets/images/logo.png";
 import { ToggleSidebarContext } from "../App";
+import { AiFillInsurance } from "react-icons/ai";
 
 const AppLayoutNew = ({ children, noHeader }) => {
   const navigate = useNavigate();
@@ -61,9 +62,19 @@ const AppLayoutNew = ({ children, noHeader }) => {
       icon: <RiDashboardLine />,
     },
     {
-      name: "Orders",
-      path: "/orders",
-      icon: <BiShoppingBag size={17} />,
+      name: "Insurance",
+      path: "/products",
+      icon: <AiFillInsurance size={19} />,
+    },
+    // {
+    //   name: "Orders",
+    //   path: "/orders",
+    //   icon: <BiShoppingBag size={17} />,
+    // },
+    {
+      name: "Staff Management",
+      path: "/staff-management",
+      icon: <FaUsers />,
     },
     {
       name: "My Profile",
@@ -95,7 +106,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
     },
   ];
 
-  const secondarySideBarItems = ["Terms and Conditions", "Help Center"];
+  const secondarySideBarItems = ['Generate Quick Invoice','Live Order',"Terms and Conditions", "Help Center"];
 
   return (
     <div className="flex h-screen">

@@ -112,7 +112,6 @@ const Login = () => {
             >
               {loading ? "Please wait..." : " Login"}
             </CustomButton>
-
             <button
               type="button"
               className="shadow flex gap-2 w-full bg-white py-4 mt-3 justify-center items-center rounded"
