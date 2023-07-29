@@ -35,11 +35,11 @@ export const createPartnerAction = createAsyncThunk(
     return CreatePartner(data)
       .then((res) => {
         navigate("/home");
-        customToast(res.message ?? "Partner Account Created Successful");
+        customToast(res?.message ?? "Partner Account Created Successful");
         return res;
       })
       .catch((e) => {
-        customToast(e.message, true);
+        customToast(e?.message, true);
         return thunkApi.rejectWithValue(e);
       });
   }

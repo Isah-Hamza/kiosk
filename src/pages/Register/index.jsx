@@ -30,20 +30,7 @@ const Register = () => {
   );
 
   const navigate = useNavigate();
-  const steps = [
-    {
-      name: "Personal Information",
-      id: 0,
-    },
-    {
-      name: "Enter OTP",
-      id: 1,
-    },
-    {
-      name: "Business Information",
-      id: 2,
-    },
-  ];
+
   const [currStep, setCurrStep] = useState(1);
 
   const [state, setState] = useState([{ label: "Select State", value: 0 }]);

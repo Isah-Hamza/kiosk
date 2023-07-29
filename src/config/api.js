@@ -63,14 +63,14 @@ dApis.interceptors.response.use(
       try {
         while (retryCount < MAX_RETRY_COUNT) {
           retryCount++;
-          // const newToken = await refreshAccessToken(refreshToken);
-          // err.config.headers.Authorization = `Bearer ${newToken}`;
-          // return dApis(err.config);
+          const newToken = await refreshAccessToken(refreshToken);
+          err.config.headers.Authorization = `Bearer ${newToken}`;
+          return dApis(err.config);
         }
         customToast("Maximum retry attempts reached.", true);
-        // setTimeout(() => {
-        //   window.location.href = "/login";
-        // }, 1000);
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 1000);
       } catch (refreshError) {
         window.location.href = "/login";
         throw refreshError;
