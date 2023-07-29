@@ -58,7 +58,10 @@ const CreateBusiness = () => {
       stateId: "",
     },
     validationSchema: Yup.object().shape({
-      category: Yup.string().required("Select category"),
+      category: Yup.mixed()
+        .oneOf(['1', '2', '3', '4'], "Select Category")
+        .required("Select category")
+        .nonNullable("Field can't be null"),
       name: Yup.string().required("Name is required"),
       address: Yup.string().required("Address is required"),
       description: Yup.string().required("Description is required"),
@@ -66,8 +69,13 @@ const CreateBusiness = () => {
         .email("Please supply a valid email")
         .required("Email is required"),
       phoneNumber: Yup.string().required("Phone Number is required"),
-      partnerSubGroupId: Yup.string().required("Select subcategory"),
-      stateId: Yup.string().required("Please select a state"),
+      partnerSubGroupId: Yup.mixed()
+        .oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "Select subcategory")
+        .required("Select subcategory")
+        .nonNullable("Field can't be null"),
+      stateId: Yup.string()
+        .required("Please select a state")
+        .nonNullable("Field can't be null"),
     }),
     onSubmit(values) {
       delete values.category;
@@ -99,7 +107,10 @@ const CreateBusiness = () => {
       value: group.id,
       label: group.name,
     }));
-    formattedPartner.unshift({ value: 0, label: "Select Business Category" });
+    formattedPartner.unshift({
+      value: null,
+      label: "Select Business Category",
+    });
     setCategory(formattedPartner);
   }, [partner_group]);
 
@@ -108,7 +119,7 @@ const CreateBusiness = () => {
       value: state.id,
       label: state.name,
     }));
-    formatted.unshift({ value: 0, label: "Select State" });
+    formatted.unshift({ value: null, label: "Select State" });
     setState(formatted);
   }, [all_states]);
 
@@ -121,7 +132,7 @@ const CreateBusiness = () => {
       value: group.id,
       label: group.name,
     }));
-    formattedPartner.unshift({ value: 0, label: "Select Sub Category" });
+    formattedPartner.unshift({ value: null, label: "Select Sub Category" });
     setSubCategory(formattedPartner);
   }, [partner_subgroup]);
 
@@ -166,7 +177,7 @@ const CreateBusiness = () => {
                 </div>
                 <div>
                   <CustomSelect
-                    allowFirstOption
+                    allowFirstOption={true}
                     options={subCategory}
                     onChange={handleChangeSubCategory}
                   />
