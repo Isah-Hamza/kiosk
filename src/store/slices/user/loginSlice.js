@@ -60,6 +60,7 @@ export const loginAction = createAsyncThunk(
           SET_STORAGE_ITEM("token", res.token);
           SET_STORAGE_ITEM("refresh_token", res.refreshToken);
           SET_STORAGE_ITEM("user", res.user);
+          SET_STORAGE_ITEM("account", res.account);
 
           dApis.defaults.headers.Authorization = `Bearer ${res.token}`;
           return res;

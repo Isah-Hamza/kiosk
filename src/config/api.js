@@ -34,13 +34,14 @@ export const setAuthorizationHeader = (token) => {
 const storedToken = getToken();
 setAuthorizationHeader(storedToken);
 
-const refreshAccessToken = async (refreshToken) => {
+export const refreshAccessToken = async (refreshToken) => {
   const res = await axios.post(`${BASE_URL}/User/refresh_token`, {
     refreshToken,
   });
   const newToken = res.data.token;
-  SET_STORAGE_ITEM("token", res.data.token);
   setAuthorizationHeader(newToken);
+  SET_STORAGE_ITEM("token", newToken);
+  if (res.data.account) SET_STORAGE_ITEM("account", res.data?.account);
 
   return newToken;
 };

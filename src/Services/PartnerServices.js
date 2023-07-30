@@ -10,3 +10,8 @@ export async function GetUserAccounts() {
   const response = await api.get(ApiEndPoints.get_user_accounts);
   return response;
 }
+
+export async function SwitchAccount(id) {
+  const response = await api.post(ApiEndPoints.switch_accounts + "/" + id);
+  return response;
+}

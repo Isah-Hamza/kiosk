@@ -1,18 +1,16 @@
 import React, { useContext, useState } from "react";
-import person from "../assets/images/hamza.jpeg";
 import { FaBell, FaRedo, FaUserCog, FaUsers } from "react-icons/fa";
 import { FiHome, FiUsers } from "react-icons/fi";
-import { BsCreditCard, BsEye, BsPlus } from "react-icons/bs";
-import { RiDashboardLine, RiServiceFill } from "react-icons/ri";
+import { BsCreditCard,  } from "react-icons/bs";
+import { RiDashboardLine,  } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import { BiCaretDown, BiCaretUp, BiMenu, BiShoppingBag } from "react-icons/bi";
+import { BiCaretUp, BiMenu, BiShoppingBag } from "react-icons/bi";
 import CustomDropdown from "../components/Dropdown";
 import { GrClose } from "react-icons/gr";
 import logo from "../assets/images/logo.png";
 import { ToggleSidebarContext } from "../App";
 import { AiFillInsurance } from "react-icons/ai";
 import { GET_STORAGE_ITEM, REMOVE_STORAGE_ITEM } from "../config/storage";
-import { useSelector } from "react-redux";
 
 const AppLayoutNew = ({ children, noHeader }) => {
   const navigate = useNavigate();
@@ -30,6 +28,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
     REMOVE_STORAGE_ITEM("refresh_token");
     REMOVE_STORAGE_ITEM("user");
     REMOVE_STORAGE_ITEM("phone");
+    REMOVE_STORAGE_ITEM("account");
     window.location.replace("/login");
   };
 
