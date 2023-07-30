@@ -67,7 +67,7 @@ export const loginAction = createAsyncThunk(
       })
       .catch((e) => {
         // thunkApi.dispatch(changeProgress(100));
-        customToast(e.message, true);
+        customToast(e?.message, true);
         return thunkApi.rejectWithValue(e);
       });
   }
