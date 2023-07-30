@@ -11,15 +11,23 @@ import { GrClose } from "react-icons/gr";
 import logo from "../assets/images/logo.png";
 import { ToggleSidebarContext } from "../App";
 import { AiFillInsurance } from "react-icons/ai";
+import { REMOVE_STORAGE_ITEM } from "../config/storage";
 
 const AppLayoutNew = ({ children, noHeader }) => {
   const navigate = useNavigate();
   const [openSubMenu, setOpenSubMenu] = useState(null);
-  // const [] = useState(false);
   const { sidebarOpen, setSidebarOpen } = useContext(ToggleSidebarContext);
 
   const toggleSubMenu = (index) => {
     setOpenSubMenu(openSubMenu === index ? null : index);
+  };
+
+  const handleLogout = () => {
+    REMOVE_STORAGE_ITEM("token");
+    REMOVE_STORAGE_ITEM("refresh_token");
+    REMOVE_STORAGE_ITEM("user");
+    REMOVE_STORAGE_ITEM("phone");
+    window.location.replace("/login");
   };
 
   const sidebarElements = [
@@ -106,7 +114,12 @@ const AppLayoutNew = ({ children, noHeader }) => {
     },
   ];
 
-  const secondarySideBarItems = ['Generate Quick Invoice','Live Order',"Terms and Conditions", "Help Center"];
+  const secondarySideBarItems = [
+    "Generate Quick Invoice",
+    "Live Order",
+    "Terms and Conditions",
+    "Help Center",
+  ];
 
   return (
     <div className="flex h-screen">
@@ -184,11 +197,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
                 {item}
               </li>
             ))}
-            <button
-              onClick={() => navigate("/login")}
-              className="w-full"
-              to={"/login"}
-            >
+            <button onClick={handleLogout} className="w-full" to={"/login"}>
               <span
                 className={`text-black/80 text-sm mb-1 px-7 py-1.5 flex gap-2.5 items-center hover:font-semibold hover:bg-slate-200 ${"hover:text-primary"}`}
               >

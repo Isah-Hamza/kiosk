@@ -157,7 +157,7 @@ function Home() {
         <div className="rounded text px-4 sm:px-7 pt-0">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 mt-10">
             {analysis.map((item, idx) => (
-              <>
+              <div key={idx}>
                 {idx == 0 ? (
                   <div className="min-h-[180px] bg-dimmed_white rounded h-full flex flex-col p-5">
                     <div className="flex items-center justify-between">
@@ -223,7 +223,7 @@ function Home() {
                     </div>
                   </div>
                 )}
-              </>
+              </div>
             ))}
           </div>
         </div>

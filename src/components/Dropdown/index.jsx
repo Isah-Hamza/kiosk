@@ -24,14 +24,14 @@ const CustomDropdown = () => {
 
   return (
     <div className="relative">
-      <button
+      <div
         onClick={() => {
           handleDropdownToggle();
           setBusinessesOpen(false);
         }}
       >
         <Title />
-      </button>
+      </div>
       {isDropdownOpen && (
         <div className="text-sm absolute dropdown-list bg-white rounded-md top-14 w-full p-2 py-4 z-10 shadow">
           <div

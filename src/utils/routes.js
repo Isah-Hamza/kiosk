@@ -1,3 +1,4 @@
+import { GET_STORAGE_ITEM } from "../config/storage";
 import Customers from "../pages/Customers";
 import AddCustomer from "../pages/Customers/AddCustomer";
 import RecordExpenses from "../pages/Expenses/RecordExpeses";
@@ -17,12 +18,12 @@ export const routes = [
   {
     title: "Login",
     path: "/login",
-    component: Login,
+    component: GET_STORAGE_ITEM("token") ? Home : Login,
   },
   {
     title: "Login",
     path: "/",
-    component: Login,
+    component: GET_STORAGE_ITEM("token") ? Home : Login,
   },
   {
     title: "Register",

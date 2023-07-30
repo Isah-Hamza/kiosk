@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../index.css";
 import "../../styles/login.css";
 
@@ -34,7 +34,7 @@ const Login = () => {
       password: Yup.string().required("Password is required"),
     }),
     onSubmit(values) {
-      values.deviceId = 'test_id';
+      values.deviceId = "test_id";
       dispatch(loginAction({ data: values, navigate }));
     },
   });
