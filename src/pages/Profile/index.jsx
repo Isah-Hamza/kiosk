@@ -27,6 +27,9 @@ const Profile = () => {
     " " +
     GET_STORAGE_ITEM("user")?.lastName;
 
+  const { name, email, address, description, phoneNumber } =
+    GET_STORAGE_ITEM("account").partner;
+
   const userProfile = {
     // Placeholder data, replace with actual user data from API or state
     avatar: GET_STORAGE_ITEM("user")?.photo, // URL to user's profile picture
@@ -69,11 +72,11 @@ const Profile = () => {
     business: [
       {
         title: "Business Name",
-        value: "Fortune 500 Establishment",
+        value: name,
       },
       {
         title: "Business Email",
-        value: "fortune.500@company.com",
+        value: email,
       },
       {
         title: "Business Type",
@@ -93,12 +96,16 @@ const Profile = () => {
       },
       {
         title: "Business phone",
-        value: "+1 123-456-7890",
+        value: phoneNumber,
       },
 
       {
+        title: "Address",
+        value: address,
+      },
+      {
         title: "About",
-        value: "This company was started in blah blah blah ",
+        value: description,
       },
     ],
     businesses: {
