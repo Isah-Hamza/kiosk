@@ -15,6 +15,7 @@ const ApiEndPoints = {
 
   // PARTNER
   create_partner: "Partner/create-partner",
+  get_user_accounts: "Partner/user-accounts",
 };
 
 export { ApiEndPoints, BASE_URL };

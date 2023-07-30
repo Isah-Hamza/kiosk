@@ -11,6 +11,7 @@ import { MdOutlineMarkEmailUnread } from "react-icons/md";
 import CustomSelect from "../../components/CustomInput/Select";
 import CustomButton from "../../components/Buttons/CustomButton";
 import PageHeader from "../../shared/PageHeader";
+import { GET_STORAGE_ITEM } from "../../config/storage";
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -21,18 +22,24 @@ const Profile = () => {
     "Security",
   ]);
 
+  const full_name =
+    GET_STORAGE_ITEM("user")?.firstName +
+    " " +
+    GET_STORAGE_ITEM("user")?.lastName;
+
   const userProfile = {
     // Placeholder data, replace with actual user data from API or state
-    avatar: "https://via.placeholder.com/150", // URL to user's profile picture
+    avatar: GET_STORAGE_ITEM("user")?.photo, // URL to user's profile picture
 
     personal: [
       {
         title: "Name",
-        value: "Johnson Doe",
+        value: full_name,
+        capitalize: true,
       },
       {
         title: "Email",
-        value: "john.doe@example.com",
+        value: GET_STORAGE_ITEM("user")?.email,
       },
       {
         title: "Account Type",
@@ -48,7 +55,7 @@ const Profile = () => {
       },
       {
         title: "phone 1",
-        value: "+1 123-456-7890",
+        value: GET_STORAGE_ITEM("user")?.phone,
       },
       {
         title: "phone 2",
@@ -131,7 +138,6 @@ const Profile = () => {
         </div>
         <div className="flex  lg:flex-row flex-col gap-7">
           <div className="w-full lg:w-80 flex flex-col">
-           
             <div className="overflow-auto">
               <div className="text-sm sm:text-base flex lg:grid gap-2 lg:grid-cols-1 min-w-[800px] lg:min-w-[unset]">
                 {tabs.map((tab, idx) => (
@@ -187,7 +193,11 @@ const Profile = () => {
                   {userProfile.personal.map((item, idx) => (
                     <div key={idx}>
                       <p className="opacity-80">{item.title}</p>
-                      <p className="text-lg font-medium opacity-70">
+                      <p
+                        className={`text-lg font-medium opacity-70 ${
+                          item.capitalize && "capitalize"
+                        }`}
+                      >
                         {item.value}
                       </p>
                     </div>

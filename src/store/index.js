@@ -6,6 +6,7 @@ import allStateSlice from "./slices/appData/allStateSlice";
 import partnerGroupSlice from "./slices/appData/partnerGroupSlice";
 import partnerSubGroupSlice from "./slices/appData/partnerSubGroupSlice";
 import createPartnerSlice from "./slices/partner/createPartnerSlice";
+import getUserAccountSlice from "./slices/partner/getUserAccountSlice";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     partner_group: partnerGroupSlice,
     partner_subgroup: partnerSubGroupSlice,
     create_partner: createPartnerSlice,
+    get_user_accounts: getUserAccountSlice,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware();

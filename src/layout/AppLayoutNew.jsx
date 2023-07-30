@@ -11,12 +11,15 @@ import { GrClose } from "react-icons/gr";
 import logo from "../assets/images/logo.png";
 import { ToggleSidebarContext } from "../App";
 import { AiFillInsurance } from "react-icons/ai";
-import { REMOVE_STORAGE_ITEM } from "../config/storage";
+import { GET_STORAGE_ITEM, REMOVE_STORAGE_ITEM } from "../config/storage";
+import { useSelector } from "react-redux";
 
 const AppLayoutNew = ({ children, noHeader }) => {
   const navigate = useNavigate();
   const [openSubMenu, setOpenSubMenu] = useState(null);
   const { sidebarOpen, setSidebarOpen } = useContext(ToggleSidebarContext);
+  const img_url = GET_STORAGE_ITEM("user")?.photo;
+
 
   const toggleSubMenu = (index) => {
     setOpenSubMenu(openSubMenu === index ? null : index);
@@ -227,7 +230,11 @@ const AppLayoutNew = ({ children, noHeader }) => {
                 <FaBell size={14} className="text-primary" />
               </button>
               <div className="flex items-center gap-2">
-                <img className="w-11 rounded-full" src={person} alt="person" />
+                <img
+                  className="w-11 rounded-full"
+                  src={img_url}
+                  alt="auth-user"
+                />
               </div>
             </div>
           </header>
