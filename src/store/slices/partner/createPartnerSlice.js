@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CreatePartner } from "../../../Services/PartnerServices";
 import customToast from "../../../components/Toast/toastify";
+import { refreshAccessToken } from "../../../config/api";
+import { GET_STORAGE_ITEM } from "../../../config/storage";
 
 const initialState = {
   loading: false,
@@ -31,9 +33,10 @@ const createPartnerSlice = createSlice({
 
 export const createPartnerAction = createAsyncThunk(
   "createPartnerAction",
-  async ({ data, navigate }, thunkApi) => {
+  async ({ data, navigate, setPartner }, thunkApi) => {
     return CreatePartner(data)
       .then((res) => {
+        refreshAccessToken(GET_STORAGE_ITEM("refresh_token"), setPartner);
         navigate("/home");
         customToast(res?.message ?? "Partner Account Created Successful");
         return res;

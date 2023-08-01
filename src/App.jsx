@@ -13,7 +13,7 @@ export const PartnerContext = createContext();
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const [partner, setPartner] = useState(() => GET_STORAGE_ITEM("account"));
+  const [partner, setPartner] = useState(GET_STORAGE_ITEM("account"));
 
   return (
     <ToggleSidebarContext.Provider value={{ sidebarOpen, setSidebarOpen }}>

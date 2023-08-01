@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../../index.css";
 import "../../styles/login.css";
 
@@ -16,8 +16,10 @@ import * as Yup from "yup";
 import ValidationError from "../../components/Error/ValidationError";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../store/slices/user/loginSlice";
+import { PartnerContext } from "../../App";
 
 const Login = () => {
+  const { setPartner } = useContext(PartnerContext);
   const { loading, token } = useSelector((state) => state.authenticate);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,7 +37,7 @@ const Login = () => {
     }),
     onSubmit(values) {
       values.deviceId = "test_id";
-      dispatch(loginAction({ data: values, navigate }));
+      dispatch(loginAction({ data: values, navigate, setPartner }));
     },
   });
 

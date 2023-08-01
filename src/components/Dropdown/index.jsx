@@ -9,11 +9,13 @@ import { useNavigate } from "react-router-dom";
 import { getUserAccountAction } from "../../store/slices/partner/getUserAccountSlice";
 import { switchAccountAction } from "../../store/slices/partner/switchAccountSlice";
 import { PartnerContext } from "../../App";
+import { GET_STORAGE_ITEM } from "../../config/storage";
 
 const CustomDropdown = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { partner, setPartner } = useContext(PartnerContext);
+  let partner = GET_STORAGE_ITEM("account");
+  const { setPartner } = useContext(PartnerContext);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isBusinessesOpen, setBusinessesOpen] = useState(false);
 
@@ -126,8 +128,14 @@ const CustomDropdown = () => {
 const Title = ({ partner }) => {
   return (
     <button className="border border-primary/30 rounded px-3 py-3 flex items-center gap-2 text-primary">
-      <RiServiceFill size={18} className="text-current" />
-      <span className="font-medium">{partner.partner.name}</span>
+      {partner?.partner?.name ? (
+        <img className="w-6 rounded-full" src={partner?.partner?.logo} alt="" />
+      ) : (
+        <RiServiceFill size={18} className="text-current" />
+      )}
+      <span className="font-medium">
+        {partner?.partner?.name ?? "Loading..."}
+      </span>
       <BiCaretDown className="text-current ml-5" />
     </button>
   );

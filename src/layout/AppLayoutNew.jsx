@@ -30,8 +30,6 @@ const AppLayoutNew = ({ children, noHeader }) => {
     setOpenSubMenu(openSubMenu === index ? null : index);
   };
 
-
-
   const sidebarElements = [
     {
       name: "Dashboard",

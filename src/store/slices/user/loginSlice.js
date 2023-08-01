@@ -44,7 +44,7 @@ const loginSlice = createSlice({
 
 export const loginAction = createAsyncThunk(
   "loginAction",
-  async ({ data, navigate }, thunkApi) => {
+  async ({ data, navigate, setPartner }, thunkApi) => {
     // thunkApi.dispatch(changeProgress(60));
     return AuthenticateUser(data)
       .then((res) => {
@@ -55,12 +55,13 @@ export const loginAction = createAsyncThunk(
           customToast("You need to first create a business account");
           navigate("/create-business");
         } else {
-          navigate("/home");
           customToast("Login successful");
+          SET_STORAGE_ITEM("account", res.account);
+          setPartner("account", res.account);
           SET_STORAGE_ITEM("token", res.token);
           SET_STORAGE_ITEM("refresh_token", res.refreshToken);
           SET_STORAGE_ITEM("user", res.user);
-          SET_STORAGE_ITEM("account", res.account);
+          navigate("/home");
 
           dApis.defaults.headers.Authorization = `Bearer ${res.token}`;
           return res;

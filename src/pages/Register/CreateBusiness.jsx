@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import logo from "../../assets/images/logo.png";
 import { FaAddressCard, FaEdit, FaUsers } from "react-icons/fa";
 import CustomSelect from "../../components/CustomInput/Select";
@@ -14,10 +14,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { createPartnerAction } from "../../store/slices/partner/createPartnerSlice";
 import { MdOutlineDescription } from "react-icons/md";
+import { PartnerContext } from "../../App";
 
 const CreateBusiness = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { setPartner } = useContext(PartnerContext);
   const [state, setState] = useState([{ label: "Select State", value: null }]);
   const [partnerId, setPartnerId] = useState();
 
@@ -59,7 +61,7 @@ const CreateBusiness = () => {
     },
     validationSchema: Yup.object().shape({
       category: Yup.mixed()
-        .oneOf(['1', '2', '3', '4'], "Select Category")
+        .oneOf(["1", "2", "3", "4"], "Select Category")
         .required("Select category")
         .nonNullable("Field can't be null"),
       name: Yup.string().required("Name is required"),
@@ -80,7 +82,7 @@ const CreateBusiness = () => {
     onSubmit(values) {
       delete values.category;
       values.deviceToken = "test_token";
-      dispatch(createPartnerAction({ data: values, navigate }));
+      dispatch(createPartnerAction({ data: values, navigate, setPartner }));
     },
   });
 
