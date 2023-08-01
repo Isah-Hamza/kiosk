@@ -15,6 +15,7 @@ const CustomDropdown = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let partner = GET_STORAGE_ITEM("account");
+
   const { setPartner } = useContext(PartnerContext);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isBusinessesOpen, setBusinessesOpen] = useState(false);
@@ -26,15 +27,6 @@ const CustomDropdown = () => {
 
   const handleDropdownToggle = () => {
     setDropdownOpen((prev) => !prev);
-  };
-
-  const toggleShowBusinesses = () => {
-    setBusinessesOpen(!isBusinessesOpen);
-  };
-
-  const switchBusiness = () => {
-    dispatch(getUserAccountAction());
-    toggleShowBusinesses();
   };
 
   const switchAccount = (id) => {
@@ -75,13 +67,14 @@ const CustomDropdown = () => {
                   <div
                     key={idx}
                     className={`${
-                      idx == businesses.length - 1 ? "" : " border-b"
-                    } hover:bg-bg/50 hover:!text-primary cursor-pointer hover:rounded`}
+                      partner?.id === biz.id && "!hidden"
+                    } border-t hover:bg-bg/50 hover:!text-primary cursor-pointer hover:rounded`}
                     onClick={() => {
                       switchAccount(biz.id);
                       handleDropdownToggle();
                     }}
                   >
+                    {console.log(partner?.partner?.id, biz.id)}
                     <div className="w-max min-w-[170px] whitespace-nowrap flex items-center gap-2 py-2.5 px-3">
                       <img
                         className="w-6 rounded-full"
@@ -94,7 +87,7 @@ const CustomDropdown = () => {
                 ))}
               </>
             ) : (
-              <p className="text-sm flex items-center text-gray-500 gap-2 whitespace-nowrap m-auto mx-5 ">
+              <p className="mt-2 text-sm flex items-center text-gray-500 gap-2 whitespace-nowrap m-auto ml-4 mx-5 ">
                 <ImSpinner2 className="animate-spin" />
                 Loading businesses
               </p>
