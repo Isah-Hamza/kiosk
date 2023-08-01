@@ -17,13 +17,13 @@ import NewSales from "../pages/Sales/AddNewSales";
 export const routes = [
   {
     title: "Login",
-    path: "/login",
+    path: "/",
     component: GET_STORAGE_ITEM("token") ? Home : Login,
   },
   {
     title: "Login",
-    path: "/",
-    component: GET_STORAGE_ITEM("token") ? Home : Login,
+    path: "/login",
+    component: Login,
   },
   {
     title: "Register",

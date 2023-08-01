@@ -41,6 +41,10 @@ const CustomDropdown = () => {
     dispatch(switchAccountAction({ id, setPartner }));
   };
 
+  useEffect(() => {
+    dispatch(getUserAccountAction());
+  }, []);
+
   return (
     <div className="relative">
       <div
@@ -52,7 +56,7 @@ const CustomDropdown = () => {
         <Title partner={partner} />
       </div>
       {isDropdownOpen && (
-        <div className="text-sm absolute dropdown-list bg-white rounded-md top-14 w-[180px] p-2 py-4 z-10 shadow">
+        <div className="text-sm absolute px-4 dropdown-list bg-white rounded-md top-14 min-w-[180px] p-2 py-4 z-10 shadow">
           <div
             className="hover:bg-bg/50 hover:!text-primary cursor-pointer rounded px-2"
             onClick={() => {
@@ -64,54 +68,41 @@ const CustomDropdown = () => {
               <p> Add Business</p>
             </div>
           </div>
-          <div
-            className={`hover:bg-bg/50 hover:!text-primary cursor-pointer rounded px-2 ${
-              isBusinessesOpen && "bg-bg/50"
-            }  `}
-            onClick={switchBusiness}
-          >
-            <div className="flex items-center gap-3 py-2">
-              <FaRedo className="ml-2" size={16} /> Switch Business
-            </div>
+          <div className="text-sm ">
+            {!loading ? (
+              <>
+                {businesses.map((biz, idx) => (
+                  <div
+                    key={idx}
+                    className={`${
+                      idx == businesses.length - 1 ? "" : " border-b"
+                    } hover:bg-bg/50 hover:!text-primary cursor-pointer hover:rounded`}
+                    onClick={() => {
+                      switchAccount(biz.id);
+                      handleDropdownToggle();
+                    }}
+                  >
+                    <div className="w-max min-w-[170px] whitespace-nowrap flex items-center gap-2 py-2.5 px-3">
+                      <img
+                        className="w-6 rounded-full"
+                        src={biz.logo}
+                        alt="business logo"
+                      />
+                      <p>{biz.name}</p>
+                    </div>
+                  </div>
+                ))}
+              </>
+            ) : (
+              <p className="text-sm flex items-center text-gray-500 gap-2 whitespace-nowrap m-auto mx-5 ">
+                <ImSpinner2 className="animate-spin" />
+                Loading businesses
+              </p>
+            )}
           </div>
         </div>
       )}
-      {isBusinessesOpen && (
-        <div className="min-h-[50px] text-sm absolute dropdown-list bg-white rounded-md left-[185px] top-32 w-fit p-2 py-4 z-10 shadow">
-          {!loading ? (
-            <>
-              {businesses.map((biz, idx) => (
-                <div
-                  key={idx}
-                  className={`${
-                    idx == businesses.length - 1 ? "" : " border-b"
-                  } hover:bg-bg/50 hover:!text-primary cursor-pointer hover:rounded px-2`}
-                  onClick={() => {
-                    // console.log(biz.id)
-                    switchAccount(biz.id);
-                    handleDropdownToggle();
-                    toggleShowBusinesses();
-                  }}
-                >
-                  <div className="w-max min-w-[170px] whitespace-nowrap flex items-center gap-2 py-2.5 px-3">
-                    <img
-                      className="w-6 rounded-full"
-                      src={biz.logo}
-                      alt="business logo"
-                    />
-                    <p>{biz.name}</p>
-                  </div>
-                </div>
-              ))}
-            </>
-          ) : (
-            <p className="text-sm flex items-center text-gray-500 gap-2 whitespace-nowrap m-auto mx-5 ">
-              <ImSpinner2 className="animate-spin" />
-              Loading businesses
-            </p>
-          )}
-        </div>
-      )}
+
       {switching ? (
         <div className="z-10 w-full text-lg fixed inset-0 bg-black/60 grid place-content-center text-white/80">
           <p className="font-medium flex items-center gap-2 whitespace-nowrap m-auto mx-5 ">

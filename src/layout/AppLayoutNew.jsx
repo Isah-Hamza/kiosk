@@ -1,9 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaBell, FaRedo, FaUserCog, FaUsers } from "react-icons/fa";
 import { FiHome, FiUsers } from "react-icons/fi";
-import { BsCreditCard,  } from "react-icons/bs";
-import { RiDashboardLine,  } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
+import { BsCreditCard } from "react-icons/bs";
+import { RiDashboardLine } from "react-icons/ri";
+import { Navigate, redirect, useNavigate } from "react-router-dom";
 import { BiCaretUp, BiMenu, BiShoppingBag } from "react-icons/bi";
 import CustomDropdown from "../components/Dropdown";
 import { GrClose } from "react-icons/gr";
@@ -120,6 +120,10 @@ const AppLayoutNew = ({ children, noHeader }) => {
     "Terms and Conditions",
     "Help Center",
   ];
+
+  if (!GET_STORAGE_ITEM("token")) {
+    return <Navigate to={"/login"} />;
+  }
 
   return (
     <div className="flex h-screen">
