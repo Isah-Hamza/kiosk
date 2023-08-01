@@ -12,25 +12,25 @@ import { ToggleSidebarContext } from "../App";
 import { AiFillInsurance } from "react-icons/ai";
 import { GET_STORAGE_ITEM, REMOVE_STORAGE_ITEM } from "../config/storage";
 
+export const handleLogout = () => {
+  REMOVE_STORAGE_ITEM("token");
+  REMOVE_STORAGE_ITEM("refresh_token");
+  REMOVE_STORAGE_ITEM("user");
+  REMOVE_STORAGE_ITEM("phone");
+  REMOVE_STORAGE_ITEM("account");
+  window.location.replace("/login");
+};
+
 const AppLayoutNew = ({ children, noHeader }) => {
   const navigate = useNavigate();
   const [openSubMenu, setOpenSubMenu] = useState(null);
   const { sidebarOpen, setSidebarOpen } = useContext(ToggleSidebarContext);
   const img_url = GET_STORAGE_ITEM("user")?.photo;
-
-
   const toggleSubMenu = (index) => {
     setOpenSubMenu(openSubMenu === index ? null : index);
   };
 
-  const handleLogout = () => {
-    REMOVE_STORAGE_ITEM("token");
-    REMOVE_STORAGE_ITEM("refresh_token");
-    REMOVE_STORAGE_ITEM("user");
-    REMOVE_STORAGE_ITEM("phone");
-    REMOVE_STORAGE_ITEM("account");
-    window.location.replace("/login");
-  };
+
 
   const sidebarElements = [
     {

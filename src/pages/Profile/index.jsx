@@ -3,11 +3,9 @@
 import React, { useState } from "react";
 import Layout from "../../layout/AppLayoutNew";
 import { FaEdit } from "react-icons/fa";
-import { AiTwotoneDelete } from "react-icons/ai";
 import { RiDeleteBin3Line } from "react-icons/ri";
 import CustomInput from "../../components/CustomInput";
 import { SlLock } from "react-icons/sl";
-import { MdOutlineMarkEmailUnread } from "react-icons/md";
 import CustomSelect from "../../components/CustomInput/Select";
 import CustomButton from "../../components/Buttons/CustomButton";
 import PageHeader from "../../shared/PageHeader";

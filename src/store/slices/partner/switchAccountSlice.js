@@ -33,10 +33,10 @@ const switchAccountSlice = createSlice({
 
 export const switchAccountAction = createAsyncThunk(
   "switchAccountAction",
-  async (id, thunkApi) => {
+  async ({ id, setPartner }, thunkApi) => {
     return SwitchAccount(id)
       .then((res) => {
-        refreshAccessToken(GET_STORAGE_ITEM("refresh_token"));
+        refreshAccessToken(GET_STORAGE_ITEM("refresh_token"), setPartner);
         customToast(res.message ?? "Account switched successfully");
         return res;
       })

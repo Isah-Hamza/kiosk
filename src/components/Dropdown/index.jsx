@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BiCaretDown } from "react-icons/bi";
 import { BsPlus } from "react-icons/bs";
 import { FaRedo } from "react-icons/fa";
@@ -8,11 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getUserAccountAction } from "../../store/slices/partner/getUserAccountSlice";
 import { switchAccountAction } from "../../store/slices/partner/switchAccountSlice";
-import { GET_STORAGE_ITEM } from "../../config/storage";
+import { PartnerContext } from "../../App";
 
 const CustomDropdown = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { partner, setPartner } = useContext(PartnerContext);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isBusinessesOpen, setBusinessesOpen] = useState(false);
 
@@ -25,10 +26,6 @@ const CustomDropdown = () => {
     setDropdownOpen((prev) => !prev);
   };
 
-  const handleItemClick = () => {
-    setDropdownOpen(false);
-  };
-
   const toggleShowBusinesses = () => {
     setBusinessesOpen(!isBusinessesOpen);
   };
@@ -39,7 +36,7 @@ const CustomDropdown = () => {
   };
 
   const switchAccount = (id) => {
-    dispatch(switchAccountAction(id));
+    dispatch(switchAccountAction({ id, setPartner }));
   };
 
   return (
@@ -50,7 +47,7 @@ const CustomDropdown = () => {
           setBusinessesOpen(false);
         }}
       >
-        <Title />
+        <Title partner={partner} />
       </div>
       {isDropdownOpen && (
         <div className="text-sm absolute dropdown-list bg-white rounded-md top-14 w-[180px] p-2 py-4 z-10 shadow">
@@ -58,7 +55,6 @@ const CustomDropdown = () => {
             className="hover:bg-bg/50 hover:!text-primary cursor-pointer rounded px-2"
             onClick={() => {
               navigate("/create-business");
-              handleItemClick();
             }}
           >
             <div className="flex items-center gap-2 py-1">
@@ -105,18 +101,6 @@ const CustomDropdown = () => {
                   </div>
                 </div>
               ))}
-              {/* <div
-                className="hover:bg-bg/50 hover:!text-primary cursor-pointer rounded px-2"
-                onClick={() => {
-                  handleDropdownToggle();
-                  toggleShowBusinesses();
-                }}
-              >
-                <div className="whitespace-nowrap flex items-center gap-3 py-2.5 pr-3">
-                  <RiServiceFill className="ml-2" size={16} /> Visual Studio
-                  Code
-                </div>
-              </div> */}
             </>
           ) : (
             <p className="text-sm flex items-center text-gray-500 gap-2 whitespace-nowrap m-auto mx-5 ">
@@ -139,13 +123,11 @@ const CustomDropdown = () => {
   );
 };
 
-const Title = () => {
-  const { partner } = GET_STORAGE_ITEM("account");
-
+const Title = ({ partner }) => {
   return (
     <button className="border border-primary/30 rounded px-3 py-3 flex items-center gap-2 text-primary">
       <RiServiceFill size={18} className="text-current" />
-      <span className="font-medium">{partner.name}</span>
+      <span className="font-medium">{partner.partner.name}</span>
       <BiCaretDown className="text-current ml-5" />
     </button>
   );

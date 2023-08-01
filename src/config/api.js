@@ -3,6 +3,7 @@ import axios from "axios";
 import { BASE_URL } from "./Endpoints";
 import customToast from "../components/Toast/toastify";
 import { GET_STORAGE_ITEM, SET_STORAGE_ITEM } from "./storage";
+import { handleLogout } from "../layout/AppLayoutNew";
 
 const MAX_RETRY_COUNT = 3; // Maximum number of retries
 let retryCount = 0; // Initialize the retry counter
@@ -34,7 +35,7 @@ export const setAuthorizationHeader = (token) => {
 const storedToken = getToken();
 setAuthorizationHeader(storedToken);
 
-export const refreshAccessToken = async (refreshToken) => {
+export const refreshAccessToken = async (refreshToken, setPartner) => {
   const res = await axios.post(`${BASE_URL}/User/refresh_token`, {
     refreshToken,
   });
@@ -42,7 +43,7 @@ export const refreshAccessToken = async (refreshToken) => {
   setAuthorizationHeader(newToken);
   SET_STORAGE_ITEM("token", newToken);
   if (res.data.account) SET_STORAGE_ITEM("account", res.data?.account);
-
+  if (setPartner) setPartner(res.data.account);
   return newToken;
 };
 
@@ -73,7 +74,7 @@ dApis.interceptors.response.use(
           window.location.href = "/login";
         }, 1000);
       } catch (refreshError) {
-        window.location.href = "/login";
+        handleLogout();
         throw refreshError;
       }
     } else {
