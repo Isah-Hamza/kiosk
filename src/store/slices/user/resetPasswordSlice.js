@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { GetOTP } from "../../../Services/UserServices";
+import { ResetPassword } from "../../../Services/UserServices";
 import customToast from "../../../components/Toast/toastify";
-import { SET_STORAGE_ITEM } from "../../../config/storage";
 
 const initialState = {
   loading: false,
@@ -9,35 +8,34 @@ const initialState = {
   data: [],
 };
 
-const getOTPSlice = createSlice({
-  name: "getOTPSlice",
+const resetPasswordSlice = createSlice({
+  name: "resetPasswordSlice",
   initialState,
 
   reducers: {},
 
   extraReducers: (builder) => {
-    builder.addCase(getOTPAction.pending, (state) => {
+    builder.addCase(resetPasswordAction.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(getOTPAction.fulfilled, (state, action) => {
+    builder.addCase(resetPasswordAction.fulfilled, (state, action) => {
       state.data = action.payload.data;
       state.loading = false;
     });
-    builder.addCase(getOTPAction.rejected, (state, action) => {
+    builder.addCase(resetPasswordAction.rejected, (state, action) => {
       state.error = action.payload;
       state.loading = false;
     });
   },
 });
 
-export const getOTPAction = createAsyncThunk(
-  "getOTPAction",
+export const resetPasswordAction = createAsyncThunk(
+  "resetPasswordAction",
   async ({ data, navigate }, thunkApi) => {
-    return GetOTP(data)
+    return ResetPassword(data)
       .then((res) => {
-        SET_STORAGE_ITEM("phone", data.phone);
-        navigate("/reset-password");
-        customToast(res.message ?? "OTP Code Sent Successful");
+        navigate("/login");
+        customToast(res.message ?? "Password Reset Successful");
         return res;
       })
       .catch((e) => {
@@ -47,4 +45,4 @@ export const getOTPAction = createAsyncThunk(
   }
 );
 
-export default getOTPSlice.reducer;
+export default resetPasswordSlice.reducer;

@@ -23,6 +23,8 @@ const loginSlice = createSlice({
       REMOVE_STORAGE_ITEM("token");
       REMOVE_STORAGE_ITEM("refresh_token");
       REMOVE_STORAGE_ITEM("user");
+      REMOVE_STORAGE_ITEM("phone");
+      REMOVE_STORAGE_ITEM("account");
       window.location.href = "/login";
     },
   },
@@ -48,6 +50,9 @@ export const loginAction = createAsyncThunk(
     // thunkApi.dispatch(changeProgress(60));
     return AuthenticateUser(data)
       .then((res) => {
+        SET_STORAGE_ITEM("refresh_token", res.refreshToken);
+        SET_STORAGE_ITEM("token", res.token);
+        SET_STORAGE_ITEM("user", res.user);
         if (!res.user.isPhoneConfirmed) {
           customToast("Verify your account to continue");
           navigate("/verify-account");
@@ -58,14 +63,10 @@ export const loginAction = createAsyncThunk(
           customToast("Login successful");
           SET_STORAGE_ITEM("account", res.account);
           setPartner("account", res.account);
-          SET_STORAGE_ITEM("token", res.token);
-          SET_STORAGE_ITEM("refresh_token", res.refreshToken);
-          SET_STORAGE_ITEM("user", res.user);
           navigate("/home");
-
-          dApis.defaults.headers.Authorization = `Bearer ${res.token}`;
-          return res;
         }
+        dApis.defaults.headers.Authorization = `Bearer ${res.token}`;
+        return res;
       })
       .catch((e) => {
         // thunkApi.dispatch(changeProgress(100));

@@ -1,38 +1,38 @@
-import React, { useContext } from "react";
-import "../../index.css";
-import "../../styles/login.css";
-
+import React from "react";
 import CustomInput from "../../components/CustomInput";
 import { MdOutlineMarkEmailUnread } from "react-icons/md";
 import CustomButton from "../../components/Buttons/CustomButton";
 import { Link, useNavigate } from "react-router-dom";
 import AuthPagesLayout from "../../layout/AuthPagesLayout";
 
-import logo from "../../assets/images/logo.png";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ValidationError from "../../components/Error/ValidationError";
 import { useDispatch, useSelector } from "react-redux";
-import { loginAction } from "../../store/slices/user/loginSlice";
-import { PartnerContext } from "../../App";
+import { resetPasswordAction } from "../../store/slices/user/resetPasswordSlice";
 import { FaCodepen } from "react-icons/fa";
+import { GET_STORAGE_ITEM } from "../../config/storage";
+
+import "../../index.css";
+import "../../styles/login.css";
 
 const ResetPassword = () => {
-  const { loading } = useSelector((state) => state.authenticate);
+  const { loading } = useSelector((state) => state.reset_password);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
       code: "",
-      password: "",
+      newPassword: "",
     },
     validationSchema: Yup.object().shape({
       code: Yup.string().required("Enter the OTP sent to you"),
-      password: Yup.string().required("Password is required"),
+      newPassword: Yup.string().required("Password is required"),
     }),
     onSubmit(values) {
-      dispatch(loginAction({ data: values, navigate }));
+      values.username = GET_STORAGE_ITEM("phone");
+      dispatch(resetPasswordAction({ data: values, navigate }));
     },
   });
 
@@ -41,7 +41,6 @@ const ResetPassword = () => {
   return (
     <AuthPagesLayout>
       <div className="form-container max-w-[90%] sm:max-w-[360px]">
-
         <p className="text-center font-bold text-xl text-[#41010b] mb-3">
           Reset Password
         </p>
@@ -73,10 +72,10 @@ const ResetPassword = () => {
                   className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
                 />
               }
-              {...getFieldProps("password")}
+              {...getFieldProps("newPassword")}
             />
-            {touched.password && touched.password && (
-              <ValidationError msg={errors.password} />
+            {touched.newPassword && touched.newPassword && (
+              <ValidationError msg={errors.newPassword} />
             )}
           </div>
           <div className="flex items-center justify-between flex-row-reverse">

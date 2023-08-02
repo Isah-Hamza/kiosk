@@ -15,7 +15,7 @@ const VerifyAccount = () => {
 
   const verifyOTP = () => {
     const data = {
-      phone: GET_STORAGE_ITEM("phone"),
+      phone: GET_STORAGE_ITEM("phone") || GET_STORAGE_ITEM("user")?.phone,
       code: otp,
       deviceId: "test_id",
     };

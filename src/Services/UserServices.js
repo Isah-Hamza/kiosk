@@ -25,3 +25,8 @@ export async function GetOTP(payload) {
   const response = await api.post(ApiEndPoints.get_otp, payload);
   return response;
 }
+
+export async function ResetPassword(payload) {
+  const response = await api.post(ApiEndPoints.reset_password, payload);
+  return response;
+}

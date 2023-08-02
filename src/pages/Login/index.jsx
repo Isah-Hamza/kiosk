@@ -20,7 +20,7 @@ import { PartnerContext } from "../../App";
 
 const Login = () => {
   const { setPartner } = useContext(PartnerContext);
-  const { loading, token } = useSelector((state) => state.authenticate);
+  const { loading } = useSelector((state) => state.authenticate);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -93,7 +93,9 @@ const Login = () => {
             )}
           </div>
           <div className="flex items-center justify-between flex-row-reverse">
-            <Link to={'/request-otp'} className="forgot-password">Forgot Password?</Link>
+            <Link to={"/request-otp"} className="forgot-password">
+              Forgot Password?
+            </Link>
             <div className="flex items-center gap-1">
               <input
                 name="remember"
