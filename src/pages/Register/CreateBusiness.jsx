@@ -80,7 +80,7 @@ const CreateBusiness = () => {
         .nonNullable("Field can't be null"),
     }),
     onSubmit(values) {
-      delete values.category;
+      // delete values.category;
       values.deviceToken = "test_token";
       dispatch(createPartnerAction({ data: values, navigate, setPartner }));
     },

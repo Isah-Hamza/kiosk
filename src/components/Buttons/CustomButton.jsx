@@ -14,7 +14,7 @@ const CustomButton = ({
       disabled={disabled}
       type={type ?? "button"}
       onClick={clickHandler}
-      className={`py-4 text-sm px-12 rounded bg-primary disabled:bg-primary/70 text-white font-medium ${className}`}
+      className={`py-4 text-sm px-12 rounded bg-primary disabled:!bg-primary/70 text-white font-medium ${className}`}
     >
       <div className="flex gap-3 items-center justify-center">
         {loading && (

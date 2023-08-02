@@ -12,6 +12,7 @@ const ApiEndPoints = {
   authenticate: "User/authenticate",
   signup: "User/signup",
   confirm_account: "User/confirmAccount",
+  change_password:'User/change-password',
 
   // PARTNER
   create_partner: "Partner/create-partner",

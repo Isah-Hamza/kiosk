@@ -15,3 +15,8 @@ export async function ConfirmAccount(payload) {
   const response = await api.post(ApiEndPoints.confirm_account, payload);
   return response;
 }
+
+export async function ChangePassword(payload) {
+  const response = await api.post(ApiEndPoints.change_password, payload);
+  return response;
+}

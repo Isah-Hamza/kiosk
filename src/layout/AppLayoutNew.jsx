@@ -128,14 +128,14 @@ const AppLayoutNew = ({ children, noHeader }) => {
   return (
     <div className="flex h-screen">
       <aside
-        className={`flex flex-col h-full bg-white/90 py-5 overflow-hidden transition-all ease-in-out duration-300 ${
+        className={`flex flex-col h-full overflow-y-auto bg-white/90 py-5 overflow-hidden transition-all ease-in-out duration-300 ${
           !sidebarOpen ? "w-0 xl:w-[300px]" : "w-[300px]"
         }`}
       >
         <div className="flex items-center gap-2 px-10">
           <img src={logo} alt="logo" className="w-44" />
         </div>
-        <div className="mt-10 px-5">
+        <div className="mt-10 px-5 mb-5">
           <ul>
             {sidebarElements.map((item, idx) => (
               <li

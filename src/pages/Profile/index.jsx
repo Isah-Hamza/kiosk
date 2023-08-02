@@ -10,8 +10,15 @@ import CustomSelect from "../../components/CustomInput/Select";
 import CustomButton from "../../components/Buttons/CustomButton";
 import PageHeader from "../../shared/PageHeader";
 import { GET_STORAGE_ITEM } from "../../config/storage";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import ValidationError from "../../components/Error/ValidationError";
+import { useDispatch, useSelector } from "react-redux";
+import { changePasswordAction } from "../../store/slices/user/changePasswordSlice";
 
 const Profile = () => {
+  const dispatch = useDispatch();
+  const { loading } = useSelector(state => state.change_password);
   const [activeTab, setActiveTab] = useState(0);
   const [tabs, setTabs] = useState([
     "Personal Information",
@@ -134,6 +141,27 @@ const Profile = () => {
       },
     ],
   };
+
+  const formik = useFormik({
+    initialValues: {
+      oldPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+      user: GET_STORAGE_ITEM("user").id,
+    },
+    validationSchema: Yup.object().shape({
+      newPassword: Yup.string().required("New password required"),
+      oldPassword: Yup.string().required("Old password required"),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("newPassword"), null], "New passwords mismatch")
+        .required("Confirm password is required"),
+    }),
+    onSubmit(values) {
+      dispatch(changePasswordAction({data:values, formik}));
+    },
+  });
+
+  const { handleSubmit, getFieldProps, errors, touched } = formik;
 
   return (
     <Layout noHeader>
@@ -302,7 +330,10 @@ const Profile = () => {
                     Security Information
                   </p>
                 </div>
-                <div className=" grid sm:grid-cols-2 md:grid-cols-3 gap-5 mt-7">
+                <form
+                  onSubmit={handleSubmit}
+                  className=" grid sm:grid-cols-2 md:grid-cols-3 gap-5 mt-7"
+                >
                   <div className="password mt-1">
                     <CustomInput
                       label={"Old Password"}
@@ -310,6 +341,7 @@ const Profile = () => {
                       className={
                         "!h-[50px] w-full px-5 outline-none border rounded"
                       }
+                      {...getFieldProps("oldPassword")}
                       type={"password"}
                       Icon={
                         <SlLock
@@ -318,6 +350,9 @@ const Profile = () => {
                         />
                       }
                     />
+                    {touched.oldPassword && errors.oldPassword && (
+                      <ValidationError msg={errors.oldPassword} />
+                    )}
                   </div>
                   <div className="password mt-1">
                     <CustomInput
@@ -327,6 +362,7 @@ const Profile = () => {
                         " !h-[50px] w-full px-5 outline-none border  rounded"
                       }
                       type={"password"}
+                      {...getFieldProps("newPassword")}
                       Icon={
                         <SlLock
                           size={17}
@@ -334,6 +370,9 @@ const Profile = () => {
                         />
                       }
                     />
+                    {touched.newPassword && errors.newPassword && (
+                      <ValidationError msg={errors.newPassword} />
+                    )}
                   </div>
                   <div className="password mt-1">
                     <CustomInput
@@ -343,6 +382,7 @@ const Profile = () => {
                         " !h-[50px] w-full px-5 outline-none border  rounded"
                       }
                       type={"password"}
+                      {...getFieldProps("confirmPassword")}
                       Icon={
                         <SlLock
                           size={17}
@@ -350,17 +390,23 @@ const Profile = () => {
                         />
                       }
                     />
+                    {touched.confirmPassword && errors.confirmPassword && (
+                      <ValidationError msg={errors.confirmPassword} />
+                    )}
                   </div>
                   <div className="sm:col-span-3 mt-1">
                     <CustomButton
+                    disabled={loading}
+                    loading={loading}
+                      type={"submit"}
                       className={
-                        "w-full sm:w-[unset] rounded-md !py-3 !bg-primary/90"
+                        "w-full sm:w-[unset] rounded-md !py-3"
                       }
                     >
                       Reset Password
                     </CustomButton>
                   </div>
-                </div>
+                </form>
                 <div className="mt-10">
                   <p className="text-xl font-semibold opacity-80 mb-5">
                     Account Settings
