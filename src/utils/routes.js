@@ -12,6 +12,8 @@ import Profile from "../pages/Profile";
 import Register from "../pages/Register";
 import CreateBusiness from "../pages/Register/CreateBusiness";
 import VerifyAccount from "../pages/Register/VerifyAccount";
+import RequestOTP from "../pages/RequestOTP";
+import ResetPassword from "../pages/ResetPassword";
 import NewSales from "../pages/Sales/AddNewSales";
 
 export const routes = [
@@ -24,6 +26,16 @@ export const routes = [
     title: "Login",
     path: "/login",
     component: Login,
+  },
+  {
+    title: "RequestOTP",
+    path: "/request-otp",
+    component: RequestOTP,
+  },
+  {
+    title: "Reset Password",
+    path: "/reset-password",
+    component: ResetPassword,
   },
   {
     title: "Register",
