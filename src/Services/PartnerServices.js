@@ -11,6 +11,11 @@ export async function CreateAccount(payload) {
   return response;
 }
 
+export async function GetAccounts(payload) {
+  const response = await api.get(ApiEndPoints.all_accounts, payload);
+  return response;
+}
+
 export async function GetUserAccounts() {
   const response = await api.get(ApiEndPoints.get_user_accounts);
   return response;

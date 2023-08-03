@@ -6,9 +6,15 @@ import { BiMenu, BiPlus, BiUser } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { GrClose } from "react-icons/gr";
 import { ToggleSidebarContext } from "../../App";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllAccountAction } from "../../store/slices/partner/getAllAccountSlice";
+import { useEffect } from "react";
+import { ImSpinner2 } from "react-icons/im";
 
 const Staff = () => {
   const { sidebarOpen, setSidebarOpen } = useContext(ToggleSidebarContext);
+  const { data, loading } = useSelector((state) => state.get_all_accounts);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const records = [
     {
@@ -36,6 +42,21 @@ const Staff = () => {
       date_added: "32 Juc, 2021",
     },
   ];
+
+  const roles = {
+    1: "Super Admin",
+    2: "Sub Admin",
+    3: "Regular User",
+  };
+
+  useEffect(() => {
+    dispatch(getAllAccountAction());
+  }, []);
+
+  useEffect(() => {
+    console.log(data);
+    console.log(typeof data);
+  }, [data]);
 
   return (
     <AppLayoutNew noHeader={true}>
@@ -119,44 +140,61 @@ const Staff = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody>
-                  <>
-                    {records.map((item, idx) => (
-                      <tr
-                        onClick={() => navigate("#")}
-                        className="cursor-pointer pt-3 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-2"
-                        key={idx}
-                      >
-                        <td className="text-sm py-2.5 pb-4 pl-3">
-                          {item.name}
-                        </td>
-                        <td className="text-sm py-2.5 pb-4">{item.email}</td>
-                        <td className="text-sm py-2.5 pb-4">{item.phone}</td>
-                        <td className="text-sm  py-2.5 pb-4 flex items-center gap-2">
-                          {item.role === "Super Admin" ? (
-                            <CgCrown className="text-primary" size={18} />
-                          ) : (
-                            <BiUser className="text-primary" size={18} />
-                          )}
-                          {item.role}
-                        </td>
-                        <td
-                          style={{
-                            color:
-                              item.status === "Active" ? "green" : "orange",
-                          }}
-                          className="text-sm pl-5 py-2.5 pb-4 font-medium"
-                        >
-                          {item.status}
-                        </td>
-                        <td className="text-sm  py-2.5 pb-4">
-                          {item.date_added}
-                        </td>
-                      </tr>
-                    ))}
-                  </>
-                </tbody>
+
+                {!loading && data.data?.length ? (
+                  <tbody>
+                    <>
+                      {data.data &&
+                        data?.data?.map((item, idx) => (
+                          <tr
+                            onClick={() => navigate("#")}
+                            className="cursor-pointer pt-3 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-2"
+                            key={idx}
+                          >
+                            <td className="text-sm py-2.5 pb-4 pl-3">
+                              {item.user?.firstName} {item.user?.lastName}
+                            </td>
+                            <td className="text-sm py-2.5 pb-4">
+                              {item.user?.email}
+                            </td>
+                            <td className="text-sm py-2.5 pb-4">
+                              {item.user?.phone}
+                            </td>
+                            <td className="text-sm  py-2.5 pb-4 flex items-center gap-2">
+                              {item.user?.role == "1" ? (
+                                <CgCrown className="text-primary" size={18} />
+                              ) : (
+                                <BiUser className="text-primary" size={18} />
+                              )}
+                              {roles[item.user.role]}
+                            </td>
+                            <td
+                              style={{
+                                color: item.isActive ? "green" : "orange",
+                              }}
+                              className="text-sm pl-5 py-2.5 pb-4 font-medium"
+                            >
+                              {item.isActive ? "Active" : "Inactive"}
+                            </td>
+                            <td className="text-sm  py-2.5 pb-4">
+                              {item.createdDate.substr(0, 10)}
+                            </td>
+                          </tr>
+                        ))}
+                    </>
+                  </tbody>
+                ) : null}
               </table>
+              {!loading && !data.data?.length ? (
+                <p className="py-10 font-medium  flex justify-center">No data found </p>
+              ) : null}
+
+              {loading && (
+                <div className="flex items-center gap-1 justify-center text-sm p-2 py-10 font-medium">
+                  <ImSpinner2 className="animate-spin" />
+                  <p>Loading</p>
+                </div>
+              )}
             </div>
             <div className="flex justify-center mt-2">
               <div className="w-8 h-8 grid place-content-center rounded-md bg-bg">

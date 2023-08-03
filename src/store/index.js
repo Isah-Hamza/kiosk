@@ -12,6 +12,7 @@ import changePasswordSlice from "./slices/user/changePasswordSlice";
 import getOTPSlice from "./slices/user/getOTPSlice";
 import resetPasswordSlice from "./slices/user/resetPasswordSlice";
 import createAccountSlice from "./slices/partner/createAccountSlice";
+import getAllAccountSlice from "./slices/partner/getAllAccountSlice";
 
 const store = configureStore({
   reducer: {
@@ -28,6 +29,7 @@ const store = configureStore({
     get_otp: getOTPSlice,
     reset_password: resetPasswordSlice,
     create_account: createAccountSlice,
+    get_all_accounts: getAllAccountSlice,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware();
