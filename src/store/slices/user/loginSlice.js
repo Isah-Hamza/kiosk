@@ -68,8 +68,7 @@ export const loginAction = createAsyncThunk(
         dApis.defaults.headers.Authorization = `Bearer ${res.token}`;
         return res;
       })
-      .catch((e) => {
-        // thunkApi.dispatch(changeProgress(100));
+      .catch((e) => { 
         customToast(e?.message, true);
         return thunkApi.rejectWithValue(e);
       });

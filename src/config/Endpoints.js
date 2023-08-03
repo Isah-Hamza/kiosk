@@ -18,6 +18,7 @@ const ApiEndPoints = {
 
   // PARTNER
   create_partner: "Partner/create-partner",
+  create_account: "Partner/create-account",
   get_user_accounts: "Partner/user-accounts",
   switch_accounts: "Partner/switch-accounts",
 };

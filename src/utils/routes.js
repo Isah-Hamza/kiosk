@@ -15,6 +15,8 @@ import VerifyAccount from "../pages/Register/VerifyAccount";
 import RequestOTP from "../pages/RequestOTP";
 import ResetPassword from "../pages/ResetPassword";
 import NewSales from "../pages/Sales/AddNewSales";
+import Staff from "../pages/Staff";
+import AddStaff from "../pages/Staff/AddStaff";
 
 export const routes = [
   {
@@ -96,6 +98,16 @@ export const routes = [
     title: "Add Customer",
     path: "/add-customer",
     component: AddCustomer,
+  },
+  {
+    title: "Staff",
+    path: "/staff-management",
+    component: Staff,
+  },
+  {
+    title: "Add Staff",
+    path: "/add-staff",
+    component: AddStaff,
   },
   {
     title: "Orders",

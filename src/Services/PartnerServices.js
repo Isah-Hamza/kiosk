@@ -6,6 +6,11 @@ export async function CreatePartner(payload) {
   return response;
 }
 
+export async function CreateAccount(payload) {
+  const response = await api.post(ApiEndPoints.create_account, payload);
+  return response;
+}
+
 export async function GetUserAccounts() {
   const response = await api.get(ApiEndPoints.get_user_accounts);
   return response;
