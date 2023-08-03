@@ -50,7 +50,7 @@ const AddStaff = () => {
         phone: "",
         password: "test",
       },
-      accountPermissions: [],
+      accountPermmisions: [],
       canLogin: null,
       canViewTranx: null,
     },
@@ -70,7 +70,8 @@ const AddStaff = () => {
       }));
       values.canViewTranx = values.canViewTranx == 1 ? true : false;
       values.canLogin = values.canLogin == 1 ? true : false;
-      values.accountPermissions = transformedPermissions;
+      values.accountPermmisions = transformedPermissions;
+      console.log(values);
       dispatch(createAccountAction({ data: values, navigate }));
     },
   });
