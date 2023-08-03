@@ -48,7 +48,7 @@ const AddStaff = () => {
         email: "",
         deviceToken: "test_token",
         phone: "",
-        password: "test",
+        password: "",
       },
       accountPermmisions: [],
       canLogin: null,
@@ -59,6 +59,7 @@ const AddStaff = () => {
         firstName: Yup.string().required("First name is required"),
         lastName: Yup.string().required("Last name is required"),
         email: Yup.string().required("Email is required"),
+        password: Yup.string().required("Password is required"),
         phone: Yup.string().required("Phone Number is required"),
       }),
       canLogin: Yup.boolean().required("This field is required"),
@@ -139,13 +140,6 @@ const AddStaff = () => {
                   )}
                 </div>
 
-                <CustomSelect
-                  className={"!bg-bg"}
-                  options={role}
-                  label={"Staff Role"}
-                  // {...getFieldProps("user.firstName")}
-                />
-
                 <div className="grid sm:grid-cols-2 gap-5 border-b pb-8">
                   <div>
                     <CustomInput
@@ -198,6 +192,18 @@ const AddStaff = () => {
                       <ValidationError msg={errors.canLogin} />
                     )}
                   </div>
+                  <div className="mt-5">
+                    <CustomInput
+                      className={"!bg-bg"}
+                      label={"Enter Password*"}
+                      placeholder={"****"}
+                      type="password"
+                      {...getFieldProps("user.password")}
+                    />
+                    {touched.user?.password && errors.user?.password && (
+                      <ValidationError msg={errors.user?.password} />
+                    )}
+                  </div>
                 </div>
 
                 <div className="grid gap-5">
@@ -241,7 +247,7 @@ const AddStaff = () => {
                   </div>
                 </div>
 
-                <div>
+                <div className="">
                   <CustomButton
                     loading={loading}
                     disabled={loading}
