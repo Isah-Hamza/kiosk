@@ -17,6 +17,7 @@ import ResetPassword from "../pages/ResetPassword";
 import NewSales from "../pages/Sales/AddNewSales";
 import Staff from "../pages/Staff";
 import AddStaff from "../pages/Staff/AddStaff";
+import StaffDetails from "../pages/Staff/StaffDetails";
 
 export const routes = [
   {
@@ -99,10 +100,17 @@ export const routes = [
     path: "/add-customer",
     component: AddCustomer,
   },
+
   {
     title: "Staff",
     path: "/staff-management",
     component: Staff,
+  },
+
+  {
+    title: "Staff Details",
+    path: "/staff-management/details",
+    component: StaffDetails,
   },
   {
     title: "Add Staff",

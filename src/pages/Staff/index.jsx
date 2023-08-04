@@ -10,38 +10,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllAccountAction } from "../../store/slices/partner/getAllAccountSlice";
 import { useEffect } from "react";
 import { ImSpinner2 } from "react-icons/im";
+import moment from "moment";
 
 const Staff = () => {
   const { sidebarOpen, setSidebarOpen } = useContext(ToggleSidebarContext);
   const { data, loading } = useSelector((state) => state.get_all_accounts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const records = [
-    {
-      name: "Fist Staff",
-      email: "first@staff.com",
-      phone: "09123456789",
-      role: "Adhoc Staff",
-      status: "Active",
-      date_added: "23 Aug, 2023",
-    },
-    {
-      name: "Testing Person",
-      email: "test@person.com",
-      phone: "08028835099",
-      role: "Super Admin",
-      status: "Inactive",
-      date_added: "09 Dec, 2021",
-    },
-    {
-      name: "Trusted Staff",
-      email: "tested@trusted.com",
-      phone: "0802844000",
-      role: "Super Admin",
-      status: "Active",
-      date_added: "32 Juc, 2021",
-    },
-  ];
 
   const roles = {
     1: "Super Admin",
@@ -52,11 +27,6 @@ const Staff = () => {
   useEffect(() => {
     dispatch(getAllAccountAction());
   }, []);
-
-  useEffect(() => {
-    console.log(data);
-    console.log(typeof data);
-  }, [data]);
 
   return (
     <AppLayoutNew noHeader={true}>
@@ -73,7 +43,7 @@ const Staff = () => {
               />
             )}
           </span>
-          <p className="text-2xl font-semibold opacity-80 ">My Staff</p>
+          <p className="text-2xl font-semibold opacity-80 ">Staff Details</p>
         </div>
         <div className="bg-dimmed_white p-5 rounded-xl mt-5">
           <div className="w-full flex gap-4 pt-3">
@@ -147,7 +117,11 @@ const Staff = () => {
                       {data.data &&
                         data?.data?.map((item, idx) => (
                           <tr
-                            onClick={() => navigate("#")}
+                            onClick={() =>
+                              navigate("/staff-management/details", {
+                                state: { staff: item },
+                              })
+                            }
                             className="cursor-pointer pt-3 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-2"
                             key={idx}
                           >
@@ -177,7 +151,7 @@ const Staff = () => {
                               {item.isActive ? "Active" : "Inactive"}
                             </td>
                             <td className="text-sm  py-2.5 pb-4">
-                              {item.createdDate.substr(0, 10)}
+                              {moment(item.createdDate).format("ll")}
                             </td>
                           </tr>
                         ))}
@@ -186,7 +160,9 @@ const Staff = () => {
                 ) : null}
               </table>
               {!loading && !data.data?.length ? (
-                <p className="py-10 font-medium  flex justify-center">No data found </p>
+                <p className="py-10 font-medium  flex justify-center">
+                  No data found{" "}
+                </p>
               ) : null}
 
               {loading && (

@@ -211,7 +211,7 @@ const AddStaff = () => {
                     Assign Permissions
                   </p>
                   <div className="flex flex-col mt-3">
-                    <div className="grid grid-cols-[6fr,1fr,1fr] text-sm">
+                    <div className="border-y py-2 grid grid-cols-[6fr,1fr,1fr] text-sm">
                       <div className="flex-1"></div>
                       <span>Read</span>
                       <span>Write</span>
@@ -227,7 +227,7 @@ const AddStaff = () => {
                         <div className="ml-2">
                           <input
                             type="checkbox"
-                            className="accent-primaryColor-900"
+                            className="accent-primary"
                             id={perm.title}
                             name={perm.prefix + "Read"}
                             onChange={(e) => handleChange(e.target)}
@@ -236,7 +236,7 @@ const AddStaff = () => {
                         <div className="ml-2">
                           <input
                             type="checkbox"
-                            className="accent-primaryColor-900 "
+                            className="accent-primary "
                             id={perm.title}
                             name={perm.prefix + "Write"}
                             onChange={(e) => handleChange(e.target)}
