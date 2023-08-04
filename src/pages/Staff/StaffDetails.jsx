@@ -102,6 +102,7 @@ const StaffDetails = () => {
       value: `ABC Simple street.`,
       name: "address",
       editable: false,
+      address: true,
     },
   ];
 
@@ -182,13 +183,13 @@ const StaffDetails = () => {
               </CustomButton>
             </div>
           </div>
-          <form className="flex-1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-7  gap-x-10 sm:gap-x-5 items-center p-5">
+          <form className="flex-1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8  gap-x-10 sm:gap-x-5 items-center p-5">
             <>
               {staffDetails.map((prop, idx) => (
                 <div
-                  className={` ${
+                  className={`${
                     prop.full_width && "col-span-2 sm:col-span-1"
-                  }`}
+                  } ${prop.address && "col-span-3"}`}
                   key={idx}
                 >
                   <p className="opacity-80 text-sm">{prop.title}</p>

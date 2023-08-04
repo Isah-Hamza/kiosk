@@ -48,7 +48,7 @@ const CustomDropdown = () => {
         <Title partner={partner} />
       </div>
       {isDropdownOpen && (
-        <div className="text-sm absolute px-4 dropdown-list bg-white rounded-md top-14 min-w-[180px] p-2 py-4 z-10 shadow">
+        <div className="text-sm absolute px-4 dropdown-list bg-white rounded-md top-14 min-w-full p-2 py-4 z-10 shadow">
           <div
             className="hover:bg-bg/50 hover:!text-primary cursor-pointer rounded px-2"
             onClick={() => {
