@@ -22,6 +22,10 @@ const ApiEndPoints = {
   get_user_accounts: "Partner/user-accounts",
   switch_accounts: "Partner/switch-accounts",
   all_accounts: "Partner/all-accounts",
+
+  // PRODUCT
+  create_product: "Product/create-product",
+
 };
 
 export { ApiEndPoints, BASE_URL };

@@ -1,14 +1,67 @@
 import React, { useState } from "react";
 import AppLayoutNew from "../../layout/AppLayoutNew";
-import { BsCloudArrowUp, BsPatchCheckFill, BsTrash3Fill } from "react-icons/bs";
+import { BsCloudArrowUp, BsPatchCheckFill } from "react-icons/bs";
 import CustomInput from "../../components/CustomInput";
-import { FaLuggageCart, FaUser, FaUsers } from "react-icons/fa";
+import { FaLuggageCart } from "react-icons/fa";
 import { PiCurrencyNgnLight } from "react-icons/pi";
 import { GrCloudComputer } from "react-icons/gr";
 import CustomButton from "../../components/Buttons/CustomButton";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { createProductAction } from "../../store/slices/product/createProductSlice";
+import { useNavigate } from "react-router-dom";
+import ValidationError from "../../components/Error/ValidationError";
 
 const CreateProduct = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loading } = useSelector((state) => state.create_product);
+
   const [type, setType] = useState(-1);
+  const formik = useFormik({
+    initialValues: {
+      barCode: "test_code",
+      name: "",
+      brand: "",
+      description: "",
+      sellingPrice: "",
+      costPrice: "",
+      tax: "",
+      discount: "",
+      unit: "",
+      image: "",
+      isService: true,
+      stock: "",
+    },
+    validationSchema: Yup.object().shape({
+      barCode: Yup.string().required("Barcode is required"),
+      name: Yup.string().required("Name is required"),
+      brand: Yup.string().required("Brand is required"),
+      description: Yup.string().required("Description is required"),
+      sellingPrice: Yup.number().required("This field is required"),
+      costPrice: Yup.string().required("Cost Price is required"),
+      tax: Yup.string().required("Tax is required"),
+      discount: Yup.string().required("Discount is required"),
+      unit: Yup.string().required("Units is required"),
+      image: Yup.string().required("Image URL is required"),
+      isService: Yup.boolean().required("This field is required"),
+      stock: Yup.string().required("Stock is required"),
+    }),
+    onSubmit(values) {
+      console.log(values);
+      values.costPrice = Number(values.costPrice);
+      values.discount = Number(values.discount);
+      values.sellingPrice = Number(values.sellingPrice);
+      values.stock = Number(values.stock);
+      values.tax = Number(values.tax);
+      values.unit = Number(values.unit);
+      dispatch(createProductAction({ data: [values], navigate }));
+    },
+  });
+
+  const { errors, setFieldValue, getFieldProps, touched, handleSubmit } =
+    formik;
 
   return (
     <AppLayoutNew noHeader={true}>
@@ -22,29 +75,59 @@ const CreateProduct = () => {
                 All you need is a name and a price to create a product
               </p>
             </div>
-            <div className="mt-7 grid gap-4">
-              <CustomInput
-                className={"!bg-bg"}
-                label={"Product Name"}
-                id={"product_name"}
-              />
+            <form onSubmit={handleSubmit} className="mt-7 grid gap-4">
               <div>
-                <label htmlFor="" className="text-sm">
-                  Cost Price
-                </label>
-                <div className="flex-1 relative">
-                  <div className="span absolute left-3 top-4 text-lg">
-                    <PiCurrencyNgnLight />{" "}
+                <CustomInput
+                  className={"!bg-bg"}
+                  label={"Product Name"}
+                  id={"product_name"}
+                  {...getFieldProps("name")}
+                />
+                {touched.name && errors.name && (
+                  <ValidationError msg={errors.name} />
+                )}
+              </div>
+              <div className="grid grid-cols-2 gap-5">
+                <div>
+                  <label htmlFor="" className="text-sm">
+                    Cost Price
+                  </label>
+                  <div className="flex-1 relative">
+                    <div className="span absolute left-3 top-4 text-lg">
+                      <PiCurrencyNgnLight />{" "}
+                    </div>
+                    <input
+                      type="text"
+                      className="!bg-bg w-full rounded border outline-none h-full px-5 pl-9 py-[14px] text-sm placeholder:text-sm"
+                      {...getFieldProps("costPrice")}
+                    />
                   </div>
-                  <input
-                    type="text"
-                    className="!bg-bg w-full rounded border outline-none h-full px-5 pl-9 py-[14px] text-sm placeholder:text-sm"
-                  />
+                  {touched.costPrice && errors.costPrice && (
+                    <ValidationError msg={errors.costPrice} />
+                  )}
+                </div>
+                <div>
+                  <label htmlFor="" className="text-sm">
+                    Selling Price
+                  </label>
+                  <div className="flex-1 relative">
+                    <div className="span absolute left-3 top-4 text-lg">
+                      <PiCurrencyNgnLight />{" "}
+                    </div>
+                    <input
+                      type="text"
+                      className="!bg-bg w-full rounded border outline-none h-full px-5 pl-9 py-[14px] text-sm placeholder:text-sm"
+                      {...getFieldProps("sellingPrice")}
+                    />
+                  </div>
+                  {touched.sellingPrice && errors.sellingPrice && (
+                    <ValidationError msg={errors.sellingPrice} />
+                  )}
                 </div>
               </div>
-              <div>
+              <div className="">
                 <label htmlFor="" className="text-sm">
-                  Selling Price
+                  Discounted Price (if applicable)
                 </label>
                 <div className="flex-1 relative">
                   <div className="span absolute left-3 top-4 text-lg">
@@ -52,17 +135,75 @@ const CreateProduct = () => {
                   </div>
                   <input
                     type="text"
-                    className="!bg-bg w-full rounded border outline-none h-full px-5 pl-9 py-[14px] text-sm placeholder:text-sm"
+                    className="!bg-bg w-full rounded border outline-none h-full px-5 pl-8 py-[14px] text-sm placeholder:text-sm"
+                    {...getFieldProps("discount")}
                   />
                 </div>
+                {touched.discount && errors.discount && (
+                  <ValidationError msg={errors.discount} />
+                )}
+              </div>
+              <div className="">
+                <label htmlFor="" className="text-sm">
+                  Tax (if applicable)
+                </label>
+                <div className="flex-1 relative">
+                  <div className="span absolute left-3 top-4 text-lg">
+                    <PiCurrencyNgnLight />{" "}
+                  </div>
+                  <input
+                    type="text"
+                    className="!bg-bg w-full rounded border outline-none h-full px-5 pl-8 py-[14px] text-sm placeholder:text-sm"
+                    {...getFieldProps("tax")}
+                  />
+                </div>
+                {touched.tax && errors.tax && (
+                  <ValidationError msg={errors.tax} />
+                )}
+              </div>
+              <div className="grid grid-cols-2 gap-5 ">
+                <div>
+                  <CustomInput
+                    className={"!bg-bg"}
+                    label={"Units"}
+                    id={"units"}
+                    {...getFieldProps("unit")}
+                  />
+                  {touched.unit && errors.unit && (
+                    <ValidationError msg={errors.unit} />
+                  )}
+                </div>
+                <div>
+                  <CustomInput
+                    className={"!bg-bg"}
+                    label={"Stock Available"}
+                    id={"stock"}
+                    {...getFieldProps("stock")}
+                  />
+                  {touched.stock && errors.stock && (
+                    <ValidationError msg={errors.stock} />
+                  )}
+                </div>
+              </div>
+              <div className="border-b pb-10">
+                <CustomInput
+                  className={"!bg-bg"}
+                  label={"Image URL"}
+                  id={"img_url"}
+                  {...getFieldProps("image")}
+                />
+                {touched.image && errors.image && (
+                  <ValidationError msg={errors.image} />
+                )}
               </div>
               <div className="">
                 <label className="text-sm mb-1" htmlFor="">
                   Select Type
                 </label>
-                <div className="grid grid-cols-2 gap-4 overflow-hidden text-center ">
+                <div className="grid grid-cols-2 gap-5 overflow-hidden text-center ">
                   <div
                     onClick={() => {
+                      setFieldValue("brand", "Physical");
                       setType(0);
                     }}
                     className={`${
@@ -79,6 +220,7 @@ const CreateProduct = () => {
                   </div>
                   <div
                     onClick={() => {
+                      setFieldValue("brand", "Digital");
                       setType(1);
                     }}
                     className={`${
@@ -92,27 +234,35 @@ const CreateProduct = () => {
                     <p className="max-w-[150px] text-sm">Digital Product</p>
                   </div>
                 </div>
+                {touched.brand && errors.brand && (
+                  <ValidationError msg={errors.brand} />
+                )}
               </div>
 
-              <div className="">
+              <div className="mt-2">
                 <label htmlFor="" className="text-sm">
                   Product Description (optional)
                 </label>
                 <textarea
                   className="w-full border rounded h-28 text-sm placeholder:text-sm p-2 outline-none resize-none !bg-bg"
                   placeholder="Short Description"
-                  name=""
-                  id=""
-                  cols="30"
-                  rows="10"
+                  {...getFieldProps("description")}
                 ></textarea>
+                {touched.description && errors.description && (
+                  <ValidationError msg={errors.description} />
+                )}
               </div>
               <div>
-                <CustomButton className=" ml-auto mt-2 text-white text-sm flex items-center justify-end gap-2 !px-10 !py-3 rounded-md">
+                <CustomButton
+                  loading={loading}
+                  disabled={loading}
+                  type={"submit"}
+                  className=" ml-auto mt-2 text-white text-sm flex items-center justify-end gap-2 !px-10 !py-3 rounded-md"
+                >
                   <BsCloudArrowUp size={20} /> Save Product
                 </CustomButton>
               </div>
-            </div>
+            </form>
           </div>
           <div className="w-full ">
             <p className="font-medium opacity-75">
