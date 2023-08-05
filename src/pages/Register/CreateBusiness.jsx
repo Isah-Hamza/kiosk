@@ -16,19 +16,39 @@ import { createPartnerAction } from "../../store/slices/partner/createPartnerSli
 import { MdOutlineDescription } from "react-icons/md";
 import { PartnerContext } from "../../App";
 
+import shoppingBag from "../../assets/images/image-shopping-bag-dd0f7627.svg";
+
 const CreateBusiness = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { setPartner } = useContext(PartnerContext);
   const [state, setState] = useState([{ label: "Select State", value: null }]);
-  const [partnerId, setPartnerId] = useState();
+  const [partnerId, setPartnerId] = useState(null);
 
   const { loading } = useSelector((state) => state.create_partner);
   const { data: all_states } = useSelector((state) => state.all_states);
   const { data: partner_group } = useSelector((state) => state.partner_group);
-  const { data: partner_subgroup } = useSelector(
+  const { data: partner_subgroup, loading: loadingSubGroup } = useSelector(
     (state) => state.partner_subgroup
   );
+
+  const categories = [
+    {
+      title: "Retail/MSME",
+      desc: " Supermarket, Online Store, Laundry etc",
+      img: shoppingBag,
+    },
+    {
+      title: "Production/Supply",
+      desc: "Production and Supply Companies etc",
+      img: shoppingBag,
+    },
+    {
+      title: "Logistics ",
+      desc: " Logistic Companies and Others etc",
+      img: shoppingBag,
+    },
+  ];
 
   const [category, setCategory] = useState([
     {
@@ -42,7 +62,9 @@ const CreateBusiness = () => {
   const [subCategory, setSubCategory] = useState([
     {
       value: null,
-      label: "Select Sub Category",
+      label: loadingSubGroup
+        ? "Loading Sub Categories..."
+        : "Select Sub Category",
     },
   ]);
 
@@ -60,10 +82,11 @@ const CreateBusiness = () => {
       stateId: "",
     },
     validationSchema: Yup.object().shape({
-      category: Yup.mixed()
-        .oneOf(["1", "2", "3", "4"], "Select Category")
+      category: Yup.number()
+        // .oneOf(["1", "2", "3", "4"], "Select Category")
+
         .required("Select category")
-        .nonNullable("Field can't be null"),
+        .nonNullable("Please select a business category"),
       name: Yup.string().required("Name is required"),
       address: Yup.string().required("Address is required"),
       description: Yup.string().required("Description is required"),
@@ -140,7 +163,7 @@ const CreateBusiness = () => {
 
   return (
     <div className="w-full py-10 sm:py-20">
-      <div className="w-[95%] sm:w-[550px] m-auto min-h-[500px]">
+      <div className="w-[95%] sm:w-[570px] m-auto min-h-[500px]">
         <div className="text-center">
           <p className="text-lg font-semibold opacity-80">
             Create a New Business
@@ -166,18 +189,44 @@ const CreateBusiness = () => {
           </div>
           <div className="p-5 sm:p-7">
             <form onSubmit={biz_handleSubmit} className="w-full mt-7">
+              <div className="mb-7">
+                <p className="text-sm font-medium opacity-80 mb-2 ">
+                  Select Your business category
+                </p>
+                <div className="grid grid-cols-3 gap-4">
+                  {categories.map((cat, idx) => (
+                    <div
+                      onClick={() => {
+                        setFieldValue("category", idx + 1);
+                        setPartnerId(idx + 1);
+                      }}
+                      key={idx}
+                      className={`cursor-pointer flex items-center gap-1 border p-1 pr-2 rounded ${
+                        partnerId == idx + 1 && "border !border-primary"
+                      }`}
+                    >
+                      <img className="w-10" src={cat.img} alt="shopping-bag" />
+                      <div>
+                        <p className="text-xs font-medium">{cat.title}</p>
+                        <p className="text-[10px]">{cat.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {biz_touched.category && biz_errors.category && (
+                  <ValidationError msg={biz_errors.category} />
+                )}
+              </div>
               <div className="grid sm:grid-cols-2 gap-5 gap-y-5 sm:gap-y-7">
-                <div>
+                {/* <div>
                   <CustomSelect
                     onChange={handleChangeCategory}
                     options={category}
                     allowFirstOption
                   />
-                  {biz_touched.category && biz_errors.category && (
-                    <ValidationError msg={biz_errors.category} />
-                  )}
-                </div>
-                <div>
+                 
+                </div> */}
+                <div className="col-span-2">
                   <CustomSelect
                     allowFirstOption={true}
                     options={subCategory}
@@ -188,7 +237,7 @@ const CreateBusiness = () => {
                       <ValidationError msg={biz_errors.partnerSubGroupId} />
                     )}
                 </div>
-                <div className="sm:col-span-2 ">
+                <div className="col-span-2 ">
                   <CustomInput
                     className={"!h-[50px]"}
                     type={"text"}

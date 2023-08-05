@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createProductAction } from "../../store/slices/product/createProductSlice";
 import { useNavigate } from "react-router-dom";
 import ValidationError from "../../components/Error/ValidationError";
+import PageHeader from "../../shared/PageHeader";
 
 const CreateProduct = () => {
   const dispatch = useDispatch();
@@ -65,10 +66,27 @@ const CreateProduct = () => {
 
   return (
     <AppLayoutNew noHeader={true}>
-      <div className="mx-7 my-10 ">
-        <p className="text-2xl font-semibold opacity-80 mb-7">Create Product</p>
-        <div className="grid grid-cols-[3.5fr,2fr] gap-8">
-          <div className="p-6 bg-dimmed_white rounded-xl">
+      <div className="mx-4 lg:mx-7 my-10 min-w-[300px]">
+        {/* <p className="text-2xl font-semibold opacity-80 mb-7">Create Product</p> */}
+        <PageHeader title={"Create Product"} />
+        <div className="grid grid-cols-[1fr,1.4fr] sm:grid-cols-2 lg:hidden max-w-md mb-5  gap-4 mt-8">
+          <CustomButton
+            className={
+              "!whitespace-nowrap !bg-[rgba(0,158,170,0.3)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-2.5 rounded-lg"
+            }
+          >
+            Import Products
+          </CustomButton>
+          <CustomButton
+            className={
+              "!bg-transparent border !px-3 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg"
+            }
+          >
+            Download Sample
+          </CustomButton>
+        </div>
+        <div className="grid lg:grid-cols-[3.5fr,2fr] gap-8">
+          <div className="p-4 sm:p-6 !py-6 bg-dimmed_white rounded-xl">
             <div className="border-b pb-7">
               <p className="font-semibold">Product Information</p>
               <p className="text-sm opacity-70">
@@ -257,14 +275,14 @@ const CreateProduct = () => {
                   loading={loading}
                   disabled={loading}
                   type={"submit"}
-                  className=" ml-auto mt-2 text-white text-sm flex items-center justify-end gap-2 !px-10 !py-3 rounded-md"
+                  className="mt-3 w-full justify-center sm:w-[unset] ml-auto text-white text-sm flex items-center sm:justify-end gap-2 !px-10 !py-3 rounded-md"
                 >
                   <BsCloudArrowUp size={20} /> Save Product
                 </CustomButton>
               </div>
             </form>
           </div>
-          <div className="w-full ">
+          <div className="hidden lg:block w-full ">
             <p className="font-medium opacity-75">
               You may also import your products in bulk by uploading a .xlxs
               file in a specific format
