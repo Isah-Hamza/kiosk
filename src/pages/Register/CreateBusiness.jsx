@@ -193,7 +193,7 @@ const CreateBusiness = () => {
                 <p className="text-sm font-medium opacity-80 mb-2 ">
                   Select Your business category
                 </p>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid sm:grid-cols-3 gap-4">
                   {categories.map((cat, idx) => (
                     <div
                       onClick={() => {
@@ -226,7 +226,7 @@ const CreateBusiness = () => {
                   />
                  
                 </div> */}
-                <div className="col-span-2">
+                <div className="sm:col-span-2">
                   <CustomSelect
                     allowFirstOption={true}
                     options={subCategory}
@@ -237,7 +237,7 @@ const CreateBusiness = () => {
                       <ValidationError msg={biz_errors.partnerSubGroupId} />
                     )}
                 </div>
-                <div className="col-span-2 ">
+                <div className="sm:col-span-2 ">
                   <CustomInput
                     className={"!h-[50px]"}
                     type={"text"}
