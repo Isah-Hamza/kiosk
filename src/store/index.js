@@ -14,6 +14,7 @@ import resetPasswordSlice from "./slices/user/resetPasswordSlice";
 import createAccountSlice from "./slices/partner/createAccountSlice";
 import getAllAccountSlice from "./slices/partner/getAllAccountSlice";
 import createProductSlice from "./slices/product/createProductSlice";
+import getInventorySlice from "./slices/product/getInventorySlice";
 
 const store = configureStore({
   reducer: {
@@ -32,6 +33,7 @@ const store = configureStore({
     create_account: createAccountSlice,
     get_all_accounts: getAllAccountSlice,
     create_product: createProductSlice,
+    get_inventory: getInventorySlice,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware();

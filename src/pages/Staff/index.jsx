@@ -11,9 +11,9 @@ import { getAllAccountAction } from "../../store/slices/partner/getAllAccountSli
 import { useEffect } from "react";
 import { ImSpinner2 } from "react-icons/im";
 import moment from "moment";
+import PageHeader from "../../shared/PageHeader";
 
 const Staff = () => {
-  const { sidebarOpen, setSidebarOpen } = useContext(ToggleSidebarContext);
   const { data, loading } = useSelector((state) => state.get_all_accounts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,20 +31,7 @@ const Staff = () => {
   return (
     <AppLayoutNew noHeader={true}>
       <div className="mx-4 sm:mx-7 my-10">
-        <div className="flex items-center gap-5 mb-7">
-          <span className="block lg:hidden">
-            {!sidebarOpen ? (
-              <BiMenu onClick={() => setSidebarOpen(true)} size={30} />
-            ) : (
-              <GrClose
-                className="mt-1 ml-1"
-                onClick={() => setSidebarOpen(false)}
-                size={25}
-              />
-            )}
-          </span>
-          <p className="text-2xl font-semibold opacity-80 ">Staff Details</p>
-        </div>
+        <PageHeader title={"My Staff"} />
         <div className="bg-dimmed_white p-5 rounded-xl mt-5">
           <div className="w-full flex gap-4 pt-3">
             <CustomButton
@@ -164,7 +151,6 @@ const Staff = () => {
                   No data found{" "}
                 </p>
               ) : null}
-
               {loading && (
                 <div className="flex items-center gap-1 justify-center text-sm p-2 py-10 font-medium">
                   <ImSpinner2 className="animate-spin" />

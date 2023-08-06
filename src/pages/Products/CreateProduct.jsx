@@ -40,14 +40,26 @@ const CreateProduct = () => {
       name: Yup.string().required("Name is required"),
       brand: Yup.string().required("Brand is required"),
       description: Yup.string().required("Description is required"),
-      sellingPrice: Yup.number().required("This field is required"),
-      costPrice: Yup.string().required("Cost Price is required"),
-      tax: Yup.string().required("Tax is required"),
-      discount: Yup.string().required("Discount is required"),
-      unit: Yup.string().required("Units is required"),
+      sellingPrice: Yup.number()
+        .typeError("Enter a valid number")
+        .required("This field is required"),
+      costPrice: Yup.number()
+        .typeError("Enter a valid number")
+        .required("Cost Price is required"),
+      tax: Yup.number()
+        .typeError("Enter a valid number")
+        .required("Tax is required"),
+      discount: Yup.number()
+        .typeError("Enter a valid number")
+        .required("Discount is required"),
+      unit: Yup.number()
+        .typeError("Enter a valid number")
+        .required("Units is required"),
       image: Yup.string().required("Image URL is required"),
       isService: Yup.boolean().required("This field is required"),
-      stock: Yup.string().required("Stock is required"),
+      stock: Yup.number()
+        .typeError("Enter a valid number")
+        .required("Stock is required"),
     }),
     onSubmit(values) {
       console.log(values);

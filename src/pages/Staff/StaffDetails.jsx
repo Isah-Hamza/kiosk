@@ -16,7 +16,6 @@ const StaffDetails = () => {
   const navigate = useNavigate();
 
   const { staff } = useLocation().state;
-  console.log(staff);
 
   const permissions = [
     { title: "Staff Management", value: true, prefix: "StaffMgt" },

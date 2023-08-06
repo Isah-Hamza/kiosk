@@ -8,11 +8,17 @@ import UpdateStock from "./UpdateStock";
 import EditProduct from "./EditProduct";
 import PageHeader from "../../shared/PageHeader";
 import ShareProduct from "./ShareProduct";
+import { useLocation } from "react-router-dom";
 
 const ProductDetails = () => {
   const [updateStock, setUpdateStock] = useState(false);
   const [editProduct, setEditProduct] = useState(false);
   const [shareProduct, setShareProduct] = useState(false);
+
+  const { data: product } = useLocation().state;
+
+  console.log(product);
+
   return (
     <AppLayoutNew noHeader={true}>
       <div className="mx-4 sm:mx-7 my-10">
@@ -29,21 +35,28 @@ const ProductDetails = () => {
             <div className="grid sm:grid-cols-2 sm:gap-10 flex-1 max-w-[600px]">
               <div>
                 <p className="text-lg font-medium text-gray-700">
-                  Ridiculous Product
+                  {product.name}
                 </p>
-                <p className="font-medium text-lg">₦100.00</p>
-                <p className="mt-3 mb-1">Total Value: ₦0.00</p>
-                <p className="mb-1">22 total units</p>
-                <p className="mb-1">10 units sold</p>
+                <p className="font-medium text-lg">
+                  ₦{product.sellingPrice.toFixed(2)}
+                </p>
+                <p className="mt-3 mb-1">
+                  Total Value: ₦
+                  {(product.sellingPrice * product.stock).toFixed(2)}
+                </p>
+                <p className="mb-1">{product.unit} total units</p>
+                <p className="mb-1">
+                  {product.unit - product.stock} units sold
+                </p>
               </div>
               <div className="mt-7">
                 <p className="mb-2.5">
-                  <span className="font-medium opacity-70">Cost Price: </span>
-                  ₦100.00
+                  <span className="font-medium opacity-70">Cost Price: </span>₦
+                  {product.costPrice.toFixed(2)}
                 </p>
                 <p className="mb-2.5">
                   <span className="font-medium opacity-70">Type: </span>
-                  Digital Product
+                  {product.brand} Product
                 </p>
                 <p className="mb-2.5">
                   <span className="font-medium opacity-70">Tags: </span>
@@ -92,15 +105,12 @@ const ProductDetails = () => {
             <div>
               <p className="font-medium">Product url link</p>
               <p className="text-blue-500">
-                www.ridiculousguy.glowbiz.com/products/123
+                {product.link ?? "www.ridiculousguy.glowbiz.com/products/123"}
               </p>
             </div>
             <div className="mt-5">
               <p className="font-medium">Product description</p>
-              <p>
-                This is the description that you supplied while creating this
-                product
-              </p>
+              <p>{product.description}</p>
             </div>
           </div>
         </div>
