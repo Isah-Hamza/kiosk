@@ -9,7 +9,7 @@ const initialState = {
 };
 
 const getSupplierSlice = createSlice({
-  name: " getSupplierSlice",
+  name: "getSupplierSlice",
   initialState,
   reducers: {},
 

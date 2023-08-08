@@ -23,3 +23,11 @@ export async function UpdateSellingPrice({ product_id, payload }) {
   );
   return response;
 }
+
+export async function UpdateCostPrice({ product_id, payload }) {
+  const response = await api.patch(
+    `Product/${product_id}/update-costprice`,
+    payload
+  );
+  return response;
+}

@@ -16,6 +16,8 @@ import { PiCurrencyNgnLight } from "react-icons/pi";
 import { GrClose } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { udpateSellingPriceAction } from "../../store/slices/product/updateSellingPriceSlice";
+import { udpateCostPriceAction } from "../../store/slices/product/updateCostPriceSlice";
+import updateCostPriceSlice from "../../store/slices/product/updateCostPriceSlice";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
@@ -27,7 +29,6 @@ const ProductDetails = () => {
   const [editCostPrice, setEditCostPrice] = useState(false);
 
   const { data: product } = useLocation().state;
-  console.log(product);
   const activityLoading = false;
   const activities = [
     {
@@ -52,6 +53,7 @@ const ProductDetails = () => {
   const [cPrice, setCPrice] = useState(product.costPrice);
 
   const toggleEditSellingPrice = () => setEditSellingPrice(!editSellingPrice);
+  const toggleEditCostPrice = () => setEditCostPrice(!editCostPrice);
 
   const { loading } = useSelector((state) => state.update_selling_price);
 
@@ -59,14 +61,20 @@ const ProductDetails = () => {
     const payload = {
       amount: sPrice,
     };
-    dispatch(udpateSellingPriceAction({ product_id: product.id, payload }).then(() => s));
+    dispatch(udpateSellingPriceAction({ product_id: product.id, payload }));
+  };
+  const submitCostPrice = () => {
+    const payload = {
+      amount: cPrice,
+    };
+    dispatch(udpateCostPriceAction({ product_id: product.id, payload }));
   };
 
   return (
     <AppLayoutNew noHeader={true}>
       <div className="mx-4 sm:mx-7 my-10">
         <PageHeader title={"Product Details"} />
-        <div className="grid grid-cols-[8fr,4fr] gap-5">
+        <div className="grid md:grid-cols-[8fr,4fr] gap-5">
           <div className="bg-dimmed_white p-5 rounded-xl mt-5 min-h-[200px]">
             <div className=" text-center md:text-left flex flex-col md:flex-row sm:items-center gap-7">
               <div>
@@ -131,13 +139,46 @@ const ProductDetails = () => {
                 </div>
                 <div className="mt-7">
                   <div className="flex gap-3 items-center mb-2.5 ">
-                    <p className="">
+                    <p className="flex items-center gap-3">
                       <span className="font-medium opacity-70">
                         Cost Price:{" "}
                       </span>
-                      ₦{product.costPrice.toFixed(2)}
+                      {!editCostPrice ? (
+                        <p className="">₦{product.costPrice.toFixed(2)}</p>
+                      ) : (
+                        <div className="relative">
+                          <div className="span absolute left-1.5 top-1/2 -translate-y-1/2 text-lg">
+                            <PiCurrencyNgnLight />{" "}
+                          </div>
+                          <input
+                            value={cPrice}
+                            onChange={(e) => setCPrice(e.target.value)}
+                            type="text"
+                            className="!bg-bg w-20 rounded border outline-none h-full px-2 pl-6 py-1 text-sm placeholder:text-sm"
+                          />
+                        </div>
+                      )}
                     </p>
-                    <FaEdit className="cursor-pointer text-primary" />
+                    {!editCostPrice ? (
+                      <FaEdit
+                        onClick={toggleEditCostPrice}
+                        className="cursor-pointer text-primary"
+                      />
+                    ) : (
+                      <div className="flex items-center gap-1">
+                        <GrClose
+                          color="red"
+                          size={17}
+                          onClick={toggleEditCostPrice}
+                          className="text-[tomato] cursor-pointer"
+                        />
+                        <BiCheck
+                          size={30}
+                          className="text-green-950 cursor-pointer"
+                          onClick={submitCostPrice}
+                        />
+                      </div>
+                    )}
                   </div>
                   <p className="mb-2.5">
                     <span className="font-medium opacity-70">Type: </span>

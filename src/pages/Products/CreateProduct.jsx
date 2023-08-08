@@ -24,6 +24,7 @@ const CreateProduct = () => {
   const [showSupplierForm, setShowSupplierForm] = useState(false);
   const { loading } = useSelector((state) => state.create_product);
   const { data } = useSelector((state) => state.get_supplier);
+  console.log(data);
 
   const [type, setType] = useState(-1);
   const [suppliers, setSuppliers] = useState(data);
@@ -140,6 +141,7 @@ const CreateProduct = () => {
   }, []);
 
   useEffect(() => {
+    console.log(data);
     const formatted = data.map((item, idx) => ({
       value: idx + 1,
       label: item.name,

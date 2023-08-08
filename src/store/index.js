@@ -15,8 +15,9 @@ import createAccountSlice from "./slices/partner/createAccountSlice";
 import getAllAccountSlice from "./slices/partner/getAllAccountSlice";
 import createProductSlice from "./slices/product/createProductSlice";
 import getInventorySlice from "./slices/product/getInventorySlice";
-import getSupplierSlice from "./slices/product/updateSellingPriceSlice";
-import updateSellingPriceSlice from "./slices/product/getSupplierSlice";
+import getSupplierSlice from "./slices/product/getSupplierSlice";
+import updateSellingPriceSlice from "./slices/product/updateSellingPriceSlice";
+import updateCostPriceSlice from "./slices/product/updateCostPriceSlice";
 
 const store = configureStore({
   reducer: {
@@ -38,6 +39,7 @@ const store = configureStore({
     get_inventory: getInventorySlice,
     get_supplier: getSupplierSlice,
     update_selling_price: updateSellingPriceSlice,
+    update_cost_price: updateCostPriceSlice,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware();
