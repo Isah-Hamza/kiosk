@@ -42,7 +42,7 @@ const Staff = () => {
               children={
                 <div className="flex items-center gap-1 !text-sm">
                   <BiPlus size={20} />
-                  <span className="md:block hidden">Add Staff</span>
+                  <span className="md:block hidden">Add Account</span>
                   <span className="block md:hidden">New</span>
                 </div>
               }
@@ -53,7 +53,7 @@ const Staff = () => {
               </div>
               <input
                 type="text"
-                placeholder="Search staff by name, role or status"
+                placeholder="Search Account by name, role or status"
                 className="w-full rounded-sm border outline-none h-full px-5 pl-10 text-sm placeholder:text-sm"
               />
             </div>
@@ -75,7 +75,7 @@ const Staff = () => {
                 <thead className="">
                   <tr className="!text-left !opacity-70 !font-semibold">
                     <th className="text-sm py-3 border-y !font-semibold pl-3 w-[32%]s">
-                      Staff Name
+                      User Name
                     </th>
                     <th className="text-sm py-3 border-y !font-semibold">
                       Email

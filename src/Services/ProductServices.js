@@ -36,3 +36,10 @@ export async function UpdateCostPrice({ product_id, payload }) {
   );
   return response;
 }
+
+export async function DeleteProduct(product_id) {
+  const response = await api.delete(
+    `${ApiEndPoints.delete_product}/${product_id}`
+  );
+  return response;
+}

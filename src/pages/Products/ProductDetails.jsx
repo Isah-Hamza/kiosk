@@ -8,7 +8,7 @@ import UpdateStock from "./UpdateStock";
 import EditProduct from "./EditProduct";
 import PageHeader from "../../shared/PageHeader";
 import ShareProduct from "./ShareProduct";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
 import { ImCheckmark2, ImSpinner2 } from "react-icons/im";
 import { TbRefresh } from "react-icons/tb";
@@ -18,9 +18,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { udpateSellingPriceAction } from "../../store/slices/product/updateSellingPriceSlice";
 import { udpateCostPriceAction } from "../../store/slices/product/updateCostPriceSlice";
 import { getProductAction } from "../../store/slices/product/getProductSlice";
+import { deleteProductAction } from "../../store/slices/product/deleteProductSlice";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loading: deleting_product } = useDispatch(
+    (state) => state.delete_product
+  );
   const { loading: loadingSellingPrice } = useSelector(
     (state) => state.update_selling_price
   );
@@ -66,8 +71,6 @@ const ProductDetails = () => {
   const toggleEditSellingPrice = () => setEditSellingPrice(!editSellingPrice);
   const toggleEditCostPrice = () => setEditCostPrice(!editCostPrice);
 
-  const { loading } = useSelector((state) => state.update_selling_price);
-
   const submitSellingPrice = () => {
     const payload = {
       amount: sPrice,
@@ -76,6 +79,7 @@ const ProductDetails = () => {
       udpateSellingPriceAction({ product_id: id, payload, dispatch })
     ).then(() => toggleEditSellingPrice());
   };
+
   const submitCostPrice = () => {
     const payload = {
       amount: cPrice,
@@ -83,6 +87,10 @@ const ProductDetails = () => {
     dispatch(udpateCostPriceAction({ product_id: id, payload, dispatch })).then(
       () => toggleEditCostPrice()
     );
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteProductAction({ product_id: id, navigate }));
   };
 
   useEffect(() => {
@@ -290,12 +298,29 @@ const ProductDetails = () => {
                   <p>{product.description}</p>
                 </div>
               </div>
+              <div className="border-t py-6 pb-3">
+                <p className="text-lg font-semibold text-primary ">
+                  Danger Zone
+                </p>
+                <p className="mt-1 mb-3 text-sm">
+                  Thread safely. Any action taken here is irreversible.
+                </p>
+                <CustomButton
+                  loading={deleting_product}
+                  disabled={deleting_product}
+                  clickHandler={handleDelete}
+                  className={
+                    "!bg-[#eb57571a]  disabled:!bg-[#f3ecec1a] !text-[#eb5757] border !border-[#eb5757] font-bold !py-2.5 rounded-lg"
+                  }
+                >
+                  Delete This Inventory Item
+                </CustomButton>
+              </div>
             </div>
             <div className="w-full h-fit bg-white rounded-xl p-6 md:mt-5 pt-3 mr-5">
               <div className="flex items-center justify-between">
-                <p className="text-lg font-semibold text-primary ">
-                  Activity Trails
-                </p>
+                <p className="font-semibold text-primary ">Activity Trails</p>
+
                 <button className="p-3 rounded-full hover:bg-slate-100">
                   <TbRefresh
                     // onClick={() =>

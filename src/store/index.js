@@ -19,6 +19,7 @@ import getSupplierSlice from "./slices/product/getSupplierSlice";
 import updateSellingPriceSlice from "./slices/product/updateSellingPriceSlice";
 import updateCostPriceSlice from "./slices/product/updateCostPriceSlice";
 import getProductSlice from "./slices/product/getProductSlice";
+import deleteProductSlice from "./slices/product/deleteProductSlice";
 
 const store = configureStore({
   reducer: {
@@ -42,6 +43,7 @@ const store = configureStore({
     update_selling_price: updateSellingPriceSlice,
     update_cost_price: updateCostPriceSlice,
     get_product: getProductSlice,
+    delete_product: deleteProductSlice,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware();

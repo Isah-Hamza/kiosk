@@ -103,6 +103,7 @@ const CreateProduct = () => {
         return false;
       }
     } else {
+      values.supplier = {};
       return true;
     }
   }
@@ -115,7 +116,6 @@ const CreateProduct = () => {
   }, []);
 
   useEffect(() => {
-    console.log(data);
     const formatted = data.map((item, idx) => ({
       value: idx + 1,
       label: item.name,
