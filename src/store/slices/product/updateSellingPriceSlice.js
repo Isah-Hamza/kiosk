@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { UpdateSellingPrice } from "../../../Services/ProductServices";
 import customToast from "../../../components/Toast/toastify";
+import { getProductAction } from "./getProductSlice";
 
 const initialState = {
   loading: false,
@@ -30,10 +31,11 @@ const updateSellingPriceSlice = createSlice({
 
 export const udpateSellingPriceAction = createAsyncThunk(
   "udpateSellingPriceAction",
-  async ({ product_id, payload }, thunkApi) => {
+  async ({ product_id, payload, dispatch }, thunkApi) => {
     return UpdateSellingPrice({ product_id, payload })
       .then((res) => {
         customToast(res.message ?? "Updated successully");
+        dispatch(getProductAction(product_id));
         return res;
       })
       .catch((e) => {

@@ -16,6 +16,11 @@ export async function GetSuppliers() {
   return response;
 }
 
+export async function GetProductById(product_id) {
+  const response = await api.get(`${ApiEndPoints.product_by_id}/${product_id}`);
+  return response;
+}
+
 export async function UpdateSellingPrice({ product_id, payload }) {
   const response = await api.patch(
     `Product/${product_id}/update-sellingprice`,
