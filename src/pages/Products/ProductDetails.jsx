@@ -19,6 +19,7 @@ import { udpateSellingPriceAction } from "../../store/slices/product/updateSelli
 import { udpateCostPriceAction } from "../../store/slices/product/updateCostPriceSlice";
 import { getProductAction } from "../../store/slices/product/getProductSlice";
 import { deleteProductAction } from "../../store/slices/product/deleteProductSlice";
+import DeleteProduct from "./DeleteProduct";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
@@ -41,6 +42,9 @@ const ProductDetails = () => {
 
   const [editSellingPrice, setEditSellingPrice] = useState(false);
   const [editCostPrice, setEditCostPrice] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const toggleShowDeleteModal = () => setShowDeleteModal(!showDeleteModal);
 
   const {
     data: { id },
@@ -308,7 +312,7 @@ const ProductDetails = () => {
                 <CustomButton
                   loading={deleting_product}
                   disabled={deleting_product}
-                  clickHandler={handleDelete}
+                  clickHandler={toggleShowDeleteModal}
                   className={
                     "!bg-[#eb57571a]  disabled:!bg-[#f3ecec1a] !text-[#eb5757] border !border-[#eb5757] font-bold !py-2.5 rounded-lg"
                   }
@@ -397,6 +401,9 @@ const ProductDetails = () => {
       ) : null}
       {editProduct ? <EditProduct {...{ setEditProduct }} /> : null}
       {shareProduct ? <ShareProduct {...{ setShareProduct }} /> : null}
+      {showDeleteModal ? (
+        <DeleteProduct {...{ handleClose: toggleShowDeleteModal,  }} />
+      ) : null}
     </AppLayoutNew>
   );
 };
