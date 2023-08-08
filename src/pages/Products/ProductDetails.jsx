@@ -89,7 +89,7 @@ const ProductDetails = () => {
                   <p className="text-lg font-medium text-gray-700">
                     {product.name}
                   </p>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center justify-center sm:justify-start gap-3">
                     {!editSellingPrice ? (
                       <p className="font-medium text-lg">
                         ₦{product.sellingPrice.toFixed(2)}
@@ -138,8 +138,16 @@ const ProductDetails = () => {
                   </p>
                 </div>
                 <div className="mt-7">
-                  <div className="flex gap-3 items-center mb-2.5 ">
-                    <p className="flex items-center gap-3">
+                  <div
+                    className={`flex gap-3 items-center justify-center sm:justify-start mb-2.5 ${
+                      editCostPrice && "items-center sm:items-end"
+                    }`}
+                  >
+                    <p
+                      className={`flex items-center gap-3 ${
+                        editCostPrice && "sm:grid items-end"
+                      }`}
+                    >
                       <span className="font-medium opacity-70">
                         Cost Price:{" "}
                       </span>
