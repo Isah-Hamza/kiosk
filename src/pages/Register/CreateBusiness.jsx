@@ -57,8 +57,6 @@ const CreateBusiness = () => {
     },
   ]);
 
-  const handleChangeCategory = (value) => setPartnerId(value);
-
   const [subCategory, setSubCategory] = useState([
     {
       value: null,
@@ -218,14 +216,6 @@ const CreateBusiness = () => {
                 )}
               </div>
               <div className="grid sm:grid-cols-2 gap-5 gap-y-5 sm:gap-y-7">
-                {/* <div>
-                  <CustomSelect
-                    onChange={handleChangeCategory}
-                    options={category}
-                    allowFirstOption
-                  />
-                 
-                </div> */}
                 <div className="sm:col-span-2">
                   <CustomSelect
                     allowFirstOption={true}

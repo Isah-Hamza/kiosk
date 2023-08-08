@@ -35,7 +35,7 @@ export const createAccountAction = createAsyncThunk(
     return CreateAccount(data)
       .then((res) => {
         customToast(res?.message ?? " Account Created Successful");
-        navigate("/staff-management");
+        navigate("/sub-accounts");
         return res;
       })
       .catch((e) => {

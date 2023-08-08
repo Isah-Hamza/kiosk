@@ -10,3 +10,8 @@ export async function GetInventory() {
   const response = await api.get(ApiEndPoints.all_inventory);
   return response;
 }
+
+export async function GetSuppliers() {
+  const response = await api.get(ApiEndPoints.all_suppliers);
+  return response;
+}

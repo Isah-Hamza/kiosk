@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppLayoutNew from "../../layout/AppLayoutNew";
 import { BsCloudArrowUp, BsPatchCheckFill } from "react-icons/bs";
 import CustomInput from "../../components/CustomInput";
-import { FaLuggageCart } from "react-icons/fa";
+import { FaAddressBook, FaLuggageCart, FaUser } from "react-icons/fa";
 import { PiCurrencyNgnLight } from "react-icons/pi";
 import { GrCloudComputer } from "react-icons/gr";
 import CustomButton from "../../components/Buttons/CustomButton";
@@ -13,13 +13,22 @@ import { createProductAction } from "../../store/slices/product/createProductSli
 import { useNavigate } from "react-router-dom";
 import ValidationError from "../../components/Error/ValidationError";
 import PageHeader from "../../shared/PageHeader";
+import { getSupplierAction } from "../../store/slices/product/getSupplierSlice";
+import CustomSelect from "../../components/CustomInput/Select";
+import { MdCall, MdEmail } from "react-icons/md";
+import customToast from "../../components/Toast/toastify";
 
 const CreateProduct = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showSupplierForm, setShowSupplierForm] = useState(false);
   const { loading } = useSelector((state) => state.create_product);
+  const { data } = useSelector((state) => state.get_supplier);
+
+  console.log(data);
 
   const [type, setType] = useState(-1);
+  const [suppliers, setSuppliers] = useState(data);
   const formik = useFormik({
     initialValues: {
       barCode: "test_code",
@@ -32,14 +41,41 @@ const CreateProduct = () => {
       discount: "",
       unit: "",
       image: "",
-      isService: true,
+      inventoryType: 1,
       stock: "",
+      supplierId: 0,
+      supplier: {
+        name: "",
+        phone: "",
+        email: "",
+        address: "",
+      },
     },
     validationSchema: Yup.object().shape({
+      inventoryType: Yup.number().required("Please select product or service"),
       barCode: Yup.string().required("Barcode is required"),
       name: Yup.string().required("Name is required"),
       brand: Yup.string().required("Brand is required"),
+      image: Yup.string().required("Image URL is required"),
       description: Yup.string().required("Description is required"),
+      supplierId: Yup.number(),
+      // supplier: Yup.object()
+      //   .shape({
+      //     name: Yup.string().required("Name is required"),
+      //     phone: Yup.string().required("Phone is required"),
+      //     email: Yup.string().required("Email is required"),
+      //     address: Yup.string().required("Address is required"),
+      //   })
+      //   .when("supplierId", {
+      //     is: (supplierId) => supplierId > 0,
+      //     then: () =>
+      //       Yup.object().shape({
+      //         name: Yup.string(),
+      //         phone: Yup.string(),
+      //         email: Yup.string(),
+      //         address: Yup.string(),
+      //       }),
+      //   }),
       sellingPrice: Yup.number()
         .typeError("Enter a valid number")
         .required("This field is required"),
@@ -55,14 +91,13 @@ const CreateProduct = () => {
       unit: Yup.number()
         .typeError("Enter a valid number")
         .required("Units is required"),
-      image: Yup.string().required("Image URL is required"),
-      isService: Yup.boolean().required("This field is required"),
       stock: Yup.number()
         .typeError("Enter a valid number")
         .required("Stock is required"),
     }),
     onSubmit(values) {
-      console.log(values);
+      const valid = validateSupplier(values);
+      if (valid == false) return;
       values.costPrice = Number(values.costPrice);
       values.discount = Number(values.discount);
       values.sellingPrice = Number(values.sellingPrice);
@@ -73,14 +108,53 @@ const CreateProduct = () => {
     },
   });
 
+  const toggleShowSupplierForm = () => {
+    setShowSupplierForm(!showSupplierForm);
+  };
+
   const { errors, setFieldValue, getFieldProps, touched, handleSubmit } =
     formik;
+
+  function validateSupplier(values) {
+    if (values.supplierId == 0) {
+      if (
+        !values.supplier.email ||
+        !values.supplier.name ||
+        !values.supplier.address ||
+        !values.supplier.phone
+      ) {
+        customToast(
+          "Either select a supplier or register a new one with valid details",
+          true
+        );
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
+
+  const handleChangeSupplier = (value) =>
+    setFieldValue("supplierId", Number(value));
+
+  useEffect(() => {
+    dispatch(getSupplierAction());
+  }, []);
+
+  useEffect(() => {
+    const formatted = data.map((item, idx) => ({
+      value: idx + 1,
+      label: item.name,
+    }));
+    formatted.unshift({ value: null, label: "Choose One" });
+    setSuppliers(formatted);
+  }, [data]);
 
   return (
     <AppLayoutNew noHeader={true}>
       <div className="mx-4 lg:mx-7 my-10 min-w-[300px]">
         {/* <p className="text-2xl font-semibold opacity-80 mb-7">Create Product</p> */}
-        <PageHeader title={"Create Product"} />
+        <PageHeader title={"Create Inventory"} />
         <div className="grid grid-cols-[1fr,1.4fr] sm:grid-cols-2 lg:hidden max-w-md mb-5  gap-4 mt-8">
           <CustomButton
             className={
@@ -100,12 +174,52 @@ const CreateProduct = () => {
         <div className="grid lg:grid-cols-[3.5fr,2fr] gap-8">
           <div className="p-4 sm:p-6 !py-6 bg-dimmed_white rounded-xl">
             <div className="border-b pb-7">
-              <p className="font-semibold">Product Information</p>
+              <p className="font-semibold">Inventory Information</p>
               <p className="text-sm opacity-70">
                 All you need is a name and a price to create a product
               </p>
             </div>
-            <form onSubmit={handleSubmit} className="mt-7 grid gap-4">
+            <form onSubmit={handleSubmit} className="mt-7 grid gap-5">
+              <div className="">
+                <label className="text-sm mb-2" htmlFor="">
+                  Select Inventory Type
+                </label>
+                <div className="grid grid-cols-2 gap-5 overflow-hidden text-center ">
+                  <div
+                    onClick={() => {
+                      setFieldValue("inventoryType", 1);
+                      setType(0);
+                    }}
+                    className={`${
+                      type === 0 && " !border-primary"
+                    } cursor-pointer flex flex-col items-center gap-4 py-5 pt-7 !bg-bg rounded border relative`}
+                  >
+                    {type === 0 ? (
+                      <BsPatchCheckFill className="absolute top-3 left-3 text-primary" />
+                    ) : null}
+                    <FaLuggageCart size={30} className="-mt-1" />
+                    <p className="max-w-[150px] text-sm -mt-2">Product</p>
+                  </div>
+                  <div
+                    onClick={() => {
+                      setFieldValue("inventoryType", 2);
+                      setType(1);
+                    }}
+                    className={`${
+                      type === 1 && " !border-primary"
+                    } cursor-pointer flex flex-col items-center py-5 gap-3 border !bg-bg rounded relative`}
+                  >
+                    {type === 1 ? (
+                      <BsPatchCheckFill className="absolute top-3 left-3 text-primary" />
+                    ) : null}
+                    <GrCloudComputer size={30} />
+                    <p className="max-w-[150px] text-sm">Service</p>
+                  </div>
+                </div>
+                {touched.inventoryType && errors.inventoryType && (
+                  <ValidationError msg={errors.inventoryType} />
+                )}
+              </div>
               <div>
                 <CustomInput
                   className={"!bg-bg"}
@@ -115,6 +229,17 @@ const CreateProduct = () => {
                 />
                 {touched.name && errors.name && (
                   <ValidationError msg={errors.name} />
+                )}
+              </div>
+              <div>
+                <CustomInput
+                  className={"!bg-bg"}
+                  label={"Brand Name"}
+                  id={"brand_name"}
+                  {...getFieldProps("brand")}
+                />
+                {touched.brand && errors.brand && (
+                  <ValidationError msg={errors.brand} />
                 )}
               </div>
               <div className="grid grid-cols-2 gap-5">
@@ -215,7 +340,7 @@ const CreateProduct = () => {
                   )}
                 </div>
               </div>
-              <div className="border-b pb-10">
+              <div className=" border-b pb-10 ">
                 <CustomInput
                   className={"!bg-bg"}
                   label={"Image URL"}
@@ -226,52 +351,90 @@ const CreateProduct = () => {
                   <ValidationError msg={errors.image} />
                 )}
               </div>
-              <div className="">
-                <label className="text-sm mb-1" htmlFor="">
-                  Select Type
-                </label>
-                <div className="grid grid-cols-2 gap-5 overflow-hidden text-center ">
-                  <div
-                    onClick={() => {
-                      setFieldValue("brand", "Physical");
-                      setType(0);
-                    }}
-                    className={`${
-                      type === 0 && " !border-primary"
-                    } cursor-pointer flex flex-col items-center gap-4 py-5 pt-7 !bg-bg rounded border relative`}
+              <div className="flex flex-col gap-5 border-b pb-10 mt-3">
+                <div className="relative ">
+                  <button
+                    type="button"
+                    onClick={toggleShowSupplierForm}
+                    className="z-10 cursor-pointer absolute right-1 -top-.5 text-sm text-primary font-semibold"
                   >
-                    {type === 0 ? (
-                      <BsPatchCheckFill className="absolute top-3 left-3 text-primary" />
-                    ) : null}
-                    <FaLuggageCart size={30} className="-mt-1" />
-                    <p className="max-w-[150px] text-sm -mt-2">
-                      Physical Product
-                    </p>
-                  </div>
-                  <div
-                    onClick={() => {
-                      setFieldValue("brand", "Digital");
-                      setType(1);
-                    }}
-                    className={`${
-                      type === 1 && " !border-primary"
-                    } cursor-pointer flex flex-col items-center py-5 gap-3 border !bg-bg rounded relative`}
-                  >
-                    {type === 1 ? (
-                      <BsPatchCheckFill className="absolute top-3 left-3 text-primary" />
-                    ) : null}
-                    <GrCloudComputer size={30} />
-                    <p className="max-w-[150px] text-sm">Digital Product</p>
-                  </div>
+                    {showSupplierForm
+                      ? "Close Supplier Form"
+                      : "Register New Supplier"}
+                  </button>
+                  <CustomSelect
+                    emptyMsg={"No saved supplier yet. Create one"}
+                    options={suppliers}
+                    label={"Select Supplier"}
+                    className={"!bg-bg"}
+                    onChange={handleChangeSupplier}
+                  />
                 </div>
-                {touched.brand && errors.brand && (
-                  <ValidationError msg={errors.brand} />
-                )}
+                {showSupplierForm ? (
+                  <>
+                    <div>
+                      <CustomInput
+                        className={"!bg-bg"}
+                        label={"Supplier Name *"}
+                        placeholder={"John Doe"}
+                        hasIcon
+                        {...getFieldProps("supplier.name")}
+                        Icon={FaUser}
+                      />
+                      {touched.supplier?.name && errors.supplier?.name && (
+                        <ValidationError msg={errors.supplier?.name} />
+                      )}
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-5">
+                      <div>
+                        <CustomInput
+                          className={"!bg-bg"}
+                          label={"Supplier Email *"}
+                          placeholder={"itshamzy@gmail.com"}
+                          hasIcon
+                          Icon={MdEmail}
+                          {...getFieldProps("supplier.email")}
+                        />
+                        {touched.supplier?.email && errors.supplier?.email && (
+                          <ValidationError msg={errors.supplier?.email} />
+                        )}
+                      </div>
+                      <div>
+                        <CustomInput
+                          className={"!bg-bg"}
+                          label={"Supplier Phone *"}
+                          placeholder={"08123456789"}
+                          hasIcon
+                          Icon={MdCall}
+                          {...getFieldProps("supplier.phone")}
+                        />
+                        {touched.supplier?.phone && errors.supplier?.phone && (
+                          <ValidationError msg={errors.supplier?.phone} />
+                        )}
+                      </div>
+                    </div>
+                    <div>
+                      <CustomInput
+                        className={"!bg-bg"}
+                        label={"Supplier Address *"}
+                        placeholder={
+                          "ABC Street Opposite XYZ Multipurpose Hall"
+                        }
+                        hasIcon
+                        {...getFieldProps("supplier.address")}
+                        Icon={FaAddressBook}
+                      />
+                      {touched.supplier?.address &&
+                        errors.supplier?.address && (
+                          <ValidationError msg={errors.supplier?.address} />
+                        )}
+                    </div>{" "}
+                  </>
+                ) : null}
               </div>
-
               <div className="mt-2">
                 <label htmlFor="" className="text-sm">
-                  Product Description (optional)
+                  Description (optional)
                 </label>
                 <textarea
                   className="w-full border rounded h-28 text-sm placeholder:text-sm p-2 outline-none resize-none !bg-bg"
@@ -289,7 +452,7 @@ const CreateProduct = () => {
                   type={"submit"}
                   className="mt-3 w-full justify-center sm:w-[unset] ml-auto text-white text-sm flex items-center sm:justify-end gap-2 !px-10 !py-3 rounded-md"
                 >
-                  <BsCloudArrowUp size={20} /> Save Product
+                  <BsCloudArrowUp size={20} /> Save Item
                 </CustomButton>
               </div>
             </form>
@@ -312,7 +475,7 @@ const CreateProduct = () => {
                   " !bg-[rgba(0,158,170,0.3)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-2.5 rounded-lg"
                 }
               >
-                Import Products
+                Import Inventory
               </CustomButton>
               <CustomButton
                 className={

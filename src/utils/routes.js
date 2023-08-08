@@ -66,18 +66,18 @@ export const routes = [
     component: Profile,
   },
   {
-    title: "Products",
-    path: "/products",
+    title: "Inventory",
+    path: "/inventory",
     component: Products,
   },
   {
-    title: "Create Products",
-    path: "/add-product",
+    title: "Create Inventory",
+    path: "/add-inventory",
     component: CreateProduct,
   },
   {
     title: "Product Details",
-    path: "/product/details",
+    path: "/inventory/details",
     component: ProductDetails,
   },
   {
@@ -103,13 +103,13 @@ export const routes = [
 
   {
     title: "Staff",
-    path: "/staff-management",
+    path: "/sub-accounts",
     component: Staff,
   },
 
   {
     title: "Staff Details",
-    path: "/staff-management/details",
+    path: "/sub-accounts/details",
     component: StaffDetails,
   },
   {

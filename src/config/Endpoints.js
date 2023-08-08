@@ -26,6 +26,7 @@ const ApiEndPoints = {
   // PRODUCT
   create_product: "Product/create-inventory",
   all_inventory: "Product/all-inventory",
+  all_suppliers: "Product/all-suppliers",
 };
 
 export { ApiEndPoints, BASE_URL };

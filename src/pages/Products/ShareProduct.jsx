@@ -26,9 +26,13 @@ const ShareProduct = ({ setShareProduct }) => {
       <div className="max-w-[90%] m-auto sm:min-w-[500px] min-h-[200px]">
         <div className="p-6 bg-white rounded-xl">
           <div className="border-b pb-3 flex items-center justify-between">
-            <p className="text-lg font-semibold">Share via </p>
+            <p className="text-lg font-semibold text-primary">Coming Soon </p>
             <button onClick={() => setShareProduct(false)}>
-              <FiPlus className="rotate-45" size={22} />
+              <FiPlus
+                className="rotate-45 text-primary
+              "
+                size={22}
+              />
             </button>
           </div>
           <div className="mt-5 items-center flex justify-between pb-5 border-b">

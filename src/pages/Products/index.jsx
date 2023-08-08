@@ -31,13 +31,13 @@ const Products = () => {
   return (
     <AppLayoutNew noHeader={true}>
       <div className="mx-4 sm:mx-7 my-10">
-        <PageHeader title={"Products"} />
+        <PageHeader title={"Inventory"} />
         <div className="bg-dimmed_white p-5 rounded-xl mt-5">
           <div className="flex justify-between items-center ">
             <div className="w-full flex gap-4">
               <TableTop
-                addHandler={() => navigate("/add-product")}
-                what_to_add={"Add Product"}
+                addHandler={() => navigate("/add-inventory")}
+                what_to_add={"Add Inventory"}
                 what_to_import={"Import Orders"}
               />
             </div>
@@ -81,7 +81,7 @@ const Products = () => {
                         data?.data?.map((item, idx) => (
                           <tr
                             onClick={() =>
-                              navigate("/product/details", {
+                              navigate("/inventory/details", {
                                 state: { data: item },
                               })
                             }

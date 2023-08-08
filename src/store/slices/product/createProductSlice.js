@@ -35,7 +35,7 @@ export const createProductAction = createAsyncThunk(
     return CreateProduct(data)
       .then((res) => {
         customToast(res?.message ?? " Product Created Successful");
-        navigate("/products");
+        navigate("/inventory");
         return res;
       })
       .catch((e) => {

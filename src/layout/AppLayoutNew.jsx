@@ -65,14 +65,9 @@ const AppLayoutNew = ({ children, noHeader }) => {
       icon: <FiUsers />,
     },
     {
-      name: "Products",
-      path: "/products",
+      name: "Inventory",
+      path: "/inventory",
       icon: <RiDashboardLine />,
-    },
-    {
-      name: "Insurance",
-      path: "/products",
-      icon: <AiFillInsurance size={19} />,
     },
     // {
     //   name: "Orders",
@@ -80,8 +75,8 @@ const AppLayoutNew = ({ children, noHeader }) => {
     //   icon: <BiShoppingBag size={17} />,
     // },
     {
-      name: "Staff Management",
-      path: "/staff-management",
+      name: "Sub-accounts",
+      path: "/sub-accounts",
       icon: <FaUsers />,
     },
     {

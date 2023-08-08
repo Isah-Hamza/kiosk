@@ -31,7 +31,7 @@ const Staff = () => {
   return (
     <AppLayoutNew noHeader={true}>
       <div className="mx-4 sm:mx-7 my-10">
-        <PageHeader title={"My Staff"} />
+        <PageHeader title={"Sub Accounts"} />
         <div className="bg-dimmed_white p-5 rounded-xl mt-5">
           <div className="w-full flex gap-4 pt-3">
             <CustomButton
@@ -105,7 +105,7 @@ const Staff = () => {
                         data?.data?.map((item, idx) => (
                           <tr
                             onClick={() =>
-                              navigate("/staff-management/details", {
+                              navigate("/sub-accounts/details", {
                                 state: { staff: item },
                               })
                             }

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import AppLayoutNew from "../../layout/AppLayoutNew";
 import CustomButton from "../../components/Buttons/CustomButton";
-import { BiMenu, BiPlus, BiUser } from "react-icons/bi";
+import { BiMenu } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { GrClose } from "react-icons/gr";
 import { ToggleSidebarContext } from "../../App";

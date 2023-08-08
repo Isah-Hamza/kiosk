@@ -15,6 +15,7 @@ import createAccountSlice from "./slices/partner/createAccountSlice";
 import getAllAccountSlice from "./slices/partner/getAllAccountSlice";
 import createProductSlice from "./slices/product/createProductSlice";
 import getInventorySlice from "./slices/product/getInventorySlice";
+import getSupplierSlice from "./slices/product/getSupplierSlice";
 
 const store = configureStore({
   reducer: {
@@ -34,6 +35,7 @@ const store = configureStore({
     get_all_accounts: getAllAccountSlice,
     create_product: createProductSlice,
     get_inventory: getInventorySlice,
+    get_supplier:getSupplierSlice,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware();
