@@ -392,7 +392,9 @@ const ProductDetails = () => {
           </div>
         </div>
       )}
-      {updateStock ? <UpdateStock {...{ setUpdateStock }} /> : null}
+      {updateStock ? (
+        <UpdateStock {...{ setUpdateStock, id, stock: product.stock }} />
+      ) : null}
       {editProduct ? <EditProduct {...{ setEditProduct }} /> : null}
       {shareProduct ? <ShareProduct {...{ setShareProduct }} /> : null}
     </AppLayoutNew>
