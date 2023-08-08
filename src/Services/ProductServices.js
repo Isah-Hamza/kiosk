@@ -15,3 +15,11 @@ export async function GetSuppliers() {
   const response = await api.get(ApiEndPoints.all_suppliers);
   return response;
 }
+
+export async function UpdateSellingPrice({ product_id, payload }) {
+  const response = await api.patch(
+    `Product/${product_id}/update-sellingprice`,
+    payload
+  );
+  return response;
+}

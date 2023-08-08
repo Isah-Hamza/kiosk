@@ -13,10 +13,10 @@ import { createProductAction } from "../../store/slices/product/createProductSli
 import { useNavigate } from "react-router-dom";
 import ValidationError from "../../components/Error/ValidationError";
 import PageHeader from "../../shared/PageHeader";
-import { getSupplierAction } from "../../store/slices/product/getSupplierSlice";
 import CustomSelect from "../../components/CustomInput/Select";
 import { MdCall, MdEmail } from "react-icons/md";
 import customToast from "../../components/Toast/toastify";
+import { getSupplierAction } from "../../store/slices/product/getSupplierSlice";
 
 const CreateProduct = () => {
   const dispatch = useDispatch();
@@ -24,8 +24,6 @@ const CreateProduct = () => {
   const [showSupplierForm, setShowSupplierForm] = useState(false);
   const { loading } = useSelector((state) => state.create_product);
   const { data } = useSelector((state) => state.get_supplier);
-
-  console.log(data);
 
   const [type, setType] = useState(-1);
   const [suppliers, setSuppliers] = useState(data);
@@ -176,7 +174,7 @@ const CreateProduct = () => {
             <div className="border-b pb-7">
               <p className="font-semibold">Inventory Information</p>
               <p className="text-sm opacity-70">
-                All you need is a name and a price to create a product
+                All you need is a name and a price to create an inventory
               </p>
             </div>
             <form onSubmit={handleSubmit} className="mt-7 grid gap-5">
@@ -223,7 +221,7 @@ const CreateProduct = () => {
               <div>
                 <CustomInput
                   className={"!bg-bg"}
-                  label={"Product Name"}
+                  label={"Inventory Name"}
                   id={"product_name"}
                   {...getFieldProps("name")}
                 />
@@ -459,7 +457,7 @@ const CreateProduct = () => {
           </div>
           <div className="hidden lg:block w-full ">
             <p className="font-medium opacity-75">
-              You may also import your products in bulk by uploading a .xlxs
+              You may also import your inventory in bulk by uploading a .xlxs
               file in a specific format
             </p>
             <p className="text-sm opacity-70 mt-6">
@@ -467,7 +465,7 @@ const CreateProduct = () => {
               file and unlocking a world of possibilities for seamless content
               management and organization. You may click on the button below to
               download a sample csv file on how to prepare your own .csv file
-              for your products for upload.
+              for your inventory for upload.
             </p>
             <div className="grid grid-cols-2 gap-4 mt-6">
               <CustomButton
