@@ -24,7 +24,6 @@ const CreateProduct = () => {
   const [showSupplierForm, setShowSupplierForm] = useState(false);
   const { loading } = useSelector((state) => state.create_product);
   const { data } = useSelector((state) => state.get_supplier);
-  console.log(data);
 
   const [type, setType] = useState(-1);
   const [suppliers, setSuppliers] = useState(data);
@@ -55,44 +54,19 @@ const CreateProduct = () => {
       barCode: Yup.string().required("Barcode is required"),
       name: Yup.string().required("Name is required"),
       brand: Yup.string().required("Brand is required"),
-      image: Yup.string().required("Image URL is required"),
+      image: Yup.string(),
       description: Yup.string().required("Description is required"),
       supplierId: Yup.number(),
-      // supplier: Yup.object()
-      //   .shape({
-      //     name: Yup.string().required("Name is required"),
-      //     phone: Yup.string().required("Phone is required"),
-      //     email: Yup.string().required("Email is required"),
-      //     address: Yup.string().required("Address is required"),
-      //   })
-      //   .when("supplierId", {
-      //     is: (supplierId) => supplierId > 0,
-      //     then: () =>
-      //       Yup.object().shape({
-      //         name: Yup.string(),
-      //         phone: Yup.string(),
-      //         email: Yup.string(),
-      //         address: Yup.string(),
-      //       }),
-      //   }),
       sellingPrice: Yup.number()
         .typeError("Enter a valid number")
         .required("This field is required"),
       costPrice: Yup.number()
         .typeError("Enter a valid number")
         .required("Cost Price is required"),
-      tax: Yup.number()
-        .typeError("Enter a valid number")
-        .required("Tax is required"),
-      discount: Yup.number()
-        .typeError("Enter a valid number")
-        .required("Discount is required"),
-      unit: Yup.number()
-        .typeError("Enter a valid number")
-        .required("Units is required"),
-      stock: Yup.number()
-        .typeError("Enter a valid number")
-        .required("Stock is required"),
+      tax: Yup.number().typeError("Enter a valid number"),
+      discount: Yup.number().typeError("Enter a valid number"),
+      unit: Yup.number().typeError("Enter a valid number"),
+      stock: Yup.number().typeError("Enter a valid number"),
     }),
     onSubmit(values) {
       const valid = validateSupplier(values);
@@ -316,30 +290,32 @@ const CreateProduct = () => {
                   <ValidationError msg={errors.tax} />
                 )}
               </div>
-              <div className="grid grid-cols-2 gap-5 ">
-                <div>
-                  <CustomInput
-                    className={"!bg-bg"}
-                    label={"Units"}
-                    id={"units"}
-                    {...getFieldProps("unit")}
-                  />
-                  {touched.unit && errors.unit && (
-                    <ValidationError msg={errors.unit} />
-                  )}
+              {formik.values.inventoryType == 1 ? (
+                <div className="grid grid-cols-2 gap-5 ">
+                  <div>
+                    <CustomInput
+                      className={"!bg-bg"}
+                      label={"Units"}
+                      id={"units"}
+                      {...getFieldProps("unit")}
+                    />
+                    {touched.unit && errors.unit && (
+                      <ValidationError msg={errors.unit} />
+                    )}
+                  </div>
+                  <div>
+                    <CustomInput
+                      className={"!bg-bg"}
+                      label={"Stock Available"}
+                      id={"stock"}
+                      {...getFieldProps("stock")}
+                    />
+                    {touched.stock && errors.stock && (
+                      <ValidationError msg={errors.stock} />
+                    )}
+                  </div>
                 </div>
-                <div>
-                  <CustomInput
-                    className={"!bg-bg"}
-                    label={"Stock Available"}
-                    id={"stock"}
-                    {...getFieldProps("stock")}
-                  />
-                  {touched.stock && errors.stock && (
-                    <ValidationError msg={errors.stock} />
-                  )}
-                </div>
-              </div>
+              ) : null}
               <div className=" border-b pb-10 ">
                 <CustomInput
                   className={"!bg-bg"}
