@@ -234,7 +234,7 @@ const ProductDetails = () => {
                     </div>
                     <p className="mb-2.5">
                       <span className="font-medium opacity-70">Type: </span>
-                      {product.brand} Product
+                      {product.inventoryType == 1 ? "Product" : "Service"}
                     </p>
                     <p className="mb-2.5">
                       <span className="font-medium opacity-70">Tags: </span>
@@ -242,7 +242,7 @@ const ProductDetails = () => {
                     </p>
                     <p className="mb-2.5">
                       <span className="font-medium opacity-70">SKU: </span>
-                      No Sku
+                      {product.sku}
                     </p>
                   </div>
                 </div>
@@ -382,7 +382,9 @@ const ProductDetails = () => {
       {updateStock ? (
         <UpdateStock {...{ setUpdateStock, id, stock: product.stock }} />
       ) : null}
-      {editProduct ? <EditProduct {...{ setEditProduct }} /> : null}
+      {editProduct ? (
+        <EditProduct {...{ setEditProduct, product_id: id }} />
+      ) : null}
       {shareProduct ? <ShareProduct {...{ setShareProduct }} /> : null}
       {showDeleteModal ? (
         <DeleteProduct

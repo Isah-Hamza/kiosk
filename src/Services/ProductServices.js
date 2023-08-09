@@ -56,3 +56,8 @@ export async function DeleteProduct(product_id) {
   );
   return response;
 }
+
+export async function UpdateProduct({ product_id, payload }) {
+  const response = await api.patch("Product/" + product_id, payload);
+  return response;
+}
