@@ -12,15 +12,16 @@ import * as Yup from "yup";
 import { udpateProductAction } from "../../store/slices/product/updateProductSlice";
 import ValidationError from "../../components/Error/ValidationError";
 
-const EditProduct = ({ setEditProduct, product_id }) => {
+const EditProduct = ({ setEditProduct, product_id, product }) => {
   const { loading } = useSelector((state) => state.update_product);
   const dispatch = useDispatch();
 
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      sku: "",
-      description: "",
-      tax: 0,
+      sku: product.sku,
+      description: product.description,
+      tax: product.tax ?? 0,
     },
     validationSchema: Yup.object().shape({
       tax: Yup.number().typeError("Enter a valid number"),

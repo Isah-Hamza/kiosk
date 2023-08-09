@@ -383,7 +383,7 @@ const ProductDetails = () => {
         <UpdateStock {...{ setUpdateStock, id, stock: product.stock }} />
       ) : null}
       {editProduct ? (
-        <EditProduct {...{ setEditProduct, product_id: id }} />
+        <EditProduct {...{ setEditProduct, product, product_id: id }} />
       ) : null}
       {shareProduct ? <ShareProduct {...{ setShareProduct }} /> : null}
       {showDeleteModal ? (
