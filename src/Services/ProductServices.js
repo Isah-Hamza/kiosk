@@ -21,6 +21,11 @@ export async function GetProductById(product_id) {
   return response;
 }
 
+export async function GetProductActivities(product_id) {
+  const response = await api.get(`Product/${product_id}/productactivity`);
+  return response;
+}
+
 export async function UpdateSellingPrice({ product_id, payload }) {
   const response = await api.patch(
     `Product/${product_id}/update-sellingprice`,

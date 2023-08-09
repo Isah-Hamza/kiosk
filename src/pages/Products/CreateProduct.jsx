@@ -55,7 +55,7 @@ const CreateProduct = () => {
       name: Yup.string().required("Name is required"),
       brand: Yup.string().required("Brand is required"),
       image: Yup.string(),
-      description: Yup.string().required("Description is required"),
+      description: Yup.string(),
       supplierId: Yup.number(),
       sellingPrice: Yup.number()
         .typeError("Enter a valid number")
@@ -69,8 +69,6 @@ const CreateProduct = () => {
       stock: Yup.number().typeError("Enter a valid number"),
     }),
     onSubmit(values) {
-      const valid = validateSupplier(values);
-      if (valid == false) return;
       values.costPrice = Number(values.costPrice);
       values.discount = Number(values.discount);
       values.sellingPrice = Number(values.sellingPrice);
@@ -87,26 +85,6 @@ const CreateProduct = () => {
 
   const { errors, setFieldValue, getFieldProps, touched, handleSubmit } =
     formik;
-
-  function validateSupplier(values) {
-    if (values.supplierId == 0) {
-      if (
-        !values.supplier.email ||
-        !values.supplier.name ||
-        !values.supplier.address ||
-        !values.supplier.phone
-      ) {
-        customToast(
-          "Either select a supplier or register a new one with valid details",
-          true
-        );
-        return false;
-      }
-    } else {
-      values.supplier = {};
-      return true;
-    }
-  }
 
   const handleChangeSupplier = (value) =>
     setFieldValue("supplierId", Number(value));
@@ -335,20 +313,22 @@ const CreateProduct = () => {
                     className="z-10 cursor-pointer absolute right-1 -top-.5 text-sm text-primary font-semibold"
                   >
                     {showSupplierForm
-                      ? "Close Supplier Form"
+                      ? "Choose from saved suppliers"
                       : "Register New Supplier"}
                   </button>
-                  <CustomSelect
-                    emptyMsg={"No saved supplier yet. Create one"}
-                    options={suppliers}
-                    label={"Select Supplier"}
-                    className={"!bg-bg"}
-                    onChange={handleChangeSupplier}
-                  />
+                  {!showSupplierForm ? (
+                    <CustomSelect
+                      emptyMsg={"No saved supplier yet. Create one"}
+                      options={suppliers}
+                      label={"Select Supplier"}
+                      className={"!bg-bg"}
+                      onChange={handleChangeSupplier}
+                    />
+                  ) : null}
                 </div>
                 {showSupplierForm ? (
                   <>
-                    <div>
+                    <div className="-mt-5">
                       <CustomInput
                         className={"!bg-bg"}
                         label={"Supplier Name *"}

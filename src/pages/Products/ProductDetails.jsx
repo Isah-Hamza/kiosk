@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { udpateSellingPriceAction } from "../../store/slices/product/updateSellingPriceSlice";
 import { udpateCostPriceAction } from "../../store/slices/product/updateCostPriceSlice";
 import { getProductAction } from "../../store/slices/product/getProductSlice";
+import { getProductActivityAction } from "../../store/slices/product/getProductActivitySlice";
 import { deleteProductAction } from "../../store/slices/product/deleteProductSlice";
 import DeleteProduct from "./DeleteProduct";
 
@@ -36,6 +37,10 @@ const ProductDetails = () => {
   const { data: product, loading: loading_product } = useSelector(
     (state) => state.get_product
   );
+  const { data: activities, loading: activityLoading } = useSelector(
+    (state) => state.get_product_activities
+  );
+
   const [updateStock, setUpdateStock] = useState(false);
   const [editProduct, setEditProduct] = useState(false);
   const [shareProduct, setShareProduct] = useState(false);
@@ -49,25 +54,6 @@ const ProductDetails = () => {
   const {
     data: { id },
   } = useLocation().state;
-  const activityLoading = false;
-  const activities = [
-    {
-      title: "Product Created",
-      createdDate: "07 Aug, 2023",
-      user: {
-        firstName: "Isah",
-        lastName: "Hamza",
-      },
-    },
-    {
-      title: "Stock Updated",
-      createdDate: "07 Aug, 2023",
-      user: {
-        firstName: "John",
-        lastName: "Doe",
-      },
-    },
-  ];
 
   const [sPrice, setSPrice] = useState(product?.sellingPrice);
   const [cPrice, setCPrice] = useState(product?.costPrice);
@@ -99,6 +85,10 @@ const ProductDetails = () => {
 
   useEffect(() => {
     dispatch(getProductAction(id));
+  }, []);
+
+  useEffect(() => {
+    dispatch(getProductActivityAction(id));
   }, []);
 
   return (
@@ -346,52 +336,45 @@ const ProductDetails = () => {
                   </div>
                 ) : (
                   <>
-                    {activities?.length ? (
+                    {!activityLoading && activities.data?.length ? (
                       <div>
-                        <div className="mt-5 pl-2">
-                          {activities?.map((note, idx) => (
+                        <div className="mt-2 pl-2">
+                          {activities.data?.map((note, idx) => (
                             <div
                               key={idx}
-                              className="relative p-5 pb-3 border-l"
+                              className="relative p-5 pt-2 pb-3 border-l"
                             >
-                              <p className="text-sm font-semibold text-primary">
-                                {note?.title} on{" "}
-                                {moment(note?.createdDate).format("lll")}
+                              <p className="text-sm ">
+                                <span className="font-medium first-letter:capitalize">
+                                  {note?.action || "No description."}
+                                </span>{" "}
+                                on {moment(note?.createdDate).format("lll")}
                               </p>
                               <p className="mt-0">{note?.body}</p>
-                              <p className="mt-2">
-                                <span className="font-semibold">By </span>{" "}
-                                {note?.user?.firstName} {note?.user?.lastName}
+                              <p className="mt-1 text-sm italic">
+                                <span className="font-semibold text-xs">
+                                  by:{" "}
+                                </span>{" "}
+                                {note?.performedBy?.firstName}{" "}
+                                {note?.performedBy?.lastName}
                               </p>
-                              <div className="absolute -left-[6px] top-[26px] h-2.5 w-2.5 rounded-full bg-primary"></div>
+                              <div className="absolute -left-[6px] top-[14px] h-2.5 w-2.5 rounded-full bg-primary"></div>
                             </div>
                           ))}
                         </div>
                       </div>
                     ) : (
-                      // <div className="flex  my-3 pt-7 flex-col items-center justify-center text-center pb-10">
-                      //   <img className="w-40" src={empty} alt="empty" />
-                      //   <p>
-                      //     No activities associated with this <br /> workorder at
-                      //     the minute.
-                      //   </p>
-                      // </div>
-                      "Nothing here"
+                      <div className="flex  my-3 pt-7 flex-col items-center justify-center text-center pb-10">
+                        {/* <img className="w-40" src={empty} alt="empty" /> */}
+                        <p>
+                          No activities for this product at the minute. Hit the
+                          refresh button to check udpate.
+                        </p>
+                      </div>
                     )}
                   </>
                 )}
               </div>
-              {!activityLoading && (
-                <div className="flex w-full justify-end">
-                  <button
-                    // disabled={workOrder?.workOrderStepType.value === 5}
-                    // onClick={() => setAddComment(true)}
-                    className="disabled:bg-opacity-75 text-white text-sm bg-primary px-5 py-2 rounded mt-5 ml-auto"
-                  >
-                    Add Comment{" "}
-                  </button>
-                </div>
-              )}
             </div>
           </div>
         </div>
@@ -402,7 +385,9 @@ const ProductDetails = () => {
       {editProduct ? <EditProduct {...{ setEditProduct }} /> : null}
       {shareProduct ? <ShareProduct {...{ setShareProduct }} /> : null}
       {showDeleteModal ? (
-        <DeleteProduct {...{ handleClose: toggleShowDeleteModal,  }} />
+        <DeleteProduct
+          {...{ handleClose: toggleShowDeleteModal, handleDelete }}
+        />
       ) : null}
     </AppLayoutNew>
   );

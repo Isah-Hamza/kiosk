@@ -42,8 +42,6 @@ const UpdateStock = ({ setUpdateStock, id, stock }) => {
       supplierId: Yup.number(),
     }),
     onSubmit(values) {
-      const valid = validateSupplier(values);
-      if (valid == false) return;
       values.unit = Number(values.unit);
       dispatch(
         udpateStockAction({
@@ -123,12 +121,17 @@ const UpdateStock = ({ setUpdateStock, id, stock }) => {
           Available Stock: <span className="font-medium">{stock}</span>
         </p>
         <div className="grid grid-cols-2 gap-5 mt-5">
-          <CustomInput
-            {...getFieldProps("unit")}
-            className={"!bg-bg !py-3"}
-            label={"Units"}
-            id={"unit"}
-          />{" "}
+          <div>
+            <CustomInput
+              {...getFieldProps("unit")}
+              className={"!bg-bg !py-3"}
+              label={"Units"}
+              id={"unit"}
+            />{" "}
+            {touched.unit && errors.unit && (
+              <ValidationError msg={errors.unit} />
+            )}
+          </div>
           <CustomInput
             className={"!bg-bg !py-3"}
             label={"Total Stock"}
@@ -145,20 +148,22 @@ const UpdateStock = ({ setUpdateStock, id, stock }) => {
               className="z-10 cursor-pointer absolute right-1 -top-.5 text-sm text-primary font-semibold"
             >
               {showSupplierForm
-                ? "Close Supplier Form"
+                ? "Choose From Saved Suppliers"
                 : "Register New Supplier"}
             </button>
-            <CustomSelect
-              emptyMsg={"No saved supplier yet. Create one"}
-              options={suppliers}
-              label={"Select Supplier"}
-              className={"!bg-bg"}
-              onChange={handleChangeSupplier}
-            />
+            {!showSupplierForm ? (
+              <CustomSelect
+                emptyMsg={"No saved supplier yet. Create one"}
+                options={suppliers}
+                label={"Select Supplier"}
+                className={"!bg-bg"}
+                onChange={handleChangeSupplier}
+              />
+            ) : null}
           </div>
           {showSupplierForm ? (
             <>
-              <div>
+              <div className="-mt-5">
                 <CustomInput
                   className={"!bg-bg"}
                   label={"Supplier Name *"}
