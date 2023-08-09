@@ -67,9 +67,19 @@ const EditProduct = ({ setEditProduct, product_id }) => {
               </div>
             </div>
             <div className="mt-7 grid gap-4">
-              <CustomInput className={"!bg-bg"} label={"SKU"} id={"sku"} />
+              <CustomInput
+                {...getFieldProps("sku")}
+                className={"!bg-bg"}
+                label={"SKU"}
+                id={"sku"}
+              />
               <div>
-                <CustomInput className={"!bg-bg"} label={"Tax"} id={"tax"} />
+                <CustomInput
+                  {...getFieldProps("tax")}
+                  className={"!bg-bg"}
+                  label={"Tax"}
+                  id={"tax"}
+                />
                 {touched.tax && errors.tax && (
                   <ValidationError msg={errors.tax} />
                 )}
