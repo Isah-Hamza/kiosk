@@ -135,23 +135,19 @@ const AppLayoutNew = ({ children, noHeader }) => {
             {sidebarElements.map((item, idx) => (
               <li
                 key={idx}
-                className={`items-center text-sm font-medium opacity-70 pl-8 pr-5 py-3 hover:opacity-100 hover:text-primary cursor-pointer transition-all duration-300 ease-in-out
+                className={`items-center text-sm font-medium opacity-70 pl-6 pr-5 py-3.5 hover:opacity-100 hover:text-primary cursor-pointer transition-all duration-300 ease-in-out
                 ${item.hasSubMenu ? "grid" : "flex"}
                 ${item.hasSubMenu && openSubMenu === idx ? "active-link" : ""}`}
+                onClick={() => {
+                  if (!item.hasSubMenu) {
+                    setSidebarOpen(false);
+                  }
+                  setTimeout(() => {
+                    item.hasSubMenu ? toggleSubMenu(idx) : navigate(item.path);
+                  }, 1);
+                }}
               >
-                <div
-                  className="flex justify-between items-center"
-                  onClick={() => {
-                    if (!item.hasSubMenu) {
-                      setSidebarOpen(false);
-                    }
-                    setTimeout(() => {
-                      item.hasSubMenu
-                        ? toggleSubMenu(idx)
-                        : navigate(item.path);
-                    }, 1);
-                  }}
-                >
+                <div className="flex justify-between items-center">
                   <div className="flex gap-3 items-center font-medium">
                     <span>{item.icon}</span>
                     <span className="whitespace-nowrap">{item.name}</span>
@@ -191,7 +187,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
               <Link
                 to={item.path}
                 key={idx}
-                className={`text-black/80 text-sm mb-1 px-7 py-1.5 flex gap-2.5 items-center hover:font-semibold hover:bg-slate-200 ${"hover:text-primary"} cursor-pointer`}
+                className={`text-black/80 text-sm mb-1 px-6 py-2 flex gap-2.5 items-center hover:font-semibold hover:bg-slate-200 ${"hover:text-primary"} cursor-pointer`}
               >
                 {item.title}
               </Link>
