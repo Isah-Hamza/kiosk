@@ -70,26 +70,6 @@ const UpdateStock = ({ setUpdateStock, id, stock }) => {
     setShowSupplierForm(!showSupplierForm);
   };
 
-  function validateSupplier(values) {
-    if (values.supplierId == 0) {
-      if (
-        !values.supplier.email ||
-        !values.supplier.name ||
-        !values.supplier.address ||
-        !values.supplier.phone
-      ) {
-        customToast(
-          "Either select a supplier or register a new one with valid details",
-          true
-        );
-        return false;
-      }
-    } else {
-      values.supplier = {};
-      return true;
-    }
-  }
-
   useEffect(() => {
     dispatch(getSupplierAction());
   }, []);

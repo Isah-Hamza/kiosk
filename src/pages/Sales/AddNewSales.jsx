@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AppLayoutNew from "../../layout/AppLayoutNew";
 import { BsTrash2Fill } from "react-icons/bs";
 import CustomInput from "../../components/CustomInput";
@@ -10,6 +10,15 @@ import { FiPlus } from "react-icons/fi";
 import { CgClose } from "react-icons/cg";
 import { BiCheck } from "react-icons/bi";
 import PageHeader from "../../shared/PageHeader";
+import { getInventoryAction } from "../../store/slices/product/getInventorySlice";
+import { useDispatch, useSelector } from "react-redux";
+import { ImSpinner2 } from "react-icons/im";
+import ValidationError from "../../components/Error/ValidationError";
+import { FaAddressBook, FaUser } from "react-icons/fa";
+import { MdCall, MdEmail } from "react-icons/md";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { getCustomerAction } from "../../store/slices/product/getCustomerSlice";
 
 const Row = ({ item, id, handleAdd }) => {
   const [qtyToBuy, setQtyToBuy] = useState(1);
@@ -54,9 +63,77 @@ const Row = ({ item, id, handleAdd }) => {
 };
 
 const NewSales = () => {
+  const dispatch = useDispatch();
+  const nameRef = useRef(null);
+  const qtyRef = useRef(null);
+  const totalRef = useRef(null);
+  const amountRef = useRef(null);
+
+  const { data, loading } = useSelector((state) => state.get_inventory);
+  const [showSupplierForm, setShowSupplierForm] = useState(false);
+  const { data: customers } = useSelector((state) => state.get_customer);
+
+  const [suppliers, setSuppliers] = useState(customers);
   const [addMore, setAddMore] = useState(false);
   const [setselectFromStore, setSetselectFromStore] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const formik = useFormik({
+    initialValues: {
+      // barCode: "test_code",
+      // name: "",
+      // brand: "",
+      // description: "",
+      // sellingPrice: "",
+      // costPrice: "",
+      // tax: "",
+      // discount: "",
+      // unit: "",
+      // image: "",
+      // inventoryType: 1,
+      // stock: "",
+      customerId: 0,
+      customer: {
+        name: "",
+        phone: "",
+        email: "",
+        address: "",
+      },
+    },
+    validationSchema: Yup.object().shape({
+      // inventoryType: Yup.number().required("Please select product or service"),
+      // barCode: Yup.string().required("Barcode is required"),
+      // name: Yup.string().required("Name is required"),
+      // brand: Yup.string().required("Brand is required"),
+      // image: Yup.string(),
+      // description: Yup.string(),
+      customerId: Yup.number(),
+      // sellingPrice: Yup.number()
+      //   .typeError("Enter a valid number")
+      //   .required("This field is required"),
+      // costPrice: Yup.number()
+      //   .typeError("Enter a valid number")
+      //   .required("Cost Price is required"),
+      // tax: Yup.number().typeError("Enter a valid number"),
+      // discount: Yup.number().typeError("Enter a valid number"),
+      // unit: Yup.number().typeError("Enter a valid number"),
+      // stock: Yup.number().typeError("Enter a valid number"),
+    }),
+    onSubmit(values) {
+      console.log(values);
+      // dispatch(createProductAction({ data: [values], navigate }));
+    },
+  });
+
+  const { errors, setFieldValue, getFieldProps, touched, handleSubmit } =
+    formik;
+
+  const toggleShowSupplierForm = () => {
+    setShowSupplierForm(!showSupplierForm);
+  };
+
+  const handleChangeSupplier = (value) =>
+    setFieldValue("customerId", Number(value));
 
   const [shop, setShop] = useState([
     {
@@ -78,13 +155,6 @@ const NewSales = () => {
   const [searchedProducts, setSearchedProducts] = useState([]);
 
   let total_sum = 0;
-
-  const customers = [
-    { label: "John Smith 2345", value: "1" },
-    { label: "Ridiculous Customer", value: "1" },
-    { label: "Testing Customer", value: "2" },
-    { label: "Digital Customer", value: "3" },
-  ];
 
   const payment_type = [
     { label: "Select One", value: "0" },
@@ -142,6 +212,11 @@ const NewSales = () => {
       total_amount: Number(item.price) * Number(qtyToBuy),
     };
 
+    if (!item.name || !item.price || !item.qtyToBuy) {
+      return;
+    }
+
+    setSearchTerm("");
     setRecords((prev) => [...prev, newItem]);
 
     setShop(
@@ -151,14 +226,26 @@ const NewSales = () => {
             ...item,
             stock_available: item.stock_available - newItem.qty,
           };
-          console.log("obj", obj);
           return obj;
         } else {
-          console.log("else");
           return item;
         }
       })
     );
+  };
+
+  const handleSelectProduct = (item) => {
+    const newItem = {
+      amount: item.sellingPrice,
+      qty: 1,
+      total_amount: Number(item.sellingPrice) * 1,
+      name: item.name,
+      productId: item.id,
+      description: item.description,
+    };
+    console.log(newItem);
+    setSearchTerm("");
+    setNewRecord(newItem);
   };
 
   useEffect(() => {
@@ -177,263 +264,45 @@ const NewSales = () => {
     }
   }, [searchTerm, shop]);
 
+  useEffect(() => {
+    if (searchTerm == "") setSearchedProducts(data.data);
+    else {
+      const searchRes = data.data?.filter((item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setSearchedProducts(searchRes);
+    }
+  }, [searchTerm, data]);
+
+  useEffect(() => {
+    const formatted = customers.map((item, idx) => ({
+      value: idx + 1,
+      label: item.name,
+    }));
+    formatted.unshift({ value: null, label: "Choose One" });
+    setSuppliers(formatted);
+  }, [customers]);
+
+  useEffect(() => {
+    dispatch(getInventoryAction());
+    dispatch(getCustomerAction());
+  }, []);
+
   return (
     <AppLayoutNew noHeader={true}>
-      <div className="mx-4 lg:mx-7 my-10 min-w-[300px]">
-        <PageHeader title={"Record New Sales"} />
-        <div className="grid grid-cols-[1fr,1.4fr] sm:grid-cols-2 lg:hidden max-w-md mb-5  gap-4 mt-8">
-          <CustomButton
-            className={
-              " !bg-[rgba(0,158,170,0.3)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]!py-2.5 rounded-lg"
-            }
-          >
-            Import Sales
-          </CustomButton>
-          <CustomButton
-            className={
-              "!bg-transparent border !px-3 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg"
-            }
-          >
-            Download Sample
-          </CustomButton>
+      {loading ? (
+        <div className="flex h-screen items-center gap-1 justify-center text-sm p-2 py-10 font-medium">
+          <ImSpinner2 className="animate-spin" />
+          <p>Loading...</p>
         </div>
-        <div className="grid lg:grid-cols-[3.5fr,2fr] gap-8">
-          <div className=" px-4 py-6 !sm:p-6 bg-dimmed_white rounded-xl">
-            <div className="border-b pb-5">
-              <p className="text-sm font-medium opacity-70">Total Sum</p>
-              <p className="font-bold text-2xl text-primary">
-                ₦{total_sum.toFixed(2)}
-              </p>
-            </div>
-            <div className="grid grid-cols-1 gap-5">
-              <div className=" pt-3 bg-dimmed_white rounded-xl min-h-[200px]">
-                <p className="">Sold Products</p>
-                <div className="overflow-x-hidden">
-                  <table className="text-sm w-full table-auto border-separate border-spacing-y-3 ">
-                    <thead className="bg-[#f3f4f5] shadow">
-                      <tr className="!text-left !opacity-70 !font-semibold bg-[#f3f4f5]">
-                        <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
-                          Name
-                        </th>
-                        <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
-                          Quantity
-                        </th>
-                        <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
-                          Amount{" "}
-                          <span className=" sm:inline hidden">/ Item</span>
-                        </th>
-                        <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
-                          Total{" "}
-                          <span className=" sm:inline hidden "> Cost</span>
-                        </th>
-                        <th className="text-xs pl-3 w-[25%] py-2 !font-semibold"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {records.map((item, idx) => (
-                        <tr
-                          className="pt-1 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-1"
-                          key={idx}
-                        >
-                          <td className="py-2 text-xs pl-3">{item.name}</td>
-                          <td className="py-2 text-xs pl-7">{item.qty}</td>
-                          <td className="py-2 text-xs pl-3">
-                            ₦{Number(item.amount).toFixed(2)}
-                          </td>
-                          <td className="py-2 text-xs pl-3">
-                            ₦{Number(item.total_amount).toFixed(2)}
-                          </td>
-
-                          <td className="py-2 text-xs">
-                            <div
-                              onClick={() => handleDelete(idx, item)}
-                              className="bg-primaryColor-900/80 text-red-500 flex items-center gap-1.5
-                     rounded cursor-pointer px-4 py-1 w-fit"
-                            >
-                              {" "}
-                              <BsTrash2Fill color="" />
-                              <span className="hidden sm:block">Remove</span>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                      {
-                        <>
-                          {addMore ? (
-                            <tr>
-                              <td>
-                                <input
-                                  onChange={(e) =>
-                                    setNewRecord((prev) => ({
-                                      ...prev,
-                                      name: e.target.value,
-                                    }))
-                                  }
-                                  className="w-[90%] border outline-none text-xs px-2 py-1"
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  onChange={(e) =>
-                                    setNewRecord((prev) => ({
-                                      ...prev,
-                                      qty: e.target.value,
-                                      total_amount: prev.amount
-                                        ? Number(e.target.value) *
-                                          Number(prev.amount)
-                                        : prev.total_amount,
-                                    }))
-                                  }
-                                  className="w-[90%] border outline-none text-xs px-2 py-1 "
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  disabled={!newRecord.qty}
-                                  onChange={(e) =>
-                                    setNewRecord((prev) => ({
-                                      ...prev,
-                                      amount: e.target.value,
-                                      total_amount:
-                                        Number(e.target.value) *
-                                        Number(prev.qty),
-                                    }))
-                                  }
-                                  className="w-[90%] border outline-none text-xs px-2 py-1 "
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  value={newRecord.total_amount}
-                                  disabled
-                                  className="w-[90%] border outline-none text-xs px-2 py-1 "
-                                />
-                              </td>
-                              <td className="flex justify-center items-center gap-2 sm:gap-3">
-                                <CgClose
-                                  className="cursor-pointer"
-                                  onClick={() => {
-                                    setNewRecord({ total_amount: "" });
-                                    setAddMore(false);
-                                  }}
-                                  color="red"
-                                  size={20}
-                                />
-                                <BiCheck
-                                  className="cursor-pointer"
-                                  onClick={() => {
-                                    setRecords((prev) => [...prev, newRecord]);
-                                    setNewRecord({ total_amount: "" });
-                                    setAddMore(false);
-                                  }}
-                                  color="green"
-                                  size={30}
-                                />
-                              </td>
-                            </tr>
-                          ) : null}
-                        </>
-                      }
-                    </tbody>
-                  </table>
-                  {records.length <= 0 && !addMore ? (
-                    <div className="pl-3 opacity-80 text-sm font-medium">
-                      {" "}
-                      No product(s) selected yet.
-                    </div>
-                  ) : null}
-                </div>
-                <div className="grid grid-cols-[1fr,1.4fr] sm:grid-cols-2 gap-4 mt-8">
-                  <CustomButton
-                    clickHandler={() => setAddMore(!addMore)}
-                    className={
-                      " !bg-[rgba(0,158,170,0.3)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-1.5 rounded-lg"
-                    }
-                  >
-                    Add More
-                  </CustomButton>
-                  <CustomButton
-                    clickHandler={() => setSetselectFromStore(true)}
-                    className={
-                      "whitespace-nowrap !bg-transparent border !px-3 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-1.5 rounded-lg"
-                    }
-                  >
-                    Select From Stock
-                  </CustomButton>
-                </div>
-              </div>
-              <div className="mt-7 grid gap-5">
-                <CustomSelect
-                  className={"!bg-bg"}
-                  options={customers}
-                  label={"Find / Select Customer"}
-                />
-                <div className="grid sm:grid-cols-2 gap-5 border-b pb-7">
-                  <CustomSelect
-                    className={"!bg-bg"}
-                    options={payment_type}
-                    label={"Select Payment Type"}
-                  />
-                  <CustomInput
-                    className={"!bg-bg"}
-                    label={"Sales Date"}
-                    id={"product_name"}
-                    type="date"
-                  />
-                </div>
-                <div className=" border-b pb-6">
-                  <CustomSelect
-                    className={"!bg-bg"}
-                    options={payment_status}
-                    label={"Payment Status"}
-                  />
-                </div>
-                <div className=" border-b pb-6 -mt-1">
-                  <label htmlFor="" className="text-sm">
-                    Discounted Price (if applicable)
-                  </label>
-                  <div className="flex-1 relative">
-                    <div className="span absolute left-3 top-4 text-lg">
-                      <PiCurrencyNgnLight />{" "}
-                    </div>
-                    <input
-                      type="text"
-                      className="!bg-bg w-full rounded border outline-none h-full px-5 pl-8 py-[14px] text-sm placeholder:text-sm"
-                    />
-                  </div>
-                </div>
-                <div className=" border-b pb-6">
-                  <CustomSelect
-                    className={"!bg-bg"}
-                    options={sales_medium}
-                    label={"Sales Medium / Channel"}
-                  />
-                </div>
-
-                <div>
-                  <CustomButton className=" ml-auto mt-2 text-white text-sm flex items-center justify-end gap-2 !px-10 !py-3 rounded-md">
-                    Record Sale
-                  </CustomButton>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="hidden lg:block w-full ">
-            <p className="font-medium opacity-75">
-              Did you made bulk sales? You can save stress by uploading a .xlxs
-              or .csv file in a specific format.
-            </p>
-            <p className="text-sm opacity-70 mt-7">
-              Streamline data integration by effortlessly importing your CSV
-              file and unlocking a world of possibilities for seamless content
-              management and organization. You may click on the button below to
-              download a sample csv file on how to prepare your own .csv file
-              for your sales for upload.
-            </p>
-            <div className="grid grid-cols-2 gap-4 mt-8">
+      ) : (
+        <>
+          <div className="mx-4 lg:mx-7 my-10 min-w-[300px]">
+            <PageHeader title={"Record New Sales"} />
+            <div className="grid grid-cols-[1fr,1.4fr] sm:grid-cols-2 lg:hidden max-w-md mb-5  gap-4 mt-8">
               <CustomButton
                 className={
-                  " !bg-[rgba(0,158,170,0.3)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-2.5 rounded-lg"
+                  " !bg-[rgba(0,158,170,0.3)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]!py-2.5 rounded-lg"
                 }
               >
                 Import Sales
@@ -446,71 +315,446 @@ const NewSales = () => {
                 Download Sample
               </CustomButton>
             </div>
-          </div>
-        </div>
-      </div>
-      {setselectFromStore ? (
-        <div className=" fixed inset-0 bg-black/60 overflow-hidden grid place-content-center z-[10001]">
-          <div className="p-5 min-h-[200px] bg-white rounded-xl max-w-[90vw] w-[500px]">
-            <div className="flex justify-between items-center mb-2">
-              <p className="font-semibold text-primary capitalize ">
-                From Your Shop
-              </p>
-              <button
-                onClick={() => {
-                  setSearchTerm("");
-                  setSetselectFromStore(false);
-                }}
-              >
-                <FiPlus className="rotate-45" size={22} />
-              </button>
-            </div>
-            {shop.length ? (
-              <input
-                type="text"
-                name="search"
-                id="search"
-                className="w-full rounded-md border outline-none px-3 py-2 text-sm mt-3"
-                placeholder="Search product by name"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            ) : null}
-            <div className="overflow-x-hidden">
-              <table className="text-sm w-full table-auto border-separate border-spacing-y-3 ">
-                <thead className="bg-[#f3f4f5] shadow">
-                  <tr className="!text-left !opacity-70 !font-semibold bg-[#f3f4f5]">
-                    <th className="text-xs pl-3 w-[35%] py-2 !font-semibold">
-                      Name
-                    </th>
-                    <th className="text-xs pl-3 w-[25%] py-2 !font-semibold whitespace-nowrap">
-                      Stock Rem.
-                    </th>
-                    <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
-                      Price <span className=" sm:inline hidden"></span>
-                    </th>
-                    <th className="text-xs pl-3 w-[25%] py-2 !font-semibold whitespace-nowrap">
-                      Qty Sold
-                    </th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {searchedProducts.map((item, idx) => (
-                    <Row key={idx} id={idx} item={item} handleAdd={handleAdd} />
-                  ))}
-                </tbody>
-              </table>
-              {shop.length <= 0 && !addMore ? (
-                <div className="pl-3 opacity-80 text-sm font-medium">
-                  {" "}
-                  Sorry. You don't have product in your shop.
+            <div className="grid lg:grid-cols-[3.5fr,2fr] gap-8">
+              <div className=" px-4 py-6 !sm:p-6 bg-dimmed_white rounded-xl">
+                <div className="border-b pb-5">
+                  <p className="text-sm font-medium opacity-70">Total Sum</p>
+                  <p className="font-bold text-2xl text-primary">
+                    ₦{total_sum.toFixed(2)}
+                  </p>
                 </div>
-              ) : null}
+                <div className="grid grid-cols-1 gap-5">
+                  <div className=" pt-3 bg-dimmed_white rounded-xl min-h-[200px]">
+                    <p className="">Sold Products</p>
+                    <div className="">
+                      <table className="text-sm w-full table-auto border-separate border-spacing-y-3 ">
+                        <thead className="bg-[#f3f4f5] shadow">
+                          <tr className="!text-left !opacity-70 !font-semibold bg-[#f3f4f5]">
+                            <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
+                              Name
+                            </th>
+                            <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
+                              Quantity
+                            </th>
+                            <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
+                              Amount{" "}
+                              <span className=" sm:inline hidden">/ Item</span>
+                            </th>
+                            <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
+                              Total{" "}
+                              <span className=" sm:inline hidden "> Cost</span>
+                            </th>
+                            <th className="text-xs pl-3 w-[25%] py-2 !font-semibold"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {records.map((item, idx) => (
+                            <tr
+                              className="pt-1 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-1"
+                              key={idx}
+                            >
+                              <td className="py-2 text-xs pl-3 ">
+                                {item.name}
+                              </td>
+                              <td className="py-2 text-xs pl-7">{item.qty}</td>
+                              <td className="py-2 text-xs pl-3">
+                                ₦{Number(item.amount).toFixed(2)}
+                              </td>
+                              <td className="py-2 text-xs pl-3">
+                                ₦{Number(item.total_amount).toFixed(2)}
+                              </td>
+
+                              <td className="py-2 text-xs">
+                                <div
+                                  onClick={() => handleDelete(idx, item)}
+                                  className="bg-primaryColor-900/80 text-red-500 flex items-center gap-1.5
+                     rounded cursor-pointer px-4 py-1 w-fit"
+                                >
+                                  {" "}
+                                  <BsTrash2Fill color="" />
+                                  <span className="hidden sm:block">
+                                    Remove
+                                  </span>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                          {
+                            <>
+                              {addMore ? (
+                                <tr>
+                                  <td className="relative">
+                                    <input
+                                      ref={nameRef}
+                                      value={newRecord.name}
+                                      onChange={(e) => {
+                                        setSearchTerm(e.target.value);
+                                        setNewRecord((prev) => ({
+                                          ...prev,
+                                          name: e.target.value,
+                                        }));
+                                      }}
+                                      className="name w-[90%] border outline-none text-xs px-2 py-1"
+                                    />
+                                    {searchTerm && searchedProducts.length ? (
+                                      <div
+                                        className={`z-10 absolute top-10 min-w-full bg-white shadow text-sm text-black rounded-md py-3 `}
+                                      >
+                                        {searchedProducts?.map((item, idx) => (
+                                          <button
+                                            onClick={() =>
+                                              handleSelectProduct(item)
+                                            }
+                                            className="text-left w-full py-2 px-3 hover:bg-slate-100 whitespace-nowrap"
+                                            key={idx}
+                                          >
+                                            <p>{item.name}</p>
+                                          </button>
+                                        ))}
+                                      </div>
+                                    ) : null}
+                                  </td>
+                                  <td>
+                                    <input
+                                      ref={qtyRef}
+                                      value={newRecord.qty}
+                                      onChange={(e) =>
+                                        setNewRecord((prev) => ({
+                                          ...prev,
+                                          qty: e.target.value,
+                                          total_amount: prev.amount
+                                            ? Number(e.target.value) *
+                                              Number(prev.amount)
+                                            : prev.total_amount,
+                                        }))
+                                      }
+                                      className="w-[90%] border outline-none text-xs px-2 py-1 "
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      value={newRecord.amount}
+                                      ref={amountRef}
+                                      disabled={!newRecord.qty}
+                                      onChange={(e) =>
+                                        setNewRecord((prev) => ({
+                                          ...prev,
+                                          amount: e.target.value,
+                                          total_amount:
+                                            Number(e.target.value) *
+                                            Number(prev.qty),
+                                        }))
+                                      }
+                                      className="w-[90%] border outline-none text-xs px-2 py-1 "
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      ref={totalRef}
+                                      value={newRecord.total_amount}
+                                      disabled
+                                      className="w-[90%] border outline-none text-xs px-2 py-1 "
+                                    />
+                                  </td>
+                                  <td className="flex justify-center items-center gap-2 sm:gap-3">
+                                    <CgClose
+                                      className="cursor-pointer"
+                                      onClick={() => {
+                                        setNewRecord({ total_amount: "" });
+                                        setAddMore(false);
+                                      }}
+                                      color="red"
+                                      size={20}
+                                    />
+                                    <BiCheck
+                                      className="cursor-pointer"
+                                      onClick={() => {
+                                        setRecords((prev) => [
+                                          ...prev,
+                                          newRecord,
+                                        ]);
+                                        setNewRecord({ total_amount: "" });
+                                        setAddMore(false);
+                                      }}
+                                      color="green"
+                                      size={30}
+                                    />
+                                  </td>
+                                </tr>
+                              ) : null}
+                            </>
+                          }
+                        </tbody>
+                      </table>
+                      {records.length <= 0 && !addMore ? (
+                        <div className="pl-3 opacity-80 text-sm font-medium">
+                          {" "}
+                          No product(s) selected yet.
+                        </div>
+                      ) : null}
+                    </div>
+                    <div className="flex justify-end mt-8">
+                      <CustomButton
+                        clickHandler={() => setAddMore(!addMore)}
+                        className={
+                          " !bg-[rgba(0,158,170,0.3)] !px-7 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-1.5 rounded-lg"
+                        }
+                      >
+                        Add Products
+                      </CustomButton>
+                      {/* <CustomButton
+                        clickHandler={() => setSetselectFromStore(true)}
+                        className={
+                          "whitespace-nowrap !bg-transparent border !px-3 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-1.5 rounded-lg"
+                        }
+                      >
+                        Select From Stock
+                      </CustomButton> */}
+                    </div>
+                  </div>
+                  <div className="mt-7 grid gap-5">
+                    <div className="flex flex-col gap-5 border-b pb-10 mt-3">
+                      <div className="relative ">
+                        <button
+                          type="button"
+                          onClick={toggleShowSupplierForm}
+                          className="z-10 cursor-pointer absolute right-1 -top-.5 text-sm text-primary font-semibold"
+                        >
+                          {showSupplierForm
+                            ? "Choose from saved customers"
+                            : "Register New Customer"}
+                        </button>
+                        {!showSupplierForm ? (
+                          <CustomSelect
+                            emptyMsg={"No saved customers yet. Create one"}
+                            options={suppliers}
+                            label={"Select Customer"}
+                            className={"!bg-bg"}
+                            onChange={handleChangeSupplier}
+                          />
+                        ) : null}
+                      </div>
+                      {showSupplierForm ? (
+                        <>
+                          <div className="-mt-5">
+                            <CustomInput
+                              className={"!bg-bg"}
+                              label={"Customer Name *"}
+                              placeholder={"John Doe"}
+                              hasIcon
+                              // {...getFieldProps("supplier.name")}
+                              Icon={FaUser}
+                            />
+                            {/* {touched.supplier?.name &&
+                              errors.supplier?.name && (
+                                <ValidationError msg={errors.supplier?.name} />
+                              )} */}
+                          </div>
+                          <div className="grid sm:grid-cols-2 gap-5">
+                            <div>
+                              <CustomInput
+                                className={"!bg-bg"}
+                                label={"Customer Email *"}
+                                placeholder={"itshamzy@gmail.com"}
+                                hasIcon
+                                Icon={MdEmail}
+                                // {...getFieldProps("supplier.email")}
+                              />
+                              {/* {touched.supplier?.email &&
+                                errors.supplier?.email && (
+                                  <ValidationError
+                                    msg={errors.supplier?.email}
+                                  />
+                                )} */}
+                            </div>
+                            <div>
+                              <CustomInput
+                                className={"!bg-bg"}
+                                label={"Customer Phone *"}
+                                placeholder={"08123456789"}
+                                hasIcon
+                                Icon={MdCall}
+                                // {...getFieldProps("supplier.phone")}
+                              />
+                              {/* {touched.supplier?.phone &&
+                                errors.supplier?.phone && (
+                                  <ValidationError
+                                    msg={errors.supplier?.phone}
+                                  />
+                                )} */}
+                            </div>
+                          </div>
+                          <div>
+                            <CustomInput
+                              className={"!bg-bg"}
+                              label={"Customer Address *"}
+                              placeholder={
+                                "ABC Street Opposite XYZ Multipurpose Hall"
+                              }
+                              hasIcon
+                              // {...getFieldProps("supplier.address")}
+                              Icon={FaAddressBook}
+                            />
+                            {/* {touched.supplier?.address &&
+                              errors.supplier?.address && (
+                                <ValidationError
+                                  msg={errors.supplier?.address}
+                                />
+                              )} */}
+                          </div>{" "}
+                        </>
+                      ) : null}
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-5 border-b pb-7">
+                      <CustomSelect
+                        className={"!bg-bg"}
+                        options={payment_type}
+                        label={"Select Payment Type"}
+                      />
+                      <CustomInput
+                        className={"!bg-bg"}
+                        label={"Sales Date"}
+                        id={"product_name"}
+                        type="date"
+                      />
+                    </div>
+                    <div className=" border-b pb-6">
+                      <CustomSelect
+                        className={"!bg-bg"}
+                        options={payment_status}
+                        label={"Payment Status"}
+                      />
+                    </div>
+                    <div className=" border-b pb-6 -mt-1">
+                      <label htmlFor="" className="text-sm">
+                        Discounted Price (if applicable)
+                      </label>
+                      <div className="flex-1 relative">
+                        <div className="span absolute left-3 top-4 text-lg">
+                          <PiCurrencyNgnLight />{" "}
+                        </div>
+                        <input
+                          type="text"
+                          className="!bg-bg w-full rounded border outline-none h-full px-5 pl-8 py-[14px] text-sm placeholder:text-sm"
+                        />
+                      </div>
+                    </div>
+                    <div className=" border-b pb-6">
+                      <CustomSelect
+                        className={"!bg-bg"}
+                        options={sales_medium}
+                        label={"Sales Medium / Channel"}
+                      />
+                    </div>
+
+                    <div>
+                      <CustomButton className=" ml-auto mt-2 text-white text-sm flex items-center justify-end gap-2 !px-10 !py-3 rounded-md">
+                        Record Sale
+                      </CustomButton>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="hidden lg:block w-full ">
+                <p className="font-medium opacity-75">
+                  Did you made bulk sales? You can save stress by uploading a
+                  .xlxs or .csv file in a specific format.
+                </p>
+                <p className="text-sm opacity-70 mt-7">
+                  Streamline data integration by effortlessly importing your CSV
+                  file and unlocking a world of possibilities for seamless
+                  content management and organization. You may click on the
+                  button below to download a sample csv file on how to prepare
+                  your own .csv file for your sales for upload.
+                </p>
+                <div className="grid grid-cols-2 gap-4 mt-8">
+                  <CustomButton
+                    className={
+                      " !bg-[rgba(0,158,170,0.3)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-2.5 rounded-lg"
+                    }
+                  >
+                    Import Sales
+                  </CustomButton>
+                  <CustomButton
+                    className={
+                      "!bg-transparent border !px-3 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg"
+                    }
+                  >
+                    Download Sample
+                  </CustomButton>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      ) : null}
+          {setselectFromStore ? (
+            <div className=" fixed inset-0 bg-black/60 overflow-hidden grid place-content-center z-[10001]">
+              <div className="p-5 min-h-[200px] bg-white rounded-xl max-w-[90vw] w-[500px]">
+                <div className="flex justify-between items-center mb-2">
+                  <p className="font-semibold text-primary capitalize ">
+                    From Your Shop
+                  </p>
+                  <button
+                    onClick={() => {
+                      setSearchTerm("");
+                      setSetselectFromStore(false);
+                    }}
+                  >
+                    <FiPlus className="rotate-45" size={22} />
+                  </button>
+                </div>
+                {shop.length ? (
+                  <input
+                    type="text"
+                    name="search"
+                    id="search"
+                    className="w-full rounded-md border outline-none px-3 py-2 text-sm mt-3"
+                    placeholder="Search product by name"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                ) : null}
+                <div className="overflow-x-hidden">
+                  <table className="text-sm w-full table-auto border-separate border-spacing-y-3 ">
+                    <thead className="bg-[#f3f4f5] shadow">
+                      <tr className="!text-left !opacity-70 !font-semibold bg-[#f3f4f5]">
+                        <th className="text-xs pl-3 w-[35%] py-2 !font-semibold">
+                          Name
+                        </th>
+                        <th className="text-xs pl-3 w-[25%] py-2 !font-semibold whitespace-nowrap">
+                          Stock Rem.
+                        </th>
+                        <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
+                          Price <span className=" sm:inline hidden"></span>
+                        </th>
+                        <th className="text-xs pl-3 w-[25%] py-2 !font-semibold whitespace-nowrap">
+                          Qty Sold
+                        </th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {searchedProducts.map((item, idx) => (
+                        <Row
+                          key={idx}
+                          id={idx}
+                          item={item}
+                          handleAdd={handleAdd}
+                        />
+                      ))}
+                    </tbody>
+                  </table>
+                  {shop.length <= 0 && !addMore ? (
+                    <div className="pl-3 opacity-80 text-sm font-medium">
+                      {" "}
+                      Sorry. You don't have product in your shop.
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+          ) : null}
+        </>
+      )}
     </AppLayoutNew>
   );
 };

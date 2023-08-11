@@ -37,7 +37,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
       icon: <FiHome />,
     },
     {
-      name: "My Books",
+      name: "Book-kepping Mngmt.",
       path: null,
       icon: <BsCreditCard />,
       hasSubMenu: true,

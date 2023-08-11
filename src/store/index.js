@@ -23,6 +23,7 @@ import deleteProductSlice from "./slices/product/deleteProductSlice";
 import updateStockSlice from "./slices/product/updateStockSlice";
 import getProductActivitySlice from "./slices/product/getProductActivitySlice";
 import updateProductSlice from "./slices/product/updateProductSlice";
+import getCustomerSlice from "./slices/product/getCustomerSlice";
 
 const store = configureStore({
   reducer: {
@@ -43,6 +44,7 @@ const store = configureStore({
     create_product: createProductSlice,
     get_inventory: getInventorySlice,
     get_supplier: getSupplierSlice,
+    get_customer: getCustomerSlice,
     update_selling_price: updateSellingPriceSlice,
     update_cost_price: updateCostPriceSlice,
     get_product: getProductSlice,

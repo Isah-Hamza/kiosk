@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import { BsCloudArrowUp, BsPatchCheckFill } from "react-icons/bs";
 import CustomInput from "../../components/CustomInput";
-import { FaFileImage, FaImages, FaLuggageCart } from "react-icons/fa";
-import { PiCurrencyNgnLight } from "react-icons/pi";
 import CustomButton from "../../components/Buttons/CustomButton";
 import { FiPlus } from "react-icons/fi";
-import CustomSelect from "../../components/CustomInput/Select";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -85,37 +81,6 @@ const EditProduct = ({ setEditProduct, product_id, product }) => {
                   <ValidationError msg={errors.tax} />
                 )}
               </div>
-              {/* <div className="grid grid-cols-2 gap-5">
-                <div>
-                  <label htmlFor="" className="text-sm">
-                    Cost Price
-                  </label>
-                  <div className="flex-1 relative">
-                    <div className="span absolute left-3 top-4 text-lg">
-                      <PiCurrencyNgnLight />{" "}
-                    </div>
-                    <input
-                      type="text"
-                      className="!bg-bg w-full rounded border outline-none h-full px-5 pl-9 py-[14px] text-sm placeholder:text-sm"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="" className="text-sm">
-                    Selling Price
-                  </label>
-                  <div className="flex-1 relative">
-                    <div className="span absolute left-3 top-4 text-lg">
-                      <PiCurrencyNgnLight />{" "}
-                    </div>
-                    <input
-                      type="text"
-                      className="!bg-bg w-full rounded border outline-none h-full px-5 pl-9 py-[14px] text-sm placeholder:text-sm"
-                    />
-                  </div>
-                </div>
-              </div> */}
-
               <div className="">
                 <label htmlFor="" className="text-sm">
                   Description

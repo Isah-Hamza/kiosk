@@ -16,6 +16,11 @@ export async function GetSuppliers() {
   return response;
 }
 
+export async function GetCustomers() {
+  const response = await api.get(ApiEndPoints.all_customers);
+  return response;
+}
+
 export async function GetProductById(product_id) {
   const response = await api.get(`${ApiEndPoints.product_by_id}/${product_id}`);
   return response;

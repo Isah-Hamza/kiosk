@@ -26,10 +26,13 @@ const ApiEndPoints = {
   // PRODUCT
   create_product: "Product/create-inventory",
   all_inventory: "Product/all-inventory",
-  all_suppliers: "Product/all-suppliers",
   update_sellingPrice: "Product",
   product_by_id: "Product/product-byid",
   delete_product: "Product/delete-product",
+
+  // CUSTOMER/SUPPLIER MANAGEMENT
+  all_suppliers: "CustomerSupplierManagement/all-suppliers",
+  all_customers: "CustomerSupplierManagement/all-customers",
 };
 
 export { ApiEndPoints, BASE_URL };

@@ -97,12 +97,12 @@ const CustomDropdown = () => {
       )}
 
       {switching ? (
-        <div className="z-10 w-full text-lg fixed inset-0 bg-black/60 grid place-content-center text-white/80">
-          <p className="font-medium flex items-center gap-2 whitespace-nowrap m-auto mx-5 ">
-            <ImSpinner2 size={20} className="animate-spin" />
-            Switching.
+        <div className="z-10 w-full text-lg fixed inset-0 bg-black/70 grid place-content-center text-white/80">
+          <p className="font-semibold flex items-center gap-2 whitespace-nowrap m-auto mx-5 ">
+            <ImSpinner2 size={18} className="animate-spin" />
+            Switching Account...
           </p>
-          <p className="font-medium text-sm text-center">Please Wait ...</p>
+          <p className="font-medium text-sm text-center">Please wait.</p>
         </div>
       ) : null}
     </div>
