@@ -35,7 +35,7 @@ const ApiEndPoints = {
   all_customers: "CustomerSupplierManagement/all-customers",
 
   // BOOK-KEEPING MANAGEMENT
-  create_book: "Bookkepting/create-book",
+  create_book: "Bookkeeping/create-book",
 };
 
 export { ApiEndPoints, BASE_URL };

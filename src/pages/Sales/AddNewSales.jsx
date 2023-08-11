@@ -24,6 +24,9 @@ import moment from "moment";
 import card from "../../assets/images/icons8-card-96.png";
 import cash from "../../assets/images/icons8-cash-100.png";
 import transfer from "../../assets/images/icons8-transfer-64.png";
+import { createBookAction } from "../../store/slices/book-keeping/createBookSlice";
+import { useNavigate } from "react-router-dom";
+import customToast from "../../components/Toast/toastify";
 
 const Row = ({ item, id, handleAdd }) => {
   const [qtyToBuy, setQtyToBuy] = useState(1);
@@ -71,12 +74,15 @@ const NewSales = () => {
   let total_sum = 0;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const nameRef = useRef(null);
   const qtyRef = useRef(null);
   const totalRef = useRef(null);
   const amountRef = useRef(null);
 
   const { data, loading } = useSelector((state) => state.get_inventory);
+  const { loading: creating } = useSelector((state) => state.create_book);
   const [showSupplierForm, setShowSupplierForm] = useState(false);
   const { data: customers } = useSelector((state) => state.get_customer);
 
@@ -85,6 +91,12 @@ const NewSales = () => {
   const [setselectFromStore, setSetselectFromStore] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeChannel, setActiveChannel] = useState(0);
+
+  const validateCustomer = ({ customer, customerId }) => {
+    if (!customerId && (!customer.name || !customer.email || !customer.phone))
+      return false;
+    else return true;
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -95,8 +107,8 @@ const NewSales = () => {
       description: "",
       invoiceDate: moment().format("YYYY-MM-DD"),
       debt: 0,
-      tax: "",
-      discount: "",
+      tax: 0,
+      discount: 0,
       customerId: undefined,
       customer: {
         name: "",
@@ -106,17 +118,47 @@ const NewSales = () => {
       },
     },
     validationSchema: Yup.object().shape({
+      amountPaid: Yup.number()
+        .typeError("Enter a valid number")
+        .required("This field is required"),
       tax: Yup.number().typeError("Enter a valid number"),
       discount: Yup.number().typeError("Enter a valid number"),
     }),
     onSubmit(values) {
+      console.log(values);
+      if (records.length == 0) {
+        customToast("Please add some products to proceed", true);
+        return;
+      }
+      console.log("first");
+
       values.bookItems = records;
       values.amountExpected = total_sum;
+      values.amountPaid = Number(values.amountPaid);
       values.debt = Number(values.amountExpected - values.amountPaid);
+      if (values.debt <= 0) values.debt = 0;
+      console.log(values.debt);
+      if (values.debt > 0) {
+        const valid = validateCustomer(values);
+        if (!valid) {
+          customToast(
+            "Incase of debt, you are required to provide a valid customer details",
+            true
+          );
+          return;
+        }
+      }
       values.discount = Number(values.discount);
       values.tax = Number(values.tax);
+
+      values.bookItems.forEach((book) => {
+        book.count = Number(book.qty);
+        delete book.qty;
+        delete book.total_amount;
+      });
+
       console.log(values);
-      // dispatch(createProductAction({ data: [values], navigate }));
+      dispatch(createBookAction({ data: values, navigate }));
     },
   });
 
@@ -155,15 +197,6 @@ const NewSales = () => {
     { label: "Ongoing", value: "2" },
     { label: "Completed", value: "3" },
     { label: "Aborted", value: "4" },
-  ];
-
-  const sales_medium = [
-    { label: "Select One", value: "0" },
-    { label: "Social Media", value: "1" },
-    { label: "Physical Store", value: "2" },
-    { label: "Affiliate Marketing", value: "3" },
-    { label: "Partnership", value: "4" },
-    { label: "Others", value: "5" },
   ];
 
   const channels = [
@@ -421,6 +454,7 @@ const NewSales = () => {
                                       >
                                         {searchedProducts?.map((item, idx) => (
                                           <button
+                                            type="button"
                                             onClick={() =>
                                               handleSelectProduct(item)
                                             }
@@ -527,6 +561,9 @@ const NewSales = () => {
                         className="!bg-bg w-full rounded border outline-none h-full px-5 pl-8 py-[14px] text-sm placeholder:text-sm"
                       />
                     </div>
+                    {touched.amountPaid && errors.amountPaid && (
+                      <ValidationError msg={errors.amountPaid} />
+                    )}
                   </div>
                   <div className="grid sm:grid-cols-2 gap-5 border-b pb-7">
                     <div className="-mt-1">
@@ -543,8 +580,8 @@ const NewSales = () => {
                           className="!bg-bg w-full rounded border outline-none h-full px-5 pl-8 py-[14px] text-sm placeholder:text-sm"
                         />
                       </div>
-                      {touched.description && errors.description && (
-                        <ValidationError msg={errors.description} />
+                      {touched.discount && errors.discount && (
+                        <ValidationError msg={errors.discount} />
                       )}
                     </div>
                     <div className="-mt-1">
@@ -573,6 +610,7 @@ const NewSales = () => {
                     <div className="flex gap-10">
                       {channels.map((item, idx) => (
                         <button
+                          type="button"
                           onClick={() => {
                             setFieldValue("paymentChannelType", idx + 1);
                             setActiveChannel(idx + 1);
@@ -691,6 +729,8 @@ const NewSales = () => {
                     </div>
                     <div>
                       <CustomButton
+                        loading={creating}
+                        disableds={creating}
                         type={"submit"}
                         className=" ml-auto mt-2 text-white text-sm flex items-center justify-end gap-2 !px-10 !py-3 rounded-md"
                       >
