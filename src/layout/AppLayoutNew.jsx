@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { FaBell, FaRedo, FaUserCog, FaUsers } from "react-icons/fa";
 import { FiHome, FiUsers } from "react-icons/fi";
 import {
+  BsCameraFill,
   BsCart3,
   BsCreditCard,
   BsEmojiExpressionless,
@@ -11,7 +12,7 @@ import {} from "react-icons/ai";
 import {} from "react-icons/cg";
 import {} from "react-icons/di";
 import { RiDashboardLine } from "react-icons/ri";
-import { Navigate, redirect, useNavigate } from "react-router-dom";
+import { Link, Navigate, redirect, useNavigate } from "react-router-dom";
 import { BiCaretUp, BiMenu, BiShoppingBag } from "react-icons/bi";
 import CustomDropdown from "../components/Dropdown";
 import { GrClose } from "react-icons/gr";
@@ -61,15 +62,20 @@ const AppLayoutNew = ({ children, noHeader }) => {
           path: null,
           icon: <MdOutlineWallet size={17} />,
         },
+        {
+          name: "All Debts",
+          path: null,
+          icon: <BsCameraFill size={17} />,
+        },
       ],
     },
     {
-      name: "My Customers",
+      name: "Customers / Suppliers",
       path: "/customers",
       icon: <FiUsers />,
     },
     {
-      name: "Inventory",
+      name: "Inventory Management",
       path: "/inventory",
       icon: <RiDashboardLine />,
     },
@@ -78,16 +84,16 @@ const AppLayoutNew = ({ children, noHeader }) => {
     //   path: "/orders",
     //   icon: <BiShoppingBag size={17} />,
     // },
-    {
-      name: "Sub-accounts",
-      path: "/sub-accounts",
-      icon: <FaUsers />,
-    },
-    {
-      name: "My Profile",
-      path: "/profile",
-      icon: <FaUserCog />,
-    },
+    // {
+    //   name: "Sub-accounts",
+    //   path: "/sub-accounts",
+    //   icon: <FaUsers />,
+    // },
+    // {
+    //   name: "My Profile",
+    //   path: "/profile",
+    //   icon: <FaUserCog />,
+    // },
     {
       name: "Reports",
       path: null,
@@ -96,10 +102,18 @@ const AppLayoutNew = ({ children, noHeader }) => {
   ];
 
   const secondarySideBarItems = [
-    "Generate Quick Invoice",
-    "Live Order",
-    "Terms and Conditions",
-    "Help Center",
+    {
+      title: "Sub accounts",
+      path: "/sub-accounts",
+    },
+    {
+      title: "Glowbiz Premium",
+      path: "#",
+    },
+    {
+      title: "Settings",
+      path: "/profile",
+    },
   ];
 
   if (!GET_STORAGE_ITEM("token")) {
@@ -174,13 +188,13 @@ const AppLayoutNew = ({ children, noHeader }) => {
         <div className="mt-auto">
           <ul className="px-5">
             {secondarySideBarItems.map((item, idx) => (
-              <li
-                to={null}
+              <Link
+                to={item.path}
                 key={idx}
                 className={`text-black/80 text-sm mb-1 px-7 py-1.5 flex gap-2.5 items-center hover:font-semibold hover:bg-slate-200 ${"hover:text-primary"} cursor-pointer`}
               >
-                {item}
-              </li>
+                {item.title}
+              </Link>
             ))}
             <button onClick={handleLogout} className="w-full" to={"/login"}>
               <span
