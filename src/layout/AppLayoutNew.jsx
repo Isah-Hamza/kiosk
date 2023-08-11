@@ -1,7 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FaBell, FaRedo, FaUserCog, FaUsers } from "react-icons/fa";
 import { FiHome, FiUsers } from "react-icons/fi";
-import { BsCreditCard } from "react-icons/bs";
+import {
+  BsCart3,
+  BsCreditCard,
+  BsEmojiExpressionless,
+  BsWalletFill,
+} from "react-icons/bs";
+import {} from "react-icons/ai";
+import {} from "react-icons/cg";
+import {} from "react-icons/di";
 import { RiDashboardLine } from "react-icons/ri";
 import { Navigate, redirect, useNavigate } from "react-router-dom";
 import { BiCaretUp, BiMenu, BiShoppingBag } from "react-icons/bi";
@@ -11,6 +19,7 @@ import logo from "../assets/images/logo.png";
 import { ToggleSidebarContext } from "../App";
 import { AiFillInsurance } from "react-icons/ai";
 import { GET_STORAGE_ITEM, REMOVE_STORAGE_ITEM } from "../config/storage";
+import { MdOutlineWallet } from "react-icons/md";
 
 export const handleLogout = () => {
   REMOVE_STORAGE_ITEM("token");
@@ -37,7 +46,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
       icon: <FiHome />,
     },
     {
-      name: "Book-kepping Mngmt.",
+      name: "Book-keeping Mngmt.",
       path: null,
       icon: <BsCreditCard />,
       hasSubMenu: true,
@@ -45,17 +54,12 @@ const AppLayoutNew = ({ children, noHeader }) => {
         {
           name: "All Expenses",
           path: null,
-          icon: <BsCreditCard />,
-        },
-        {
-          name: "All Inventories",
-          path: null,
-          icon: <BsCreditCard />,
+          icon: <BsCart3 />,
         },
         {
           name: "All Sales",
           path: null,
-          icon: <BsCreditCard />,
+          icon: <MdOutlineWallet size={17} />,
         },
       ],
     },
@@ -88,24 +92,6 @@ const AppLayoutNew = ({ children, noHeader }) => {
       name: "Reports",
       path: null,
       icon: <BsCreditCard />,
-      hasSubMenu: true,
-      subMenu: [
-        {
-          name: "All Expenses",
-          path: null,
-          icon: <BsCreditCard />,
-        },
-        {
-          name: "All Inventories",
-          path: null,
-          icon: <BsCreditCard />,
-        },
-        {
-          name: "All Sales",
-          path: null,
-          icon: <BsCreditCard />,
-        },
-      ],
     },
   ];
 

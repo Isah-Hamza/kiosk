@@ -33,6 +33,9 @@ const ApiEndPoints = {
   // CUSTOMER/SUPPLIER MANAGEMENT
   all_suppliers: "CustomerSupplierManagement/all-suppliers",
   all_customers: "CustomerSupplierManagement/all-customers",
+
+  // BOOK-KEEPING MANAGEMENT
+  create_book: "Bookkepting/create-book",
 };
 
 export { ApiEndPoints, BASE_URL };

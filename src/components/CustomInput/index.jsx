@@ -1,10 +1,9 @@
-
-
 import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { SlCalender } from "react-icons/sl";
 
 export default function CustomInput({
+  defaultValue,
   className,
   placeholder,
   label,
@@ -30,6 +29,7 @@ export default function CustomInput({
       ) : null}
       <div className="relative w-full">
         <input
+          defaultValue={defaultValue ?? null}
           autoComplete="off"
           placeholder={placeholder ?? ""}
           type={type == "password" ? inputType : type}
@@ -55,7 +55,10 @@ export default function CustomInput({
         )}
 
         {hasIcon && (
-          <Icon size={18} className="opacity-50 absolute right-3 top-1/2 -translate-y-1/2" />
+          <Icon
+            size={18}
+            className="opacity-50 absolute right-3 top-1/2 -translate-y-1/2"
+          />
         )}
       </div>
     </div>

@@ -71,9 +71,9 @@ const CreateProduct = () => {
     onSubmit(values) {
       values.costPrice = Number(values.costPrice);
       values.discount = Number(values.discount);
+      values.tax = Number(values.tax);
       values.sellingPrice = Number(values.sellingPrice);
       values.stock = Number(values.stock);
-      values.tax = Number(values.tax);
       values.unit = Number(values.unit);
       dispatch(createProductAction({ data: [values], navigate }));
     },

@@ -19,6 +19,11 @@ import { MdCall, MdEmail } from "react-icons/md";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { getCustomerAction } from "../../store/slices/product/getCustomerSlice";
+import moment from "moment";
+
+import card from "../../assets/images/icons8-card-96.png";
+import cash from "../../assets/images/icons8-cash-100.png";
+import transfer from "../../assets/images/icons8-transfer-64.png";
 
 const Row = ({ item, id, handleAdd }) => {
   const [qtyToBuy, setQtyToBuy] = useState(1);
@@ -63,6 +68,8 @@ const Row = ({ item, id, handleAdd }) => {
 };
 
 const NewSales = () => {
+  let total_sum = 0;
+
   const dispatch = useDispatch();
   const nameRef = useRef(null);
   const qtyRef = useRef(null);
@@ -77,22 +84,20 @@ const NewSales = () => {
   const [addMore, setAddMore] = useState(false);
   const [setselectFromStore, setSetselectFromStore] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [activeChannel, setActiveChannel] = useState(0);
 
   const formik = useFormik({
     initialValues: {
-      // barCode: "test_code",
-      // name: "",
-      // brand: "",
-      // description: "",
-      // sellingPrice: "",
-      // costPrice: "",
-      // tax: "",
-      // discount: "",
-      // unit: "",
-      // image: "",
-      // inventoryType: 1,
-      // stock: "",
-      customerId: 0,
+      amountExpected: 0,
+      paymentChannelType: 0,
+      amountPaid: 0,
+      bookType: 1,
+      description: "",
+      invoiceDate: moment().format("YYYY-MM-DD"),
+      debt: 0,
+      tax: "",
+      discount: "",
+      customerId: undefined,
       customer: {
         name: "",
         phone: "",
@@ -101,25 +106,15 @@ const NewSales = () => {
       },
     },
     validationSchema: Yup.object().shape({
-      // inventoryType: Yup.number().required("Please select product or service"),
-      // barCode: Yup.string().required("Barcode is required"),
-      // name: Yup.string().required("Name is required"),
-      // brand: Yup.string().required("Brand is required"),
-      // image: Yup.string(),
-      // description: Yup.string(),
-      customerId: Yup.number(),
-      // sellingPrice: Yup.number()
-      //   .typeError("Enter a valid number")
-      //   .required("This field is required"),
-      // costPrice: Yup.number()
-      //   .typeError("Enter a valid number")
-      //   .required("Cost Price is required"),
-      // tax: Yup.number().typeError("Enter a valid number"),
-      // discount: Yup.number().typeError("Enter a valid number"),
-      // unit: Yup.number().typeError("Enter a valid number"),
-      // stock: Yup.number().typeError("Enter a valid number"),
+      tax: Yup.number().typeError("Enter a valid number"),
+      discount: Yup.number().typeError("Enter a valid number"),
     }),
     onSubmit(values) {
+      values.bookItems = records;
+      values.amountExpected = total_sum;
+      values.debt = Number(values.amountExpected - values.amountPaid);
+      values.discount = Number(values.discount);
+      values.tax = Number(values.tax);
       console.log(values);
       // dispatch(createProductAction({ data: [values], navigate }));
     },
@@ -154,20 +149,12 @@ const NewSales = () => {
   ]);
   const [searchedProducts, setSearchedProducts] = useState([]);
 
-  let total_sum = 0;
-
-  const payment_type = [
+  const status = [
     { label: "Select One", value: "0" },
-    { label: "Cash", value: "1" },
-    { label: "Transfer", value: "2" },
-    { label: "Debit Card", value: "3" },
-  ];
-
-  const payment_status = [
-    { label: "Select One", value: "0" },
-    { label: "Fully Paid", value: "1" },
-    { label: "Partially Paid", value: "2" },
-    { label: "Unpaid", value: "3" },
+    { label: "Pending", value: "1" },
+    { label: "Ongoing", value: "2" },
+    { label: "Completed", value: "3" },
+    { label: "Aborted", value: "4" },
   ];
 
   const sales_medium = [
@@ -177,6 +164,21 @@ const NewSales = () => {
     { label: "Affiliate Marketing", value: "3" },
     { label: "Partnership", value: "4" },
     { label: "Others", value: "5" },
+  ];
+
+  const channels = [
+    {
+      img: cash,
+      title: "Cash",
+    },
+    {
+      img: card,
+      title: "Card",
+    },
+    {
+      img: transfer,
+      title: "Transfer",
+    },
   ];
 
   const [records, setRecords] = useState([
@@ -316,7 +318,10 @@ const NewSales = () => {
               </CustomButton>
             </div>
             <div className="grid lg:grid-cols-[3.5fr,2fr] gap-8">
-              <div className=" px-4 py-6 !sm:p-6 bg-dimmed_white rounded-xl">
+              <form
+                onSubmit={handleSubmit}
+                className=" px-4 py-6 !sm:p-6 bg-dimmed_white rounded-xl"
+              >
                 <div className="border-b pb-5">
                   <p className="text-sm font-medium opacity-70">Total Sum</p>
                   <p className="font-bold text-2xl text-primary">
@@ -325,7 +330,21 @@ const NewSales = () => {
                 </div>
                 <div className="grid grid-cols-1 gap-5">
                   <div className=" pt-3 bg-dimmed_white rounded-xl min-h-[200px]">
-                    <p className="">Sold Products</p>
+                    <div className="flex justify-between items-center">
+                      <p className="font-medium opacity-80 pl-2">
+                        Sold Products
+                      </p>
+                      <div className="flex justify-end">
+                        <CustomButton
+                          clickHandler={() => setAddMore(!addMore)}
+                          className={
+                            " !bg-[rgba(0,158,170,0.3)] !px-7 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-1.5 rounded-lg"
+                          }
+                        >
+                          Add Products
+                        </CustomButton>
+                      </div>
+                    </div>
                     <div className="">
                       <table className="text-sm w-full table-auto border-separate border-spacing-y-3 ">
                         <thead className="bg-[#f3f4f5] shadow">
@@ -493,32 +512,93 @@ const NewSales = () => {
                         </div>
                       ) : null}
                     </div>
-                    <div className="flex justify-end mt-8">
-                      <CustomButton
-                        clickHandler={() => setAddMore(!addMore)}
-                        className={
-                          " !bg-[rgba(0,158,170,0.3)] !px-7 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-1.5 rounded-lg"
-                        }
-                      >
-                        Add Products
-                      </CustomButton>
-                      {/* <CustomButton
-                        clickHandler={() => setSetselectFromStore(true)}
-                        className={
-                          "whitespace-nowrap !bg-transparent border !px-3 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-1.5 rounded-lg"
-                        }
-                      >
-                        Select From Stock
-                      </CustomButton> */}
+                  </div>
+                  <div className="mb-2">
+                    <label htmlFor="" className="text-sm">
+                      Total Amount Received From Customer
+                    </label>
+                    <div className="flex-1 relative">
+                      <div className="span absolute left-3 top-4 text-lg">
+                        <PiCurrencyNgnLight />{" "}
+                      </div>
+                      <input
+                        {...getFieldProps("amountPaid")}
+                        type="text"
+                        className="!bg-bg w-full rounded border outline-none h-full px-5 pl-8 py-[14px] text-sm placeholder:text-sm"
+                      />
                     </div>
                   </div>
-                  <div className="mt-7 grid gap-5">
+                  <div className="grid sm:grid-cols-2 gap-5 border-b pb-7">
+                    <div className="-mt-1">
+                      <label htmlFor="" className="text-sm">
+                        Discounted Price (if applicable)
+                      </label>
+                      <div className="flex-1 relative">
+                        <div className="span absolute left-3 top-4 text-lg">
+                          <PiCurrencyNgnLight />{" "}
+                        </div>
+                        <input
+                          {...getFieldProps("discount")}
+                          type="text"
+                          className="!bg-bg w-full rounded border outline-none h-full px-5 pl-8 py-[14px] text-sm placeholder:text-sm"
+                        />
+                      </div>
+                      {touched.description && errors.description && (
+                        <ValidationError msg={errors.description} />
+                      )}
+                    </div>
+                    <div className="-mt-1">
+                      <label htmlFor="" className="text-sm">
+                        Tax (if applicable)
+                      </label>
+                      <div className="flex-1 relative">
+                        <div className="span absolute left-3 top-4 text-lg">
+                          <PiCurrencyNgnLight />{" "}
+                        </div>
+                        <input
+                          {...getFieldProps("tax")}
+                          type="text"
+                          className="!bg-bg w-full rounded border outline-none h-full px-5 pl-8 py-[14px] text-sm placeholder:text-sm"
+                        />
+                      </div>
+                      {touched.tax && errors.tax && (
+                        <ValidationError msg={errors.tax} />
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="mb-6 font-medium opacity-80">
+                      Payment Channel
+                    </p>
+                    <div className="flex gap-10">
+                      {channels.map((item, idx) => (
+                        <button
+                          onClick={() => {
+                            setFieldValue("paymentChannelType", idx + 1);
+                            setActiveChannel(idx + 1);
+                          }}
+                          key={idx}
+                          className={`p-5 px-8 rounded-lg text-sm flex justify-center items-center text-center flex-col ${
+                            idx + 1 === activeChannel && "border"
+                          }`}
+                        >
+                          <img
+                            className={`w-16 mb-2 ${idx == 2 && "w-14"}`}
+                            src={item.img}
+                            alt="icon"
+                          />
+                          <p>{item.title}</p>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className=" grid gap-5">
                     <div className="flex flex-col gap-5 border-b pb-10 mt-3">
                       <div className="relative ">
                         <button
                           type="button"
                           onClick={toggleShowSupplierForm}
-                          className="z-10 cursor-pointer absolute right-1 -top-.5 text-sm text-primary font-semibold"
+                          className="z-10 cursor-pointer absolute right-1 -top-.5 text-sm text-green-900 font-semibold"
                         >
                           {showSupplierForm
                             ? "Choose from saved customers"
@@ -542,13 +622,9 @@ const NewSales = () => {
                               label={"Customer Name *"}
                               placeholder={"John Doe"}
                               hasIcon
-                              // {...getFieldProps("supplier.name")}
+                              {...getFieldProps("customer.name")}
                               Icon={FaUser}
                             />
-                            {/* {touched.supplier?.name &&
-                              errors.supplier?.name && (
-                                <ValidationError msg={errors.supplier?.name} />
-                              )} */}
                           </div>
                           <div className="grid sm:grid-cols-2 gap-5">
                             <div>
@@ -558,14 +634,8 @@ const NewSales = () => {
                                 placeholder={"itshamzy@gmail.com"}
                                 hasIcon
                                 Icon={MdEmail}
-                                // {...getFieldProps("supplier.email")}
+                                {...getFieldProps("customer.email")}
                               />
-                              {/* {touched.supplier?.email &&
-                                errors.supplier?.email && (
-                                  <ValidationError
-                                    msg={errors.supplier?.email}
-                                  />
-                                )} */}
                             </div>
                             <div>
                               <CustomInput
@@ -574,14 +644,8 @@ const NewSales = () => {
                                 placeholder={"08123456789"}
                                 hasIcon
                                 Icon={MdCall}
-                                // {...getFieldProps("supplier.phone")}
+                                {...getFieldProps("customer.phone")}
                               />
-                              {/* {touched.supplier?.phone &&
-                                errors.supplier?.phone && (
-                                  <ValidationError
-                                    msg={errors.supplier?.phone}
-                                  />
-                                )} */}
                             </div>
                           </div>
                           <div>
@@ -592,69 +656,50 @@ const NewSales = () => {
                                 "ABC Street Opposite XYZ Multipurpose Hall"
                               }
                               hasIcon
-                              // {...getFieldProps("supplier.address")}
+                              {...getFieldProps("customer.address")}
                               Icon={FaAddressBook}
                             />
-                            {/* {touched.supplier?.address &&
-                              errors.supplier?.address && (
-                                <ValidationError
-                                  msg={errors.supplier?.address}
-                                />
-                              )} */}
                           </div>{" "}
                         </>
                       ) : null}
                     </div>
                     <div className="grid sm:grid-cols-2 gap-5 border-b pb-7">
-                      <CustomSelect
-                        className={"!bg-bg"}
-                        options={payment_type}
-                        label={"Select Payment Type"}
-                      />
-                      <CustomInput
-                        className={"!bg-bg"}
-                        label={"Sales Date"}
-                        id={"product_name"}
-                        type="date"
-                      />
-                    </div>
-                    <div className=" border-b pb-6">
-                      <CustomSelect
-                        className={"!bg-bg"}
-                        options={payment_status}
-                        label={"Payment Status"}
-                      />
-                    </div>
-                    <div className=" border-b pb-6 -mt-1">
-                      <label htmlFor="" className="text-sm">
-                        Discounted Price (if applicable)
-                      </label>
-                      <div className="flex-1 relative">
-                        <div className="span absolute left-3 top-4 text-lg">
-                          <PiCurrencyNgnLight />{" "}
-                        </div>
-                        <input
-                          type="text"
-                          className="!bg-bg w-full rounded border outline-none h-full px-5 pl-8 py-[14px] text-sm placeholder:text-sm"
+                      <div className="">
+                        <CustomSelect
+                          className={"!bg-bg"}
+                          options={status}
+                          label={"Transaction Status"}
                         />
                       </div>
-                    </div>
-                    <div className=" border-b pb-6">
-                      <CustomSelect
+                      <CustomInput
                         className={"!bg-bg"}
-                        options={sales_medium}
-                        label={"Sales Medium / Channel"}
+                        label={"Invoice Date"}
+                        id={"product_name"}
+                        type="date"
+                        {...getFieldProps("invoiceDate")}
                       />
                     </div>
-
+                    <div className="mt-2 border-b pb-6">
+                      <label htmlFor="" className="text-sm">
+                        Description (optional)
+                      </label>
+                      <textarea
+                        className="w-full border rounded h-28 text-sm placeholder:text-sm p-2 outline-none resize-none !bg-bg"
+                        placeholder="Short Description"
+                        {...getFieldProps("description")}
+                      ></textarea>
+                    </div>
                     <div>
-                      <CustomButton className=" ml-auto mt-2 text-white text-sm flex items-center justify-end gap-2 !px-10 !py-3 rounded-md">
+                      <CustomButton
+                        type={"submit"}
+                        className=" ml-auto mt-2 text-white text-sm flex items-center justify-end gap-2 !px-10 !py-3 rounded-md"
+                      >
                         Record Sale
                       </CustomButton>
                     </div>
                   </div>
                 </div>
-              </div>
+              </form>
               <div className="hidden lg:block w-full ">
                 <p className="font-medium opacity-75">
                   Did you made bulk sales? You can save stress by uploading a
