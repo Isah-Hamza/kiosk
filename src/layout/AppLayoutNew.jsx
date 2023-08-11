@@ -1,11 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FaBell, FaRedo, FaUserCog, FaUsers } from "react-icons/fa";
 import { FiHome, FiUsers } from "react-icons/fi";
-import {
-  BsCameraFill,
-  BsCart3,
-  BsCreditCard,
-} from "react-icons/bs";
+import { BsCameraFill, BsCart3, BsCreditCard } from "react-icons/bs";
 import {} from "react-icons/ai";
 import {} from "react-icons/cg";
 import {} from "react-icons/di";
@@ -62,7 +58,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
         {
           name: "All Debts",
           path: null,
-          icon: <BsCameraFill size={17} />,
+          icon: <BsCameraFill size={15} />,
         },
       ],
     },
@@ -78,7 +74,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
     },
     {
       name: "Reports",
-      path: null,
+      path: "#",
       icon: <BsCreditCard />,
     },
   ];

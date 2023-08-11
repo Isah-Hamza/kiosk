@@ -167,23 +167,6 @@ const NewSales = () => {
   const handleChangeSupplier = (value) =>
     setFieldValue("customerId", Number(value));
 
-  const [shop, setShop] = useState([
-    {
-      name: "Tomatoes",
-      stock_available: 2,
-      price: "200",
-    },
-    {
-      name: "Candle",
-      stock_available: 0,
-      price: "500",
-    },
-    {
-      name: "Onions",
-      stock_available: 12,
-      price: "100",
-    },
-  ]);
   const [searchedProducts, setSearchedProducts] = useState([]);
 
   const status = [
@@ -197,15 +180,15 @@ const NewSales = () => {
   const channels = [
     {
       img: cash,
-      title: "Cash",
+      title: " Paid by Cash",
     },
     {
       img: card,
-      title: "Card",
+      title: " Paid by Card",
     },
     {
       img: transfer,
-      title: "Transfer",
+      title: " Paid by Transfer",
     },
   ];
 
@@ -542,11 +525,11 @@ const NewSales = () => {
                       )}
                     </div>
                   </div>
-                  <div>
-                    <p className="mb-6 font-medium opacity-80">
+                  <div className="mb-2">
+                    <p className="mb-3 font-medium opacity-80">
                       Payment Channel
                     </p>
-                    <div className="flex gap-10">
+                    <div className="grid grid-cols-3 gap-3">
                       {channels.map((item, idx) => (
                         <button
                           type="button"
@@ -555,12 +538,13 @@ const NewSales = () => {
                             setActiveChannel(idx + 1);
                           }}
                           key={idx}
-                          className={`p-5 px-8 rounded-lg text-sm flex justify-center items-center text-center flex-col ${
-                            idx + 1 === activeChannel && "border"
+                          className={`p-5 py-3 gap-2 border rounded-lg text-sm flex items-center ${
+                            idx + 1 === activeChannel &&
+                            "!border-2 !border-primary"
                           }`}
                         >
                           <img
-                            className={`w-16 mb-2 ${idx == 2 && "w-14"}`}
+                            className={`w-8 ${idx == 2 && "w-14"}`}
                             src={item.img}
                             alt="icon"
                           />

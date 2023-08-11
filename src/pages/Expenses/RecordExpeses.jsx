@@ -1,27 +1,129 @@
 import React from "react";
 import AppLayoutNew from "../../layout/AppLayoutNew";
 import CustomInput from "../../components/CustomInput";
-import { FaUser } from "react-icons/fa";
+import { FaAddressBook, FaUser } from "react-icons/fa";
 import { PiCurrencyNgnLight } from "react-icons/pi";
 import CustomButton from "../../components/Buttons/CustomButton";
 import CustomSelect from "../../components/CustomInput/Select";
 import PageHeader from "../../shared/PageHeader";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
+import { getSupplierAction } from "../../store/slices/product/getSupplierSlice";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import moment from "moment";
+import { MdCall, MdEmail } from "react-icons/md";
+import ValidationError from "../../components/Error/ValidationError";
 
 const RecordExpenses = () => {
-  const payment_type = [
-    { label: "Select One", value: "0" },
-    { label: "Cash", value: "1" },
-    { label: "Transfer", value: "2" },
-    { label: "Debit Card", value: "3" },
-  ];
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [showSupplierForm, setShowSupplierForm] = useState(false);
+  const { data } = useSelector((state) => state.get_supplier);
 
-  const category = [
-    { label: "Services / Maintenance", value: "1" },
-    { label: "Salary", value: "2" },
-    { label: "Workmanship", value: "3" },
-    { label: "Food", value: "4" },
-    { label: "Transport", value: "5" },
-    { label: "Others", value: "6" },
+  const [suppliers, setSuppliers] = useState(data);
+
+  const toggleShowSupplierForm = () => {
+    setShowSupplierForm(!showSupplierForm);
+  };
+
+  const validateSupplier = ({ supplier, supplierId }) => {
+    if (!supplierId && (!supplier.name || !supplier.email || !supplier.phone))
+      return false;
+    else return true;
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      amountExpected: 0,
+      paymentChannelType: 0,
+      amountPaid: 0,
+      bookType: 2,
+      description: "",
+      invoiceDate: moment().format("YYYY-MM-DD"),
+      debt: 0,
+      tax: 0,
+      discount: 0,
+      supplierId: undefined,
+      supplier: {
+        name: "",
+        phone: "",
+        email: "",
+        address: "",
+      },
+    },
+    validationSchema: Yup.object().shape({
+      amountPaid: Yup.number()
+        .typeError("Enter a valid number")
+        .required("This field is required"),
+      tax: Yup.number().typeError("Enter a valid number"),
+      discount: Yup.number().typeError("Enter a valid number"),
+    }),
+    onSubmit(values) {
+      if (records.length == 0) {
+        customToast("Please add some products to proceed", true);
+        return;
+      }
+      values.amountPaid = Number(values.amountPaid);
+      values.debt = Number(values.amountExpected - values.amountPaid);
+      if (values.debt <= 0) values.debt = 0;
+      if (values.debt > 0) {
+        const valid = validateSupplier(values);
+        if (!valid) {
+          customToast(
+            "Incase of debt, you are required to provide a valid suppplier details",
+            true
+          );
+          return;
+        }
+      }
+      values.discount = Number(values.discount);
+      values.tax = Number(values.tax);
+
+      values.bookItems.forEach((book) => {
+        book.count = Number(book.qty);
+        delete book.qty;
+        delete book.total_amount;
+      });
+
+      console.log(values);
+      dispatch(createBookAction({ data: values, navigate }));
+    },
+  });
+
+  const {
+    errors,
+    setFieldValue,
+    getFieldProps,
+    touched,
+    values,
+    handleSubmit,
+  } = formik;
+
+  const handleChangeSupplier = (value) =>
+    setFieldValue("supplierId", Number(value));
+
+  useEffect(() => {
+    dispatch(getSupplierAction());
+  }, []);
+
+  useEffect(() => {
+    const formatted = data.map((item, idx) => ({
+      value: idx + 1,
+      label: item.name,
+    }));
+    formatted.unshift({ value: null, label: "Choose One" });
+    setSuppliers(formatted);
+  }, [data]);
+
+  const status = [
+    { label: "Select One", value: "0" },
+    { label: "Pending", value: "1" },
+    { label: "Ongoing", value: "2" },
+    { label: "Completed", value: "3" },
+    { label: "Aborted", value: "4" },
   ];
 
   return (
@@ -52,47 +154,162 @@ const RecordExpenses = () => {
             </div>
             <div className="grid grid-cols-1 gap-5">
               <div className="mt-7 grid gap-5">
-                <div className=" border-b pb-7 -mt-1">
-                  <label htmlFor="" className="text-sm">
-                    Total Amount Spent
-                  </label>
-                  <div className="flex-1 relative">
-                    <div className="span absolute left-3 top-4 text-lg">
-                      <PiCurrencyNgnLight />{" "}
+                <div className=" border-b pb-7">
+                  <div className=" -mt-1">
+                    <label htmlFor="" className="text-sm">
+                      Total Amount For Expenses
+                    </label>
+                    <div className="flex-1 relative">
+                      <div className="span absolute left-3 top-4 text-lg">
+                        <PiCurrencyNgnLight />{" "}
+                      </div>
+                      <input
+                        {...getFieldProps("amountExpected")}
+                        type="text"
+                        className="!bg-bg w-full rounded border outline-none h-full px-5 pl-8 py-[14px] text-sm placeholder:text-sm"
+                      />
                     </div>
-                    <input
-                      type="text"
-                      className="!bg-bg w-full rounded border outline-none h-full px-5 pl-8 py-[14px] text-sm placeholder:text-sm"
-                    />
+                    {touched.amountExpected && errors.amountExpected && (
+                      <ValidationError msg={errors.amountExpected} />
+                    )}
+                  </div>
+                  <div className="grid grid-cols-2 gap-5 mt-6">
+                    <div className="pb-3 -mt-1">
+                      <label htmlFor="" className="text-sm">
+                        Actual Amount Paid to Supplier
+                      </label>
+                      <div className="flex-1 relative">
+                        <div className="span absolute left-3 top-4 text-lg">
+                          <PiCurrencyNgnLight />{" "}
+                        </div>
+                        <input
+                          {...getFieldProps("amountPaid")}
+                          type="text"
+                          className="!bg-bg w-full rounded border outline-none h-full px-5 pl-8 py-[14px] text-sm placeholder:text-sm"
+                        />
+                      </div>
+                      {touched.amountPaid && errors.amountPaid && (
+                        <ValidationError msg={errors.amountPaid} />
+                      )}
+                    </div>
+                    <div className="pb-3 -mt-1">
+                      <label htmlFor="" className="text-sm">
+                        Debt
+                      </label>
+                      <div className="flex-1 relative">
+                        <div className="span absolute left-3 top-4 text-lg">
+                          <PiCurrencyNgnLight />{" "}
+                        </div>
+                        <input
+                          disabled
+                          value={values.amountExpected - values.amountPaid ?? 0}
+                          readOnly
+                          type="text"
+                          className="!bg-bg w-full rounded border outline-none h-full px-5 pl-8 py-[14px] text-sm placeholder:text-sm"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-
-                <CustomInput
-                  className={"!bg-bg"}
-                  label={"Who Did You Paid To"}
-                  placeholder={"Select Beneficiary"}
-                  hasIcon
-                  Icon={FaUser}
-                />
+                <div className="flex flex-col gap-5 border-b pb-10 mt-3">
+                  <div className="relative ">
+                    <button
+                      type="button"
+                      onClick={toggleShowSupplierForm}
+                      className="z-10 cursor-pointer absolute right-1 -top-.5 text-sm text-primary font-semibold"
+                    >
+                      {showSupplierForm
+                        ? "Choose from saved suppliers"
+                        : "Register New Supplier"}
+                    </button>
+                    {!showSupplierForm ? (
+                      <CustomSelect
+                        emptyMsg={"No saved supplier yet. Create one"}
+                        options={suppliers}
+                        label={"Select Supplier"}
+                        className={"!bg-bg"}
+                        onChange={handleChangeSupplier}
+                      />
+                    ) : null}
+                  </div>
+                  {showSupplierForm ? (
+                    <>
+                      <div className="-mt-5">
+                        <CustomInput
+                          className={"!bg-bg"}
+                          label={"Supplier Name *"}
+                          placeholder={"John Doe"}
+                          hasIcon
+                          {...getFieldProps("supplier.name")}
+                          Icon={FaUser}
+                        />
+                        {touched.supplier?.name && errors.supplier?.name && (
+                          <ValidationError msg={errors.supplier?.name} />
+                        )}
+                      </div>
+                      <div className="grid sm:grid-cols-2 gap-5">
+                        <div>
+                          <CustomInput
+                            className={"!bg-bg"}
+                            label={"Supplier Email *"}
+                            placeholder={"itshamzy@gmail.com"}
+                            hasIcon
+                            Icon={MdEmail}
+                            {...getFieldProps("supplier.email")}
+                          />
+                          {touched.supplier?.email &&
+                            errors.supplier?.email && (
+                              <ValidationError msg={errors.supplier?.email} />
+                            )}
+                        </div>
+                        <div>
+                          <CustomInput
+                            className={"!bg-bg"}
+                            label={"Supplier Phone *"}
+                            placeholder={"08123456789"}
+                            hasIcon
+                            Icon={MdCall}
+                            {...getFieldProps("supplier.phone")}
+                          />
+                          {touched.supplier?.phone &&
+                            errors.supplier?.phone && (
+                              <ValidationError msg={errors.supplier?.phone} />
+                            )}
+                        </div>
+                      </div>
+                      <div>
+                        <CustomInput
+                          className={"!bg-bg"}
+                          label={"Supplier Address *"}
+                          placeholder={
+                            "ABC Street Opposite XYZ Multipurpose Hall"
+                          }
+                          hasIcon
+                          {...getFieldProps("supplier.address")}
+                          Icon={FaAddressBook}
+                        />
+                        {touched.supplier?.address &&
+                          errors.supplier?.address && (
+                            <ValidationError msg={errors.supplier?.address} />
+                          )}
+                      </div>{" "}
+                    </>
+                  ) : null}
+                </div>
                 <div className="grid sm:grid-cols-2 gap-5 border-b pb-7">
                   <CustomSelect
                     className={"!bg-bg"}
-                    options={payment_type}
-                    label={"Select Payment Type"}
+                    options={status}
+                    label={"Transaction Status"}
                   />
                   <CustomInput
                     className={"!bg-bg"}
                     label={"Sales Date"}
                     id={"sales_date"}
                     type="date"
+                    {...getFieldProps("invoiceDate")}
                   />
                 </div>
-                <CustomSelect
-                  allowFirstOption
-                  className={"!bg-bg"}
-                  options={category}
-                  label={"Select Expense Category"}
-                />
                 <div className="">
                   <label htmlFor="" className="text-sm">
                     What was the payment for (optional)
@@ -100,10 +317,7 @@ const RecordExpenses = () => {
                   <textarea
                     className="w-full border rounded h-28 text-sm placeholder:text-sm p-2 outline-none resize-none !bg-bg"
                     placeholder="e.g purchase of new items..."
-                    name=""
-                    id=""
-                    cols="30"
-                    rows="10"
+                    {...getFieldProps("description")}
                   ></textarea>
                 </div>
 
