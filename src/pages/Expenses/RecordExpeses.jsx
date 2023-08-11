@@ -197,7 +197,7 @@ const RecordExpenses = () => {
                         </div>
                         <input
                           disabled
-                          value={values.amountExpected - values.amountPaid ?? 0}
+                          value={values.amountExpected - values.amountPaid || 0}
                           readOnly
                           type="text"
                           className="!bg-bg w-full rounded border outline-none h-full px-5 pl-8 py-[14px] text-sm placeholder:text-sm"
