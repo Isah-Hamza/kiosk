@@ -16,12 +16,15 @@ import * as Yup from "yup";
 import moment from "moment";
 import { MdCall, MdEmail } from "react-icons/md";
 import ValidationError from "../../components/Error/ValidationError";
+import customToast from "../../components/Toast/toastify";
+import { createBookAction } from "../../store/slices/book-keeping/createBookSlice";
 
 const RecordExpenses = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showSupplierForm, setShowSupplierForm] = useState(false);
   const { data } = useSelector((state) => state.get_supplier);
+  const { loading } = useSelector((state) => state.create_book);
 
   const [suppliers, setSuppliers] = useState(data);
 
@@ -58,14 +61,12 @@ const RecordExpenses = () => {
       amountPaid: Yup.number()
         .typeError("Enter a valid number")
         .required("This field is required"),
-      tax: Yup.number().typeError("Enter a valid number"),
-      discount: Yup.number().typeError("Enter a valid number"),
+      amountExpected: Yup.number()
+        .typeError("Enter a valid number")
+        .required("This field is required"),
     }),
     onSubmit(values) {
-      if (records.length == 0) {
-        customToast("Please add some products to proceed", true);
-        return;
-      }
+      values.amountExpected = Number(values.amountExpected);
       values.amountPaid = Number(values.amountPaid);
       values.debt = Number(values.amountExpected - values.amountPaid);
       if (values.debt <= 0) values.debt = 0;
@@ -73,7 +74,7 @@ const RecordExpenses = () => {
         const valid = validateSupplier(values);
         if (!valid) {
           customToast(
-            "Incase of debt, you are required to provide a valid suppplier details",
+            "Incase of debt, you are required to provide a valid supplier details",
             true
           );
           return;
@@ -81,14 +82,6 @@ const RecordExpenses = () => {
       }
       values.discount = Number(values.discount);
       values.tax = Number(values.tax);
-
-      values.bookItems.forEach((book) => {
-        book.count = Number(book.qty);
-        delete book.qty;
-        delete book.total_amount;
-      });
-
-      console.log(values);
       dispatch(createBookAction({ data: values, navigate }));
     },
   });
@@ -101,6 +94,8 @@ const RecordExpenses = () => {
     values,
     handleSubmit,
   } = formik;
+
+  console.log(errors);
 
   const handleChangeSupplier = (value) =>
     setFieldValue("supplierId", Number(value));
@@ -152,7 +147,7 @@ const RecordExpenses = () => {
               <p className="text-sm font-medium opacity-70">Total Sum</p>
               <p className="font-bold text-2xl text-primary">₦0.00</p>
             </div>
-            <div className="grid grid-cols-1 gap-5">
+            <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-5">
               <div className="mt-7 grid gap-5">
                 <div className=" border-b pb-7">
                   <div className=" -mt-1">
@@ -322,12 +317,17 @@ const RecordExpenses = () => {
                 </div>
 
                 <div>
-                  <CustomButton className=" ml-auto mt-2 text-white text-sm flex items-center justify-end gap-2 !px-10 !py-3 rounded-md">
+                  <CustomButton
+                    type={"submit"}
+                    loading={loading}
+                    disabled={loading}
+                    className=" ml-auto mt-2 text-white text-sm flex items-center justify-end gap-2 !px-10 !py-3 rounded-md"
+                  >
                     Submit Expense{" "}
                   </CustomButton>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
           <div className="hidden lg:block w-full ">
             <p className="font-medium opacity-75">
