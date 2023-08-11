@@ -76,11 +76,6 @@ const NewSales = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const nameRef = useRef(null);
-  const qtyRef = useRef(null);
-  const totalRef = useRef(null);
-  const amountRef = useRef(null);
-
   const { data, loading } = useSelector((state) => state.get_inventory);
   const { loading: creating } = useSelector((state) => state.create_book);
   const [showSupplierForm, setShowSupplierForm] = useState(false);
@@ -226,47 +221,6 @@ const NewSales = () => {
 
   const handleDelete = (id, deletedItem) => {
     setRecords(records.filter((_, idx) => idx !== id));
-
-    setShop(
-      shop.map((item) => {
-        if (item.name === deletedItem.name) {
-          return {
-            ...item,
-            stock_available: item.stock_available + deletedItem.qty,
-          };
-        } else return item;
-      })
-    );
-  };
-
-  const handleAdd = (item, idx, qtyToBuy) => {
-    const newItem = {
-      name: item.name,
-      amount: item.price,
-      qty: qtyToBuy,
-      total_amount: Number(item.price) * Number(qtyToBuy),
-    };
-
-    if (!item.name || !item.price || !item.qtyToBuy) {
-      return;
-    }
-
-    setSearchTerm("");
-    setRecords((prev) => [...prev, newItem]);
-
-    setShop(
-      shop.map((item) => {
-        if (item.name == newItem.name) {
-          const obj = {
-            ...item,
-            stock_available: item.stock_available - newItem.qty,
-          };
-          return obj;
-        } else {
-          return item;
-        }
-      })
-    );
   };
 
   const handleSelectProduct = (item) => {
@@ -278,7 +232,6 @@ const NewSales = () => {
       productId: item.id,
       description: item.description,
     };
-    console.log(newItem);
     setSearchTerm("");
     setNewRecord(newItem);
   };
@@ -288,16 +241,6 @@ const NewSales = () => {
       total_sum += Number(item.total_amount);
     });
   }, [records]);
-
-  useEffect(() => {
-    if (searchTerm == "") setSearchedProducts(shop);
-    else {
-      const searchRes = shop.filter((item) =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setSearchedProducts(searchRes);
-    }
-  }, [searchTerm, shop]);
 
   useEffect(() => {
     if (searchTerm == "") setSearchedProducts(data.data);
@@ -437,7 +380,6 @@ const NewSales = () => {
                                 <tr>
                                   <td className="relative">
                                     <input
-                                      ref={nameRef}
                                       value={newRecord.name}
                                       onChange={(e) => {
                                         setSearchTerm(e.target.value);
@@ -448,7 +390,7 @@ const NewSales = () => {
                                       }}
                                       className="name w-[90%] border outline-none text-xs px-2 py-1"
                                     />
-                                    {searchTerm && searchedProducts.length ? (
+                                    {searchedProducts.length ? (
                                       <div
                                         className={`z-10 absolute top-10 min-w-full bg-white shadow text-sm text-black rounded-md py-3 `}
                                       >
@@ -469,7 +411,6 @@ const NewSales = () => {
                                   </td>
                                   <td>
                                     <input
-                                      ref={qtyRef}
                                       value={newRecord.qty}
                                       onChange={(e) =>
                                         setNewRecord((prev) => ({
@@ -487,7 +428,6 @@ const NewSales = () => {
                                   <td>
                                     <input
                                       value={newRecord.amount}
-                                      ref={amountRef}
                                       disabled={!newRecord.qty}
                                       onChange={(e) =>
                                         setNewRecord((prev) => ({
@@ -503,7 +443,6 @@ const NewSales = () => {
                                   </td>
                                   <td>
                                     <input
-                                      ref={totalRef}
                                       value={newRecord.total_amount}
                                       disabled
                                       className="w-[90%] border outline-none text-xs px-2 py-1 "
@@ -771,73 +710,6 @@ const NewSales = () => {
               </div>
             </div>
           </div>
-          {setselectFromStore ? (
-            <div className=" fixed inset-0 bg-black/60 overflow-hidden grid place-content-center z-[10001]">
-              <div className="p-5 min-h-[200px] bg-white rounded-xl max-w-[90vw] w-[500px]">
-                <div className="flex justify-between items-center mb-2">
-                  <p className="font-semibold text-primary capitalize ">
-                    From Your Shop
-                  </p>
-                  <button
-                    onClick={() => {
-                      setSearchTerm("");
-                      setSetselectFromStore(false);
-                    }}
-                  >
-                    <FiPlus className="rotate-45" size={22} />
-                  </button>
-                </div>
-                {shop.length ? (
-                  <input
-                    type="text"
-                    name="search"
-                    id="search"
-                    className="w-full rounded-md border outline-none px-3 py-2 text-sm mt-3"
-                    placeholder="Search product by name"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                  />
-                ) : null}
-                <div className="overflow-x-hidden">
-                  <table className="text-sm w-full table-auto border-separate border-spacing-y-3 ">
-                    <thead className="bg-[#f3f4f5] shadow">
-                      <tr className="!text-left !opacity-70 !font-semibold bg-[#f3f4f5]">
-                        <th className="text-xs pl-3 w-[35%] py-2 !font-semibold">
-                          Name
-                        </th>
-                        <th className="text-xs pl-3 w-[25%] py-2 !font-semibold whitespace-nowrap">
-                          Stock Rem.
-                        </th>
-                        <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
-                          Price <span className=" sm:inline hidden"></span>
-                        </th>
-                        <th className="text-xs pl-3 w-[25%] py-2 !font-semibold whitespace-nowrap">
-                          Qty Sold
-                        </th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {searchedProducts.map((item, idx) => (
-                        <Row
-                          key={idx}
-                          id={idx}
-                          item={item}
-                          handleAdd={handleAdd}
-                        />
-                      ))}
-                    </tbody>
-                  </table>
-                  {shop.length <= 0 && !addMore ? (
-                    <div className="pl-3 opacity-80 text-sm font-medium">
-                      {" "}
-                      Sorry. You don't have product in your shop.
-                    </div>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-          ) : null}
         </>
       )}
     </AppLayoutNew>
