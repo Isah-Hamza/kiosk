@@ -5,8 +5,6 @@ import {
   BsCameraFill,
   BsCart3,
   BsCreditCard,
-  BsEmojiExpressionless,
-  BsWalletFill,
 } from "react-icons/bs";
 import {} from "react-icons/ai";
 import {} from "react-icons/cg";
@@ -18,7 +16,6 @@ import CustomDropdown from "../components/Dropdown";
 import { GrClose } from "react-icons/gr";
 import logo from "../assets/images/logo.png";
 import { ToggleSidebarContext } from "../App";
-import { AiFillInsurance } from "react-icons/ai";
 import { GET_STORAGE_ITEM, REMOVE_STORAGE_ITEM } from "../config/storage";
 import { MdOutlineWallet } from "react-icons/md";
 
@@ -79,21 +76,6 @@ const AppLayoutNew = ({ children, noHeader }) => {
       path: "/inventory",
       icon: <RiDashboardLine />,
     },
-    // {
-    //   name: "Orders",
-    //   path: "/orders",
-    //   icon: <BiShoppingBag size={17} />,
-    // },
-    // {
-    //   name: "Sub-accounts",
-    //   path: "/sub-accounts",
-    //   icon: <FaUsers />,
-    // },
-    // {
-    //   name: "My Profile",
-    //   path: "/profile",
-    //   icon: <FaUserCog />,
-    // },
     {
       name: "Reports",
       path: null,
