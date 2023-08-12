@@ -47,12 +47,12 @@ const AppLayoutNew = ({ children, noHeader }) => {
       subMenu: [
         {
           name: "All Expenses",
-          path: '/all-expenses',
+          path: "/all-expenses",
           icon: <BsCart3 />,
         },
         {
           name: "All Sales",
-          path: '/all-sales',
+          path: null,
           icon: <MdOutlineWallet size={17} />,
         },
         {
@@ -74,7 +74,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
     },
     {
       name: "Reports",
-      path: "#",
+      path: null,
       icon: <BsCreditCard />,
     },
   ];
@@ -121,8 +121,12 @@ const AppLayoutNew = ({ children, noHeader }) => {
                     setSidebarOpen(false);
                   }
                   setTimeout(() => {
-                    item.hasSubMenu ? toggleSubMenu(idx) : navigate(item.path);
-                  }, 1);
+                    item.hasSubMenu
+                      ? toggleSubMenu(idx)
+                      : item.path
+                      ? navigate(item.path)
+                      : null;
+                  }, 10);
                 }}
               >
                 <div className="flex justify-between items-center">
@@ -163,7 +167,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
           <ul className="px-5">
             {secondarySideBarItems.map((item, idx) => (
               <Link
-                to={item.path}
+                to={item.path ?? "#"}
                 key={idx}
                 className={`text-black/80 text-sm mb-1 px-6 py-2 flex gap-2.5 items-center hover:font-semibold hover:bg-slate-200 ${"hover:text-primary"} cursor-pointer`}
               >

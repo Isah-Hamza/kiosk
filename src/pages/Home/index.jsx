@@ -13,6 +13,7 @@ import CustomButton from "../../components/Buttons/CustomButton";
 
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { useNavigate } from "react-router-dom";
+import { PiArrowRightThin } from "react-icons/pi";
 
 function Home() {
   const [showBal, setShowBal] = useState(false);
@@ -179,12 +180,8 @@ function Home() {
                       </button>
                     </div>
                     <p className="text-2xl font-medium opacity-70">
-                      {
-                        showBal ? ' ₦12,000' : '****'
-                      }
-                     
-                      
-                      </p>
+                      {showBal ? " ₦12,000" : "****"}
+                    </p>
                     <div className="mt-auto flex justify-between items-center">
                       <div>
                         <p className="font-medium opacity-80">Wema Bank</p>
@@ -323,6 +320,93 @@ function Home() {
                 </CustomButton>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-5 mx-4 sm:mx-7 mt-5">
+          <div className="flex flex-col bg-dimmed_white min-h-[300px] rounded-md p-5">
+            <p className="font-medium text-lg opacity-80">Glowbiz Coperative</p>
+            <div className="grid grid-cols-2 gap-5 mt-5">
+              <div className="text-sm flex flex-col">
+                <p>Loans</p>
+                <p className="font-semibold text-xl">₦0.00</p>
+                <p className="text-sm mb-5">With 4% Monthly return</p>
+                <CustomButton
+                  className={
+                    "!w-fit !py-2  mt-auto !border-primary !text-white font-bold !rounded-lg"
+                  }
+                >
+                  Request Loan
+                </CustomButton>
+              </div>
+              <div className="text-sm">
+                <p>Contributions</p>
+                <p className="font-semibold text-xl">₦0.00</p>
+                <p className="text-sm">Getback 5% Monthly and 13% Anually</p>
+                <CustomButton
+                  className={
+                    "!w-fit !py-2 mt-5 !bg-white border !text-black !border-primary  font-bold !rounded-lg"
+                  }
+                >
+                  Save Money
+                </CustomButton>
+              </div>
+            </div>
+            <div className="w-full border mt-auto rounded-md p-3  opacity-80 text-sm">
+              <p>
+                💡 With Glowbiz coperative You have access to lorem ipsum dolor
+                sit amet, consectetur adipisicing elit. Dolores, laborum!
+              </p>
+            </div>
+          </div>
+          <div className="bg-dimmed_white min-h-[300px] rounded-md p-5">
+            <div className="mb-6 flex justify-between items-center gap-5">
+              <p className="font-medium text-lg opacity-80">
+                Recent Deliveries
+              </p>
+              <span className="text-sm font-semibold flex items-center gap-2">
+                More <PiArrowRightThin />
+              </span>
+            </div>
+            {[1, 2, 3, 4].map((item) => (
+              <div
+                key={item}
+                className="bg-[#493847]/5  p-3 mb-3 rounded-md text-xs flex justify-between items-center"
+              >
+                <div className="flex gap-2 items-center">
+                  <div
+                    className={`grid place-content-center w-9 h-9 rounded-full ${
+                      "incoming" == "incoming" ? "bg-[#bafbee]" : "bg-[#fcd0cc]"
+                    }`}
+                  >
+                    {"incoming" == "incoming" ? (
+                      <BsArrowDownLeft />
+                    ) : (
+                      <BsArrowUpRight />
+                    )}
+                  </div>
+                  <div className="flex flex-col gap-1 ">
+                    <span className="text-sm font-medium opacity-70">
+                      Sent 200k from purse
+                    </span>
+                    <span className="-mt text-xs">09-Aug-2022</span>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1 text-right">
+                  <span className="font-medium opacity-80 text-sm ">
+                    {true ? "+" : "-"} ₦ 200.00
+                  </span>
+                  <span
+                    className={`text-xs capitalize font-medium ${
+                      "successful" == "successful"
+                        ? "text-[#1c5c4f]"
+                        : "text-[#cc746c]"
+                    }`}
+                  >
+                    Successful
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
         <div className="mt-5">
