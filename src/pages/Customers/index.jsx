@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AppLayoutNew from "../../layout/AppLayoutNew";
 import { CgSearch } from "react-icons/cg";
 import CustomButton from "../../components/Buttons/CustomButton";
@@ -6,10 +6,17 @@ import { BiMenu, BiPlus } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { GrClose } from "react-icons/gr";
 import { ToggleSidebarContext } from "../../App";
+import PageHeader from "../../shared/PageHeader";
+import { useDispatch, useSelector } from "react-redux";
+import { getCustomerAction } from "../../store/slices/product/getCustomerSlice";
+import TableLoading from "../../components/Loaders/TableLoading";
 
 const Customers = () => {
-  const { sidebarOpen, setSidebarOpen } = useContext(ToggleSidebarContext);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading, data } = useSelector((state) => state.get_customer);
+  console.log(data);
+
   const records = [
     {
       name: "Ridiculous Customer 123",
@@ -29,23 +36,14 @@ const Customers = () => {
     },
   ];
 
+  useEffect(() => {
+    dispatch(getCustomerAction());
+  }, []);
+
   return (
     <AppLayoutNew noHeader={true}>
       <div className="mx-4 sm:mx-7 my-10">
-        <div className="flex items-center gap-5 mb-7">
-          <span className="block lg:hidden">
-            {!sidebarOpen ? (
-              <BiMenu onClick={() => setSidebarOpen(true)} size={30} />
-            ) : (
-              <GrClose
-                className="mt-1 ml-1"
-                onClick={() => setSidebarOpen(false)}
-                size={25}
-              />
-            )}
-          </span>
-          <p className="text-2xl font-semibold opacity-80 ">Customers</p>
-        </div>
+        <PageHeader title={"Customer"} />
         <div className="bg-dimmed_white p-5 rounded-xl mt-5">
           <div className="w-full flex gap-4 pt-3">
             <CustomButton
@@ -57,7 +55,7 @@ const Customers = () => {
                 <div className="flex items-center gap-1 !text-sm">
                   <BiPlus size={20} />
                   <span className="md:block hidden">Add Customer</span>
-                  <span className="block md:hidden" >New</span>
+                  <span className="block md:hidden">New</span>
                 </div>
               }
             />
@@ -77,8 +75,8 @@ const Customers = () => {
               }
               children={
                 <div className="flex items-center gap-1 !text-sm">
-                   <span className="md:block hidden">Import Contacts</span>
-                  <span className="block md:hidden" >Import</span>
+                  <span className="md:block hidden">Import Contacts</span>
+                  <span className="block md:hidden">Import</span>
                 </div>
               }
             />
@@ -111,33 +109,45 @@ const Customers = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody>
-                  <>
-                    {records.map((item, idx) => (
-                      <tr
-                        onClick={() => navigate("#")}
-                        className="cursor-pointer pt-3 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-2"
-                        key={idx}
-                      >
-                        <td className="text-sm py-2.5 pb-4 pl-3">
-                          {item.name}
-                        </td>
-                        <td className="text-sm py-2.5 pb-4">{item.email}</td>
-                        <td className="text-sm py-2.5 pb-4">{item.phone}</td>
-                        <td className="text-sm  py-2.5 pb-4">
-                          ₦{item.total_spent}
-                        </td>
-                        <td className="text-sm pl-8 py-2.5 pb-4">
-                          {item.total_orders}
-                        </td>
-                        <td className="text-sm  py-2.5 pb-4">
-                          {item.date_added}
-                        </td>
-                      </tr>
-                    ))}
-                  </>
-                </tbody>
+                {!loading && data.length ? (
+                  <tbody>
+                    <>
+                      {data?.map((item, idx) => (
+                        <tr
+                          onClick={() => navigate("#")}
+                          className="cursor-pointer pt-3 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-2"
+                          key={idx}
+                        >
+                          <td className="text-sm py-2.5 pb-4 pl-3">
+                            {item.name}
+                          </td>
+                          <td className="text-sm py-2.5 pb-4">
+                            {item.email ?? "test@test.com"}
+                          </td>
+                          <td className="text-sm py-2.5 pb-4">
+                            {item.phoneNumber ?? "09098712345"}
+                          </td>
+                          <td className="text-sm  py-2.5 pb-4">
+                            ₦{item.total_spent ?? 0.0}
+                          </td>
+                          <td className="text-sm pl-8 py-2.5 pb-4">
+                            {item.total_orders ?? 0}
+                          </td>
+                          <td className="text-sm  py-2.5 pb-4">
+                            {item.date_added ?? "July 12, 2023"}
+                          </td>
+                        </tr>
+                      ))}
+                    </>
+                  </tbody>
+                ) : null}
               </table>
+              {!loading && !data.length ? (
+                <p className="py-10 font-medium  flex justify-center">
+                  No data found{" "}
+                </p>
+              ) : null}
+              {loading && <TableLoading />}
             </div>
             <div className="flex justify-center mt-2">
               <div className="w-8 h-8 grid place-content-center rounded-md bg-bg">
