@@ -1,6 +1,7 @@
 import { GET_STORAGE_ITEM } from "../config/storage";
 import Customers from "../pages/Customers";
 import AddCustomer from "../pages/Customers/AddCustomer";
+import Expenses from "../pages/Expenses";
 import RecordExpenses from "../pages/Expenses/RecordExpeses";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
@@ -89,6 +90,11 @@ export const routes = [
     title: "Record Expenses",
     path: "/record-expense",
     component: RecordExpenses,
+  },
+  {
+    title: "All Expenses",
+    path: "/all-expenses",
+    component: Expenses,
   },
   {
     title: "Customers",

@@ -7,7 +7,7 @@ const PageHeader = ({ children }) => {
   const { sidebarOpen, setSidebarOpen } = useContext(ToggleSidebarContext);
 
   return (
-    <div className="flex items-center gap-5 mb-7">
+    <div className="flex items-center gap-5 mb-7 w-full">
       <span className="block lg:hidden">
         {!sidebarOpen ? (
           <BiMenu onClick={() => setSidebarOpen(true)} size={30} />
@@ -19,7 +19,7 @@ const PageHeader = ({ children }) => {
           />
         )}
       </span>
-      <p className="text-2xl font-semibold opacity-80 ">{children}</p>
+      <p className="text-2xl font-semibold opacity-80 flex-1">{children}</p>
     </div>
   );
 };

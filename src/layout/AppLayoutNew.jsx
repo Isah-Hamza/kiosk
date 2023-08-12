@@ -47,12 +47,12 @@ const AppLayoutNew = ({ children, noHeader }) => {
       subMenu: [
         {
           name: "All Expenses",
-          path: null,
+          path: '/all-expenses',
           icon: <BsCart3 />,
         },
         {
           name: "All Sales",
-          path: null,
+          path: '/all-sales',
           icon: <MdOutlineWallet size={17} />,
         },
         {

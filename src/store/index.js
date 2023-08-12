@@ -25,6 +25,7 @@ import getProductActivitySlice from "./slices/product/getProductActivitySlice";
 import updateProductSlice from "./slices/product/updateProductSlice";
 import getCustomerSlice from "./slices/product/getCustomerSlice";
 import createBookSlice from "./slices/book-keeping/createBookSlice";
+import getAllBookSlice from "./slices/book-keeping/getAllBookSlice";
 
 const store = configureStore({
   reducer: {
@@ -54,6 +55,7 @@ const store = configureStore({
     get_product_activities: getProductActivitySlice,
     update_product: updateProductSlice,
     create_book: createBookSlice,
+    get_all_books: getAllBookSlice,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware();
