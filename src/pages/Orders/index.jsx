@@ -42,7 +42,7 @@ const Orders = () => {
   return (
     <AppLayoutNew noHeader={true}>
       <div className="mx-4 sm:mx-7 my-10">
-        <PageHeader title={"Orders"} />
+        <PageHeader children={"Orders"} />
         <div className="bg-dimmed_white p-5 rounded-xl mt-5">
           <TableTop
             what_to_add={"Create Order"}

@@ -124,7 +124,7 @@ const RecordExpenses = () => {
   return (
     <AppLayoutNew noHeader={true}>
       <div className="mx-4 sm:mx-7 my-10 ">
-        <PageHeader title={"Record Expenses"} />
+        <PageHeader children={"Record Expenses"} />
         <div className="grid grid-cols-2 lg:hidden max-w-md mb-5  gap-4 mt-8">
           <CustomButton
             className={

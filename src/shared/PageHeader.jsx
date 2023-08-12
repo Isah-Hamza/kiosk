@@ -3,7 +3,7 @@ import { BiMenu } from "react-icons/bi";
 import { GrClose } from "react-icons/gr";
 import { ToggleSidebarContext } from "../App";
 
-const PageHeader = ({ title }) => {
+const PageHeader = ({ children }) => {
   const { sidebarOpen, setSidebarOpen } = useContext(ToggleSidebarContext);
 
   return (
@@ -19,7 +19,7 @@ const PageHeader = ({ title }) => {
           />
         )}
       </span>
-      <p className="text-2xl font-semibold opacity-80 ">{title}</p>
+      <p className="text-2xl font-semibold opacity-80 ">{children}</p>
     </div>
   );
 };

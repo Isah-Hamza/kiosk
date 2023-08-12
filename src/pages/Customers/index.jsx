@@ -15,7 +15,6 @@ const Customers = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, data } = useSelector((state) => state.get_customer);
-  console.log(data);
 
   const records = [
     {
@@ -43,7 +42,7 @@ const Customers = () => {
   return (
     <AppLayoutNew noHeader={true}>
       <div className="mx-4 sm:mx-7 my-10">
-        <PageHeader title={"Customer"} />
+        <PageHeader children={"Customer"} />
         <div className="bg-dimmed_white p-5 rounded-xl mt-5">
           <div className="w-full flex gap-4 pt-3">
             <CustomButton

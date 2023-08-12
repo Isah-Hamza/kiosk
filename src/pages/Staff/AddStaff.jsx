@@ -94,7 +94,7 @@ const AddStaff = () => {
   return (
     <AppLayoutNew noHeader={true}>
       <div className="mx-4 sm:mx-7 my-10 min-w-[300px]">
-        <PageHeader title={"Add Staff"} />
+        <PageHeader children={"Add Staff"} />
         <div className="grid grid-cols-[1fr,1.4fr] sm:grid-cols-2 lg:hidden max-w-md mb-5  gap-4 mt-8">
           <CustomButton
             className={

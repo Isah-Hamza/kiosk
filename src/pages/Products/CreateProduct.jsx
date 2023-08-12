@@ -106,7 +106,7 @@ const CreateProduct = () => {
     <AppLayoutNew noHeader={true}>
       <div className="mx-4 lg:mx-7 my-10 min-w-[300px]">
         {/* <p className="text-2xl font-semibold opacity-80 mb-7">Create Product</p> */}
-        <PageHeader title={"Create Inventory"} />
+        <PageHeader children={"Create Inventory"} />
         <div className="grid grid-cols-[1fr,1.4fr] sm:grid-cols-2 lg:hidden max-w-md mb-5  gap-4 mt-8">
           <CustomButton
             className={

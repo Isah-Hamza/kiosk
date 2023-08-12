@@ -259,7 +259,7 @@ const NewSales = () => {
       ) : (
         <>
           <div className="mx-4 lg:mx-7 my-10 min-w-[300px]">
-            <PageHeader title={"Record New Sales"} />
+            <PageHeader children={"Record New Sales"} />
             <div className="grid grid-cols-[1fr,1.4fr] sm:grid-cols-2 lg:hidden max-w-md mb-5  gap-4 mt-8">
               <CustomButton
                 className={

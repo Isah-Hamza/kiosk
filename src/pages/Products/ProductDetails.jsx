@@ -102,7 +102,7 @@ const ProductDetails = () => {
         </>
       ) : (
         <div className="mx-4 sm:mx-7 my-10">
-          <PageHeader title={"Product Details"} />
+          <PageHeader children={"Product Details"} />
           <div className="grid md:grid-cols-[8fr,4fr] gap-5">
             <div className="bg-dimmed_white p-5 rounded-xl mt-5 min-h-[200px]">
               <div className=" text-center md:text-left flex flex-col md:flex-row sm:items-center gap-7">

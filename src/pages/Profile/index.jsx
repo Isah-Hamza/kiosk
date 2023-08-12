@@ -18,7 +18,7 @@ import { changePasswordAction } from "../../store/slices/user/changePasswordSlic
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const { loading } = useSelector(state => state.change_password);
+  const { loading } = useSelector((state) => state.change_password);
   const [activeTab, setActiveTab] = useState(0);
   const [tabs, setTabs] = useState([
     "Personal Information",
@@ -157,7 +157,7 @@ const Profile = () => {
         .required("Confirm password is required"),
     }),
     onSubmit(values) {
-      dispatch(changePasswordAction({data:values, formik}));
+      dispatch(changePasswordAction({ data: values, formik }));
     },
   });
 
@@ -167,7 +167,7 @@ const Profile = () => {
     <Layout noHeader>
       <div className="mt-10 mx-4 sm:mx-7">
         <div className="sm:pl-7">
-          <PageHeader title={"Profile Settings"} />
+          <PageHeader children={"Profile Settings"} />
         </div>
         <div className="flex  lg:flex-row flex-col gap-7">
           <div className="w-full lg:w-80 flex flex-col">
@@ -396,12 +396,10 @@ const Profile = () => {
                   </div>
                   <div className="sm:col-span-3 mt-1">
                     <CustomButton
-                    disabled={loading}
-                    loading={loading}
+                      disabled={loading}
+                      loading={loading}
                       type={"submit"}
-                      className={
-                        "w-full sm:w-[unset] rounded-md !py-3"
-                      }
+                      className={"w-full sm:w-[unset] rounded-md !py-3"}
                     >
                       Reset Password
                     </CustomButton>

@@ -31,7 +31,7 @@ const Products = () => {
   return (
     <AppLayoutNew noHeader={true}>
       <div className="mx-4 sm:mx-7 my-10">
-        <PageHeader title={"Inventory"} />
+        <PageHeader children={"Inventory"} />
         <div className="bg-dimmed_white p-5 rounded-xl mt-5">
           <div className="flex justify-between items-center ">
             <div className="w-full flex gap-4">

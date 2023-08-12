@@ -29,7 +29,7 @@ const Staff = () => {
   return (
     <AppLayoutNew noHeader={true}>
       <div className="mx-4 sm:mx-7 my-10">
-        <PageHeader title={"Sub Accounts"} />
+        <PageHeader children={"Sub Accounts"} />
         <div className="bg-dimmed_white p-5 rounded-xl mt-5">
           <div className="w-full flex gap-4 pt-3">
             <CustomButton
