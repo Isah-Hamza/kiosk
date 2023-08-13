@@ -57,7 +57,7 @@ const Coperative = () => {
               onClick={() => setActiveTab(idx)}
               key={idx}
               className={`rounded-t-md min-w-[100px] px-5 py-1.5 font-medium opacity-80 ${
-                activeTab === idx && "border border-primary border-b-0"
+                activeTab === idx && "border border-primary border-b-0 bg-slate-400"
               }`}
             >
               {tab}
