@@ -28,48 +28,6 @@ import { createBookAction } from "../../store/slices/book-keeping/createBookSlic
 import { useNavigate } from "react-router-dom";
 import customToast from "../../components/Toast/toastify";
 
-const Row = ({ item, id, handleAdd }) => {
-  const [qtyToBuy, setQtyToBuy] = useState(1);
-
-  return (
-    <tr
-      className="pt-1 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-1"
-      // key={idx}
-    >
-      <td className="py-1 text-xs">
-        <div className="flex flex-col sm:flex-row items-center gap-1">
-          <img className="w-10" src={shoppingBag} alt="" />
-          {item.name}
-        </div>
-      </td>
-      <td className="py-1 text-xs pl-7">{item.stock_available}</td>
-      <td className="py-1 text-xs pl-3">₦{Number(item.price).toFixed(2)}</td>
-      <td className="py-1 text-xs pl-3">
-        <input
-          value={item.stock_available ? qtyToBuy : ""}
-          onChange={(e) => setQtyToBuy(e.target.value)}
-          type="text"
-          className="w-11 sm:w-12 rounded-sm p-1 border outline-none"
-        />
-      </td>
-
-      <td className="py-1 text-xs sm:pl-3">
-        <button
-          disabled={
-            item.stock_available <= 0 || qtyToBuy > item.stock_available
-          }
-          onClick={() => handleAdd(item, id, qtyToBuy)}
-          className="bg-primary text-white flex items-center gap-1.5
- rounded cursor-pointer px-4 py-1 w-fit disabled:bg-opacity-60 disabled:cursor-not-allowed"
-        >
-          {" "}
-          <span className="block">Add</span>
-        </button>
-      </td>
-    </tr>
-  );
-};
-
 const NewSales = () => {
   let total_sum = 0;
 
@@ -83,7 +41,6 @@ const NewSales = () => {
 
   const [suppliers, setSuppliers] = useState(customers);
   const [addMore, setAddMore] = useState(false);
-  const [setselectFromStore, setSetselectFromStore] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeChannel, setActiveChannel] = useState(0);
 
@@ -202,7 +159,15 @@ const NewSales = () => {
     total_sum += Number(item.total_amount);
   });
 
-  const handleDelete = (id, deletedItem) => {
+  const handleAddNewRecord = () => {
+    if (newRecord.name && newRecord.amount && newRecord.qty) {
+      setRecords((prev) => [...prev, newRecord]);
+      setNewRecord({ total_amount: "" });
+      setAddMore(false);
+    }
+  };
+
+  const handleDelete = (id) => {
     setRecords(records.filter((_, idx) => idx !== id));
   };
 
@@ -373,7 +338,7 @@ const NewSales = () => {
                                       }}
                                       className="name w-[90%] border outline-none text-xs px-2 py-1"
                                     />
-                                    {searchedProducts.length ? (
+                                    {searchTerm && searchedProducts.length ? (
                                       <div
                                         className={`z-10 absolute top-10 min-w-full bg-white shadow text-sm text-black rounded-md py-3 `}
                                       >
@@ -443,14 +408,7 @@ const NewSales = () => {
                                     />
                                     <BiCheck
                                       className="cursor-pointer"
-                                      onClick={() => {
-                                        setRecords((prev) => [
-                                          ...prev,
-                                          newRecord,
-                                        ]);
-                                        setNewRecord({ total_amount: "" });
-                                        setAddMore(false);
-                                      }}
+                                      onClick={handleAddNewRecord}
                                       color="green"
                                       size={30}
                                     />

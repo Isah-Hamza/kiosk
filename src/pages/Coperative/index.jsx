@@ -40,7 +40,7 @@ const Coperative = () => {
     <AppLayoutNew noHeader={true}>
       <div className="mx-4 sm:mx-7 my-10">
         <PageHeader children={"Glowbiz Coperative"} />
-        <div className="grid grid-cols-4 gap-5 mt-5">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5 mt-5">
           {summary.map((item, idx) => (
             <div
               key={idx}
@@ -51,13 +51,13 @@ const Coperative = () => {
             </div>
           ))}
         </div>
-        <div className="text-sm flex items-center gap-3 mt-14 pl-3">
+        <div className="text-sm flex items-center gap-3 mt-14 pl-4">
           {tabs.map((tab, idx) => (
             <button
               onClick={() => setActiveTab(idx)}
               key={idx}
               className={`rounded-t-md min-w-[100px] px-5 py-1.5 font-medium opacity-80 ${
-                activeTab === idx && "border border-primary border-b-0 bg-slate-400"
+                activeTab === idx && "border border-primary border-b-0 bg-slate-400 !text-primary"
               }`}
             >
               {tab}

@@ -322,17 +322,18 @@ function Home() {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-5 mx-4 sm:mx-7 mt-5">
+        <div className="grid md:grid-cols-2 gap-5 mx-4 sm:mx-7 mt-5">
           <div className="flex flex-col bg-dimmed_white min-h-[300px] rounded-md p-5">
             <p className="font-medium text-lg opacity-80">Glowbiz Coperative</p>
-            <div className="grid grid-cols-2 gap-5 mt-5">
+            <div className="grid grid-cols-2 gap-5 my-5">
               <div className="text-sm flex flex-col">
                 <p>Loans</p>
                 <p className="font-semibold text-xl">₦0.00</p>
                 <p className="text-sm mb-5">With 4% Monthly return</p>
                 <CustomButton
+                  clickHandler={() => navigate("/coperative")}
                   className={
-                    "!w-fit !py-2  mt-auto !border-primary !text-white font-bold !rounded-lg"
+                    "!w-fit !px-5 sm:!px-10 !py-2  mt-auto !border-primary !text-white font-bold !rounded-lg"
                   }
                 >
                   Request Loan
@@ -343,8 +344,9 @@ function Home() {
                 <p className="font-semibold text-xl">₦0.00</p>
                 <p className="text-sm">Getback 5% Monthly and 13% Anually</p>
                 <CustomButton
+                  clickHandler={() => navigate("/coperative")}
                   className={
-                    "!w-fit !py-2 mt-5 !bg-white border !text-black !border-primary  font-bold !rounded-lg"
+                    "!w-fit !px-5 sm:!px-10 !py-2 mt-5 !bg-white border !text-black !border-primary  font-bold !rounded-lg"
                   }
                 >
                   Save Money

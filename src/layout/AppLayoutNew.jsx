@@ -186,7 +186,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
       </aside>
       <main className="flex-1 h-screen overflow-auto overflow-x-hidden bg-bg">
         {noHeader ? null : (
-          <header className="w-full min-w-[300px] h-[60px] lg:h-[120px] flex items-center justify-between px-5 sm:px-7 pt-5">
+          <header className="w-full min-w-[300px] h-[60px] lg:h-[120px] flex items-center justify-between px-5 sm:px-7 ">
             <div>
               <div className="hidden lg:block">
                 <CustomDropdown />
