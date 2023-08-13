@@ -48,14 +48,14 @@ const CustomDropdown = () => {
         <Title partner={partner} />
       </div>
       {isDropdownOpen && (
-        <div className="text-sm absolute px-4 dropdown-list bg-white rounded-md top-14 min-w-full p-2 py-4 z-10 shadow">
+        <div className="text-sm absolute p-3 dropdown-list bg-white rounded-md top-14 min-w-full  z-10 shadow">
           <div
             className="hover:bg-bg/50 hover:!text-primary cursor-pointer rounded px-2"
             onClick={() => {
               navigate("/create-business");
             }}
           >
-            <div className="flex items-center gap-2 py-1">
+            <div className="whitespace-nowrap flex items-center gap-2 py-1">
               <BsPlus size={30} />
               <p> Add Business</p>
             </div>
@@ -74,7 +74,6 @@ const CustomDropdown = () => {
                       handleDropdownToggle();
                     }}
                   >
-                    {console.log(partner?.partner?.id, biz.id)}
                     <div className="w-max min-w-[170px] whitespace-nowrap flex items-center gap-2 py-2.5 px-3">
                       <img
                         className="w-6 rounded-full"
@@ -111,7 +110,7 @@ const CustomDropdown = () => {
 
 const Title = ({ partner }) => {
   return (
-    <button className="border border-primary/30 rounded px-3 py-3 flex items-center gap-2 text-primary">
+    <button className="border border-primary/30 rounded-md px-3 py-2.5 flex items-center gap-2 text-primary">
       {partner?.partner?.name ? (
         <img className="w-6 rounded-full" src={partner?.partner?.logo} alt="" />
       ) : (

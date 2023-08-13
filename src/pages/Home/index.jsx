@@ -156,7 +156,7 @@ function Home() {
       {/* main */}
       <div className="pb-10">
         <div className="rounded text px-4 sm:px-7 pt-0">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 mt-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 mt-5">
             {analysis.map((item, idx) => (
               <div key={idx}>
                 {idx == 0 ? (

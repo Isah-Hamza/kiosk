@@ -1,4 +1,5 @@
 import { GET_STORAGE_ITEM } from "../config/storage";
+import Coperative from "../pages/Coperative";
 import Customers from "../pages/Customers";
 import AddCustomer from "../pages/Customers/AddCustomer";
 import Expenses from "../pages/Expenses";
@@ -127,5 +128,10 @@ export const routes = [
     title: "Orders",
     path: "/orders",
     component: Orders,
+  },
+  {
+    title: "Coperative",
+    path: "/coperative",
+    component: Coperative,
   },
 ];
