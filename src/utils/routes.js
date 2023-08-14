@@ -21,6 +21,7 @@ import AddStaff from "../pages/Staff/AddStaff";
 import StaffDetails from "../pages/Staff/StaffDetails";
 import Delivery from "../pages/Delivery";
 import Tracker from "../pages/Delivery/Tracker";
+import DeliveryDetails from "../pages/Delivery/DeliveryDetails";
 
 export const routes = [
   {
@@ -132,8 +133,13 @@ export const routes = [
   },
   {
     title: "Delivery Details",
-    path: "/delivery/details",
+    path: "/delivery/tracking",
     component: Tracker,
+  },
+  {
+    title: "Delivery Details",
+    path: "/delivery/details",
+    component: DeliveryDetails,
   },
   {
     title: "Coperative",
