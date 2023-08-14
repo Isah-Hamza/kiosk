@@ -149,9 +149,7 @@ const NewSales = () => {
     },
   ];
 
-  const [records, setRecords] = useState([
-    { name: "Tomatoes", qty: 2, amount: "200.00", total_amount: "400.00" },
-  ]);
+  const [records, setRecords] = useState([]);
 
   const [newRecord, setNewRecord] = useState({});
 
@@ -253,7 +251,7 @@ const NewSales = () => {
                   </p>
                 </div>
                 <div className="grid grid-cols-1 gap-5">
-                  <div className=" pt-3 bg-dimmed_white rounded-xl min-h-[200px]">
+                  <div className=" pt-3 bg-dimmed_white rounded-xl min-h-[250px]">
                     <div className="flex justify-between items-center">
                       <p className="font-medium opacity-80 pl-2">
                         Sold Products
@@ -338,7 +336,7 @@ const NewSales = () => {
                                       }}
                                       className="name w-[90%] border outline-none text-xs px-2 py-1"
                                     />
-                                    {searchTerm && searchedProducts.length ? (
+                                    {searchTerm && searchedProducts?.length ? (
                                       <div
                                         className={`z-10 absolute top-10 min-w-full bg-white shadow text-sm text-black rounded-md py-3 `}
                                       >
@@ -420,9 +418,13 @@ const NewSales = () => {
                         </tbody>
                       </table>
                       {records.length <= 0 && !addMore ? (
-                        <div className="pl-3 opacity-80 text-sm font-medium">
+                        <div className="text-center pl-3 opacity-80 text-sm font-medium mt-5">
                           {" "}
-                          No product(s) selected yet.
+                          No product(s) added yet.
+                          <p>
+                            Use the "Add Product" button at the top right of
+                            this table
+                          </p>
                         </div>
                       ) : null}
                     </div>
