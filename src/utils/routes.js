@@ -6,7 +6,6 @@ import Expenses from "../pages/Expenses";
 import RecordExpenses from "../pages/Expenses/RecordExpeses";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
-import Orders from "../pages/Orders";
 import Products from "../pages/Products";
 import CreateProduct from "../pages/Products/CreateProduct";
 import ProductDetails from "../pages/Products/ProductDetails";
@@ -20,6 +19,8 @@ import NewSales from "../pages/Sales/AddNewSales";
 import Staff from "../pages/Staff";
 import AddStaff from "../pages/Staff/AddStaff";
 import StaffDetails from "../pages/Staff/StaffDetails";
+import Delivery from "../pages/Delivery";
+import Tracker from "../pages/Delivery/Tracker";
 
 export const routes = [
   {
@@ -125,9 +126,14 @@ export const routes = [
     component: AddStaff,
   },
   {
-    title: "Orders",
-    path: "/orders",
-    component: Orders,
+    title: "Delivery",
+    path: "/delivery",
+    component: Delivery,
+  },
+  {
+    title: "Delivery Details",
+    path: "/delivery/details",
+    component: Tracker,
   },
   {
     title: "Coperative",
