@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import AppLayoutNew from "../../layout/AppLayoutNew";
-import { CgSearch } from "react-icons/cg";
-import CustomButton from "../../components/Buttons/CustomButton";
-import { BiPlus } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import PageHeader from "../../shared/PageHeader";
 import TableTop from "../../components/Table/TableTop";
+import NewDelivery from "./RecordNewDelivery";
 
-const Orders = () => {
+const Delivery = () => {
   const navigate = useNavigate();
+  const [addOrder, setAddOrder] = useState(false);
+
   const records = [
     {
       name: "#3289",
@@ -42,11 +42,12 @@ const Orders = () => {
   return (
     <AppLayoutNew noHeader={true}>
       <div className="mx-4 sm:mx-7 my-10">
-        <PageHeader children={"Orders"} />
+        <PageHeader children={"All Deliveries"} />
         <div className="bg-dimmed_white p-5 rounded-xl mt-5">
           <TableTop
             what_to_add={"Create Order"}
             what_to_import={"Import Orders"}
+            addHandler={() => setAddOrder(true)}
           />
           <div className="mt-2 w-full">
             <div className="overflow-x-auto">
@@ -80,7 +81,7 @@ const Orders = () => {
                   <>
                     {records.map((item, idx) => (
                       <tr
-                        onClick={() => navigate("#")}
+                        onClick={() => navigate("/delivery/details")}
                         className="cursor-pointer pt-3 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-2"
                         key={idx}
                       >
@@ -108,8 +109,11 @@ const Orders = () => {
           </div>
         </div>
       </div>
+      {addOrder ? (
+        <NewDelivery closeHanlder={() => setAddOrder(false)} />
+      ) : null}
     </AppLayoutNew>
   );
 };
 
-export default Orders;
+export default Delivery;

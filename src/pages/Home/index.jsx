@@ -223,9 +223,12 @@ function Home() {
               <p className="font-medium text-lg opacity-80">
                 Recent Deliveries
               </p>
-              <span className="text-sm font-semibold flex items-center gap-2">
+              <button
+                onClick={() => navigate("/delivery")}
+                className="text-sm font-semibold flex items-center gap-2"
+              >
                 More <PiArrowRightThin />
-              </span>
+              </button>
             </div>
             {[1, 2, 3].map((item) => (
               <div
