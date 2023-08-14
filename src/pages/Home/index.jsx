@@ -24,87 +24,23 @@ function Home() {
 
   const todaySummary = [
     {
-      title: "Today's Sales",
-      value: "3,000",
+      title: "Account Balance",
+      value: "0.00",
+      desc: "Copy account number",
     },
     {
-      title: "Customers",
-      value: "19",
-      notCurrency: true,
+      title: "Sales this month",
+      value: "0.00",
+      desc: "34 sales, 1% up from last month",
     },
     {
-      title: "Products",
-      value: "30",
-      notCurrency: true,
+      title: "Expenses this month",
+      value: "0.00",
+      desc: "22 Expenses, 15% down from last month",
     },
     {
-      title: "Today's Expenses",
-      value: "22,000",
-    },
-  ];
-
-  const analysis = [
-    {
-      title: "Net Balance",
-      desc: "Final balance after expenditure.",
-      amount: "6.3M",
-      rise: true,
-      rate: "+40%",
-    },
-    {
-      title: "Total Sales",
-      desc: "Total sales made this month.",
-      amount: "15.9M",
-      rise: false,
-      rate: "-25%",
-    },
-    {
-      title: "Total Inventory Items",
-      desc: "Total items in inventory.",
-      amount: "2.5K",
-      rise: false,
-      rate: "-13%",
-      notCurrency: true,
-    },
-    {
-      title: "Total Income Revenue",
-      desc: "Total amount made this month.",
-      amount: "312K",
-      rate: "+53%",
-      rise: true,
-    },
-  ];
-
-  const topPerformingProducts = [
-    {
-      name: "Radiated Radio",
-      status: "available",
-      total_sold: "3,046",
-      total_remaining: "109",
-    },
-    {
-      name: "Blended Blender",
-      status: "finished",
-      total_sold: "2,250",
-      total_remaining: "04",
-    },
-    {
-      name: "Spectacular Spec",
-      status: "finished",
-      total_sold: "2,250",
-      total_remaining: "0",
-    },
-    {
-      name: "Extended Extenstions",
-      status: "available",
-      total_sold: "3,046",
-      total_remaining: "404",
-    },
-    {
-      name: "Fanatical Fans",
-      status: "finished",
-      total_sold: "4,900",
-      total_remaining: "0",
+      title: "Inventory Value",
+      value: "30,000",
     },
   ];
 
@@ -155,96 +91,18 @@ function Home() {
     <AppLayoutNew>
       {/* main */}
       <div className="pb-10">
-        <div className="rounded text px-4 sm:px-7 pt-0">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 mt-5">
-            {analysis.map((item, idx) => (
-              <div key={idx}>
-                {idx == 0 ? (
-                  <div className="min-h-[180px] bg-dimmed_white rounded h-full flex flex-col p-5">
-                    <div className="flex items-center justify-between">
-                      <p className="font-medium mb-0.5">Account Balance</p>
-                      <button>
-                        {showBal ? (
-                          <BsEyeFill
-                            onClick={toggleShowBal}
-                            color="rgb(97, 51, 51)"
-                            size={20}
-                          />
-                        ) : (
-                          <BsEyeSlashFill
-                            onClick={toggleShowBal}
-                            color="rgb(97, 51, 51)"
-                            size={20}
-                          />
-                        )}
-                      </button>
-                    </div>
-                    <p className="text-2xl font-medium opacity-70">
-                      {showBal ? " ₦12,000" : "****"}
-                    </p>
-                    <div className="mt-auto flex justify-between items-center">
-                      <div>
-                        <p className="font-medium opacity-80">Wema Bank</p>
-                        <p className="text-lg">0814348473</p>
-                      </div>
-                      <BsFillShieldLockFill
-                        className="text-primary"
-                        size={35}
-                      />
-                    </div>
-                  </div>
-                ) : (
-                  <div
-                    key={idx}
-                    style={{ backgroundColor: "rgba(255,255,255,.9)" }}
-                    className="flex flex-col justify-between rounded min-h-[180px] p-5"
-                  >
-                    <div className="flex items-center justify-between">
-                      <p className="font-medium">{item.title} </p>
-                      <button>
-                        <MdArrowRightAlt
-                          color="rgb(97, 51, 51)"
-                          className={item.rise ? "" : ""}
-                          size={25}
-                        />
-                      </button>
-                    </div>
-                    <div className=" mt-auto">
-                      <p className="text-xs">{item.desc}</p>
-                      <div className="flex justify-between items-center">
-                        <p className="font-medium opacity-70 text-2xl">
-                          {!item.notCurrency ? "₦" : ""}
-                          {item.amount}{" "}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="grid grid-cols-3 gap-5 mx-4 sm:mx-7 mt-5">
+        <div className="grid grid-cols-3 gap-5 mx-4 sm:mx-7 mt-2">
           <div className=" col-span-3 rounded min-h-[200px] bg-dimmed_white  p-5 !pb-7 ">
             <p className="text-lg font-medium mb-5">
               {" "}
               Today's Business Insight
             </p>
-            <div className="grid gap-5 grid-cols-2 md:flex justify-between">
+            <div className="grid gap-5 grid-cols-2 md:grid-cols-[1fr,1fr,1.3fr,.7fr] justify-between">
               {todaySummary.map((item, idx) => (
-                <div
-                  key={idx}
-                  className={` md:text-center
-                ${idx == 0 && "!text-left"}
-                ${idx == todaySummary.length - 1 && "md:text-right"}
-                
-                `}
-                >
+                <div key={idx} className={`text-left`}>
                   <p className="font-medium opacity-70 mb-1.5">{item.title}</p>
-                  <p className="font-semibold text-xl">
-                    {!item.notCurrency ? "₦" : ""}
-                    {item.value}
-                  </p>
+                  <p className="font-semibold text-xl">₦{item.value}</p>
+                  <p className="text-sm">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -300,17 +158,17 @@ function Home() {
                 />
               </div>
               <div>
-                <p className="font-medium opacity-70 mb-1.5">Loans</p>
+                <p className="font-medium opacity-70 mb-1.5">Business Debt</p>
                 <p className="font-semibold text-xl">₦0.00</p>
-                <p className="text-sm">of ₦5,000 available credit</p>
+                <p className="text-sm">
+                  This refers to the amount owned <br /> by the business.
+                </p>
               </div>
 
               <div>
-                <p className="font-medium opacity-70 mb-1.5">Savings</p>
+                <p className="font-medium opacity-70 mb-1.5">Customer Debt</p>
                 <p className="font-semibold text-xl">₦0.00</p>
-                <p className="text-sm">
-                  Click the button below to start saving.
-                </p>
+                <p className="text-sm">Debt own by your customers.</p>
                 <CustomButton
                   className={
                     "!py-2 mt-3 !border-primary !text-white font-bold !rounded-lg"
@@ -369,42 +227,39 @@ function Home() {
                 More <PiArrowRightThin />
               </span>
             </div>
-            {[1, 2, 3, 4].map((item) => (
+            {[1, 2, 3].map((item) => (
               <div
                 key={item}
-                className="bg-[#493847]/5  p-3 mb-3 rounded-md text-xs flex justify-between items-center"
+                className="bg-[#493847]/5  p-3 mb-3 rounded-md text-xs flex justify-between"
               >
                 <div className="flex gap-2 items-center">
                   <div
                     className={`grid place-content-center w-9 h-9 rounded-full ${
-                      "incoming" == "incoming" ? "bg-[#bafbee]" : "bg-[#fcd0cc]"
+                      item % 2 == 1 ? "bg-[#bafbee]" : "bg-[#fcd0cc]"
                     }`}
                   >
-                    {"incoming" == "incoming" ? (
-                      <BsArrowDownLeft />
-                    ) : (
-                      <BsArrowUpRight />
-                    )}
+                    {item % 2 == 1 ? <BsArrowDownLeft /> : <BsArrowUpRight />}
                   </div>
                   <div className="flex flex-col gap-1 ">
-                    <span className="text-sm font-medium opacity-70">
-                      Sent 200k from purse
+                    <p className="text-sm font-medium opacity-70">
+                      <span>From: JEDO Estate, Abuja</span>
+                    </p>
+                    <span className="-mt text-xs">
+                      To: Victoria Island, Lagos
                     </span>
-                    <span className="-mt text-xs">09-Aug-2022</span>
+                    <span
+                      className={`text-xs capitalize font-medium text-[#1c5c4f]`}
+                    >
+                      completed
+                    </span>
                   </div>
                 </div>
                 <div className="flex flex-col gap-1 text-right">
                   <span className="font-medium opacity-80 text-sm ">
-                    {true ? "+" : "-"} ₦ 200.00
+                    {item * 2}7km
                   </span>
-                  <span
-                    className={`text-xs capitalize font-medium ${
-                      "successful" == "successful"
-                        ? "text-[#1c5c4f]"
-                        : "text-[#cc746c]"
-                    }`}
-                  >
-                    Successful
+                  <span className="font-medium opacity-80 text-sm ">
+                    ₦200.00
                   </span>
                 </div>
               </div>
@@ -429,7 +284,7 @@ function Home() {
                   <div
                     key={idx}
                     className={`border-b py-2 flex justify-between items-center ${
-                      idx == topPerformingProducts.length - 1 && "border-b-0 "
+                      idx == lastFiveCredits.length - 1 && "border-b-0 "
                     } `}
                   >
                     <div className="flex gap-2 items-center">
