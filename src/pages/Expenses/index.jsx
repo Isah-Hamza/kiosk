@@ -13,6 +13,18 @@ import { getAllBookAction } from "../../store/slices/book-keeping/getAllBookSlic
 
 const Expenses = () => {
   const { data, loading } = useSelector((state) => state.get_all_books);
+  console.log(data.data?.customer);
+  const { data: res } = data;
+  // const {
+  //   customer,
+  //   amountExpected,
+  //   amountPaid,
+  //   invoiceDate,
+  //   bookItems,
+  //   debt,
+  //   reference,
+  //   paymentChannelType,
+  // } = res;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -73,25 +85,28 @@ const Expenses = () => {
                 <thead className="">
                   <tr className="!text-left !opacity-70 !font-semibold">
                     <th className="text-sm py-3 border-y !font-semibold pl-3 w-[32%]s">
-                      User Name
+                      Trnx. Reference
+                    </th>
+                    <th className="text-sm py-3 border-y !font-semibold pl-3 w-[32%]s">
+                      Customer Name
                     </th>
                     <th className="text-sm py-3 border-y !font-semibold">
-                      Email
-                    </th>
-                    <th className="text-sm py-3 border-y !font-semibold">
-                      {" "}
-                      Phone
-                    </th>
-                    <th className="text-sm py-3 border-y !font-semibold">
-                      {" "}
-                      User Role
+                      Total Amount{" "}
                     </th>
                     <th className="text-sm py-3 border-y !font-semibold">
                       {" "}
-                      Account Status
+                      Amount Paid
                     </th>
                     <th className="text-sm py-3 border-y !font-semibold">
-                      Date Joined{" "}
+                      {" "}
+                      Debt
+                    </th>
+                    <th className="text-sm py-3 border-y !font-semibold">
+                      {" "}
+                      No. of Items
+                    </th>
+                    <th className="text-sm py-3 border-y !font-semibold">
+                      Trnx Date{" "}
                     </th>
                   </tr>
                 </thead>
@@ -103,7 +118,7 @@ const Expenses = () => {
                         data?.data?.map((item, idx) => (
                           <tr
                             onClick={() =>
-                              navigate("/all-expenses/details", {
+                              navigate("#", {
                                 state: { data: item },
                               })
                             }
@@ -111,32 +126,25 @@ const Expenses = () => {
                             key={idx}
                           >
                             <td className="text-sm py-2.5 pb-4 pl-3">
-                              {item.user?.firstName} {item.user?.lastName}
+                              {item.reference}
+                            </td>
+                            <td className="text-sm py-2.5 pb-4 pl-3">
+                              {item.customer?.name}
                             </td>
                             <td className="text-sm py-2.5 pb-4">
-                              {item.user?.email}
+                              ₦{item.amountExpected}
                             </td>
                             <td className="text-sm py-2.5 pb-4">
-                              {item.user?.phone}
+                              ₦{item.amountPaid}
                             </td>
-                            <td className="text-sm  py-2.5 pb-4 flex items-center gap-2">
-                              {item.user?.role == "1" ? (
-                                <CgCrown className="text-primary" size={18} />
-                              ) : (
-                                <BiUser className="text-primary" size={18} />
-                              )}
-                              {roles[item.user.role]}
+                            <td className="text-sm text-red-600 py-2.5 pb-4 flex items-center gap-2">
+                              ₦{item.debt}
                             </td>
-                            <td
-                              style={{
-                                color: item.isActive ? "green" : "orange",
-                              }}
-                              className="text-sm pl-5 py-2.5 pb-4 font-medium"
-                            >
-                              {item.isActive ? "Active" : "Inactive"}
+                            <td className="text-sm pl-5 py-2.5 pb-4 font-medium">
+                              {item.bookItems?.length}
                             </td>
                             <td className="text-sm  py-2.5 pb-4">
-                              {moment(item.createdDate).format("ll")}
+                              {moment(item.invoiceDate).format("ll")}
                             </td>
                           </tr>
                         ))}
