@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { FaBell, FaRedo, FaUserCog, FaUsers } from "react-icons/fa";
+import React, { useContext,  useState } from "react";
+import { FaBell,  } from "react-icons/fa";
 import { FiHome, FiUsers } from "react-icons/fi";
 import { BsCameraFill, BsCart3, BsCreditCard } from "react-icons/bs";
 import {} from "react-icons/ai";
@@ -52,7 +52,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
         },
         {
           name: "All Sales",
-          path: null,
+          path: "/all-sales",
           icon: <MdOutlineWallet size={17} />,
         },
         {
@@ -86,7 +86,7 @@ const AppLayoutNew = ({ children, noHeader }) => {
     },
     {
       title: "Glowbiz Premium",
-      path: "#",
+      path: null,
     },
     {
       title: "Settings",

@@ -77,19 +77,15 @@ const NewSales = () => {
       discount: Yup.number().typeError("Enter a valid number"),
     }),
     onSubmit(values) {
-      console.log(values);
       if (records.length == 0) {
         customToast("Please add some products to proceed", true);
         return;
       }
-      console.log("first");
-
       values.bookItems = records;
       values.amountExpected = total_sum;
       values.amountPaid = Number(values.amountPaid);
       values.debt = Number(values.amountExpected - values.amountPaid);
       if (values.debt <= 0) values.debt = 0;
-      console.log(values.debt);
       if (values.debt > 0) {
         const valid = validateCustomer(values);
         if (!valid) {
@@ -109,7 +105,6 @@ const NewSales = () => {
         delete book.total_amount;
       });
 
-      console.log(values);
       dispatch(createBookAction({ data: values, navigate }));
     },
   });

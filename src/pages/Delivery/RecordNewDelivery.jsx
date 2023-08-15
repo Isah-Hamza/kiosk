@@ -15,7 +15,6 @@ const NewDelivery = ({ closeHanlder }) => {
   ];
 
   const vehicle = [
-    { label: "Select One", value: "0" },
     { label: "Bike", value: "1" },
     { label: "Car", value: "2" },
     { label: "Truck", value: "3" },
@@ -37,7 +36,7 @@ const NewDelivery = ({ closeHanlder }) => {
     <div className="fixed inset-0 bg-black/60 overflow-hidden grid place-content-center z-[10001]">
       <form
         // onSubmit={handleSubmit}
-        className="min-h-[300px] overflow-auto bg-white rounded-xl w-full sm:w-[500px] p-7 px-8"
+        className="min-h-[300px] overflow-auto bg-white max-h-[98vh] rounded-xl w-full sm:w-[500px] p-7 px-8"
       >
         <div className="flex justify-between items-center">
           <p className="text-lg font-semibold text-primary capitalize ">
@@ -49,21 +48,19 @@ const NewDelivery = ({ closeHanlder }) => {
         </div>
         {step == 1 ? (
           <>
-            <div className="grid sm:grid-cols-2 gap-5 mt-7">
+            <div className="grid gap-5 mt-7">
               <div>
-                <CustomSelect
-                  className={"!bg-bg !py-3"}
+                <CustomInput
+                  className={"!bg-bg !py-3 "}
                   label={"Pickup Address"}
                   id={"pickup"}
-                  options={address}
                 />{" "}
               </div>
               <div>
-                <CustomSelect
-                  className={"!bg-bg !py-3"}
+                <CustomInput
+                  className={"!bg-bg !py-3 "}
                   label={"Delivery Address"}
                   id={"delivery"}
-                  options={address}
                 />{" "}
               </div>
             </div>
@@ -126,48 +123,57 @@ const NewDelivery = ({ closeHanlder }) => {
         ) : (
           <>
             <div className="mt-6">
-              <CustomSelect
-                className={"!bg-bg !py-3"}
-                label={"Select Vehicle Type"}
-                id={"vehicleType"}
-                options={vehicle}
-              />{" "}
+              <p className="text-sm mb-1">Select Vehicle Type</p>
+              <div className="grid grid-cols-3 gap-5 justify-between items-center">
+                {vehicle.map((item, idx) => (
+                  <button
+                    type="button"
+                    key={idx}
+                    className={`flex gap-3 items-center border py-2.5 px-3 rounded ${
+                      idx == 0 && "border-primary"
+                    }`}
+                  >
+                    <div
+                      className={`w-5 h-5 rounded-full border  ${
+                        idx == 0 && "bg-primary"
+                      }`}
+                    ></div>
+                    {item.label}
+                  </button>
+                ))}
+              </div>
             </div>
-            <div className="grid grid-cols-2 gap-5 mt-6">
+            <div className="grid grid-cols-3 gap-5 mt-7 ">
               <div className="">
                 <label htmlFor="" className="text-sm">
                   Price
                 </label>
-                <div className="flex-1 relative">
-                  <div className="span absolute left-3 top-4 text-lg">
-                    <PiCurrencyNgnLight />{" "}
-                  </div>
-                  <input
-                    value={"200"}
-                    type="text"
-                    disabled
-                    className="!bg-bg w-full rounded border outline-none h-full px-5 pl-8 py-[14px] text-sm placeholder:text-sm"
-                  />
-                </div>
+                <p className="txt-lg font-semibold flex items-center gap-1">
+                  {" "}
+                  <PiCurrencyNgnLight />
+                  300.00
+                </p>
               </div>
               <div className="">
                 <label htmlFor="" className="text-sm">
                   Speed
                 </label>
-                <div className="flex-1 relative">
-                  <div className="span absolute left-3 top-4 text-lg">
-                    <PiCurrencyNgnLight />{" "}
-                  </div>
-                  <input
-                    value={"45km/hr"}
-                    disabled
-                    type="text"
-                    className="!bg-bg w-full rounded border outline-none h-full px-5 pl-8 py-[14px] text-sm placeholder:text-sm"
-                  />
-                </div>
+                <p className="txt-lg font-semibold flex items-center gap-1">
+                  {" "}
+                  44km/hr
+                </p>
+              </div>
+              <div className="">
+                <label htmlFor="" className="text-sm">
+                  Engine
+                </label>
+                <p className="txt-lg font-semibold flex items-center gap-1">
+                  {" "}
+                  Super Fast
+                </p>
               </div>
             </div>
-            <div className="mt-6">
+            <div className="mt-7">
               <CustomInput
                 className={"!bg-bg !py-3 "}
                 label={"Preferred Pickup Date"}

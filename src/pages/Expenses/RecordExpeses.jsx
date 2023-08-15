@@ -18,8 +18,12 @@ import { MdCall, MdEmail } from "react-icons/md";
 import ValidationError from "../../components/Error/ValidationError";
 import customToast from "../../components/Toast/toastify";
 import { createBookAction } from "../../store/slices/book-keeping/createBookSlice";
+import { BsTrash2Fill } from "react-icons/bs";
+import { CgClose } from "react-icons/cg";
+import { BiCheck } from "react-icons/bi";
 
 const RecordExpenses = () => {
+  let total_sum = 0;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showSupplierForm, setShowSupplierForm] = useState(false);
@@ -40,7 +44,7 @@ const RecordExpenses = () => {
 
   const formik = useFormik({
     initialValues: {
-      amountExpected: 0,
+      amountExpected: total_sum,
       paymentChannelType: 0,
       amountPaid: 0,
       bookType: 2,
@@ -66,6 +70,12 @@ const RecordExpenses = () => {
         .required("This field is required"),
     }),
     onSubmit(values) {
+      if (records.length == 0) {
+        customToast("Please add some Items to proceed", true);
+        return;
+      }
+      values.bookItems = records;
+      values.amountExpected = total_sum;
       values.amountExpected = Number(values.amountExpected);
       values.amountPaid = Number(values.amountPaid);
       values.debt = Number(values.amountExpected - values.amountPaid);
@@ -95,8 +105,6 @@ const RecordExpenses = () => {
     handleSubmit,
   } = formik;
 
-  console.log(errors);
-
   const handleChangeSupplier = (value) =>
     setFieldValue("supplierId", Number(value));
 
@@ -120,6 +128,32 @@ const RecordExpenses = () => {
     { label: "Completed", value: "3" },
     { label: "Aborted", value: "4" },
   ];
+
+  const [addMore, setAddMore] = useState(false);
+  const [records, setRecords] = useState([]);
+  const [newRecord, setNewRecord] = useState({});
+
+  records.map((item) => {
+    total_sum += Number(item.total_amount);
+  });
+
+  const handleAddNewRecord = () => {
+    if (newRecord.name && newRecord.amount && newRecord.qty) {
+      setRecords((prev) => [...prev, newRecord]);
+      setNewRecord({ total_amount: "" });
+      setAddMore(false);
+    }
+  };
+
+  const handleDelete = (id) => {
+    setRecords(records.filter((_, idx) => idx !== id));
+  };
+
+  useEffect(() => {
+    records.map((item) => {
+      total_sum += Number(item.total_amount);
+    });
+  }, [records]);
 
   return (
     <AppLayoutNew noHeader={true}>
@@ -145,29 +179,168 @@ const RecordExpenses = () => {
           <div className="px-4 py-6 !sm:p-6 bg-dimmed_white rounded-xl">
             <div className="border-b pb-5">
               <p className="text-sm font-medium opacity-70">Total Sum</p>
-              <p className="font-bold text-2xl text-primary">₦0.00</p>
+              <p className="font-bold text-2xl text-primary">
+                ₦{total_sum.toFixed(2)}
+              </p>
             </div>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-5">
-              <div className="mt-7 grid gap-5">
-                <div className=" border-b pb-7">
-                  <div className=" -mt-1">
-                    <label htmlFor="" className="text-sm">
-                      Total Amount For Expenses
-                    </label>
-                    <div className="flex-1 relative">
-                      <div className="span absolute left-3 top-4 text-lg">
-                        <PiCurrencyNgnLight />{" "}
-                      </div>
-                      <input
-                        {...getFieldProps("amountExpected")}
-                        type="text"
-                        className="!bg-bg w-full rounded border outline-none h-full px-5 pl-8 py-[14px] text-sm placeholder:text-sm"
-                      />
+              <div className="mt-3 grid gap-5">
+                <div className=" pt-3 bg-dimmed_white rounded-xl min-h-[200px]">
+                  <div className="flex justify-between items-center">
+                    <p className="font-medium opacity-80 pl-2">
+                      Purchased Items
+                    </p>
+                    <div className="flex justify-end">
+                      <CustomButton
+                        clickHandler={() => setAddMore(!addMore)}
+                        className={
+                          " !bg-[rgba(0,158,170,0.3)] !px-7 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-1.5 rounded-lg"
+                        }
+                      >
+                        Add Items
+                      </CustomButton>
                     </div>
-                    {touched.amountExpected && errors.amountExpected && (
-                      <ValidationError msg={errors.amountExpected} />
-                    )}
                   </div>
+                  <div className="">
+                    <table className="text-sm w-full table-auto border-separate border-spacing-y-3 ">
+                      <thead className="bg-[#f3f4f5] shadow">
+                        <tr className="!text-left !opacity-70 !font-semibold bg-[#f3f4f5]">
+                          <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
+                            Name
+                          </th>
+                          <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
+                            Quantity
+                          </th>
+                          <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
+                            Amount{" "}
+                            <span className=" sm:inline hidden">/ Item</span>
+                          </th>
+                          <th className="text-xs pl-3 w-[25%] py-2 !font-semibold">
+                            Total{" "}
+                            <span className=" sm:inline hidden "> Cost</span>
+                          </th>
+                          <th className="text-xs pl-3 w-[25%] py-2 !font-semibold"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {records.map((item, idx) => (
+                          <tr
+                            className="pt-1 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-1"
+                            key={idx}
+                          >
+                            <td className="py-2 text-xs pl-3 ">{item.name}</td>
+                            <td className="py-2 text-xs pl-7">{item.qty}</td>
+                            <td className="py-2 text-xs pl-3">
+                              ₦{Number(item.amount).toFixed(2)}
+                            </td>
+                            <td className="py-2 text-xs pl-3">
+                              ₦{Number(item.total_amount).toFixed(2)}
+                            </td>
+
+                            <td className="py-2 text-xs">
+                              <div
+                                onClick={() => handleDelete(idx, item)}
+                                className="bg-primaryColor-900/80 text-red-500 flex items-center gap-1.5
+                     rounded cursor-pointer px-4 py-1 w-fit"
+                              >
+                                {" "}
+                                <BsTrash2Fill color="" />
+                                <span className="hidden sm:block">Remove</span>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                        {
+                          <>
+                            {addMore ? (
+                              <tr>
+                                <td className="relative">
+                                  <input
+                                    value={newRecord.name}
+                                    onChange={(e) => {
+                                      setNewRecord((prev) => ({
+                                        ...prev,
+                                        name: e.target.value,
+                                      }));
+                                    }}
+                                    className="name w-[90%] border outline-none text-xs px-2 py-1"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    value={newRecord.qty}
+                                    onChange={(e) =>
+                                      setNewRecord((prev) => ({
+                                        ...prev,
+                                        qty: e.target.value,
+                                        total_amount: prev.amount
+                                          ? Number(e.target.value) *
+                                            Number(prev.amount)
+                                          : prev.total_amount,
+                                      }))
+                                    }
+                                    className="w-[90%] border outline-none text-xs px-2 py-1 "
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    value={newRecord.amount}
+                                    disabled={!newRecord.qty}
+                                    onChange={(e) =>
+                                      setNewRecord((prev) => ({
+                                        ...prev,
+                                        amount: e.target.value,
+                                        total_amount:
+                                          Number(e.target.value) *
+                                          Number(prev.qty),
+                                      }))
+                                    }
+                                    className="w-[90%] border outline-none text-xs px-2 py-1 "
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    value={newRecord.total_amount}
+                                    disabled
+                                    className="w-[90%] border outline-none text-xs px-2 py-1 "
+                                  />
+                                </td>
+                                <td className="flex justify-center items-center gap-2 sm:gap-3">
+                                  <CgClose
+                                    className="cursor-pointer"
+                                    onClick={() => {
+                                      setNewRecord({ total_amount: "" });
+                                      setAddMore(false);
+                                    }}
+                                    color="red"
+                                    size={20}
+                                  />
+                                  <BiCheck
+                                    className="cursor-pointer"
+                                    onClick={handleAddNewRecord}
+                                    color="green"
+                                    size={30}
+                                  />
+                                </td>
+                              </tr>
+                            ) : null}
+                          </>
+                        }
+                      </tbody>
+                    </table>
+                    {records.length <= 0 && !addMore ? (
+                      <div className="text-center pl-3 opacity-80 text-sm font-medium mt-5">
+                        {" "}
+                        No Items(s) added yet.
+                        <p>
+                          Use the "Add Item" button at the top right of this
+                          table
+                        </p>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+                <div className=" border-b pb-7">
                   <div className="grid grid-cols-2 gap-5 mt-6">
                     <div className="pb-3 -mt-1">
                       <label htmlFor="" className="text-sm">
@@ -197,7 +370,7 @@ const RecordExpenses = () => {
                         </div>
                         <input
                           disabled
-                          value={values.amountExpected - values.amountPaid || 0}
+                          value={Math.max(total_sum - values.amountPaid, 0)}
                           readOnly
                           type="text"
                           className="!bg-bg w-full rounded border outline-none h-full px-5 pl-8 py-[14px] text-sm placeholder:text-sm"
@@ -315,7 +488,6 @@ const RecordExpenses = () => {
                     {...getFieldProps("description")}
                   ></textarea>
                 </div>
-
                 <div>
                   <CustomButton
                     type={"submit"}
