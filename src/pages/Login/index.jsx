@@ -7,7 +7,7 @@ import CustomInput from "../../components/CustomInput";
 import { SlLock } from "react-icons/sl";
 import { MdOutlineMarkEmailUnread } from "react-icons/md";
 import CustomButton from "../../components/Buttons/CustomButton";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import AuthPagesLayout from "../../layout/AuthPagesLayout";
 
 import logo from "../../assets/images/logo.png";
@@ -17,6 +17,7 @@ import ValidationError from "../../components/Error/ValidationError";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../store/slices/user/loginSlice";
 import { PartnerContext } from "../../App";
+import { GET_STORAGE_ITEM } from "../../config/storage";
 
 const Login = () => {
   const { setPartner } = useContext(PartnerContext);
@@ -41,9 +42,12 @@ const Login = () => {
     },
   });
 
-  const { handleSubmit, getFieldProps, errors, touched, isSubmitting } = formik;
+  const { handleSubmit, getFieldProps, errors, touche } = formik;
 
-  
+  if (GET_STORAGE_ITEM("token")) {
+    return <Navigate to={"/home"} />;
+  }
+
   return (
     <AuthPagesLayout>
       <div className="form-container max-w-[330px]">

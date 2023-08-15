@@ -28,7 +28,7 @@ const Tracker = () => {
 
   return (
     <AppLayoutNew noHeader={true}>
-      <div className="mx-4 sm:mx-7 mt-10">
+      <div className="mx-4 sm:mx-7 my-7">
         <PageHeader children={"Delivery Tracking"} />
         <div className=" flex items-center justify-end">
           {/* <p className="text-lg font-semibold text-primary ">Live Location</p> */}
@@ -42,7 +42,7 @@ const Tracker = () => {
             </p>
           </div>
         </div>
-        <div className="flex-1 mt-5">
+        <div className="flex-1">
           <div className="w-full h-full flex">
             <div className="bg-white/90 h-full w-80 p-5 py-7">
               <div className="flex items-center gap-2">
