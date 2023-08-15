@@ -22,6 +22,7 @@ import StaffDetails from "../pages/Staff/StaffDetails";
 import Delivery from "../pages/Delivery";
 import Tracker from "../pages/Delivery/Tracker";
 import DeliveryDetails from "../pages/Delivery/DeliveryDetails";
+import AddSupplier from "../pages/Customers/AddSupplier";
 
 export const routes = [
   {
@@ -64,6 +65,7 @@ export const routes = [
     path: "/home",
     component: Home,
   },
+
   {
     title: "Profile",
     path: "/profile",
@@ -108,6 +110,11 @@ export const routes = [
     title: "Add Customer",
     path: "/add-customer",
     component: AddCustomer,
+  },
+  {
+    title: "Add Supplier",
+    path: "/add-supplier",
+    component: AddSupplier,
   },
 
   {

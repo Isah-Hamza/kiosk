@@ -10,14 +10,14 @@ import { MdCall, MdEmail } from "react-icons/md";
 import PageHeader from "../../shared/PageHeader";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { createSupplierAction } from "../../store/slices/partner/createSupplierSlice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createCustomerAction } from "../../store/slices/partner/createCustomerSlice";
 
-const AddCustomer = () => {
+const AddSupplier = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.create_customer);
+  const { loading } = useSelector((state) => state.create_supplier);
 
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -38,7 +38,7 @@ const AddCustomer = () => {
     }),
 
     onSubmit: (values) => {
-      dispatch(createCustomerAction({ data: values, navigate }));
+      dispatch(createSupplierAction({ data: values, navigate }));
     },
   });
 
@@ -53,7 +53,7 @@ const AddCustomer = () => {
   return (
     <AppLayoutNew noHeader={true}>
       <div className="mx-4 sm:mx-7 my-10 min-w-[300px]">
-        <PageHeader children={"Add Customer"} />
+        <PageHeader children={"Add Supplier"} />
         {/* hidden on large screen */}
         <div className="grid grid-cols-[1fr,1.4fr] sm:grid-cols-2 lg:hidden max-w-md mb-5  gap-4 mt-8">
           <CustomButton
@@ -113,7 +113,7 @@ const AddCustomer = () => {
                       type="submit"
                       className=" ml-auto mt-2 text-white text-sm flex items-center justify-end gap-3 !px-10 !py-3 rounded-md"
                     >
-                      {loading ? "Creating Customer....." : "Create Customer"}
+                      {loading ? "Creating supplier...." : "Create Supplier"}
                     </CustomButton>
                   </div>
                 </div>
@@ -156,4 +156,4 @@ const AddCustomer = () => {
   );
 };
 
-export default AddCustomer;
+export default AddSupplier;

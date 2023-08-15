@@ -22,6 +22,8 @@ const ApiEndPoints = {
   get_user_accounts: "Partner/user-accounts",
   switch_accounts: "Partner/switch-accounts",
   all_accounts: "Partner/all-accounts",
+  create_customer: "CustomerSupplierManagement/add-customer",
+  create_supplier: "CustomerSupplierManagement/add-supplier",
 
   // PRODUCT
   create_product: "Product/create-inventory",

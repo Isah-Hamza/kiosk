@@ -42,7 +42,7 @@ const Login = () => {
     },
   });
 
-  const { handleSubmit, getFieldProps, errors, touche } = formik;
+  const { handleSubmit, getFieldProps, errors, touched } = formik;
 
   if (GET_STORAGE_ITEM("token")) {
     return <Navigate to={"/home"} />;
