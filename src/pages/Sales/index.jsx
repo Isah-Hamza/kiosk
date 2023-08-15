@@ -105,7 +105,7 @@ const Sales = () => {
                         data?.data?.map((item, idx) => (
                           <tr
                             onClick={() =>
-                              navigate("/all-sales/details", {
+                              navigate("#", {
                                 state: { data: item },
                               })
                             }

@@ -35,7 +35,7 @@ export const createBookAction = createAsyncThunk(
     return CreateBook(data)
       .then((res) => {
         customToast(res?.message ?? " Record Created Successful");
-        navigate("/home");
+        navigate(data.bookType == 1 ? "/all-sales" : "/all-expenses");
         return res;
       })
       .catch((e) => {
