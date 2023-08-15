@@ -1,23 +1,23 @@
-import React, { useContext } from "react";
-import "../../index.css";
-import "../../styles/login.css";
+import React, { useContext } from 'react';
+import '../../index.css';
+import '../../styles/login.css';
 
-import { ImGoogle } from "react-icons/im";
-import CustomInput from "../../components/CustomInput";
-import { SlLock } from "react-icons/sl";
-import { MdOutlineMarkEmailUnread } from "react-icons/md";
-import CustomButton from "../../components/Buttons/CustomButton";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import AuthPagesLayout from "../../layout/AuthPagesLayout";
+import { ImGoogle } from 'react-icons/im';
+import CustomInput from '../../components/CustomInput';
+import { SlLock } from 'react-icons/sl';
+import { MdOutlineMarkEmailUnread } from 'react-icons/md';
+import CustomButton from '../../components/Buttons/CustomButton';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import AuthPagesLayout from '../../layout/AuthPagesLayout';
 
-import logo from "../../assets/images/logo.png";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import ValidationError from "../../components/Error/ValidationError";
-import { useDispatch, useSelector } from "react-redux";
-import { loginAction } from "../../store/slices/user/loginSlice";
-import { PartnerContext } from "../../App";
-import { GET_STORAGE_ITEM } from "../../config/storage";
+import logo from '../../assets/images/logo.png';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import ValidationError from '../../components/Error/ValidationError';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginAction } from '../../store/slices/user/loginSlice';
+import { PartnerContext } from '../../App';
+import { GET_STORAGE_ITEM } from '../../config/storage';
 
 const Login = () => {
   const { setPartner } = useContext(PartnerContext);
@@ -27,25 +27,23 @@ const Login = () => {
 
   const formik = useFormik({
     initialValues: {
-      username: "",
-      password: "",
+      username: '',
+      password: '',
     },
     validationSchema: Yup.object().shape({
-      username: Yup.string()
-        .email("Invalid email address")
-        .required("Email is required"),
-      password: Yup.string().required("Password is required"),
+      username: Yup.string().email('Invalid email address').required('Email is required'),
+      password: Yup.string().required('Password is required'),
     }),
     onSubmit(values) {
-      values.deviceId = "test_id";
+      values.deviceId = 'test_id';
       dispatch(loginAction({ data: values, navigate, setPartner }));
     },
   });
 
-  const { handleSubmit, getFieldProps, errors, touche } = formik;
+  const { handleSubmit, getFieldProps, errors, touched } = formik;
 
-  if (GET_STORAGE_ITEM("token")) {
-    return <Navigate to={"/home"} />;
+  if (GET_STORAGE_ITEM('token')) {
+    return <Navigate to={'/home'} />;
   }
 
   return (
@@ -56,70 +54,53 @@ const Login = () => {
             <img src={logo} alt="logo" className="w-40" />
           </span>
         </div>
-        <p className="text-center font-bold text-xl text-[#41010b] mb-3">
-          Hi, Welcome Back!
-        </p>
+        <p className="text-center font-bold text-xl text-[#41010b] mb-3">Hi, Welcome Back!</p>
         <p className="text-center text-[13px] opacity-80">
-          Welcome to GlowBiz. Please provide your login credentials here to
-          start using the app.
+          Welcome to GlowBiz. Please provide your login credentials here to start using the app.
         </p>
         <form onSubmit={handleSubmit}>
           <div className="email">
             <CustomInput
-              className={"!bg-[#e9e9eb] !h-[50px]"}
-              placeholder={"Enter Email"}
+              className={'!bg-[#e9e9eb] !h-[50px]'}
+              placeholder={'Enter Email'}
               Icon={
                 <MdOutlineMarkEmailUnread
                   size={17}
                   className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
                 />
               }
-              {...getFieldProps("username")}
+              {...getFieldProps('username')}
             />
-            {touched.username && touched.username && (
-              <ValidationError msg={errors.username} />
-            )}
+            {touched.username && touched.username && <ValidationError msg={errors.username} />}
           </div>
           <div className="email mt-1">
             <CustomInput
-              placeholder={"Enter Password"}
-              className={"!bg-[#e9e9eb] !h-[50px]"}
-              type={"password"}
-              Icon={
-                <SlLock
-                  size={17}
-                  className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
-                />
-              }
-              {...getFieldProps("password")}
+              placeholder={'Enter Password'}
+              className={'!bg-[#e9e9eb] !h-[50px]'}
+              type={'password'}
+              Icon={<SlLock size={17} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" />}
+              {...getFieldProps('password')}
             />
-            {touched.password && touched.password && (
-              <ValidationError msg={errors.password} />
-            )}
+            {touched.password && touched.password && <ValidationError msg={errors.password} />}
           </div>
           <div className="flex items-center justify-between flex-row-reverse">
-            <Link to={"/request-otp"} className="forgot-password">
+            <Link to={'/request-otp'} className="forgot-password">
               Forgot Password?
             </Link>
             <div className="flex items-center gap-1">
-              <input
-                name="remember"
-                id="remember"
-                type={"checkbox"}
-                className="accent-primary"
-              />
+              <input name="remember" id="remember" type={'checkbox'} className="accent-primary" />
               <label htmlFor="remember">Remember Me</label>
             </div>
           </div>
           <div className="form-footer">
             <CustomButton
-              type={"submit"}
-              className={"bg-[#41010b] !w-full !py-4"}
+              type={'submit'}
+              className={'bg-[#41010b] !w-full !py-4'}
               disabled={loading}
               loading={loading}
               // clickHandler={() => navigate("/home")}
             >
-              {loading ? "Please wait..." : " Login"}
+              {loading ? 'Please wait...' : ' Login'}
             </CustomButton>
             <button
               type="button"
@@ -131,12 +112,12 @@ const Login = () => {
           </div>
         </form>
         <p className="no-account whitespace-nowrap mb-1">
-          Don't have an account ?{" "}
+          Don't have an account ?{' '}
           <span>
-            {" "}
-            <Link to={"/register"} className="font-medium">
+            {' '}
+            <Link to={'/register'} className="font-medium">
               Sign Up
-            </Link>{" "}
+            </Link>{' '}
           </span>
         </p>
       </div>
