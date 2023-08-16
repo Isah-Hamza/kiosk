@@ -153,7 +153,12 @@ const AppLayoutNew = ({ children, noHeader }) => {
                     {item.subMenu.map((subItem, subIdx) => (
                       <li
                         key={subIdx}
-                        onClick={() => navigate(subItem.path)}
+                        onClick={() => {
+                          setSidebarOpen(false);
+                          setTimeout(() => {
+                            subItem.path ? navigate(subItem.path) : null;
+                          }, 10);
+                        }}
                         className="text-sm py-2 hover:opacity-100 !text-black opacity-80 hover:text-primary cursor-pointer transition-all duration-300 ease-in-out"
                       >
                         <div className="flex gap-3 items-center font-medium">
@@ -171,13 +176,19 @@ const AppLayoutNew = ({ children, noHeader }) => {
         <div className="mt-auto">
           <ul className="px-5">
             {secondarySideBarItems.map((item, idx) => (
-              <Link
+              <li
+                onClick={() => {
+                  setSidebarOpen(false);
+                  setTimeout(() => {
+                    item.path ? navigate(item.path) : null;
+                  }, 10);
+                }}
                 to={item.path ?? "#"}
                 key={idx}
                 className={`text-black/80 text-sm mb-1 px-6 py-2 flex gap-2.5 items-center hover:font-semibold hover:bg-slate-200 ${"hover:text-primary"} cursor-pointer`}
               >
                 {item.title}
-              </Link>
+              </li>
             ))}
             <button onClick={handleLogout} className="w-full" to={"/login"}>
               <span
