@@ -1,8 +1,6 @@
-
 import { GET_STORAGE_ITEM } from '../config/storage';
 import Coperative from '../pages/Coperative';
 import Customers from '../pages/Customers';
-import AddCustomer from '../pages/Customers/AddCustomer';
 import Expenses from '../pages/Expenses';
 import RecordExpenses from '../pages/Expenses/RecordExpeses';
 import Home from '../pages/Home';
@@ -25,8 +23,10 @@ import Tracker from '../pages/Delivery/Tracker';
 import DeliveryDetails from '../pages/Delivery/DeliveryDetails';
 import Sales from '../pages/Sales';
 import NewDelivery from '../pages/Delivery/RecordNewDelivery';
-import ExpenseDetiails from "../pages/Expenses/ExpenseDetails";
-import SaleDetiails from "../pages/Sales/SaleDetails";
+import ExpenseDetiails from '../pages/Expenses/ExpenseDetails';
+import SaleDetiails from '../pages/Sales/SaleDetails';
+import AddCustomer from '../pages/Customers/AddCustomer';
+import AddSupplier from '../pages/Customers/AddSupplier';
 
 export const routes = [
   {
@@ -95,24 +95,23 @@ export const routes = [
     component: NewSales,
   },
   {
-
-    title: "Sales Details",
-    path: "/sale-details",
+    title: 'Sales Details',
+    path: '/sale-details',
     component: SaleDetiails,
   },
   {
-    title: "Record Expenses",
-    path: "/record-expense",
+    title: 'Record Expenses',
+    path: '/record-expense',
     component: RecordExpenses,
   },
   {
-    title: "Record Expenses",
-    path: "/expense-details",
+    title: 'Record Expenses',
+    path: '/expense-details',
     component: ExpenseDetiails,
   },
   {
-    title: "All Expenses",
-    path: "/all-expenses",
+    title: 'All Expenses',
+    path: '/all-expenses',
     component: Expenses,
   },
   {
@@ -171,5 +170,15 @@ export const routes = [
     title: 'Coperative',
     path: '/coperative',
     component: Coperative,
+  },
+  {
+    title: 'Add Customer',
+    path: '/add-customer',
+    component: AddCustomer,
+  },
+  {
+    title: 'Add Supplier',
+    path: '/add-supplier',
+    component: AddSupplier,
   },
 ];
