@@ -76,22 +76,32 @@ const NewDelivery = ({ closeHanlder }) => {
   }
 
   return (
-    <AppLayoutNew>
-      <div className="mx-4 sm:mx-7 mb-10">
-        {/* <PageHeader children={'Create Order'} /> */}
-        <div className="bg-dimmed_white p-5 rounded-xl mt-5">
+    <AppLayoutNew noHeader={true}>
+      <div className="mx-4 lg:mx-7 my-10 min-w-[300px]">
+        <PageHeader children={'Create Order'} />
+        <div className="">
           <form
             // onSubmit={handleSubmit}
-            className="min-h-[300px] overflow-auto bg-white rounded-xl w-full  p-7 px-8"
+            className="min-h-[300px] overflow-auto py-4"
           >
-            <div className="flex justify-between items-center">
-              <p className="text-xl font-semibold text-primary capitalize ">Record New Order</p>
-              {/* <button onClick={closeHanlder}>
-                <FiPlus className="rotate-45" size={22} />
-              </button> */}
-            </div>
-            <div className="grid sm:grid-cols-2 grid-cols-2 gap-9">
-              <div className="sm:col-span-1 col-span-2">
+            {/* <div className="grid grid-cols-[1fr,1.4fr] sm:grid-cols-2 lg:hidden max-w-md mb-5  gap-4 mt-8">
+              <CustomButton
+                className={
+                  '!whitespace-nowrap !bg-[rgba(0,158,170,0.3)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-2.5 rounded-lg'
+                }
+              >
+                Import Products
+              </CustomButton>
+              <CustomButton
+                className={
+                  '!bg-transparent border !px-3 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg'
+                }
+              >
+                Download Sample
+              </CustomButton>
+            </div> */}
+            <div className="grid lg:grid-cols-[3.5fr,2fr] gap-8">
+              <div className="bg-dimmed_white p-5 rounded">
                 <div className="grid gap-5 mt-7">
                   <div>
                     <AutoCompleteInput className={'!bg-bg !py-3 '} label={'Pickup Address'} id={'pickup'} />
@@ -129,16 +139,7 @@ const NewDelivery = ({ closeHanlder }) => {
                     className="w-full border rounded h-20 text-sm placeholder:text-sm p-2 outline-none resize-none !bg-bg"
                   ></textarea>
                 </div>
-                {/* <CustomButton
-                  clickHandler={() => setStep(2)}
-                  type={'button'}
-                  className={'w-full mt-5 border !px-7font-semibold  !py-3 rounded-md'}
-                >
-                  Proceed to Next
-                </CustomButton> */}
-              </div>
 
-              <div className="sm:col-span-1 col-span-2">
                 <div className="mt-6">
                   <p className="text-sm mb-1">Select Vehicle Type</p>
                   <div className="grid grid-cols-3 gap-5 justify-between items-center">
@@ -200,6 +201,33 @@ const NewDelivery = ({ closeHanlder }) => {
                     className={'w-full  border !px-7  font-semibold !py-3 rounded-md'}
                   >
                     Proceed to Pay
+                  </CustomButton>
+                </div>
+              </div>
+
+              <div className="hidden lg:block w-full ">
+                <p className="font-medium opacity-75">
+                  You may also import your inventory in bulk by uploading a .xlxs file in a specific format
+                </p>
+                <p className="text-sm opacity-70 mt-6">
+                  Streamline data integration by effortlessly importing your CSV file and unlocking a world of
+                  possibilities for seamless content management and organization. You may click on the button below to
+                  download a sample csv file on how to prepare your own .csv file for your inventory for upload.
+                </p>
+                <div className="grid grid-cols-2 gap-4 mt-6">
+                  <CustomButton
+                    className={
+                      ' !bg-[rgba(0,158,170,0.3)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-2.5 rounded-lg'
+                    }
+                  >
+                    Import Inventory
+                  </CustomButton>
+                  <CustomButton
+                    className={
+                      '!bg-transparent border !px-3 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg'
+                    }
+                  >
+                    Download Sample
                   </CustomButton>
                 </div>
               </div>
