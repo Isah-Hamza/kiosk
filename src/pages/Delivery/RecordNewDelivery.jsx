@@ -78,19 +78,19 @@ const NewDelivery = ({ closeHanlder }) => {
   return (
     <AppLayoutNew>
       <div className="mx-4 sm:mx-7 mb-10">
-        <PageHeader children={'Create Order'} />
+        {/* <PageHeader children={'Create Order'} /> */}
         <div className="bg-dimmed_white p-5 rounded-xl mt-5">
           <form
             // onSubmit={handleSubmit}
             className="min-h-[300px] overflow-auto bg-white rounded-xl w-full  p-7 px-8"
           >
-            {/* <div className="flex justify-between items-center">
-              <p className="text-lg font-semibold text-primary capitalize ">Record New Order</p>
-              <button onClick={closeHanlder}>
+            <div className="flex justify-between items-center">
+              <p className="text-xl font-semibold text-primary capitalize ">Record New Order</p>
+              {/* <button onClick={closeHanlder}>
                 <FiPlus className="rotate-45" size={22} />
-              </button>
-            </div> */}
-            <div className="grid sm:grid-cols-2 grid-cols-3 gap-9">
+              </button> */}
+            </div>
+            <div className="grid sm:grid-cols-2 grid-cols-2 gap-9">
               <div className="sm:col-span-1 col-span-2">
                 <div className="grid gap-5 mt-7">
                   <div>
@@ -138,7 +138,7 @@ const NewDelivery = ({ closeHanlder }) => {
                 </CustomButton> */}
               </div>
 
-              <div className="sm:col-span-1 col-span-1">
+              <div className="sm:col-span-1 col-span-2">
                 <div className="mt-6">
                   <p className="text-sm mb-1">Select Vehicle Type</p>
                   <div className="grid grid-cols-3 gap-5 justify-between items-center">
