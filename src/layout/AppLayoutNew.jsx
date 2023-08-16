@@ -1,10 +1,7 @@
-import React, { useContext,  useState } from "react";
-import { FaBell,  } from "react-icons/fa";
+import React, { useContext, useState } from "react";
+import { FaBell } from "react-icons/fa";
 import { FiHome, FiUsers } from "react-icons/fi";
 import { BsCameraFill, BsCart3, BsCreditCard } from "react-icons/bs";
-import {} from "react-icons/ai";
-import {} from "react-icons/cg";
-import {} from "react-icons/di";
 import { RiDashboardLine } from "react-icons/ri";
 import { Link, Navigate, redirect, useNavigate } from "react-router-dom";
 import { BiCaretUp, BiMenu, BiShoppingBag } from "react-icons/bi";
@@ -96,6 +93,14 @@ const AppLayoutNew = ({ children, noHeader }) => {
 
   if (!GET_STORAGE_ITEM("token")) {
     return <Navigate to={"/login"} />;
+  }
+
+  if (!GET_STORAGE_ITEM("user").isPhoneConfirmed) {
+    return <Navigate to={"/verify-account"} />;
+  }
+
+  if (!GET_STORAGE_ITEM("account").id) {
+    return <Navigate to={"/create-business"} />;
   }
 
   return (

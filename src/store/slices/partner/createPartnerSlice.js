@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CreatePartner } from "../../../Services/PartnerServices";
 import customToast from "../../../components/Toast/toastify";
 import { refreshAccessToken } from "../../../config/api";
-import { GET_STORAGE_ITEM } from "../../../config/storage";
+import { GET_STORAGE_ITEM, SET_STORAGE_ITEM } from "../../../config/storage";
 
 const initialState = {
   loading: false,
