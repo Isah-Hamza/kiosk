@@ -3,6 +3,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import { SlCalender } from "react-icons/sl";
 
 export default function CustomInput({
+  value,
   defaultValue,
   className,
   placeholder,
@@ -29,6 +30,7 @@ export default function CustomInput({
       ) : null}
       <div className="relative w-full">
         <input
+          value={value}
           defaultValue={defaultValue ?? null}
           autoComplete="off"
           placeholder={placeholder ?? ""}

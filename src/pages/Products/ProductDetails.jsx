@@ -21,6 +21,7 @@ import { getProductAction } from "../../store/slices/product/getProductSlice";
 import { getProductActivityAction } from "../../store/slices/product/getProductActivitySlice";
 import { deleteProductAction } from "../../store/slices/product/deleteProductSlice";
 import DeleteProduct from "./DeleteProduct";
+import PageLoading from "../../components/Loaders/PageLoading";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
@@ -94,12 +95,7 @@ const ProductDetails = () => {
   return (
     <AppLayoutNew noHeader={true}>
       {loading_product ? (
-        <>
-          <div className="flex h-screen items-center gap-1 justify-center text-sm p-2 py-10 font-medium">
-            <ImSpinner2 className="animate-spin" />
-            <p>Loading</p>
-          </div>
-        </>
+        <PageLoading />
       ) : (
         <div className="mx-4 sm:mx-7 my-10">
           <PageHeader children={"Product Details"} />

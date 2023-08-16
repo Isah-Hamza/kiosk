@@ -23,6 +23,7 @@ import Delivery from "../pages/Delivery";
 import Tracker from "../pages/Delivery/Tracker";
 import DeliveryDetails from "../pages/Delivery/DeliveryDetails";
 import Sales from "../pages/Sales";
+import ExpenseDetiails from "../pages/Expenses/ExpenseDetails";
 
 export const routes = [
   {
@@ -94,6 +95,11 @@ export const routes = [
     title: "Record Expenses",
     path: "/record-expense",
     component: RecordExpenses,
+  },
+  {
+    title: "Record Expenses",
+    path: "/expense-details",
+    component: ExpenseDetiails,
   },
   {
     title: "All Expenses",
