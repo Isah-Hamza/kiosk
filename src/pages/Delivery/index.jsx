@@ -3,11 +3,10 @@ import AppLayoutNew from '../../layout/AppLayoutNew';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../../shared/PageHeader';
 import TableTop from '../../components/Table/TableTop';
-import NewDelivery from './RecordNewDelivery';
 
 const Delivery = () => {
   const navigate = useNavigate();
-  const [addOrder, setAddOrder] = useState(false);
+  // const [addOrder, setAddOrder] = useState(false);
 
   const records = [
     {
@@ -47,7 +46,7 @@ const Delivery = () => {
           <TableTop
             what_to_add={'Create Order'}
             what_to_import={'Import Orders'}
-            addHandler={() => setAddOrder(true)}
+            addHandler={() => navigate('/create-delivery')}
           />
           <div className="mt-2 w-full">
             <div className="overflow-x-auto">
@@ -90,7 +89,6 @@ const Delivery = () => {
           </div>
         </div>
       </div>
-      {addOrder && <NewDelivery closeHanlder={() => setAddOrder(false)} />}
     </AppLayoutNew>
   );
 };
