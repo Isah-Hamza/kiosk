@@ -4,7 +4,6 @@ import CustomButton from '../../components/Buttons/CustomButton';
 import CustomSelect from '../../components/CustomInput/Select';
 import { FiPlus } from 'react-icons/fi';
 import { PiCurrencyNgnLight } from 'react-icons/pi';
-import { useMonnifyPayment, MonnifyButton, MonnifyConsumer } from 'react-monnify';
 const NewDelivery = ({ closeHanlder }) => {
   const [step, setStep] = useState(1);
   const address = [
