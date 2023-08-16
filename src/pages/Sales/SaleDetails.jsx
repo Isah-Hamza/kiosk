@@ -15,7 +15,7 @@ import { getBookByIdAction } from "../../store/slices/book-keeping/getBookByIdSl
 import PageLoading from "../../components/Loaders/PageLoading";
 import ActivityTrail from "../../components/ActivityTrail";
 
-const ExpenseDetiails = () => {
+const SaleDetiails = () => {
   let total_sum = 0;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -41,23 +41,7 @@ const ExpenseDetiails = () => {
         <PageLoading />
       ) : (
         <div className="mx-4 sm:mx-7 my-10 ">
-          <PageHeader children={"Expense Details"} />
-          <div className="grid grid-cols-2 lg:hidden max-w-md mb-5  gap-4 mt-8">
-            <CustomButton
-              className={
-                "  whitespace-nowrap !bg-[rgba(0,158,170,0.3)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-2.5 rounded-lg"
-              }
-            >
-              Import Expenses
-            </CustomButton>
-            <CustomButton
-              className={
-                " whitespace-nowrap !bg-transparent border !px-3 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg"
-              }
-            >
-              Download Sample
-            </CustomButton>
-          </div>
+          <PageHeader children={"Sale Details"} />
           <div className="grid lg:grid-cols-[3.5fr,2fr] gap-8">
             <div className="px-4 py-6 !sm:p-6 bg-dimmed_white rounded-xl">
               <div className="border-b pb-5">
@@ -158,7 +142,7 @@ const ExpenseDetiails = () => {
                       </div>
                     </div>
                   </div>
-                  {data.supplier ? (
+                  {data.customer ? (
                     <div className="flex flex-col gap-5 border-b pb-10 mt-3">
                       <div className="-mt-5">
                         <CustomInput
@@ -167,7 +151,7 @@ const ExpenseDetiails = () => {
                           label={"Supplier Name *"}
                           placeholder={"John Doe"}
                           hasIcon
-                          value={data.supplier?.name}
+                          value={data.customer?.name}
                           Icon={FaUser}
                         />
                       </div>
@@ -180,7 +164,7 @@ const ExpenseDetiails = () => {
                             placeholder={"itshamzy@gmail.com"}
                             hasIcon
                             Icon={MdEmail}
-                            value={data.supplier?.email}
+                            value={data.customer?.email}
                           />
                         </div>
                         <div>
@@ -191,7 +175,7 @@ const ExpenseDetiails = () => {
                             placeholder={"08123456789"}
                             hasIcon
                             Icon={MdCall}
-                            value={data.supplier?.phone}
+                            value={data.customer?.phone}
                           />
                         </div>
                       </div>
@@ -233,4 +217,4 @@ const ExpenseDetiails = () => {
   );
 };
 
-export default ExpenseDetiails;
+export default SaleDetiails;
