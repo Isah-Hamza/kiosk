@@ -1,3 +1,4 @@
+
 import { GET_STORAGE_ITEM } from '../config/storage';
 import Coperative from '../pages/Coperative';
 import Customers from '../pages/Customers';
@@ -24,6 +25,8 @@ import Tracker from '../pages/Delivery/Tracker';
 import DeliveryDetails from '../pages/Delivery/DeliveryDetails';
 import Sales from '../pages/Sales';
 import NewDelivery from '../pages/Delivery/RecordNewDelivery';
+import ExpenseDetiails from "../pages/Expenses/ExpenseDetails";
+import SaleDetiails from "../pages/Sales/SaleDetails";
 
 export const routes = [
   {
@@ -92,13 +95,24 @@ export const routes = [
     component: NewSales,
   },
   {
-    title: 'Record Expenses',
-    path: '/record-expense',
+
+    title: "Sales Details",
+    path: "/sale-details",
+    component: SaleDetiails,
+  },
+  {
+    title: "Record Expenses",
+    path: "/record-expense",
     component: RecordExpenses,
   },
   {
-    title: 'All Expenses',
-    path: '/all-expenses',
+    title: "Record Expenses",
+    path: "/expense-details",
+    component: ExpenseDetiails,
+  },
+  {
+    title: "All Expenses",
+    path: "/all-expenses",
     component: Expenses,
   },
   {

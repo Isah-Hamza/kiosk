@@ -4,6 +4,7 @@ import { SlCalender } from 'react-icons/sl';
 import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import { GOOGLE_APIKEY } from '../../config/Endpoints';
 export default function CustomInput({
+  value,
   defaultValue,
   className,
   placeholder,
@@ -30,6 +31,7 @@ export default function CustomInput({
       ) : null}
       <div className="relative w-full">
         <input
+          value={value}
           defaultValue={defaultValue ?? null}
           autoComplete="off"
           placeholder={placeholder ?? ''}

@@ -319,8 +319,8 @@ const CreateBusiness = () => {
       </div>
       <p className=" text-sm text-center mt-3 ">
         Don't know what's happening here?{" "}
-        <Link className="text-primary font-medium" to={"/login"}>
-          Login
+        <Link className="text-primary font-medium" to={-1}>
+          Go Back
         </Link>
       </p>
     </div>

@@ -9,9 +9,6 @@ import EditProduct from "./EditProduct";
 import PageHeader from "../../shared/PageHeader";
 import ShareProduct from "./ShareProduct";
 import { useLocation, useNavigate } from "react-router-dom";
-import moment from "moment";
-import { ImCheckmark2, ImSpinner2 } from "react-icons/im";
-import { TbRefresh } from "react-icons/tb";
 import { PiCurrencyNgnLight } from "react-icons/pi";
 import { GrClose } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,6 +18,8 @@ import { getProductAction } from "../../store/slices/product/getProductSlice";
 import { getProductActivityAction } from "../../store/slices/product/getProductActivitySlice";
 import { deleteProductAction } from "../../store/slices/product/deleteProductSlice";
 import DeleteProduct from "./DeleteProduct";
+import PageLoading from "../../components/Loaders/PageLoading";
+import ActivityTrail from "../../components/ActivityTrail";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
@@ -94,12 +93,7 @@ const ProductDetails = () => {
   return (
     <AppLayoutNew noHeader={true}>
       {loading_product ? (
-        <>
-          <div className="flex h-screen items-center gap-1 justify-center text-sm p-2 py-10 font-medium">
-            <ImSpinner2 className="animate-spin" />
-            <p>Loading</p>
-          </div>
-        </>
+        <PageLoading />
       ) : (
         <div className="mx-4 sm:mx-7 my-10">
           <PageHeader children={"Product Details"} />
@@ -311,70 +305,8 @@ const ProductDetails = () => {
                 </CustomButton>
               </div>
             </div>
-            <div className="w-full h-fit bg-white rounded-xl p-6 md:mt-5 pt-3 mr-5">
-              <div className="flex items-center justify-between">
-                <p className="font-semibold text-primary ">Activity Trails</p>
-
-                <button className="p-3 rounded-full hover:bg-slate-100">
-                  <TbRefresh
-                    // onClick={() =>
-                    //   dispatch(
-                    //     workorderActivityAction({ id: state?.workOrderId })
-                    //   )
-                    // }
-                    size={18}
-                  />
-                </button>
-              </div>
-              <div className="max-h-[450px] overflow-y-auto">
-                {activityLoading ? (
-                  <div className="bg-white rounded flex-1 grid place-content-center py-20">
-                    <div className="flex items-center gap-1 justify-center text-sm p-2 py-10 font-medium">
-                      <ImSpinner2 className="animate-spin" />
-                      <p>Loading</p>
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                    {!activityLoading && activities.data?.length ? (
-                      <div>
-                        <div className="mt-2 pl-2">
-                          {activities.data?.map((note, idx) => (
-                            <div
-                              key={idx}
-                              className="relative p-5 pt-2 pb-3 border-l"
-                            >
-                              <p className="text-sm ">
-                                <span className="font-medium first-letter:capitalize">
-                                  {note?.action || "No description."}
-                                </span>{" "}
-                                on {moment(note?.createdDate).format("lll")}
-                              </p>
-                              <p className="mt-0">{note?.body}</p>
-                              <p className="mt-1 text-sm italic">
-                                <span className="font-semibold text-xs">
-                                  by:{" "}
-                                </span>{" "}
-                                {note?.performedBy?.firstName}{" "}
-                                {note?.performedBy?.lastName}
-                              </p>
-                              <div className="absolute -left-[6px] top-[14px] h-2.5 w-2.5 rounded-full bg-primary"></div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="flex  my-3 pt-7 flex-col items-center justify-center text-center pb-10">
-                        {/* <img className="w-40" src={empty} alt="empty" /> */}
-                        <p>
-                          No activities for this product at the minute. Hit the
-                          refresh button to check udpate.
-                        </p>
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
+            <div className="md:mt-5">
+              <ActivityTrail data={activities.data} loading={activityLoading} />
             </div>
           </div>
         </div>

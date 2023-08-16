@@ -88,10 +88,6 @@ const Sales = () => {
                       {" "}
                       No. of Items
                     </th>
-                    {/* <th className="text-sm py-3 border-y !font-semibold">
-                      {" "}
-                      Account Status
-                    </th> */}
                     <th className="text-sm py-3 border-y !font-semibold">
                       Trnx Date{" "}
                     </th>
@@ -105,8 +101,8 @@ const Sales = () => {
                         data?.data?.map((item, idx) => (
                           <tr
                             onClick={() =>
-                              navigate("#", {
-                                state: { data: item },
+                              navigate("/sale-details", {
+                                state: { id: item.id },
                               })
                             }
                             className="cursor-pointer pt-3 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-2"

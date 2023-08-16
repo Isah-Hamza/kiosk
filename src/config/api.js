@@ -42,6 +42,7 @@ export const refreshAccessToken = async (refreshToken, setPartner) => {
   const newToken = res.data.token;
   setAuthorizationHeader(newToken);
   SET_STORAGE_ITEM("token", newToken);
+  console.log("res", res);
   if (res.data.account) SET_STORAGE_ITEM("account", res.data?.account);
   if (setPartner) setPartner(res.data.account);
   return newToken;

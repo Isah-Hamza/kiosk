@@ -42,8 +42,9 @@ const Login = () => {
 
   const { handleSubmit, getFieldProps, errors, touched } = formik;
 
-  if (GET_STORAGE_ITEM('token')) {
-    return <Navigate to={'/home'} />;
+  if (GET_STORAGE_ITEM("token") && GET_STORAGE_ITEM("user").isPhoneConfirmed) {
+    console.log("first");
+    return <Navigate to={"/home"} />;
   }
 
   return (
