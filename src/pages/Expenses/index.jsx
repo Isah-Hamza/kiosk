@@ -15,16 +15,7 @@ const Expenses = () => {
   const { data, loading } = useSelector((state) => state.get_all_books);
   console.log(data.data?.customer);
   const { data: res } = data;
-  // const {
-  //   customer,
-  //   amountExpected,
-  //   amountPaid,
-  //   invoiceDate,
-  //   bookItems,
-  //   debt,
-  //   reference,
-  //   paymentChannelType,
-  // } = res;
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -88,7 +79,7 @@ const Expenses = () => {
                       Trnx. Reference
                     </th>
                     <th className="text-sm py-3 border-y !font-semibold pl-3 w-[32%]s">
-                      Customer Name
+                      Supplier Name
                     </th>
                     <th className="text-sm py-3 border-y !font-semibold">
                       Total Amount{" "}
@@ -118,8 +109,8 @@ const Expenses = () => {
                         data?.data?.map((item, idx) => (
                           <tr
                             onClick={() =>
-                              navigate("#", {
-                                state: { data: item },
+                              navigate("/expense-details", {
+                                state: { id: item.id },
                               })
                             }
                             className="cursor-pointer pt-3 transition-all duration-300 shadow-sm hover:shadow-md bg-white mb-2"
@@ -129,7 +120,7 @@ const Expenses = () => {
                               {item.reference}
                             </td>
                             <td className="text-sm py-2.5 pb-4 pl-3">
-                              {item.customer?.name}
+                              {item.supplier?.name}
                             </td>
                             <td className="text-sm py-2.5 pb-4">
                               ₦{item.amountExpected}

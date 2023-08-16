@@ -17,3 +17,8 @@ export async function GetBooks(bookType) {
   );
   return response;
 }
+
+export async function GetBookById(id) {
+  const response = await api.get(`${ApiEndPoints.book_by_id}/${id}`);
+  return response;
+}

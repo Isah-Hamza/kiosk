@@ -1,13 +1,10 @@
-import React, { useContext,  useState } from "react";
-import { FaBell,  } from "react-icons/fa";
+import React, { useContext, useState } from "react";
+import { FaBell } from "react-icons/fa";
 import { FiHome, FiUsers } from "react-icons/fi";
 import { BsCameraFill, BsCart3, BsCreditCard } from "react-icons/bs";
-import {} from "react-icons/ai";
-import {} from "react-icons/cg";
-import {} from "react-icons/di";
 import { RiDashboardLine } from "react-icons/ri";
-import { Link, Navigate, redirect, useNavigate } from "react-router-dom";
-import { BiCaretUp, BiMenu, BiShoppingBag } from "react-icons/bi";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { BiCaretUp, BiMenu } from "react-icons/bi";
 import CustomDropdown from "../components/Dropdown";
 import { GrClose } from "react-icons/gr";
 import logo from "../assets/images/logo.png";
@@ -98,6 +95,14 @@ const AppLayoutNew = ({ children, noHeader }) => {
     return <Navigate to={"/login"} />;
   }
 
+  if (!GET_STORAGE_ITEM("user").isPhoneConfirmed) {
+    return <Navigate to={"/verify-account"} />;
+  }
+
+  if (!GET_STORAGE_ITEM("account").id) {
+    return <Navigate to={"/create-business"} />;
+  }
+
   return (
     <div className="flex h-screen">
       <aside
@@ -148,7 +153,12 @@ const AppLayoutNew = ({ children, noHeader }) => {
                     {item.subMenu.map((subItem, subIdx) => (
                       <li
                         key={subIdx}
-                        onClick={() => navigate(subItem.path)}
+                        onClick={() => {
+                          setSidebarOpen(false);
+                          setTimeout(() => {
+                            subItem.path ? navigate(subItem.path) : null;
+                          }, 10);
+                        }}
                         className="text-sm py-2 hover:opacity-100 !text-black opacity-80 hover:text-primary cursor-pointer transition-all duration-300 ease-in-out"
                       >
                         <div className="flex gap-3 items-center font-medium">
@@ -166,13 +176,19 @@ const AppLayoutNew = ({ children, noHeader }) => {
         <div className="mt-auto">
           <ul className="px-5">
             {secondarySideBarItems.map((item, idx) => (
-              <Link
+              <li
+                onClick={() => {
+                  setSidebarOpen(false);
+                  setTimeout(() => {
+                    item.path ? navigate(item.path) : null;
+                  }, 10);
+                }}
                 to={item.path ?? "#"}
                 key={idx}
                 className={`text-black/80 text-sm mb-1 px-6 py-2 flex gap-2.5 items-center hover:font-semibold hover:bg-slate-200 ${"hover:text-primary"} cursor-pointer`}
               >
                 {item.title}
-              </Link>
+              </li>
             ))}
             <button onClick={handleLogout} className="w-full" to={"/login"}>
               <span

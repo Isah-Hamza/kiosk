@@ -29,7 +29,7 @@ const VerifyAccount = () => {
         <div className="text-center">
           <p className="font-semibold text-3xl">Verify OTP</p>
           <p className="text-sm text-secondary-brown">
-            Already have an account?{" "}
+            Account already activated?{" "}
             <Link to={"/login"} className="text-primary font-medium">
               Login
             </Link>
