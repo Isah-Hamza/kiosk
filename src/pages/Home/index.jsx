@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdArrowRightAlt } from "react-icons/md";
 import AreaCharts from "../../components/Chart/AreaCharts";
 import AppLayoutNew from "../../layout/AppLayoutNew";
@@ -10,22 +10,40 @@ import {
   BsFillShieldLockFill,
 } from "react-icons/bs";
 import CustomButton from "../../components/Buttons/CustomButton";
-
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { useNavigate } from "react-router-dom";
 import { PiArrowRightThin } from "react-icons/pi";
+import { useDispatch, useSelector } from "react-redux";
+import { accountBalanceAction } from "../../store/slices/report/accountBalanceSlice";
+import { dashboardReportAction } from "../../store/slices/report/dashboardReportSlice";
+import { ImSpinner2 } from "react-icons/im";
+import { TbRefresh } from "react-icons/tb";
+
+const Loading = () => (
+  <div className="flex items-center gap-2 font-medium text-sm mt-2">
+    <ImSpinner2 className="animate-spin" />
+    <p>Loading...</p>
+  </div>
+);
 
 function Home() {
-  const [showBal, setShowBal] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const percentage = 66;
+
+  const {
+    data: { balance, businessPoint },
+    loading: accountLoading,
+  } = useSelector((state) => state.get_account_balance);
+
+  const [showBal, setShowBal] = useState(false);
 
   const toggleShowBal = () => setShowBal(!showBal);
 
   const todaySummary = [
     {
       title: "Account Balance",
-      value: "0.00",
+      value: balance?.toFixed(2),
+      accountBalance: true,
       desc: "Copy account number",
     },
     {
@@ -87,6 +105,15 @@ function Home() {
     },
   ];
 
+  const refreshAccountBalance = () => {
+    dispatch(accountBalanceAction());
+  };
+
+  useEffect(() => {
+    dispatch(accountBalanceAction());
+    dispatch(dashboardReportAction());
+  }, []);
+
   return (
     <AppLayoutNew>
       {/* main */}
@@ -100,13 +127,36 @@ function Home() {
             <div className="grid gap-5 grid-cols-2 md:grid-cols-[1fr,1fr,1.3fr,.7fr] justify-between">
               {todaySummary.map((item, idx) => (
                 <div key={idx} className={`text-left`}>
-                  <p className="font-medium opacity-70 mb-1.5">{item.title}</p>
-                  <p className="font-semibold text-xl">₦{item.value}</p>
+                  <div className="w-full flex items-center justify-between">
+                    <p className="font-medium opacity-70 mb-1.5">
+                      {item.title}
+                    </p>
+                    {idx == 0 ? (
+                      <button
+                        onClick={refreshAccountBalance}
+                        className="p-3 rounded-full hover:bg-slate-100 mr-3"
+                      >
+                        <TbRefresh size={16} />
+                      </button>
+                    ) : null}
+                  </div>
+                  {item.accountBalance && accountLoading ? (
+                    <Loading />
+                  ) : (
+                    <p className="font-semibold text-xl">₦{item.value}</p>
+                  )}
                   <p className="text-sm">{item.desc}</p>
                 </div>
               ))}
             </div>
             <div className="border-y px-2 p-3.5  flex justify-between  sm:flex-row flex-col gap-5 mt-10">
+              <CustomButton
+                className={
+                  "!bg-transparent border !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg hidden md:block"
+                }
+              >
+                Transfer Fund
+              </CustomButton>
               <CustomButton
                 clickHandler={() => navigate("/record-sale")}
                 className={
@@ -114,14 +164,6 @@ function Home() {
                 }
               >
                 Record Sales
-              </CustomButton>
-              <CustomButton
-                clickHandler={() => navigate("/add-customer")}
-                className={
-                  "!bg-transparent border !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg hidden md:block"
-                }
-              >
-                Add Customers
               </CustomButton>
               <CustomButton
                 clickHandler={() => navigate("/record-expense")}
@@ -135,15 +177,21 @@ function Home() {
             <div className="md:flex grid grid-cols-2 gap-5 justify-between pt-10">
               <div>
                 <p className="font-medium opacity-70 mb-1.5">Business Points</p>
-                <p className="font-semibold text-xl">66 points</p>
+                {accountLoading ? (
+                  <Loading />
+                ) : (
+                  <p className="font-semibold text-xl">
+                    {businessPoint} points
+                  </p>
+                )}
                 <p className="text-sm">
                   Earn up to 1000 points to qualify <br /> for business points.
                 </p>
               </div>
               <div className="w-32">
                 <CircularProgressbar
-                  value={percentage}
-                  text={`${percentage}%`}
+                  value={businessPoint}
+                  text={`${businessPoint}%`}
                   styles={buildStyles({
                     rotation: 0.25,
                     strokeLinecap: "round",

@@ -38,6 +38,10 @@ const ApiEndPoints = {
   create_book: "Bookkeeping/create-book",
   all_books: "Bookkeeping/all-book",
   book_by_id: "Bookkeeping/book-byid",
+
+  // REPORT
+  account_balance: "Report/account-balance",
+  dashboard_report: "Report/dashboard-report",
 };
 
 export { ApiEndPoints, BASE_URL };

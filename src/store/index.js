@@ -27,6 +27,8 @@ import getCustomerSlice from "./slices/product/getCustomerSlice";
 import createBookSlice from "./slices/book-keeping/createBookSlice";
 import getAllBookSlice from "./slices/book-keeping/getAllBookSlice";
 import getBookByIdSlice from "./slices/book-keeping/getBookByIdSlice";
+import accountBalanceSlice from "./slices/report/accountBalanceSlice";
+import dashboardReportSlice from "./slices/report/dashboardReportSlice";
 
 const store = configureStore({
   reducer: {
@@ -58,6 +60,8 @@ const store = configureStore({
     create_book: createBookSlice,
     get_all_books: getAllBookSlice,
     get_book_byid: getBookByIdSlice,
+    get_account_balance: accountBalanceSlice,
+    get_dashboard_report: dashboardReportSlice,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware();
