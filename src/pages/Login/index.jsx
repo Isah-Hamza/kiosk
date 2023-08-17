@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import '../../index.css';
 import '../../styles/login.css';
-
 import { ImGoogle } from 'react-icons/im';
 import CustomInput from '../../components/CustomInput';
 import { SlLock } from 'react-icons/sl';
@@ -9,7 +8,6 @@ import { MdOutlineMarkEmailUnread } from 'react-icons/md';
 import CustomButton from '../../components/Buttons/CustomButton';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import AuthPagesLayout from '../../layout/AuthPagesLayout';
-
 import logo from '../../assets/images/logo.png';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -42,9 +40,9 @@ const Login = () => {
 
   const { handleSubmit, getFieldProps, errors, touched } = formik;
 
-  if (GET_STORAGE_ITEM("token") && GET_STORAGE_ITEM("user").isPhoneConfirmed) {
-    console.log("first");
-    return <Navigate to={"/home"} />;
+  if (GET_STORAGE_ITEM('token') && GET_STORAGE_ITEM('user').isPhoneConfirmed) {
+    console.log('first');
+    return <Navigate to={'/home'} />;
   }
 
   return (

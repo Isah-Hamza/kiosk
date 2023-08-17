@@ -1,18 +1,11 @@
-import React from "react";
-import { ImSpinner2 } from "react-icons/im";
+import React from 'react';
+import { ImSpinner2 } from 'react-icons/im';
 
-const CustomButton = ({
-  type,
-  className,
-  children,
-  clickHandler,
-  disabled,
-  loading,
-}) => {
+const CustomButton = ({ type, className, children, clickHandler, disabled, loading }) => {
   return (
     <button
       disabled={disabled}
-      type={type ?? "button"}
+      type={type ?? 'button'}
       onClick={clickHandler}
       className={`py-4 text-sm px-12 rounded bg-primary disabled:!bg-primary/70 text-white font-medium ${className}`}
     >
