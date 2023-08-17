@@ -1,32 +1,34 @@
-import { configureStore } from "@reduxjs/toolkit";
-import loginSlice from "./slices/user/loginSlice";
-import signupSlice from "./slices/user/signupSlice";
-import confirmAccountSlice from "./slices/user/confirmAccountSlice";
-import allStateSlice from "./slices/appData/allStateSlice";
-import partnerGroupSlice from "./slices/appData/partnerGroupSlice";
-import partnerSubGroupSlice from "./slices/appData/partnerSubGroupSlice";
-import createPartnerSlice from "./slices/partner/createPartnerSlice";
-import getUserAccountSlice from "./slices/partner/getUserAccountSlice";
-import switchAccountSlice from "./slices/partner/switchAccountSlice";
-import changePasswordSlice from "./slices/user/changePasswordSlice";
-import getOTPSlice from "./slices/user/getOTPSlice";
-import resetPasswordSlice from "./slices/user/resetPasswordSlice";
-import createAccountSlice from "./slices/partner/createAccountSlice";
-import getAllAccountSlice from "./slices/partner/getAllAccountSlice";
-import createProductSlice from "./slices/product/createProductSlice";
-import getInventorySlice from "./slices/product/getInventorySlice";
-import getSupplierSlice from "./slices/product/getSupplierSlice";
-import updateSellingPriceSlice from "./slices/product/updateSellingPriceSlice";
-import updateCostPriceSlice from "./slices/product/updateCostPriceSlice";
-import getProductSlice from "./slices/product/getProductSlice";
-import deleteProductSlice from "./slices/product/deleteProductSlice";
-import updateStockSlice from "./slices/product/updateStockSlice";
-import getProductActivitySlice from "./slices/product/getProductActivitySlice";
-import updateProductSlice from "./slices/product/updateProductSlice";
-import getCustomerSlice from "./slices/product/getCustomerSlice";
-import createBookSlice from "./slices/book-keeping/createBookSlice";
-import getAllBookSlice from "./slices/book-keeping/getAllBookSlice";
-import getBookByIdSlice from "./slices/book-keeping/getBookByIdSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import loginSlice from './slices/user/loginSlice';
+import signupSlice from './slices/user/signupSlice';
+import confirmAccountSlice from './slices/user/confirmAccountSlice';
+import allStateSlice from './slices/appData/allStateSlice';
+import partnerGroupSlice from './slices/appData/partnerGroupSlice';
+import partnerSubGroupSlice from './slices/appData/partnerSubGroupSlice';
+import createPartnerSlice from './slices/partner/createPartnerSlice';
+import getUserAccountSlice from './slices/partner/getUserAccountSlice';
+import switchAccountSlice from './slices/partner/switchAccountSlice';
+import changePasswordSlice from './slices/user/changePasswordSlice';
+import getOTPSlice from './slices/user/getOTPSlice';
+import resetPasswordSlice from './slices/user/resetPasswordSlice';
+import createAccountSlice from './slices/partner/createAccountSlice';
+import getAllAccountSlice from './slices/partner/getAllAccountSlice';
+import createProductSlice from './slices/product/createProductSlice';
+import getInventorySlice from './slices/product/getInventorySlice';
+import getSupplierSlice from './slices/product/getSupplierSlice';
+import updateSellingPriceSlice from './slices/product/updateSellingPriceSlice';
+import updateCostPriceSlice from './slices/product/updateCostPriceSlice';
+import getProductSlice from './slices/product/getProductSlice';
+import deleteProductSlice from './slices/product/deleteProductSlice';
+import updateStockSlice from './slices/product/updateStockSlice';
+import getProductActivitySlice from './slices/product/getProductActivitySlice';
+import updateProductSlice from './slices/product/updateProductSlice';
+import getCustomerSlice from './slices/product/getCustomerSlice';
+import createBookSlice from './slices/book-keeping/createBookSlice';
+import getAllBookSlice from './slices/book-keeping/getAllBookSlice';
+import getBookByIdSlice from './slices/book-keeping/getBookByIdSlice';
+import createCustomerSlice from './slices/CustomerSupplierManagement/createCustomerSlice';
+import createSupplierSlice from './slices/CustomerSupplierManagement/createSupplierSlice';
 
 const store = configureStore({
   reducer: {
@@ -58,6 +60,8 @@ const store = configureStore({
     create_book: createBookSlice,
     get_all_books: getAllBookSlice,
     get_book_byid: getBookByIdSlice,
+    Add_customer: createCustomerSlice,
+    Add_supplier: createSupplierSlice,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware();

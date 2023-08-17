@@ -34,6 +34,8 @@ const ApiEndPoints = {
   // CUSTOMER/SUPPLIER MANAGEMENT
   all_suppliers: 'CustomerSupplierManagement/all-suppliers',
   all_customers: 'CustomerSupplierManagement/all-customers',
+  create_customer: 'CustomerSupplierManagement/add-customer',
+  create_supplier: 'CustomerSupplierManagement/add-supplier',
 
   // BOOK-KEEPING MANAGEMENT
   create_book: 'Bookkeeping/create-book',

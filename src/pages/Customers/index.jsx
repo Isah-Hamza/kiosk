@@ -25,25 +25,6 @@ const Search = ({ placeholder }) => {
   );
 };
 
-const RenderButton = ({ title }) => {
-  const navigate = useNavigate();
-  return (
-    <CustomButton
-      clickHandler={() => navigate("/add-customer")}
-      className={
-        " !bg-[rgba(0,158,170,0.1)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)] !py-1 rounded-lg"
-      }
-      children={
-        <div className="flex items-center gap-1 !text-sm">
-          <BiPlus size={20} />
-          <span className="md:block hidden ">{title}</span>
-          <span className="block md:hidden">New</span>
-        </div>
-      }
-    />
-  );
-};
-
 const Customers = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -55,7 +36,7 @@ const Customers = () => {
   const tabs = ["Customers", "Suppliers"];
   const [activeTab, setTab] = useState(0);
 
-  const tableHeader = ["Name", "Email", "Phone"];
+  const tableHeader = ["Name", "Address", "Phone"];
 
   useEffect(() => {
     dispatch(getCustomerAction());
@@ -76,7 +57,19 @@ const Customers = () => {
         <div className="grid md:grid-cols-2 gap-5">
           <div className="bg-dimmed_white p-5 rounded-xl">
             <div className="w-full flex gap-4 pt-3">
-              <RenderButton title={"Add Customer"} />
+              <CustomButton
+                clickHandler={() => navigate("/add-customer")}
+                className={
+                  " !bg-[rgba(0,158,170,0.1)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)] !py-1 rounded-lg"
+                }
+                children={
+                  <div className="flex items-center gap-1 !text-sm">
+                    <BiPlus size={20} />
+                    <span className="md:block hidden ">Add Customer</span>
+                    <span className="block md:hidden">New</span>
+                  </div>
+                }
+              />
               <Search placeholder="Search customers by name" />
             </div>
             <div className="mt-2 w-full">
@@ -108,7 +101,7 @@ const Customers = () => {
                               {item.name || "Test Customer"}
                             </td>
                             <td className="text-sm py-2.5 pb-4">
-                              {item.email || "test@test.com"}
+                              {item.address || "test@test.com"}
                             </td>
                             <td className="text-sm py-2.5 pb-4">
                               {item.phoneNumber || "09098712345"}
@@ -135,11 +128,23 @@ const Customers = () => {
           </div>
           <div>
             <p className="block lg:hidden text-2xl font-semibold opacity-80 pl-5 my-3">
-              Suppliers
+              Customers
             </p>
             <div className="bg-dimmed_white p-5 rounded-xl">
               <div className="w-full flex gap-4 pt-3">
-                <RenderButton title={"Add Supplier"} />
+                <CustomButton
+                  clickHandler={() => navigate("/add-supplier")}
+                  className={
+                    " !bg-[rgba(0,158,170,0.1)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)] !py-1 rounded-lg"
+                  }
+                  children={
+                    <div className="flex items-center gap-1 !text-sm">
+                      <BiPlus size={20} />
+                      <span className="md:block hidden ">Add Supplier</span>
+                      <span className="block md:hidden">New</span>
+                    </div>
+                  }
+                />
                 <Search placeholder="Search suppliers by name" />
               </div>
               <div className="mt-2 w-full">
@@ -171,7 +176,7 @@ const Customers = () => {
                                 {item.name || "Test Person"}
                               </td>
                               <td className="text-sm py-2.5 pb-4">
-                                {item.email || "test@test.com"}
+                                {item.address || "test@test.com"}
                               </td>
                               <td className="text-sm py-2.5 pb-4">
                                 {item.phoneNumber || "09098712345"}
