@@ -97,6 +97,23 @@ export function AutoCompleteInput({
         /> */}
         <GooglePlacesAutocomplete
           apiKey={GOOGLE_APIKEY}
+          apiOptions={{}}
+          autocompletionRequest={{
+            // bounds: [
+            //   {
+            //     lat: 9.05785,
+            //     lng: 7.49508,
+            //   },
+            // ],
+            radius: 5000,
+            componentRestrictions: {
+              country: ['ng'],
+            },
+            location: {
+              lat: 9.05785,
+              lng: 7.49508,
+            },
+          }}
           selectProps={{
             value,
             onChange: (v) => {

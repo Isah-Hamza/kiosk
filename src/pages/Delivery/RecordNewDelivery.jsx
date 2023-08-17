@@ -100,7 +100,10 @@ const NewDelivery = ({ closeHanlder }) => {
     },
     validationSchema: validationSchema,
     onSubmit(values) {
-      console.log({ ...values, deliveryDate: moment(values.deliveryDate).toISOString() });
+      console.log({
+        ...values,
+        deliveryDate: delivery === 3 ? moment(values.deliveryDate).toISOString() : moment().toISOString(),
+      });
       // setLoading(true);
       return CreateDeliveryService({ ...values, deliveryDate: moment(values.deliveryDate).toISOString() })
         .then((res) => {
@@ -191,7 +194,7 @@ const NewDelivery = ({ closeHanlder }) => {
                   />
                   {touched.recieverName && touched.recieverName && <ValidationError msg={errors.recieverName} />}
                 </div>
-                {delivery === 2 && (
+                {delivery === 3 && (
                   <>
                     <div className="mt-7">
                       <CustomInput
@@ -405,32 +408,32 @@ export default NewDelivery;
 const DeliveryConfirmationModal = ({ closeHanlder, data }) => {
   function payWithMonnify() {
     MonnifySDK.initialize({
-      amount: 100,
+      amount: data?.amount.toFixed(2),
       currency: 'NGN',
       reference: new String(new Date().getTime()),
       customerFullName: 'Damilare Ogunnaike',
       customerEmail: 'ogunnaike.damilare@gmail.com',
-      apiKey: 'MK_PROD_FLX4P92EDF',
-      contractCode: '626609763141',
+      apiKey: 'MK_TEST_AFDD667FKD',
+      contractCode: '9146461192',
       paymentDescription: 'Lahray World',
       metadata: {
-        'name': 'Damilare',
-        'age': 45,
+        'name': 'Damilare Ogunnaike',
+        'distance': data?.distance.toFixed(3),
       },
-      incomeSplitConfig: [
-        {
-          'subAccountCode': 'MFY_SUB_342113621921',
-          'feePercentage': 50,
-          'splitAmount': 1900,
-          'feeBearer': true,
-        },
-        {
-          'subAccountCode': 'MFY_SUB_342113621922',
-          'feePercentage': 50,
-          'splitAmount': 2100,
-          'feeBearer': true,
-        },
-      ],
+      // incomeSplitConfig: [
+      //   {
+      //     'subAccountCode': 'MFY_SUB_342113621921',
+      //     'feePercentage': 50,
+      //     'splitAmount': 1900,
+      //     'feeBearer': true,
+      //   },
+      //   {
+      //     'subAccountCode': 'MFY_SUB_342113621922',
+      //     'feePercentage': 50,
+      //     'splitAmount': 2100,
+      //     'feeBearer': true,
+      //   },
+      // ],
       onLoadStart: () => {
         console.log('loading has started');
       },
