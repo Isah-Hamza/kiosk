@@ -30,7 +30,7 @@ const DeliveryManagement = () => {
   ];
 
   const tabs = ['Requests', 'Drivers', 'Fleets'];
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(1);
 
   useEffect(() => {
     dispatch(getAllAccountAction());

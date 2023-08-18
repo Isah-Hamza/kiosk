@@ -27,6 +27,7 @@ import ExpenseDetiails from "../pages/Expenses/ExpenseDetails";
 import SaleDetiails from "../pages/Sales/SaleDetails";
 import AddSupplier from "../pages/Customers/AddSupplier";
 import DeliveryManagement from '../pages/DeliveryMgt';
+import AddCustomer from '../pages/Customers/AddCustomer';
 
 export const routes = [
   {
