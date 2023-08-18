@@ -16,7 +16,7 @@ export default function CustomInput({
   ...rest
 }) {
   const [inputType, setInputType] = useState('password');
-
+  // const [value, setValue] = useState();
   const handleChangeType = () => {
     if (inputType == 'password') setInputType('text');
     else setInputType('password');
@@ -65,6 +65,7 @@ export function AutoCompleteInput({
   type = 'text',
   id,
   hasIcon,
+  onChange,
   Icon,
   ...rest
 }) {
@@ -96,12 +97,29 @@ export function AutoCompleteInput({
         /> */}
         <GooglePlacesAutocomplete
           apiKey={GOOGLE_APIKEY}
+          apiOptions={{}}
+          autocompletionRequest={{
+            // bounds: [
+            //   {
+            //     lat: 9.05785,
+            //     lng: 7.49508,
+            //   },
+            // ],
+            radius: 5000,
+            componentRestrictions: {
+              country: ['ng'],
+            },
+            location: {
+              lat: 9.05785,
+              lng: 7.49508,
+            },
+          }}
           selectProps={{
             value,
             onChange: (v) => {
               geocodeByAddress(v.label)
                 .then((results) => getLatLng(results[0]))
-                .then(({ lat, lng }) => console.log('Successfully got latitude and longitude', { lat, lng }))
+                .then(({ lat, lng }) => onChange({ lat, long: lng, label: v.label }))
                 .catch((err) => console.log(err, '-----err fetching lat lang---'));
               setValue(v);
             },

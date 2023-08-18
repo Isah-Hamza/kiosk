@@ -14,10 +14,12 @@ import { createSupplierAction } from "../../store/slices/partner/createSupplierS
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
+
 const AddSupplier = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.create_supplier);
+
 
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -35,7 +37,7 @@ const AddSupplier = () => {
         .required("Phone number is required")
         .matches(phoneRegExp, "Phone number is not valid"),
       address: Yup.string().required("Address is required"),
-    }),
+
 
     onSubmit: (values) => {
       dispatch(createSupplierAction({ data: values, navigate }));
@@ -48,6 +50,7 @@ const AddSupplier = () => {
     { label: "Select One", value: "0" },
     { label: "Male", value: "1" },
     { label: "Female", value: "2" },
+
   ];
 
   return (
@@ -77,37 +80,29 @@ const AddSupplier = () => {
               <div className="grid grid-cols-1 gap-5">
                 <div className=" grid gap-6">
                   <CustomInput
-                    className={"!bg-bg"}
-                    label={"Enter Full Name *"}
-                    placeholder={"Johnson Doe"}
-                    {...getFieldProps("name")}
+                    className={'!bg-bg'}
+                    label={'Enter Full Name *'}
+                    placeholder={'Johnson Doe'}
+                    {...getFieldProps('name')}
                   />
-                  {touched.name && errors.name && (
-                    <span className="text-xs text-red-700">{errors.name}</span>
-                  )}
+                  {touched.name && errors.name && <span className="text-xs text-red-700">{errors.name}</span>}
 
                   <CustomInput
-                    className={"!bg-bg"}
-                    label={"Phone Number *"}
-                    placeholder={"08166935765"}
-                    {...getFieldProps("phoneNumber")}
+                    className={'!bg-bg'}
+                    label={'Phone Number *'}
+                    placeholder={'08166935765'}
+                    {...getFieldProps('phoneNumber')}
                   />
                   {touched.phoneNumber && errors.phoneNumber && (
-                    <span className="text-xs text-red-700">
-                      {errors.phoneNumber}
-                    </span>
+                    <span className="text-xs text-red-700">{errors.phoneNumber}</span>
                   )}
                   <CustomInput
-                    className={"!bg-bg"}
-                    label={"Address*"}
-                    placeholder={"Enter Address"}
-                    {...getFieldProps("address")}
+                    className={'!bg-bg'}
+                    label={'Address*'}
+                    placeholder={'Enter Address'}
+                    {...getFieldProps('address')}
                   />
-                  {touched.address && errors.address && (
-                    <span className="text-xs text-red-700">
-                      {errors.address}
-                    </span>
-                  )}
+                  {touched.address && errors.address && <span className="text-xs text-red-700">{errors.address}</span>}
                   <div>
                     <CustomButton
                       type="submit"

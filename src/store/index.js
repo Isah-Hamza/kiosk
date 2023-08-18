@@ -62,10 +62,13 @@ const store = configureStore({
     create_book: createBookSlice,
     get_all_books: getAllBookSlice,
     get_book_byid: getBookByIdSlice,
+
     get_account_balance: accountBalanceSlice,
     get_dashboard_report: dashboardReportSlice,
     create_customer: createCustomerSlice,
     create_supplier: createSupplierSlice,
+    Add_customer: createCustomerSlice,
+    Add_supplier: createSupplierSlice,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware();

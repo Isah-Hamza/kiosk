@@ -36,15 +36,19 @@ const ApiEndPoints = {
   // CUSTOMER/SUPPLIER MANAGEMENT
   all_suppliers: 'CustomerSupplierManagement/all-suppliers',
   all_customers: 'CustomerSupplierManagement/all-customers',
+  create_customer: 'CustomerSupplierManagement/add-customer',
+  create_supplier: 'CustomerSupplierManagement/add-supplier',
 
   // BOOK-KEEPING MANAGEMENT
-  create_book: "Bookkeeping/create-book",
-  all_books: "Bookkeeping/all-book",
-  book_by_id: "Bookkeeping/book-byid",
+  create_book: 'Bookkeeping/create-book',
+  all_books: 'Bookkeeping/all-book',
+  book_by_id: 'Bookkeeping/book-byid',
 
   // REPORT
   account_balance: "Report/account-balance",
   dashboard_report: "Report/dashboard-report",
+  //Delivery
+  create_delivery: 'Delivery/create-delivery-order',
 };
 
 export { ApiEndPoints, BASE_URL };
