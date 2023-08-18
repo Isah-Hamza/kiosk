@@ -1,4 +1,3 @@
-
 import { GET_STORAGE_ITEM } from '../config/storage';
 import Coperative from '../pages/Coperative';
 import Customers from '../pages/Customers';
@@ -27,6 +26,8 @@ import Sales from '../pages/Sales';
 import NewDelivery from '../pages/Delivery/RecordNewDelivery';
 import ExpenseDetiails from "../pages/Expenses/ExpenseDetails";
 import SaleDetiails from "../pages/Sales/SaleDetails";
+import AddSupplier from "../pages/Customers/AddSupplier";
+
 
 export const routes = [
   {
@@ -69,6 +70,7 @@ export const routes = [
     path: '/home',
     component: Home,
   },
+
   {
     title: 'Profile',
     path: '/profile',
@@ -129,6 +131,11 @@ export const routes = [
     title: 'Add Customer',
     path: '/add-customer',
     component: AddCustomer,
+  },
+  {
+    title: "Add Supplier",
+    path: "/add-supplier",
+    component: AddSupplier,
   },
 
   {
