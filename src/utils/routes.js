@@ -27,6 +27,7 @@ import ExpenseDetiails from '../pages/Expenses/ExpenseDetails';
 import SaleDetiails from '../pages/Sales/SaleDetails';
 import AddCustomer from '../pages/Customers/AddCustomer';
 import AddSupplier from '../pages/Customers/AddSupplier';
+import DeliveryManagement from '../pages/DeliveryMgt';
 
 export const routes = [
   {
@@ -78,6 +79,11 @@ export const routes = [
     title: 'Inventory',
     path: '/inventory',
     component: Products,
+  },
+  {
+    title: 'Delivery Mgt',
+    path: '/delivery-management',
+    component: DeliveryManagement,
   },
   {
     title: 'Create Inventory',

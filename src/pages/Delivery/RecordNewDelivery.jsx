@@ -105,7 +105,10 @@ const NewDelivery = ({ closeHanlder }) => {
         deliveryDate: delivery === 3 ? moment(values.deliveryDate).toISOString() : moment().toISOString(),
       });
       // setLoading(true);
-      return CreateDeliveryService({ ...values, deliveryDate: moment(values.deliveryDate).toISOString() })
+      return CreateDeliveryService({
+        ...values,
+        deliveryDate: delivery === 3 ? moment(values.deliveryDate).toISOString() : moment().toISOString(),
+      })
         .then((res) => {
           console.log(res);
           setConfirmationData(res);
@@ -462,24 +465,23 @@ const DeliveryConfirmationModal = ({ closeHanlder, data }) => {
         </div>
 
         <div className="my-3">
-          <label htmlFor="" className="text-sm">
+          <label htmlFor="" className="text-xs">
             Pick Up Location
           </label>
-          <p className="txt-lg font-semibold wrap">{data?.pickUpAddress ? data?.pickUpAddress : '...'}</p>
+          <p className=" font-medium wrap">{data?.pickUpAddress ? data?.pickUpAddress : '...'}</p>
         </div>
         <div className="">
-          <label htmlFor="" className="text-sm">
+          <label htmlFor="" className="text-xs">
             Delivery Location
           </label>
-          <p className="txt-lg font-semibold wrap">{data?.destinationAddress ? data?.destinationAddress : '...'}</p>
+          <p className="font-medium wrap">{data?.destinationAddress ? data?.destinationAddress : '...'}</p>
         </div>
         <div className="grid grid-cols-3 gap-5 mt-7 ">
           <div className="">
             <label htmlFor="" className="text-sm">
               Price
             </label>
-            <p className="txt-lg font-semibold flex items-center gap-1">
-              {' '}
+            <p className="text-md font-semibold flex items-center gap-1">
               <PiCurrencyNgnLight />
               {data?.amount ? data?.amount.toFixed(2) : '...'}
             </p>
@@ -488,8 +490,7 @@ const DeliveryConfirmationModal = ({ closeHanlder, data }) => {
             <label htmlFor="" className="text-sm">
               Distance
             </label>
-            <p className="txt-lg font-semibold flex items-center gap-1">
-              {' '}
+            <p className="text-md font-semibold flex items-center gap-1">
               {data?.distance ? data?.distance.toFixed(3) : '..'}km
             </p>
           </div>
@@ -497,8 +498,7 @@ const DeliveryConfirmationModal = ({ closeHanlder, data }) => {
             <label htmlFor="" className="text-sm">
               Type
             </label>
-            <p className="txt-lg font-semibold flex items-center gap-1">
-              {' '}
+            <p className="text-md font-semibold flex items-center gap-1">
               {data.tripType
                 ? data?.tripType === 1
                   ? 'Instant'
