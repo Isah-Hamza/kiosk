@@ -5,7 +5,7 @@ import customToast from "../components/Toast/toastify";
 import { GET_STORAGE_ITEM, SET_STORAGE_ITEM } from "./storage";
 import { handleLogout } from "../layout/AppLayoutNew";
 
-const MAX_RETRY_COUNT = 3; // Maximum number of retries
+const MAX_RETRY_COUNT = 100; // Maximum number of retries
 let retryCount = 0; // Initialize the retry counter
 
 let store;

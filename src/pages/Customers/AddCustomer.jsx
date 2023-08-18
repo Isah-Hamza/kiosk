@@ -1,23 +1,24 @@
-import React from 'react';
-import AppLayoutNew from '../../layout/AppLayoutNew';
-import { BsCloudArrowUp } from 'react-icons/bs';
-import CustomInput from '../../components/CustomInput';
-import { FaUser } from 'react-icons/fa';
-import { PiCurrencyNgnLight } from 'react-icons/pi';
-import CustomButton from '../../components/Buttons/CustomButton';
-import CustomSelect from '../../components/CustomInput/Select';
-import { MdCall, MdEmail } from 'react-icons/md';
-import PageHeader from '../../shared/PageHeader';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { createCustomerAction } from '../../store/slices/CustomerSupplierManagement/createCustomerSlice';
+import React from "react";
+import AppLayoutNew from "../../layout/AppLayoutNew";
+import { BsCloudArrowUp } from "react-icons/bs";
+import CustomInput from "../../components/CustomInput";
+import { FaUser } from "react-icons/fa";
+import { PiCurrencyNgnLight } from "react-icons/pi";
+import CustomButton from "../../components/Buttons/CustomButton";
+import CustomSelect from "../../components/CustomInput/Select";
+import { MdCall, MdEmail } from "react-icons/md";
+import PageHeader from "../../shared/PageHeader";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { createCustomerAction } from "../../store/slices/partner/createCustomerSlice";
 
 const AddCustomer = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.Add_customer);
+  const { loading } = useSelector((state) => state.create_customer);
+
 
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -51,7 +52,8 @@ const AddCustomer = () => {
   return (
     <AppLayoutNew noHeader={true}>
       <div className="mx-4 sm:mx-7 my-10 min-w-[300px]">
-        <PageHeader children={'Add Customer'} />
+        <PageHeader children={"Add Customer"} />
+
         {/* hidden on large screen */}
         <div className="grid grid-cols-[1fr,1.4fr] sm:grid-cols-2 lg:hidden max-w-md mb-5  gap-4 mt-8">
           <CustomButton
@@ -103,7 +105,7 @@ const AddCustomer = () => {
                       type="submit"
                       className=" ml-auto mt-2 text-white text-sm flex items-center justify-end gap-3 !px-10 !py-3 rounded-md"
                     >
-                      {loading ? 'Creating Customer.....' : 'Create Customer'}
+                      {loading ? "Creating Customer....." : "Create Customer"}
                     </CustomButton>
                   </div>
                 </div>
@@ -122,14 +124,15 @@ const AddCustomer = () => {
               <div className="grid grid-cols-2 gap-4 mt-8">
                 <CustomButton
                   className={
-                    ' !bg-[rgba(0,158,170,0.3)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-2.5 rounded-lg'
+                    " !bg-[rgba(0,158,170,0.3)] !px-3 font-semibold !text-[rgba(0,158,170,1)] border !border-[rgba(0,158,170,1)]  !py-2.5 rounded-lg"
                   }
                 >
                   Import Customers
                 </CustomButton>
                 <CustomButton
                   className={
-                    '!bg-transparent border !px-3 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg'
+                    "!bg-transparent border !px-3 !border-[rgba(0,158,170,.4)] !text-[rgba(0,158,170,1)] font-semibold  !py-2.5 rounded-lg"
+
                   }
                 >
                   Download Sample

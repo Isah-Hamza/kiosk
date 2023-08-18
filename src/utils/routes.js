@@ -23,10 +23,9 @@ import Tracker from '../pages/Delivery/Tracker';
 import DeliveryDetails from '../pages/Delivery/DeliveryDetails';
 import Sales from '../pages/Sales';
 import NewDelivery from '../pages/Delivery/RecordNewDelivery';
-import ExpenseDetiails from '../pages/Expenses/ExpenseDetails';
-import SaleDetiails from '../pages/Sales/SaleDetails';
-import AddCustomer from '../pages/Customers/AddCustomer';
-import AddSupplier from '../pages/Customers/AddSupplier';
+import ExpenseDetiails from "../pages/Expenses/ExpenseDetails";
+import SaleDetiails from "../pages/Sales/SaleDetails";
+import AddSupplier from "../pages/Customers/AddSupplier";
 import DeliveryManagement from '../pages/DeliveryMgt';
 
 export const routes = [
@@ -70,6 +69,7 @@ export const routes = [
     path: '/home',
     component: Home,
   },
+
   {
     title: 'Profile',
     path: '/profile',
@@ -134,6 +134,11 @@ export const routes = [
     title: 'Add Customer',
     path: '/add-customer',
     component: AddCustomer,
+  },
+  {
+    title: "Add Supplier",
+    path: "/add-supplier",
+    component: AddSupplier,
   },
 
   {

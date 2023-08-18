@@ -18,11 +18,13 @@ const ApiEndPoints = {
   reset_password: 'User/reset-password',
 
   // PARTNER
-  create_partner: 'Partner/create-partner',
-  create_account: 'Partner/create-account',
-  get_user_accounts: 'Partner/user-accounts',
-  switch_accounts: 'Partner/switch-accounts',
-  all_accounts: 'Partner/all-accounts',
+  create_partner: "Partner/create-partner",
+  create_account: "Partner/create-account",
+  get_user_accounts: "Partner/user-accounts",
+  switch_accounts: "Partner/switch-accounts",
+  all_accounts: "Partner/all-accounts",
+  create_customer: "CustomerSupplierManagement/add-customer",
+  create_supplier: "CustomerSupplierManagement/add-supplier",
 
   // PRODUCT
   create_product: 'Product/create-inventory',
@@ -42,6 +44,9 @@ const ApiEndPoints = {
   all_books: 'Bookkeeping/all-book',
   book_by_id: 'Bookkeeping/book-byid',
 
+  // REPORT
+  account_balance: "Report/account-balance",
+  dashboard_report: "Report/dashboard-report",
   //Delivery
   create_delivery: 'Delivery/create-delivery-order',
 };

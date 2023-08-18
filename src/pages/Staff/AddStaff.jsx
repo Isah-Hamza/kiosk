@@ -69,6 +69,7 @@ const AddStaff = () => {
       const transformedPermissions = allPermissions.map((item) => ({
         permission: item,
       }));
+
       values.canViewTranx = values.canViewTranx == 1 ? true : false;
       values.canLogin = values.canLogin == 1 ? true : false;
       values.accountPermmisions = transformedPermissions;
@@ -232,6 +233,7 @@ const AddStaff = () => {
                             name={perm.prefix + "Read"}
                             onChange={(e) => handleChange(e.target)}
                           />
+                          
                         </div>
                         <div className="ml-2">
                           <input

@@ -7,29 +7,36 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
-  { name: "Jan", sales: 30, expenses: 50 },
-  { name: "Feb", sales: 35, expenses: 55 },
-  { name: "Mar", sales: 30, expenses: 45 },
-  { name: "Apr", sales: 35, expenses: 40 },
-  { name: "May", sales: 30, expenses: 50 },
-  { name: "Jun", sales: 35, expenses: 55 },
-  { name: "Jul", sales: 30, expenses: 45 },
-  { name: "Aug", sales: 35, expenses: 40 },
-  { name: "Sep", sales: 30, expenses: 50 },
-  { name: "Oct", sales: 35, expenses: 55 },
-  { name: "Nov", sales: 30, expenses: 45 },
-  { name: "Dec", sales: 35, expenses: 40 },
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
 ];
 
-const AreaCharts = ({ height }) => {
+const AreaCharts = ({ height, data }) => {
+  const transformedData = data?.map((item) => ({
+      name: months[item.month - 1],
+      sales: item.totalSales,
+      expenses: item.totalExpense,
+    }))
+    .reverse();
+
   return (
     <ResponsiveContainer
       className={"-ml-7"}
       width="102%"
       height={height || 300}
     >
-      <AreaChart data={data}>
+      <AreaChart data={transformedData}>
         <XAxis
           dataKey="name"
           fontSize={"10px"}
